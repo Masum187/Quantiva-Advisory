@@ -2,8 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import QuantivaWebsite, { CasesPage, CaseDetailPage } from './QuantivaWebsite';
 import AdminDashboard from './AdminDashboard';
-import DocsOverview from './pages/DocsOverview';
-import DocsWorkflow from './pages/DocsWorkflow';
+import MDXRoot from './mdx';
+import DocsLayout from './components/DocsLayout';
+import DocsIndex from './docs/pages/index.mdx';
+import CMSWorkflow from './docs/pages/cms-workflow.mdx';
 
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
@@ -38,21 +40,25 @@ function WithLocaleRoutes() {
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Admin dashboard - no language prefix */}
-        <Route path="/admin" element={<AdminDashboard />} />
+      <MDXRoot>
+        <Routes>
+          {/* Admin dashboard - no language prefix */}
+          <Route path="/admin" element={<AdminDashboard />} />
 
-        {/* Documentation - no language prefix */}
-        <Route path="/docs" element={<DocsOverview />} />
-        <Route path="/docs/cms-workflow" element={<DocsWorkflow />} />
+          {/* Documentation - no language prefix */}
+          <Route path="/docs" element={<DocsLayout />}>
+            <Route index element={<DocsIndex />} />
+            <Route path="cms-workflow" element={<CMSWorkflow />} />
+          </Route>
 
-        {/* Language-prefixed routes: /:lng/* */}
-        <Route path="/:lng/*" element={<WithLocaleRoutes />} />
+          {/* Language-prefixed routes: /:lng/* */}
+          <Route path="/:lng/*" element={<WithLocaleRoutes />} />
 
-        {/* Root fallback - redirect to preferred language */}
-        {/* This will be handled by the redirectFromRootIfNeeded() function */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* Root fallback - redirect to preferred language */}
+          {/* This will be handled by the redirectFromRootIfNeeded() function */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </MDXRoot>
     </Router>
   );
 }

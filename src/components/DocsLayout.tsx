@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Outlet } from "react-router-dom";
 import { Menu, X, BookOpen, Search, ChevronRight, Github, ExternalLink } from "lucide-react";
 
 // --- Minimal shadcn-like helpers -------------------------------------------------
@@ -104,7 +104,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 // --- Layout ----------------------------------------------------------------------
-export default function DocsLayout({ children }: { children: React.ReactNode }) {
+export default function DocsLayout({ children }: { children?: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -141,7 +141,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         {/* Content */}
         <main className="min-h-[70vh] p-4 sm:p-6">
           <article className="prose prose-gray max-w-none dark:prose-invert prose-headings:font-bold prose-a:text-teal-600 dark:prose-a:text-teal-400">
-            {children}
+            {children || <Outlet />}
           </article>
         </main>
       </div>

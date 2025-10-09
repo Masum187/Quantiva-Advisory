@@ -11,7 +11,9 @@ mermaid.initialize({
 
 type MermaidProps = {
   /** Mermaid chart definition string */
-  chart: string;
+  children: string;
+  /** Optional unique key to force re-rendering when content changes */
+  chartKey?: string;
   /** Optional CSS class name */
   className?: string;
 };
@@ -23,13 +25,14 @@ type MermaidProps = {
  * 
  * @example
  * ```tsx
- * <Mermaid chart={`
- *   flowchart TD
- *     A[Start] --> B[End]
- * `} />
+ * <Mermaid>
+ * {`flowchart TD
+ *   A[Start] --> B[End]
+ * `}
+ * </Mermaid>
  * ```
  */
-export default function Mermaid({ chart, className }: MermaidProps) {
+export default function Mermaid({ children, chartKey, className }: MermaidProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,10 +41,10 @@ export default function Mermaid({ chart, className }: MermaidProps) {
     const render = async () => {
       try {
         // Generate unique ID for each diagram
-        const id = `mermaid-${Math.random().toString(36).slice(2, 11)}`;
+        const id = `mermaid-${chartKey ?? Math.random().toString(36).slice(2, 11)}`;
         
         // Render the diagram
-        const { svg } = await mermaid.render(id, chart);
+        const { svg } = await mermaid.render(id, children);
         
         // Insert SVG into DOM
         if (ref.current) {
@@ -71,7 +74,7 @@ export default function Mermaid({ chart, className }: MermaidProps) {
     };
     
     render();
-  }, [chart]);
+  }, [children, chartKey]);
 
   return <div ref={ref} className={className} />;
 }
