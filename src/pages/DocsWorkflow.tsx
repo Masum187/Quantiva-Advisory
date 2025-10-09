@@ -1,6 +1,5 @@
 import React from 'react';
 import { CheckCircle, XCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import Mermaid from '../components/Mermaid';
 import DocsLayout from '../components/DocsLayout';
 
@@ -52,7 +51,7 @@ const roleDescriptions = [
     role: 'Reviewer',
     color: 'bg-yellow-100 text-yellow-800 border-yellow-300',
     icon: '🟡',
-    description: 'Qualitätssicherung & Freigabe'
+    description: 'Freigabe & Ablehnung'
   },
   {
     role: 'Publisher',
@@ -70,202 +69,176 @@ const roleDescriptions = [
 
 export default function DocsWorkflow() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Back Button */}
-        <a 
-          href="/" 
-          className="inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 mb-6 transition"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Zurück zur Startseite
-        </a>
+    <DocsLayout>
+      <h1>CMS Workflow & Berechtigungen</h1>
+      <p className="lead">
+        Rollenbasiertes Workflow-System für strukturiertes Content Management
+      </p>
 
-        {/* Header */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">
-            CMS Workflow & Berechtigungen
-          </h1>
-          <p className="text-lg text-gray-600">
-            Rollenbasiertes Workflow-System für strukturiertes Content Management
-          </p>
-        </div>
+      {/* Workflow Diagram */}
+      <h2>Status-Flow</h2>
+      <p>
+        Das Workflow-System verwendet 5 Status-Stufen für strukturierte Content-Verwaltung:
+      </p>
+      <div className="not-prose bg-gray-50 p-6 rounded-xl border border-gray-200 my-6">
+        <Mermaid chart={workflowChart} />
+      </div>
 
-        {/* Workflow Diagram */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Status-Flow</h2>
-          <p className="text-gray-600 mb-6">
-            Das Workflow-System verwendet 5 Status-Stufen für strukturierte Content-Verwaltung:
-          </p>
-          <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-            <Mermaid chart={workflowChart} />
+      {/* Roles */}
+      <h2>Rollen-Übersicht</h2>
+      <div className="not-prose grid gap-4 md:grid-cols-2 lg:grid-cols-3 my-6">
+        {roleDescriptions.map((role) => (
+          <div 
+            key={role.role}
+            className="p-4 rounded-xl border-2 hover:shadow-md transition bg-white"
+          >
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-2xl">{role.icon}</span>
+              <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${role.color}`}>
+                {role.role}
+              </span>
+            </div>
+            <p className="text-sm text-gray-600">{role.description}</p>
           </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Roles */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Rollen-Übersicht</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {roleDescriptions.map((role) => (
-              <div 
-                key={role.role}
-                className="p-4 rounded-xl border-2 hover:shadow-md transition"
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl">{role.icon}</span>
-                  <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${role.color}`}>
-                    {role.role}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600">{role.description}</p>
-              </div>
+      {/* Permissions Table */}
+      <h2>Berechtigungs-Matrix</h2>
+      <p>
+        Übersicht aller Workflow-Aktionen und der erlaubten Rollen:
+      </p>
+      <div className="not-prose overflow-x-auto my-6">
+        <table className="w-full border-collapse">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900">
+                Aktion
+              </th>
+              <th className="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900">
+                Von → Nach
+              </th>
+              <th className="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900">
+                Rollen erlaubt
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {permissions.map((perm, idx) => (
+              <tr key={idx} className="hover:bg-gray-50">
+                <td className="border border-gray-300 px-4 py-3 font-medium text-gray-900">
+                  {perm.action}
+                </td>
+                <td className="border border-gray-300 px-4 py-3 text-gray-700">
+                  <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                    {perm.from}
+                  </code>
+                  {' → '}
+                  <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                    {perm.to}
+                  </code>
+                </td>
+                <td className="border border-gray-300 px-4 py-3">
+                  <div className="flex flex-wrap gap-2">
+                    {perm.roles.map((role) => (
+                      <span 
+                        key={role}
+                        className="px-2 py-1 bg-teal-100 text-teal-800 rounded text-sm font-medium"
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
+      </div>
 
-        {/* Permissions Table */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Berechtigungs-Matrix</h2>
-          <p className="text-gray-600 mb-6">
-            Übersicht aller Workflow-Aktionen und der erlaubten Rollen:
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900">
-                    Aktion
-                  </th>
-                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900">
-                    Von → Nach
-                  </th>
-                  <th className="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900">
-                    Rollen erlaubt
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {permissions.map((perm, idx) => (
-                  <tr key={idx} className="hover:bg-gray-50">
-                    <td className="border border-gray-300 px-4 py-3 font-medium text-gray-900">
-                      {perm.action}
-                    </td>
-                    <td className="border border-gray-300 px-4 py-3 text-gray-700">
-                      <code className="bg-gray-100 px-2 py-1 rounded text-sm">
-                        {perm.from}
-                      </code>
-                      {' → '}
-                      <code className="bg-gray-100 px-2 py-1 rounded text-sm">
-                        {perm.to}
-                      </code>
-                    </td>
-                    <td className="border border-gray-300 px-4 py-3">
-                      <div className="flex flex-wrap gap-2">
-                        {perm.roles.map((role) => (
-                          <span 
-                            key={role}
-                            className="px-2 py-1 bg-teal-100 text-teal-800 rounded text-sm font-medium"
-                          >
-                            {role}
-                          </span>
-                        ))}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      {/* Best Practices */}
+      <div className="not-prose bg-blue-50 rounded-xl border-2 border-blue-200 p-6 my-6">
+        <h3 className="text-lg font-semibold mb-4 text-blue-900 flex items-center gap-2">
+          <CheckCircle className="h-5 w-5" />
+          Best Practices
+        </h3>
+        <ul className="space-y-2 text-blue-900 text-sm">
+          <li className="flex items-start gap-2">
+            <CheckCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Beim Veröffentlichen wird automatisch <code className="bg-blue-100 px-2 py-0.5 rounded">publishedAt</code> gesetzt</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <CheckCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Alle Statuswechsel werden in der History erfasst (300ms Debouncing)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <CheckCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Owner & Reviewer sind Metadaten im Drawer</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <CheckCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Vier-Augen-Prinzip: Editor ≠ Reviewer für Qualitätssicherung</span>
+          </li>
+        </ul>
+      </div>
 
-        {/* Best Practices */}
-        <div className="bg-blue-50 rounded-2xl border-2 border-blue-200 p-8 mb-8">
-          <h3 className="text-xl font-semibold mb-4 text-blue-900 flex items-center gap-2">
-            <CheckCircle className="h-6 w-6" />
-            Best Practices
-          </h3>
-          <ul className="space-y-2 text-blue-900">
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Beim Veröffentlichen wird automatisch <code className="bg-blue-100 px-2 py-0.5 rounded">publishedAt</code> gesetzt</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Alle Statuswechsel werden in der History erfasst (300ms Debouncing)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Owner & Reviewer sind Metadaten im Drawer</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <CheckCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Vier-Augen-Prinzip: Editor ≠ Reviewer für Qualitätssicherung</span>
-            </li>
-          </ul>
-        </div>
+      {/* Warnings */}
+      <div className="not-prose bg-amber-50 rounded-xl border-2 border-amber-200 p-6 my-6">
+        <h3 className="text-lg font-semibold mb-4 text-amber-900 flex items-center gap-2">
+          <XCircle className="h-5 w-5" />
+          Wichtige Hinweise
+        </h3>
+        <ul className="space-y-2 text-amber-900 text-sm">
+          <li className="flex items-start gap-2">
+            <XCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Keine direkten Status-Sprünge (z.B. draft → published)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <XCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Nicht eigene Cases freigeben (Editor ≠ Reviewer)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <XCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Keine Veröffentlichung ohne Freigabe</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <XCircle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <span>Nicht ohne Kommentar ablehnen</span>
+          </li>
+        </ul>
+      </div>
 
-        {/* Warnings */}
-        <div className="bg-amber-50 rounded-2xl border-2 border-amber-200 p-8 mb-8">
-          <h3 className="text-xl font-semibold mb-4 text-amber-900 flex items-center gap-2">
-            <XCircle className="h-6 w-6" />
-            Wichtige Hinweise
-          </h3>
-          <ul className="space-y-2 text-amber-900">
-            <li className="flex items-start gap-2">
-              <XCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Keine direkten Status-Sprünge (z.B. draft → published)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <XCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Nicht eigene Cases freigeben (Editor ≠ Reviewer)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <XCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Keine Veröffentlichung ohne Freigabe</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <XCircle className="h-5 w-5 mt-0.5 flex-shrink-0" />
-              <span>Nicht ohne Kommentar ablehnen</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* CTA */}
-        <div className="bg-gradient-to-r from-teal-600 to-teal-500 rounded-2xl shadow-xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">
-            Bereit loszulegen?
-          </h3>
-          <p className="text-teal-50 mb-6 text-lg">
-            Öffnen Sie das Admin Dashboard und testen Sie den Workflow
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a 
-              href="/admin" 
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-teal-600 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg"
-            >
-              Zum Admin Dashboard →
-            </a>
-            <a 
-              href="https://github.com/quantiva/quantiva-website/blob/main/docs/cms-workflow.md" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-teal-700 text-white rounded-xl font-semibold hover:bg-teal-800 transition"
-            >
-              Vollständige Dokumentation →
-            </a>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-gray-500 text-sm">
-          <p>Letzte Aktualisierung: Oktober 2025 • Version 1.0.0</p>
-          <p className="mt-2">
-            <a href="mailto:support@quantiva.com" className="text-teal-600 hover:underline">
-              Support kontaktieren
-            </a>
-          </p>
+      {/* CTA */}
+      <div className="not-prose bg-gradient-to-r from-teal-600 to-teal-500 rounded-xl shadow-xl p-8 text-center my-8">
+        <h3 className="text-2xl font-bold text-white mb-4">
+          Bereit loszulegen?
+        </h3>
+        <p className="text-teal-50 mb-6">
+          Öffnen Sie das Admin Dashboard und testen Sie den Workflow
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <a 
+            href="/admin" 
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-teal-600 rounded-lg font-semibold hover:bg-gray-100 transition"
+          >
+            Zum Admin Dashboard →
+          </a>
+          <a 
+            href="https://github.com/Masum187/Quantiva-Advisory/blob/main/docs/cms-workflow.md" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-teal-700 text-white rounded-lg font-semibold hover:bg-teal-800 transition"
+          >
+            Vollständige Dokumentation →
+          </a>
         </div>
       </div>
-    </div>
+
+      <hr />
+
+      <p className="text-sm text-gray-500">
+        Letzte Aktualisierung: Oktober 2025 • Version 1.0.0
+      </p>
+    </DocsLayout>
   );
 }

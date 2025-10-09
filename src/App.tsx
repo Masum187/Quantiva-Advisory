@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import QuantivaWebsite, { CasesPage, CaseDetailPage } from './QuantivaWebsite';
 import AdminDashboard from './AdminDashboard';
+import DocsOverview from './pages/DocsOverview';
 import DocsWorkflow from './pages/DocsWorkflow';
 
 // Valid language codes
@@ -42,6 +43,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
 
         {/* Documentation - no language prefix */}
+        <Route path="/docs" element={<DocsOverview />} />
         <Route path="/docs/cms-workflow" element={<DocsWorkflow />} />
 
         {/* Language-prefixed routes: /:lng/* */}
