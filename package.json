@@ -36,9 +36,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "craco start --config craco.config.cjs",
+    "build": "craco build --config craco.config.cjs",
+    "test": "craco test --config craco.config.cjs",
     "eject": "react-scripts eject",
     "server": "node server.js",
     "dev": "concurrently \"npm start\" \"npm run server\"",
