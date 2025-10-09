@@ -6,6 +6,8 @@ import MDXRoot from './mdx';
 import DocsLayout from './components/DocsLayout';
 import DocsIndex from './docs/pages/index.mdx';
 import CMSWorkflow from './docs/pages/cms-workflow.mdx';
+import AdminDocs from './docs/pages/admin.mdx';
+import ContentModel from './docs/pages/content-model.mdx';
 
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
@@ -49,6 +51,8 @@ function App() {
           <Route path="/docs" element={<DocsLayout />}>
             <Route index element={<DocsIndex />} />
             <Route path="cms-workflow" element={<CMSWorkflow />} />
+            <Route path="admin" element={<AdminDocs />} />
+            <Route path="content-model" element={<ContentModel />} />
           </Route>
 
           {/* Language-prefixed routes: /:lng/* */}
