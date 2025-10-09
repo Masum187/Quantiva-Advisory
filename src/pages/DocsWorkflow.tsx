@@ -1,6 +1,8 @@
 import React from 'react';
-import { ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Mermaid from '../components/Mermaid';
+import DocsLayout from '../components/DocsLayout';
 
 const workflowChart = `
 flowchart TD
