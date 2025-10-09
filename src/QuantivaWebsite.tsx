@@ -1,0 +1,1210 @@
+import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
+import { Helmet } from "react-helmet";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import {
+  Menu, X, ChevronRight,
+  Shield, Mail, Phone, ArrowRight,
+  Brain, Boxes, Cog, Briefcase, Send, Users
+} from "lucide-react";
+import casesData from "./data/cases.json";
+
+/**
+ * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
+ * - Autoplay hero video background with overlay
+ * - Cases (/cases) & Case details (/cases/:slug)
+ * - Subtle parallax scroll, ScrollSpy
+ * - SEO: Organization, CollectionPage, Article JSON-LD
+ * - Canonical, hreflang, Open Graph, Twitter Cards per page
+ * - NEW: Global LanguageContext with URL prefix /de/ /en/
+ */
+
+const CAREER_FORM_URL = "https://example.com/career-form";
+const CALENDLY_URL = "https://calendly.com/quantivaadvisory";
+
+// helpers
+const ORIGIN = (typeof window !== 'undefined' && window.location.origin) || 'https://quantivaadvisory.com';
+const absUrl = (path = '/') => `${ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
+const firstSeg = (pathname: string) => (pathname || '/').split('?')[0].split('#')[0].split('/').filter(Boolean)[0] || '';
+const VALID_LOCALES = ['de','en'] as const;
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Language Context
+// ────────────────────────────────────────────────────────────────────────────────
+
+type Locale = typeof VALID_LOCALES[number];
+
+type LangCtx = {
+  lang: Locale;
+  setLang: (l: Locale, opts?: { navigate?: boolean }) => void;
+  localePath: (p: string) => string;
+};
+
+const LanguageContext = createContext<LangCtx | null>(null);
+
+function detectLocale(): Locale {
+  if (typeof window === 'undefined') return 'de';
+  const seg = firstSeg(window.location.pathname);
+  if (VALID_LOCALES.includes(seg as Locale)) return seg as Locale;
+  const saved = localStorage.getItem('qlang');
+  if (saved && VALID_LOCALES.includes(saved as Locale)) return saved as Locale;
+  const nav = (navigator.language || '').toLowerCase();
+  return nav.startsWith('de') ? 'de' : 'en';
+}
+
+function replaceLocaleInPath(pathname: string, next: Locale): string {
+  const parts = pathname.split('/');
+  // ["", ...]
+  if (parts.length > 1 && VALID_LOCALES.includes((parts[1] || '') as Locale)) {
+    parts[1] = next;
+  } else {
+    parts.splice(1, 0, next);
+  }
+  return parts.join('/') || `/${next}`;
+}
+
+export function LanguageProvider({ children }: { children: React.ReactNode }) {
+  const [lang, _setLang] = useState<Locale>(detectLocale());
+
+  // Ensure URL carries locale prefix; redirect from "/" or missing prefix
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const seg = firstSeg(window.location.pathname);
+    if (!VALID_LOCALES.includes(seg as Locale)) {
+      const target = replaceLocaleInPath(window.location.pathname, lang);
+      window.history.replaceState({}, '', target + window.location.search + window.location.hash);
+    }
+  }, [lang]);
+
+  const setLang: LangCtx['setLang'] = (l, opts) => {
+    _setLang(l);
+    try { localStorage.setItem('qlang', l); } catch {}
+    if (opts?.navigate !== false && typeof window !== 'undefined') {
+      const nextPath = replaceLocaleInPath(window.location.pathname, l);
+      window.location.assign(nextPath + window.location.search + window.location.hash);
+    }
+  };
+
+  const localePath: LangCtx['localePath'] = useCallback((p) => {
+    if (typeof window === 'undefined') return `/${lang}${p}`;
+    const seg = firstSeg(window.location.pathname);
+    const current = VALID_LOCALES.includes(seg as Locale) ? seg : lang;
+    return `/${current}${p.startsWith('/') ? p : `/${p}`}`;
+  }, [lang]);
+
+  const value = useMemo(() => ({ lang, setLang, localePath }), [lang, localePath]);
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
+
+export function useLanguage(): LangCtx {
+  const ctx = useContext(LanguageContext);
+  if (!ctx) throw new Error('useLanguage must be used within LanguageProvider');
+  return ctx;
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Content constants
+// ────────────────────────────────────────────────────────────────────────────────
+const NAV_ITEMS = [
+  { id: "hero", de: "Start", en: "Home" },
+  { id: "about", de: "Über uns", en: "About" },
+  { id: "team", de: "Team", en: "Team" },
+  { id: "services", de: "Leistungen", en: "Services" },
+  { id: "services-detail", de: "Kompetenzen", en: "Capabilities" },
+  { id: "caseslink", de: "Angebote", en: "Offers" },
+  { id: "careers", de: "Karriere", en: "Careers" },
+  { id: "contact", de: "Kontakt", en: "Contact" },
+  { id: "meeting", de: "Termin", en: "Book a call" },
+];
+
+// SERVICES constant removed - inline data used in components instead
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Animation Components
+// ────────────────────────────────────────────────────────────────────────────────
+
+function SlideIn({ children, direction = "up", delay = 0, className = "" }: {
+  children: React.ReactNode;
+  direction?: "up" | "down" | "left" | "right";
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const directionVariants = {
+    up: { y: 100, opacity: 0 },
+    down: { y: -100, opacity: 0 },
+    left: { x: 100, opacity: 0 },
+    right: { x: -100, opacity: 0 },
+  };
+
+  const animateTo = { x: 0, y: 0, opacity: 1 };
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={directionVariants[direction]}
+      animate={isInView ? animateTo : directionVariants[direction]}
+      transition={{
+        duration: 0.8,
+        delay: delay,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function StaggerSlideIn({ children, className = "" }: {
+  children: React.ReactNode[];
+  className?: string;
+}) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={{
+        visible: {
+          transition: {
+            staggerChildren: 0.2,
+          },
+        },
+      }}
+    >
+      {children.map((child, index) => (
+        <motion.div
+          key={index}
+          variants={{
+            hidden: { y: 60, opacity: 0 },
+            visible: { 
+              y: 0, 
+              opacity: 1,
+              transition: {
+                duration: 0.6,
+                ease: [0.25, 0.1, 0.25, 1],
+              }
+            },
+          }}
+        >
+          {child}
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// New Sections
+// ────────────────────────────────────────────────────────────────────────────────
+
+function AboutTeaser() {
+  const { lang } = useLanguage();
+  return (
+    <section id="about" className="bg-black py-20 border-t border-white/10">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="grid gap-10 md:grid-cols-2 md:items-center">
+          <SlideIn direction="left" delay={0.2}>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                {lang==='de' ? 'Über Quantiva' : 'About Quantiva'}
+              </h2>
+              <p className="mt-4 text-gray-300">
+                {lang==='de'
+                  ? 'Wir verbinden Strategie, Engineering und Enablement für messbare Ergebnisse. Sicher, compliant und skalierbar.'
+                  : 'We combine strategy, engineering and enablement for measurable outcomes. Secure, compliant and scalable.'}
+              </p>
+              <ul className="mt-6 grid gap-2 text-gray-200">
+                <li className="flex items-start gap-2"><Users className="mt-1 h-4 w-4 text-teal-400" /> {lang==='de'?'Interdisziplinäre Teams':'Interdisciplinary teams'}</li>
+                <li className="flex items-start gap-2"><Shield className="mt-1 h-4 w-4 text-teal-400" /> {lang==='de'?'Security & Compliance by Design':'Security & compliance by design'}</li>
+                <li className="flex items-start gap-2"><Briefcase className="mt-1 h-4 w-4 text-teal-400" /> {lang==='de'?'Outcome-orientierte Delivery':'Outcome-oriented delivery'}</li>
+              </ul>
+            </div>
+          </SlideIn>
+          <SlideIn direction="right" delay={0.4}>
+            <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-10 border border-teal-500/30 shadow-2xl shadow-teal-500/20">
+              <div className="grid grid-cols-2 gap-6 text-center">
+                <div><div className="text-4xl font-extrabold text-teal-400">+10</div><div className="text-sm text-gray-400">{lang==='de'?'Jahre Erfahrung':'Years experience'}</div></div>
+                <div><div className="text-4xl font-extrabold text-teal-400">3x</div><div className="text-sm text-gray-400">{lang==='de'?'schnellere Deployments':'faster deployments'}</div></div>
+                <div><div className="text-4xl font-extrabold text-teal-400">100%</div><div className="text-sm text-gray-400">{lang==='de'?'Audit bestanden':'audit pass'}</div></div>
+                <div><div className="text-4xl font-extrabold text-teal-400">0</div><div className="text-sm text-gray-400">{lang==='de'?'Downtime Releases':'downtime releases'}</div></div>
+              </div>
+            </div>
+          </SlideIn>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TeamSection() {
+  const { lang } = useLanguage();
+  const teamMembers = [
+    {
+      name: "Gülnur Patan",
+      roleDe: "CEO & Founder",
+      roleEn: "CEO & Founder",
+      expertiseDe: "Strategie, Leadership, Business Development",
+      expertiseEn: "Strategy, leadership, business development",
+      descriptionDe: "Visionäre Führungskraft mit über 15 Jahren Erfahrung in der digitalen Transformation. Spezialisiert auf strategische Beratung und nachhaltiges Wachstum.",
+      descriptionEn: "Visionary leader with over 15 years of experience in digital transformation. Specialized in strategic consulting and sustainable growth.",
+      image: "/team/gulnur-patan.jpg", // Platzhalter - wird durch echte Bilder ersetzt
+    },
+    {
+      name: "Heri Jean Masum",
+      roleDe: "Pre Sales Consultant",
+      roleEn: "Pre Sales Consultant", 
+      expertiseDe: "SAP, Cloud Solutions, Technical Sales",
+      expertiseEn: "SAP, cloud solutions, technical sales",
+      descriptionDe: "Experte für SAP-Lösungen und Cloud-Architekturen. Fokus auf technische Beratung und maßgeschneiderte Lösungsansätze.",
+      descriptionEn: "Expert for SAP solutions and cloud architectures. Focus on technical consulting and tailored solution approaches.",
+      image: "/team/heri-jean-masum.jpg", // Platzhalter - wird durch echte Bilder ersetzt
+    },
+  ];
+
+  return (
+    <section id="team" className="bg-black py-20 border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-6">
+        <SlideIn direction="up" delay={0.1}>
+          <h2 className="text-center text-3xl md:text-4xl font-bold text-white mb-16">
+            {lang === 'de' ? 'Unser Team' : 'Our Team'}
+          </h2>
+        </SlideIn>
+        
+        <StaggerSlideIn className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+          {teamMembers.map((member, index) => (
+            <div key={member.name} className="flex gap-6 p-6 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
+              {/* Profilbild */}
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 border-2 border-teal-400/50 overflow-hidden">
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback falls Bild nicht geladen werden kann
+                      e.currentTarget.style.display = 'none';
+                      const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                      if (nextElement) {
+                        nextElement.style.display = 'flex';
+                      }
+                    }}
+                  />
+                  <div className="w-full h-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-2xl hidden">
+                    {member.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Text-Informationen */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
+                  {member.name}
+                </h3>
+                <p className="text-teal-400 font-semibold text-sm md:text-base mb-3">
+                  {lang === 'de' ? member.roleDe : member.roleEn}
+                </p>
+                <p className="text-gray-300 text-sm mb-3">
+                  {lang === 'de' ? member.expertiseDe : member.expertiseEn}
+                </p>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {lang === 'de' ? member.descriptionDe : member.descriptionEn}
+                </p>
+              </div>
+            </div>
+          ))}
+        </StaggerSlideIn>
+
+        {/* Zusätzlicher Text */}
+        <SlideIn direction="up" delay={0.6}>
+          <div className="mt-12 text-center">
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+              {lang === 'de' 
+                ? 'Unser interdisziplinäres Team vereint strategische Vision mit technischer Exzellenz. Gemeinsam schaffen wir nachhaltige Lösungen für komplexe Herausforderungen.'
+                : 'Our interdisciplinary team combines strategic vision with technical excellence. Together, we create sustainable solutions for complex challenges.'}
+            </p>
+          </div>
+        </SlideIn>
+      </div>
+    </section>
+  );
+}
+
+function ServicesDetailSection() {
+  const { lang, localePath } = useLanguage();
+  const blocks = [
+    {
+      icon: Shield,
+      titleDe: "Cyber Security",
+      titleEn: "Cyber Security",
+      bulletsDe: ["Zero Trust & IAM", "Security Architecture", "Audits & Hardening", "Threat Modeling"],
+      bulletsEn: ["Zero trust & IAM", "Security architecture", "Audits & hardening", "Threat modeling"],
+      cta: "/cases/cyber-security",
+    },
+    {
+      icon: Boxes,
+      titleDe: "Microservices & APIs",
+      titleEn: "Microservices & APIs",
+      bulletsDe: ["Domain-Driven Design", "API-Gateway & Governance", "Event-/Async-Patterns", "Observability"],
+      bulletsEn: ["Domain-driven design", "API gateway & governance", "Event/async patterns", "Observability"],
+      cta: "/cases/microservices",
+    },
+    {
+      icon: Brain,
+      titleDe: "Künstliche Intelligenz (AI)",
+      titleEn: "Artificial Intelligence (AI)",
+      bulletsDe: ["Use-Case Discovery", "Model Training & Eval", "MLOps & GenAI", "Guardrails & Compliance"],
+      bulletsEn: ["Use-case discovery", "Model training & eval", "MLOps & GenAI", "Guardrails & compliance"],
+      cta: "/cases/ai",
+    },
+    {
+      icon: Cog,
+      titleDe: "SAP Services",
+      titleEn: "SAP Services",
+      bulletsDe: ["ABAP/Fiori", "SAP BTP & Integration", "GxP/CSV & Test Mgmt", "Change & Release"],
+      bulletsEn: ["ABAP/Fiori", "SAP BTP & integration", "GxP/CSV & test mgmt", "Change & release"],
+      cta: "/cases/sap",
+    },
+  ];
+  return (
+    <section id="services-detail" className="bg-black py-20 border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-6">
+        <SlideIn direction="up" delay={0.1}>
+          <h2 className="text-center text-3xl md:text-4xl font-bold text-white">
+            {lang==='de' ? 'Kompetenzen im Detail' : 'Capabilities in detail'}
+          </h2>
+        </SlideIn>
+        <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {blocks.map((b) => (
+            <article key={b.titleEn} className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500/20 border border-teal-500/30">
+                <b.icon className="h-6 w-6 text-teal-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">
+                {lang==='de' ? b.titleDe : b.titleEn}
+              </h3>
+              <ul className="mt-3 space-y-1 text-sm text-gray-300">
+                {(lang==='de'? b.bulletsDe : b.bulletsEn).map((t,i)=>(<li key={i}>• {t}</li>))}
+              </ul>
+              <a href={localePath(b.cta)} className="mt-4 inline-flex items-center gap-1 text-teal-400 hover:text-teal-300 hover:underline transition">
+                {lang==='de' ? 'Mehr erfahren' : 'Learn more'} <ChevronRight className="h-4 w-4" />
+              </a>
+            </article>
+          ))}
+        </StaggerSlideIn>
+      </div>
+    </section>
+  );
+}
+
+function CareersSection() {
+  const { lang } = useLanguage();
+  const jobs = [
+    { titleDe: "Senior SAP BTP Engineer (m/w/d)", titleEn: "Senior SAP BTP Engineer", loc: "Remote/DACH", type: "Full-time" },
+    { titleDe: "Cloud Security Consultant (m/w/d)", titleEn: "Cloud Security Consultant", loc: "Remote/DACH", type: "Full-time" },
+    { titleDe: "AI Solutions Architect (m/w/d)", titleEn: "AI Solutions Architect", loc: "Remote/DACH", type: "Full-time" },
+  ];
+  return (
+    <section id="careers" className="bg-black py-20 border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-6">
+        <SlideIn direction="up" delay={0.1}>
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              {lang==='de' ? 'Karriere' : 'Careers'}
+            </h2>
+            <p className="mt-3 text-gray-400">
+              {lang==='de' ? 'Wachse mit uns – in Engineering, Security, Data & AI.' : 'Grow with us – in engineering, security, data & AI.'}
+            </p>
+          </div>
+        </SlideIn>
+        <StaggerSlideIn className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {jobs.map((j)=>(
+            <div key={j.titleEn} className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
+              <div className="text-lg font-semibold text-white">{lang==='de'? j.titleDe : j.titleEn}</div>
+              <div className="mt-1 text-sm text-gray-400">{j.loc} · {j.type}</div>
+              <a href={CAREER_FORM_URL} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition">
+                {lang==='de'?'Jetzt bewerben':'Apply now'} <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          ))}
+        </StaggerSlideIn>
+      </div>
+    </section>
+  );
+}
+
+function ContactFormSection() {
+  const { lang } = useLanguage();
+  const [sent, setSent] = useState<null | "ok" | "error">(null);
+  const [form, setForm] = useState({ name: "", email: "", msg: "" });
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: An Backend anbinden – aktuell nur Demo:
+    if (form.name && form.email && form.msg) setSent("ok");
+    else setSent("error");
+  };
+
+  return (
+    <section id="contact" className="py-20 px-6 bg-black border-t border-white/10">
+      <div className="mx-auto max-w-6xl">
+        <SlideIn direction="up" delay={0.1}>
+          <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-8 shadow-2xl shadow-teal-500/20">
+            <h2 className="text-3xl font-bold text-white">{lang==='de'?'Kontakt':'Contact'}</h2>
+            <p className="mt-2 text-gray-400">
+              {lang==='de' ? 'Wir melden uns in der Regel innerhalb von 24 Stunden.' : 'We usually get back within 24 hours.'}
+            </p>
+
+            <form onSubmit={onSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
+              <div className="sm:col-span-1">
+                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="name">{lang==='de'?'Name':'Name'}</label>
+                <input id="name" value={form.name} onChange={e=>setForm({...form, name: e.target.value})}
+                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder={lang==='de'?'Ihr Name':'Your name'} />
+              </div>
+              <div className="sm:col-span-1">
+                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="email">E-Mail</label>
+                <input id="email" type="email" value={form.email} onChange={e=>setForm({...form, email: e.target.value})}
+                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder="name@example.com" />
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="msg">{lang==='de'?'Nachricht':'Message'}</label>
+                <textarea id="msg" rows={5} value={form.msg} onChange={e=>setForm({...form, msg: e.target.value})}
+                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder={lang==='de'?'Wie können wir helfen?':'How can we help?'} />
+              </div>
+              <div className="sm:col-span-2 flex flex-wrap items-center gap-3">
+                <button type="submit" className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-5 py-2 font-semibold text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition">
+                  <Send className="h-4 w-4" /> {lang==='de'?'Nachricht senden':'Send message'}
+                </button>
+                {sent==="ok" && <span className="text-teal-400">{lang==='de'?'Danke! Wir melden uns zeitnah.':'Thanks! We will get back soon.'}</span>}
+                {sent==="error" && <span className="text-red-400">{lang==='de'?'Bitte alle Felder ausfüllen.':'Please fill all fields.'}</span>}
+              </div>
+            </form>
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 text-gray-300">
+              <a href="mailto:info@quantiva.example" className="inline-flex items-center gap-3 hover:text-teal-400 transition"><Mail className="h-5 w-5 text-teal-400"/>info@quantiva.example</a>
+              <a href="tel:+491234567890" className="inline-flex items-center gap-3 hover:text-teal-400 transition"><Phone className="h-5 w-5 text-teal-400"/>+49 123 456 7890</a>
+            </div>
+          </div>
+        </SlideIn>
+      </div>
+    </section>
+  );
+}
+
+function MeetingCalendlySection() {
+  const { lang } = useLanguage();
+
+  useEffect(() => {
+    // Calendly Widget laden, falls noch nicht vorhanden
+    const src = "https://assets.calendly.com/assets/external/widget.js";
+    const existingScript = document.querySelector(`script[src="${src}"]`);
+    
+    if (!existingScript) {
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      document.head.appendChild(s);
+    }
+
+    // Calendly CSS laden
+    const link = document.createElement("link");
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    if (!document.querySelector(`link[href="${link.href}"]`)) {
+      document.head.appendChild(link);
+    }
+  }, []);
+
+  return (
+    <section id="meeting" className="bg-black py-20 border-t border-white/10">
+      <div className="mx-auto max-w-6xl px-6">
+        <SlideIn direction="up" delay={0.1}>
+          <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
+            {lang==='de'?'Termin vereinbaren':'Book a call'}
+          </h2>
+        </SlideIn>
+        <SlideIn direction="up" delay={0.2}>
+          <p className="mt-3 text-center text-gray-400">
+            {lang==='de'?'Wählen Sie direkt einen Slot für ein Erstgespräch.':'Pick a slot for an intro call.'}
+          </p>
+        </SlideIn>
+        
+        {/* Calendly Inline Widget */}
+        <SlideIn direction="up" delay={0.3}>
+          <div className="mt-10 rounded-2xl border border-teal-500/30 bg-white overflow-hidden shadow-2xl shadow-teal-500/20">
+            <div
+              className="calendly-inline-widget"
+              data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1`}
+              style={{ minWidth: 320, height: 720, width: '100%' }}
+            />
+          </div>
+        </SlideIn>
+
+        {/* Fallback Button */}
+        <SlideIn direction="up" delay={0.4}>
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-400 mb-3">
+              {lang==='de'?'Widget lädt nicht? Öffnen Sie Calendly direkt:':'Widget not loading? Open Calendly directly:'}
+            </p>
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-6 py-3 font-medium text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition"
+            >
+              {lang==='de'?'Zu Calendly →':'Go to Calendly →'}
+            </a>
+          </div>
+        </SlideIn>
+      </div>
+    </section>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Main Page
+// ────────────────────────────────────────────────────────────────────────────────
+export default function QuantivaWebsite() {
+  const { lang, setLang, localePath } = useLanguage();
+
+  const scrollTo = (id: string) => {
+    if (id === 'caseslink') { window.location.href = localePath('/cases'); return; }
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const navLabel = (item: any) => (lang === 'de' ? item.de : item.en);
+
+  const siteTitle = 'Quantiva Advisory – Strategie · Engineering · Enablement';
+  const siteDesc = 'Digitale Exzellenz mit SAP, Cloud & Compliance.';
+  const canonical = absUrl(localePath('/'));
+  const siteImg = absUrl('/assets/og-default.jpg');
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <Helmet>
+        <title>{siteTitle}</title>
+        <meta name="description" content={siteDesc} />
+        
+        {/* Favicons */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0f766e" />
+
+        {/* PWA / Manifest */}
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#0f766e" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+
+        {/* Canonical & hreflang */}
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="de" href={absUrl('/de/')} />
+        <link rel="alternate" hrefLang="en" href={absUrl('/en/')} />
+        <link rel="alternate" hrefLang="x-default" href={absUrl('/')} />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={siteTitle} />
+        <meta property="og:description" content={siteDesc} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={siteImg} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={siteTitle} />
+        <meta name="twitter:description" content={siteDesc} />
+        <meta name="twitter:image" content={siteImg} />
+        
+        {/* Organization JSON-LD */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Quantiva Advisory",
+          url: absUrl('/'),
+          logo: absUrl('/logo.png'),
+        })}</script>
+      </Helmet>
+
+      {/* Navbar */}
+      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80 border-b border-white/10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
+          <div className="text-xl font-bold tracking-tight">
+            Quantiva <span className="text-teal-400">Advisory</span>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden items-center gap-2 md:flex">
+            {NAV_ITEMS.map((it) => (
+              <button
+                key={it.id}
+                onClick={() => scrollTo(it.id)}
+                className="px-4 py-2 rounded-md hover:bg-white/10 transition text-sm"
+              >
+                {navLabel(it)}
+              </button>
+            ))}
+            <button
+              onClick={() => setLang(lang === 'de' ? 'en' : 'de')}
+              className="ml-2 rounded-xl border border-white/20 px-4 py-2 text-sm hover:bg-white/10"
+            >
+              {lang === 'de' ? 'EN' : 'DE'}
+            </button>
+            <a
+              href={localePath('/#contact')}
+              className="ml-3 rounded-xl bg-teal-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-teal-600"
+            >
+              {lang === 'de' ? 'Kontakt' : 'Contact'}
+            </a>
+          </nav>
+
+          {/* Mobile Toggle */}
+          <LangMenuMobile lang={lang} switchLang={() => setLang(lang === 'de' ? 'en' : 'de')} items={NAV_ITEMS} />
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section id="hero" className="relative min-h-[86vh] flex items-center justify-center overflow-hidden">
+        {/* Video/Bild-Hintergrund */}
+        <motion.video
+          src="/assets/hero-bg.mp4"
+          poster="/assets/hero-fallback.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ y }}
+        />
+        {/* Mehrstufiges Overlay für starke Lesbarkeit */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-900/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
+
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="relative z-10 mx-auto max-w-5xl px-6 text-center text-white"
+        >
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight">
+            {lang === 'de' ? (
+              <>Gemeinsam neu erfinden <span className="text-teal-300">mit messbarem Mehrwert</span></>
+            ) : (
+              <>Reinvent together <span className="text-teal-300">with measurable impact</span></>
+            )}
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg md:text-xl text-white/90">
+            {lang === 'de'
+              ? 'Strategie, Engineering & Enablement – sicher, compliant, skalierbar.'
+              : 'Strategy, engineering & enablement – secure, compliant, scalable.'}
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <button
+              onClick={() => scrollTo('services')}
+              className="inline-flex items-center gap-2 rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold shadow hover:bg-teal-600"
+            >
+              {lang === 'de' ? 'Leistungen ansehen' : 'View services'} <ChevronRight className="h-5 w-5" />
+            </button>
+            <a
+              href={localePath('/cases')}
+              className="inline-flex items-center gap-2 rounded-2xl bg-white/90 px-6 py-3 text-base font-semibold text-slate-900 shadow hover:bg-white"
+            >
+              {lang === 'de' ? 'Angebote entdecken' : 'Explore offers'} <ChevronRight className="h-5 w-5" />
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* About Teaser */}
+      <AboutTeaser />
+
+      {/* Team */}
+      <TeamSection />
+
+      {/* Services */}
+      <section id="services" className="bg-black py-24 border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-6">
+          <SlideIn direction="up" delay={0.1}>
+            <h2 className="text-center text-3xl font-bold text-white md:text-4xl">
+              {lang === 'de' ? 'Unsere Leistungen' : 'Our Services'}
+            </h2>
+          </SlideIn>
+          <SlideIn direction="up" delay={0.2}>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-gray-400">
+              {lang === 'de'
+                ? 'Von der Analyse bis zum Betrieb – mit klarer Wirkung.'
+                : 'From assessment to operations – with clear outcomes.'}
+            </p>
+          </SlideIn>
+
+          <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                titleDe: "Cyber Security",
+                titleEn: "Cyber Security",
+                textDe: "Zero Trust, Penetration Testing und Sicherheitsarchitekturen.",
+                textEn: "Zero Trust, penetration testing and security architectures.",
+                img: "https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop",
+              },
+              {
+                titleDe: "Microservices & APIs",
+                titleEn: "Microservices & APIs",
+                textDe: "Skalierbare Microservice-Architekturen und API-first Designs.",
+                textEn: "Scalable microservice architectures and API-first designs.",
+                img: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop",
+              },
+              {
+                titleDe: "Künstliche Intelligenz (AI)",
+                titleEn: "Artificial Intelligence (AI)",
+                textDe: "KI-gestützte Lösungen zur Automatisierung und Wertschöpfung.",
+                textEn: "AI-powered solutions for automation and value creation.",
+                img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+              },
+              {
+                titleDe: "SAP Services",
+                titleEn: "SAP Services",
+                textDe: "ABAP, Fiori, SAP BTP & Integrationslösungen für moderne Prozesse.",
+                textEn: "ABAP, Fiori, SAP BTP & integration solutions for modern processes.",
+                img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop",
+              },
+              {
+                titleDe: "Digitalstrategie",
+                titleEn: "Digital Strategy",
+                textDe: "Ganzheitliche Strategien für zukunftsfähige Geschäftsmodelle.",
+                textEn: "Holistic strategies for future-ready business models.",
+                img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+              },
+              {
+                titleDe: "Cloud-Lösungen",
+                titleEn: "Cloud Solutions",
+                textDe: "Skalierbare Architekturen und DevOps-Enablement.",
+                textEn: "Scalable architectures and DevOps enablement.",
+                img: "https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?q=80&w=1200&auto=format&fit=crop",
+              },
+            ].map((s) => (
+              <article key={s.titleEn} className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300">
+                {/* Hintergrundbild mit Zoom beim Hover */}
+                <div
+                  className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
+                  style={{ backgroundImage: `url(${s.img})` }}
+                />
+                {/* Gradient-Overlay (wird dunkler beim Hover) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition group-hover:bg-black/70" />
+                {/* Titel (immer sichtbar) */}
+                <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
+                  <h3 className="text-xl font-semibold drop-shadow-lg">{lang === 'de' ? s.titleDe : s.titleEn}</h3>
+                </div>
+                {/* Beschreibung (fährt beim Hover hoch) */}
+                <div className="absolute inset-0 z-20 flex translate-y-full items-center justify-center bg-gradient-to-br from-black/95 via-slate-900/95 to-black/95 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
+                  <p className="max-w-sm text-base text-gray-200">{lang === 'de' ? s.textDe : s.textEn}</p>
+                </div>
+              </article>
+            ))}
+          </StaggerSlideIn>
+        </div>
+      </section>
+
+      {/* Services Detail */}
+      <ServicesDetailSection />
+
+      {/* CTA Band */}
+      <section className="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-16 text-white border-y border-teal-400/30 shadow-2xl shadow-teal-500/30">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <SlideIn direction="up" delay={0.1}>
+            <h2 className="text-3xl font-bold drop-shadow-lg">
+              {lang === 'de' ? 'Bereit für den nächsten Schritt?' : 'Ready for the next step?'}
+            </h2>
+          </SlideIn>
+          <SlideIn direction="up" delay={0.2}>
+            <p className="mt-2 text-white/95 text-lg">
+              {lang === 'de'
+                ? 'Sprechen wir über messbare Ergebnisse – passend zu Ihren Zielen.'
+                : "Let's talk measurable outcomes – aligned to your goals."}
+            </p>
+          </SlideIn>
+          <SlideIn direction="up" delay={0.3}>
+            <a
+              href={localePath('/#contact')}
+              className="mt-6 inline-block rounded-2xl bg-white px-8 py-4 font-bold text-teal-600 shadow-xl hover:bg-gray-100 hover:scale-105 transition-transform"
+            >
+              {lang === 'de' ? 'Kontakt aufnehmen' : 'Get in touch'}
+            </a>
+          </SlideIn>
+        </div>
+      </section>
+
+      {/* Careers */}
+      <CareersSection />
+
+      {/* Contact with Form */}
+      <ContactFormSection />
+
+      {/* Meeting/Calendly */}
+      <MeetingCalendlySection />
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-white">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3">
+          <div>
+            <h4 className="mb-2 font-semibold">{lang === 'de' ? 'Unternehmen' : 'Company'}</h4>
+            <ul className="space-y-1 text-white/90">
+              <li><a className="hover:underline" href={localePath('/#hero')}>Home</a></li>
+              <li><a className="hover:underline" href={localePath('/#services')}>{lang === 'de' ? 'Leistungen' : 'Services'}</a></li>
+              <li><a className="hover:underline" href={localePath('/cases')}>Cases</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-2 font-semibold">{lang === 'de' ? 'Ressourcen' : 'Resources'}</h4>
+            <ul className="space-y-1 text-white/90">
+              <li><a className="hover:underline" href={localePath('/blog')}>Blog</a></li>
+              <li><a className="hover:underline" href={localePath('/press')}>{lang === 'de' ? 'Presse' : 'Press'}</a></li>
+              <li><a className="hover:underline" href={localePath('/careers')}>{lang === 'de' ? 'Karriere' : 'Careers'}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-2 font-semibold">{lang === 'de' ? 'Rechtliches' : 'Legal'}</h4>
+            <ul className="space-y-1 text-white/90">
+              <li><a className="hover:underline" href={localePath('/privacy')}>{lang === 'de' ? 'Datenschutz' : 'Privacy'}</a></li>
+              <li><a className="hover:underline" href={localePath('/imprint')}>{lang === 'de' ? 'Impressum' : 'Imprint'}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="bg-black/40 py-4 text-center text-sm text-white/80">
+          © {new Date().getFullYear()} Quantiva Advisory
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Mobile menu
+// ────────────────────────────────────────────────────────────────────────────────
+function LangMenuMobile({ lang, switchLang, items }: any) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="md:hidden flex items-center gap-2">
+      <button
+        className="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Menü umschalten"
+        aria-expanded={open}
+      >
+        {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+      </button>
+      {open && (
+        <div className="absolute right-4 top-14 z-50 rounded-2xl border bg-white shadow-md p-3 min-w-[220px]">
+          <nav className="flex flex-col gap-2">
+            {items.map((it: any) => (
+              <a key={it.id} href={it.id === 'caseslink' ? `/${lang}/cases` : `#${it.id}`} className="py-2 text-gray-700" onClick={() => setOpen(false)}>
+                {lang === 'de' ? it.de : it.en}
+              </a>
+            ))}
+            <button onClick={switchLang} className="mt-2 rounded-2xl border px-3 py-2 text-sm hover:bg-gray-50">
+              {lang === "de" ? "EN" : "DE"}
+            </button>
+          </nav>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Cases Page – /:lng/cases
+// ────────────────────────────────────────────────────────────────────────────────
+export function CasesPage() {
+  const { lang, localePath } = useLanguage();
+  const [q, setQ] = useState("");
+  const [cat, setCat] = useState("all");
+  const [ind, setInd] = useState("all");
+
+  const CASES = casesData.map(c => ({
+    id: c.slug,
+    title: lang === 'de' ? c.titleDe : c.titleEn,
+    summary: lang === 'de' ? c.subtitleDe : c.subtitleEn,
+    category: c.category.toLowerCase(),
+    industry: c.industry.toLowerCase(),
+    impact: lang === 'de' ? c.resultsDe[0] : c.resultsEn[0],
+    href: `/cases/${c.slug}`,
+  }));
+
+  const filtered = CASES.filter(c =>
+    (cat === 'all' || c.category === cat) &&
+    (ind === 'all' || c.industry === ind) &&
+    (q.trim() === '' || (c.title + ' ' + c.summary).toLowerCase().includes(q.toLowerCase()))
+  );
+
+  const title = 'Cases & Angebote – Quantiva Advisory';
+  const desc = 'Ausgewählte Cases und Angebote: Cloud, Datenqualität, Integration – mit messbarem Impact.';
+  const canonical = absUrl(localePath('/cases'));
+  const img = absUrl('/assets/og-cases.jpg');
+
+  return (
+    <main className="min-h-screen bg-white">
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={desc} />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="de" href={absUrl('/de/cases')} />
+        <link rel="alternate" hrefLang="en" href={absUrl('/en/cases')} />
+        <link rel="alternate" hrefLang="x-default" href={absUrl('/cases')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={desc} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={img} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={desc} />
+        <meta name="twitter:image" content={img} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Cases & Angebote",
+          url: canonical
+        })}</script>
+      </Helmet>
+
+      <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-b from-gray-50 via-white to-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl md:text-5xl font-extrabold text-gray-900">
+            {lang === 'de' ? 'Angebote & Cases' : 'Offers & Cases'}
+          </motion.h1>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="mt-3 text-gray-600 max-w-2xl">
+            {lang === 'de' ? 'Ein Auszug unserer Themen – mit klarem Outcome und Beispiel‑Implementierungen.' : 'A selection of our topics – with clear outcomes and example implementations.'}
+          </motion.p>
+
+          {/* Controls */}
+          <div className="mt-8 flex flex-col md:flex-row gap-3 md:items-center">
+            <input
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              placeholder={lang === 'de' ? 'Suchen (z. B. BTP, Audit, API)' : 'Search (e.g., BTP, audit, API)'}
+              className="w-full md:w-72 rounded-xl border px-4 py-2 outline-none focus:ring-2 focus:ring-teal-600"
+            />
+            <select value={cat} onChange={(e)=>setCat(e.target.value)} className="rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-teal-600">
+              <option value="all">{lang==='de'?'Alle Kategorien':'All categories'}</option>
+              <option value="cloud">Cloud</option>
+              <option value="data">{lang==='de'?'Daten':'Data'}</option>
+              <option value="integration">Integration</option>
+            </select>
+            <select value={ind} onChange={(e)=>setInd(e.target.value)} className="rounded-xl border px-3 py-2 outline-none focus:ring-2 focus:ring-teal-600">
+              <option value="all">{lang==='de'?'Alle Branchen':'All industries'}</option>
+              <option value="pharma">Pharma</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="logistics">{lang==='de'?'Logistik':'Logistics'}</option>
+            </select>
+          </div>
+
+          {/* Grid */}
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filtered.map((c, i) => (
+              <motion.a
+                key={c.id}
+                href={localePath(c.href)}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.05 * i }}
+                className="block rounded-2xl border bg-white shadow-sm hover:shadow-lg transition overflow-hidden group"
+              >
+                <div className="h-40 bg-gradient-to-br from-teal-100 to-white" />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-teal-700">{c.title}</h3>
+                  <p className="mt-2 text-gray-600">{c.summary}</p>
+                  <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+                    <span>{c.impact}</span>
+                    <span className="inline-flex items-center gap-1 text-teal-700 font-medium">{lang==='de'?'Mehr':'More'} <ChevronRight className="h-4 w-4" /></span>
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+            {filtered.length === 0 && (
+              <div className="col-span-full text-gray-500">{lang==='de'?'Keine Einträge – Filter anpassen oder Suchbegriff ändern.':'No entries – adjust filters or search term.'}</div>
+            )}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-14 text-center">
+            <a href={localePath('/#contact')} className="inline-flex items-center gap-2 rounded-2xl bg-teal-600 text-white px-6 py-3 text-base font-medium shadow hover:bg-teal-700">
+              {lang==='de'?'Unverbindlich sprechen':'Talk to us'} <ArrowRight className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────────────
+// Case Detail Page – /:lng/cases/:slug
+// ────────────────────────────────────────────────────────────────────────────────
+export function CaseDetailPage() {
+  const { lang, localePath } = useLanguage();
+
+  // read slug from path
+  const slug = (typeof window !== 'undefined') ? window.location.pathname.split('/').filter(Boolean).pop() || '' : '';
+  const caseData = casesData.find(c => c.slug === slug) as any;
+
+  if (!caseData) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-white px-6 text-center">
+        <div>
+          <h1 className="text-2xl font-semibold text-gray-900">{lang==='de'?'Case nicht gefunden':'Case not found'}</h1>
+          <div className="mt-6 flex gap-3 justify-center">
+            <a href={localePath('/cases')} className="inline-flex items-center gap-2 rounded-2xl border px-4 py-2">Cases</a>
+            <a href={localePath('/')} className="inline-flex items-center gap-2 rounded-2xl bg-teal-600 text-white px-4 py-2">{lang==='de'?'Startseite':'Home'}</a>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const pageTitleText = lang === 'de' ? caseData.titleDe : caseData.titleEn;
+  const subtitle = lang === 'de' ? caseData.subtitleDe : caseData.subtitleEn;
+  const desc = `${pageTitleText} – ${subtitle}`;
+  const canonical = absUrl(localePath(`/cases/${caseData.slug}`));
+  // Use generated OG image if available, fallback to hero image or default
+  const ogCandidate = `/assets/og/${caseData.slug}.jpg`;
+  const image = caseData.heroImage ? ogCandidate : '/assets/og-default.jpg';
+
+  const goals = lang === 'de' ? caseData.goalsDe : caseData.goalsEn;
+  const solution = lang === 'de' ? caseData.solutionDe : caseData.solutionEn;
+  const results = lang === 'de' ? caseData.resultsDe : caseData.resultsEn;
+  const quote = caseData.quote && (lang === 'de' ? caseData.quote.textDe : caseData.quote.textEn);
+
+  return (
+    <main className="min-h-screen bg-white">
+      <Helmet>
+        <title>{`${pageTitleText} – Quantiva Advisory`}</title>
+        <meta name="description" content={desc} />
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hrefLang="de" href={absUrl(`/de/cases/${caseData.slug}`)} />
+        <link rel="alternate" hrefLang="en" href={absUrl(`/en/cases/${caseData.slug}`)} />
+        <link rel="alternate" hrefLang="x-default" href={absUrl(`/cases/${caseData.slug}`)} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={`${pageTitleText} – Quantiva Advisory`} />
+        <meta property="og:description" content={desc} />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:image" content={image} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${pageTitleText} – Quantiva Advisory`} />
+        <meta name="twitter:description" content={desc} />
+        <meta name="twitter:image" content={image} />
+        {/* Optional: OG Video (wenn du im Link-Preview Video willst) */}
+        {(caseData as any).heroMedia && (
+          <>
+            <meta property="og:video" content={absUrl((caseData as any).heroMedia)} />
+            <meta property="og:video:type" content="video/mp4" />
+            <meta property="og:video:width" content="1280" />
+            <meta property="og:video:height" content="720" />
+          </>
+        )}
+      </Helmet>
+
+      {/* Hero */}
+      <section className="relative h-[65vh] md:h-[70vh] overflow-hidden flex items-center justify-center">
+        {(caseData as any).heroMedia ? (
+          <video
+            src={(caseData as any).heroMedia}
+            poster={caseData.heroImage}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <img src={caseData.heroImage} alt={pageTitleText} className="absolute inset-0 w-full h-full object-cover" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
+        <div className="relative z-10 px-6 max-w-4xl text-center">
+          <nav aria-label="breadcrumb" className="mb-3 text-white/80 text-xs md:text-sm">
+            <a className="hover:underline" href={localePath('/')}>{lang==='de'?'Home':'Home'}</a>
+            <span className="mx-2">/</span>
+            <a className="hover:underline" href={localePath('/cases')}>{lang==='de'?'Cases':'Cases'}</a>
+            <span className="mx-2">/</span>
+            <span aria-current="page" className="opacity-90">{pageTitleText}</span>
+          </nav>
+          <div className="mb-4 flex items-center justify-center gap-3 text-xs md:text-sm text-white/90">
+            <span className="rounded-full bg-white/10 px-3 py-1 border border-white/20">{lang === 'de' ? 'Kategorie' : 'Category'}: {(caseData as any).category}</span>
+            <span className="rounded-full bg-white/10 px-3 py-1 border border-white/20">{lang === 'de' ? 'Branche' : 'Industry'}: {(caseData as any).industry}</span>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white drop-shadow-md">{pageTitleText}</h1>
+          <p className="mt-3 md:mt-4 text-white/90 text-lg md:text-xl">{subtitle}</p>
+        </div>
+      </section>
+
+      {/* Content */}
+      <section className="py-16 md:py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="grid md:grid-cols-2 gap-10">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{lang === 'de' ? 'Ziele & Herausforderungen' : 'Goals & challenges'}</h2>
+              <ul className="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+                {goals.map((g: string, i: number) => (<li key={i}>{g}</li>))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{lang === 'de' ? 'Vorgehen & Lösung' : 'Approach & solution'}</h2>
+              <ul className="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+                {solution.map((s: string, i: number) => (<li key={i}>{s}</li>))}
+              </ul>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12">
+            <h2 className="text-2xl font-bold text-gray-900">{lang === 'de' ? 'Ergebnisse' : 'Results'}</h2>
+            <div className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {results.map((r: string, i: number) => (
+                <div key={i} className="rounded-xl border p-4 text-gray-800 bg-white shadow-sm">{r}</div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12">
+            <h2 className="text-2xl font-bold text-gray-900">Tech‑Stack</h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {(caseData as any).tech?.map((k: string) => (
+                <span key={k} className="rounded-full border px-3 py-1 text-sm text-gray-700 bg-white">{k}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          {quote && (
+            <motion.blockquote initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12 border-l-4 border-teal-600 pl-4 text-gray-800 italic">
+              "{quote}"
+              {(caseData as any).quote?.author && (
+                <footer className="not-italic mt-2 text-gray-600">— {(caseData as any).quote.author}</footer>
+              )}
+            </motion.blockquote>
+          )}
+
+          <div className="mt-14 flex flex-wrap gap-3">
+            <a href={localePath('/#contact')} className="inline-flex items-center gap-2 rounded-2xl bg-teal-600 text-white px-5 py-3 text-sm shadow hover:bg-teal-700">
+              {lang === 'de' ? 'Projekt anfragen' : 'Request project'} <ArrowRight className="h-4 w-4" />
+            </a>
+            <a href={localePath('/cases')} className="inline-flex items-center gap-2 rounded-2xl border px-5 py-3 text-sm hover:bg-gray-50">
+              {lang === 'de' ? '← Zurück zu Cases' : '← Back to cases'}
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
