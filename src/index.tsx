@@ -3,13 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { redirectFromRootIfNeeded } from './i18nRedirect';
+import { LanguageProvider } from './QuantivaWebsite';
+
+// Redirect from root to preferred language before React mounts
+redirectFromRootIfNeeded();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
   </React.StrictMode>
 );
 

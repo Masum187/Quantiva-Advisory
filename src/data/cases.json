@@ -1,0 +1,73 @@
+[
+  {
+    "slug": "btp-delivery",
+    "titleDe": "BTP Delivery in 12 Wochen",
+    "titleEn": "BTP Delivery in 12 Weeks",
+    "subtitleDe": "Cloud Migration & Automatisierung",
+    "subtitleEn": "Cloud Migration & Automation",
+    "category": "Cloud",
+    "industry": "Pharma",
+    "heroImage": "/assets/cases/btp-hero.jpg",
+    "goalsDe": ["Schnellere Deployments", "Compliance-konforme Automatisierung"],
+    "goalsEn": ["Faster deployments", "Compliance-ready automation"],
+    "solutionDe": [
+      "Aufbau einer CI/CD-Pipeline auf SAP BTP",
+      "Implementierung von Sicherheitskonzepten (IAM, Secrets, Policies)",
+      "Enablement-Workshops für Dev-Teams"
+    ],
+    "solutionEn": [
+      "Set up CI/CD pipeline on SAP BTP",
+      "Implement security concepts (IAM, secrets, policies)",
+      "Enablement workshops for dev teams"
+    ],
+    "resultsDe": ["3x Deployments/Monat", "100% Audit bestanden", "Zero downtime Releases"],
+    "resultsEn": ["3x deployments/month", "100% audit pass", "Zero downtime releases"],
+    "tech": ["SAP BTP", "GitHub Actions", "Node.js", "ABAP CDS"],
+    "quote": {
+      "textDe": "Quantiva hat unsere Cloud-Strategie in kürzester Zeit Realität werden lassen.",
+      "textEn": "Quantiva made our cloud strategy a reality in no time.",
+      "author": "IT‑Leiter, Pharma DACH"
+    }
+  },
+  {
+    "slug": "data-quality",
+    "titleDe": "Stammdatenqualität & Audit",
+    "titleEn": "Master Data Quality & Audit",
+    "subtitleDe": "MDG, Governance, Audit‑Sicherheit",
+    "subtitleEn": "MDG, governance, audit readiness",
+    "category": "Daten",
+    "industry": "Healthcare",
+    "heroImage": "/assets/cases/data-hero.jpg",
+    "goalsDe": ["Konsistente Stammdaten", "Transparente Governance"],
+    "goalsEn": ["Consistent master data", "Transparent governance"],
+    "solutionDe": ["MDG-Design und Umsetzung", "Validierungsregeln & Data Stewardship", "Audit-Dokumentation"],
+    "solutionEn": ["MDG design and implementation", "Validation rules & data stewardship", "Audit documentation"],
+    "resultsDe": ["Audit bestanden", "Weniger Reworks", "Höhere Datenqualität"],
+    "resultsEn": ["Audit passed", "Less rework", "Higher data quality"],
+    "tech": ["SAP MDG", "Python", "Airflow"],
+    "quote": null
+  },
+  {
+    "slug": "api-first",
+    "titleDe": "API‑First Integration",
+    "titleEn": "API‑First Integration",
+    "subtitleDe": "Ereignisarchitektur, Fiori‑Apps, Schulungen",
+    "subtitleEn": "Event architecture, Fiori apps, enablement",
+    "category": "Integration",
+    "industry": "Logistik",
+    "heroImage": "/assets/cases/integration-hero.jpg",
+    "goalsDe": ["Entkopplung der Systeme", "Niedrige Latenz", "Skalierbarkeit"],
+    "goalsEn": ["System decoupling", "Low latency", "Scalability"],
+    "solutionDe": ["Async‑Events & Topics", "API‑Katalog & Governance", "Fiori‑App Templates"],
+    "solutionEn": ["Async events & topics", "API catalog & governance", "Fiori app templates"],
+    "resultsDe": ["< 150ms Latenz", "Stabile Releases", "Schnellere Onboarding‑Zeit"],
+    "resultsEn": ["< 150ms latency", "Stable releases", "Faster onboarding"],
+    "tech": ["SAP Event Mesh", "Kafka", "Fiori", "Node.js"],
+    "quote": {
+      "textDe": "Klare Architektur, klare Wege – heute integrieren wir schneller als je zuvor.",
+      "textEn": "Clear architecture, clear paths – we integrate faster than ever.",
+      "author": "CIO, Logistik"
+    }
+  }
+]
+

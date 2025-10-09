@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="https://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://quantivaadvisory.com/de</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/en</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/de/cases</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/en/cases</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/de/cases/btp-delivery</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases/btp-delivery"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases/btp-delivery"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases/btp-delivery"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/en/cases/btp-delivery</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases/btp-delivery"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases/btp-delivery"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases/btp-delivery"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/de/cases/data-quality</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases/data-quality"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases/data-quality"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases/data-quality"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/en/cases/data-quality</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases/data-quality"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases/data-quality"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases/data-quality"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/de/cases/api-first</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases/api-first"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases/api-first"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases/api-first"/>
+  </url>
+
+  <url>
+    <loc>https://quantivaadvisory.com/en/cases/api-first</loc>
+    <lastmod>2025-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+<xhtml:link rel="alternate" hreflang="de" href="https://quantivaadvisory.com/de/cases/api-first"/>
+<xhtml:link rel="alternate" hreflang="en" href="https://quantivaadvisory.com/en/cases/api-first"/>
+<xhtml:link rel="alternate" hreflang="x-default" href="https://quantivaadvisory.com/cases/api-first"/>
+  </url>
+</urlset>
