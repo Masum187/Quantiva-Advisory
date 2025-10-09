@@ -1,3 +1,14 @@
+# Quantiva Advisory - Professional SAP & Cloud Consulting
+
+Visit our website: [Quantiva Advisory](https://quantivaadvisory.com)
+
+## Quick Start
+```bash
+npm install
+npm start
+```
+
+See full documentation below.
 # Quantiva Advisory Website
 
 A modern, responsive website for Quantiva Advisory with internationalization (German/English), SEO optimization, case studies, and advanced animations.
