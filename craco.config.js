@@ -1,14 +1,38 @@
-// ES Module wrapper for craco.config.cjs
-// Required because package.json has "type": "module"
-import { createRequire } from 'module';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+module.exports = {
+  webpack: {
+    configure: (config) => {
+      // MDX-Lader hinzufügen
+      config.module.rules.push({
+        test: /\.mdx?$/,
+        use: [
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              presets: [
+                require.resolve('@babel/preset-react'),
+                require.resolve('@babel/preset-env')
+              ]
+            }
+          },
+          {
+            loader: require.resolve('@mdx-js/loader'),
+            options: {
+              providerImportSource: '@mdx-js/react'
+            }
+          }
+        ]
+      });
+      
+      // .md/.mdx als resolvable Extensions
+      if (!config.resolve.extensions.includes('.mdx')) {
+        config.resolve.extensions.push('.mdx');
+      }
+      if (!config.resolve.extensions.includes('.md')) {
+        config.resolve.extensions.push('.md');
+      }
+      
+      return config;
+    }
+  }
+};
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const require = createRequire(import.meta.url);
-
-// Load the CommonJS config
-const config = require(join(__dirname, 'craco.config.cjs'));
-
-export default config;
