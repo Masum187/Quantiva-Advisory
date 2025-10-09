@@ -71,6 +71,22 @@ export default function MDXRoot({ children }) {
 - Wichtige Hinweise
 - CTA-Section
 
+### **`src/docs/pages/admin.mdx`** (NEU)
+- Admin Dashboard Dokumentation
+- Übersicht: Listenansicht, Galerie, Suche/Filter
+- Felder (CaseItem) mit Workflow-Feldern
+- Validierungsregeln
+- Workflow-Aktionen
+- Tipps für Owner/Reviewer, History, Dark Mode
+
+### **`src/docs/pages/content-model.mdx`** (NEU)
+- Content Model Entity-Beschreibung
+- Case-Struktur mit allen Feldern
+- Taxonomy (Kategorien, Branchen, Tech)
+- Medien-Richtlinien und Naming-Konventionen
+- Richtlinien für Content-Erstellung
+- Roadmap für zukünftige Features
+
 ### 7. **Router aktualisiert**
 **`src/App.tsx`**:
 ```tsx
@@ -78,6 +94,8 @@ import MDXRoot from './mdx';
 import DocsLayout from './components/DocsLayout';
 import DocsIndex from './docs/pages/index.mdx';
 import CMSWorkflow from './docs/pages/cms-workflow.mdx';
+import AdminDocs from './docs/pages/admin.mdx';
+import ContentModel from './docs/pages/content-model.mdx';
 
 <Router>
   <MDXRoot>
@@ -87,6 +105,8 @@ import CMSWorkflow from './docs/pages/cms-workflow.mdx';
       <Route path="/docs" element={<DocsLayout />}>
         <Route index element={<DocsIndex />} />
         <Route path="cms-workflow" element={<CMSWorkflow />} />
+        <Route path="admin" element={<AdminDocs />} />
+        <Route path="content-model" element={<ContentModel />} />
       </Route>
       
       <Route path="/:lng/*" element={<WithLocaleRoutes />} />
