@@ -2,9 +2,7 @@
   "version": 2,
   "framework": "create-react-app",
   "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" },
-    { "src": "api/create-pr.ts", "use": "@vercel/node" },
-    { "src": "api/upload.ts", "use": "@vercel/edge" }
+    { "src": "package.json", "use": "@vercel/static-build" }
   ],
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
