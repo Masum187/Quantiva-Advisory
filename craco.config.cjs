@@ -8,13 +8,16 @@ module.exports = {
           {
             loader: require.resolve('babel-loader'),
             options: {
-              // CRA hat Babel schon konfiguriert; keine extra Plugins nötig
+              presets: [
+                require.resolve('@babel/preset-react'),
+                require.resolve('@babel/preset-env')
+              ]
             }
           },
           {
             loader: require.resolve('@mdx-js/loader'),
             options: {
-              // hier später optional remark/rehype-Plugins einbauen
+              providerImportSource: '@mdx-js/react'
             }
           }
         ]
