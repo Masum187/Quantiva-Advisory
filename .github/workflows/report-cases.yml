@@ -1,9 +1,11 @@
 # .github/workflows/report-cases.yml
 name: Report Cases in PR
 
+# Temporarily disabled - enable when case data system is fully implemented
 on:
-  pull_request:
-    branches: [ main, master ]
+  workflow_dispatch:  # Manual trigger only
+  # pull_request:
+  #   branches: [ main, master ]
 
 jobs:
   report:
