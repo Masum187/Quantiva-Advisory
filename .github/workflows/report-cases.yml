@@ -1,0 +1,34 @@
+# .github/workflows/report-cases.yml
+name: Report Cases in PR
+
+on:
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm ci
+
+      # (optional) frühe weiche Validierung
+      - run: npm run validate:cases
+
+      # Build erzeugt sitemap + OG + strict validate in deinem postbuild
+      - run: npm run build
+
+      # Report generieren (schreibt reports/cases-report.md)
+      - run: npm run report:cases
+
+      # PR-Kommentar posten
+      - name: Post PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: quantiva-cases-report
+          path: reports/cases-report.md
