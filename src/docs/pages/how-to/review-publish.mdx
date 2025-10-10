@@ -1,0 +1,98 @@
+import Mermaid from "../../../components/Mermaid";
+
+# How-to: Review & Publish
+
+So läuft der Freigabeprozess inkl. Rollen & Statuswechsel.
+
+## Rollen
+
+- **Admin** – alle Rechte (inkl. „Entwurf" zurücksetzen)
+- **Editor** – Inhalte erstellen/bearbeiten, „Zur Prüfung"
+- **Reviewer** – in der Prüfung **Freigeben/Ablehnen**
+- **Publisher** – **Veröffentlichen/Unpublish**
+
+## Statusübergänge
+
+<Mermaid>
+{`flowchart TD
+  A[Entwurf] -->|Zur Prüfung| B[Zur Prüfung]
+  B -->|Freigeben| C[Freigegeben]
+  B -->|Ablehnen| D[Abgelehnt]
+  C -->|Veröffentlichen| E[Veröffentlicht]
+  E -->|Unpublish| C
+  B -->|Zurück zu Entwurf| A
+  C -->|Zurück zu Entwurf| A
+  D -->|Zurück zu Entwurf| A
+  
+  classDef draft fill:#f3f4f6,stroke:#6b7280
+  classDef review fill:#fef3c7,stroke:#f59e0b
+  classDef approved fill:#dbeafe,stroke:#3b82f6
+  classDef rejected fill:#fee2e2,stroke:#ef4444
+  classDef published fill:#d1fae5,stroke:#10b981
+  
+  class A draft
+  class B review
+  class C approved
+  class D rejected
+  class E published
+`}
+</Mermaid>
+
+## UI-Aktionen (pro Zeile)
+
+- **Zur Prüfung** → `draft → inReview` (Admin/Editor)
+- **Freigeben** → `inReview → approved` (Admin/Reviewer/Publisher)
+- **Ablehnen** → `inReview → rejected` (Admin/Reviewer)
+- **Veröffentlichen** → `approved → published` (**setzt** `publishedAt`) (Admin/Publisher)
+- **Unpublish** → `published → approved` (Admin/Publisher)
+- **Entwurf** → `* → draft` (nur Admin)
+
+## Besitzer & Reviewer
+
+- Im **Drawer**:
+  - **Besitzer (owner)**: Verantwortliche Person
+  - **Reviewer (Komma-getrennt)**: Review-Beteiligte
+- Optional ausbaubar: automatische Rechte anhand dieser Felder.
+
+> **Hinweis:** Alle Statuswechsel lösen **Toasts** aus und werden von **Undo/Redo/History** erfasst.
+
+## Workflow-Beispiel
+
+### Szenario: Neuer Case wird veröffentlicht
+
+1. **Editor** erstellt Case → Status: `draft`
+2. **Editor** klickt "Zur Prüfung" → Status: `inReview`
+3. **Reviewer** prüft Inhalt und klickt "Freigeben" → Status: `approved`
+4. **Publisher** klickt "Veröffentlichen" → Status: `published` (+ `publishedAt` Timestamp)
+
+### Szenario: Case wird abgelehnt
+
+1. **Editor** erstellt Case → Status: `draft`
+2. **Editor** klickt "Zur Prüfung" → Status: `inReview`
+3. **Reviewer** findet Fehler und klickt "Ablehnen" → Status: `rejected`
+4. **Admin** klickt "Entwurf" → Status: `draft`
+5. **Editor** korrigiert und klickt erneut "Zur Prüfung" → Status: `inReview`
+6. **Reviewer** klickt "Freigeben" → Status: `approved`
+7. **Publisher** klickt "Veröffentlichen" → Status: `published`
+
+## Best Practices
+
+- ✅ **Owner** immer setzen (Verantwortlichkeit klar)
+- ✅ **Reviewer** bei komplexen Cases mehrere Personen eintragen
+- ✅ **Kommentare** im Drawer nutzen (zukünftige Erweiterung)
+- ✅ **History** vor Veröffentlichung prüfen
+- ✅ **Validierung** beachten (keine Fehler bei Publish)
+
+## Häufige Fehler
+
+- ❌ **Ohne Review veröffentlichen** - immer den Workflow einhalten
+- ❌ **Validierungsfehler ignorieren** - vor Publish alle Fehler beheben
+- ❌ **Keine Owner/Reviewer** - Verantwortlichkeit unklar
+- ❌ **Direkt zu Published** - Workflow-Schritte überspringen
+
+## Nächste Schritte
+
+- [Case anlegen](/docs/how-to/create-case) - Neuen Case erstellen
+- [Assets & Medien](/docs/how-to/assets) - Bilder und Videos hinzufügen
+- [CMS Workflow](/docs/cms-workflow) - Detaillierte Workflow-Dokumentation
+

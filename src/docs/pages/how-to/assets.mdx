@@ -1,0 +1,209 @@
+# How-to: Assets & Medien
+
+So organisierst du Bilder/Videos für Cases.
+
+## Pfade & Formate
+
+- **Bilder**: `/assets/...` (`.jpg`, `.jpeg`, `.png`, `.webp`)
+- **Videos**: `/assets/...` (`.mp4`, `.webm`)
+
+## Namensschema (Empfehlung)
+
+```
+/assets/cases/<slug>-hero.jpg
+/assets/cases/<slug>-hero.mp4
+/assets/cases/<slug>-thumb.jpg
+```
+
+## Einbindung im Case
+
+- **Hero Image**: `/assets/cases/<slug>-hero.jpg`
+- **Hero Video**: `/assets/cases/<slug>-hero.mp4`
+- **Alt-Text** nicht vergessen (Barrierefreiheit).
+
+## Best Practices
+
+### Bildoptimierung
+
+- **Web-optimiert** exportieren (Qualität 70–80 %, 1920 px Breite)
+- **Konsistente Namen** und Unterordner
+- **Thumbnails** für Listen/Grids bereitstellen (z. B. 960 px)
+- **Responsive Images** - verschiedene Größen für Mobile/Desktop
+
+### Video-Optimierung
+
+- **Komprimierung** - H.264 Codec, max. 10 MB
+- **Autoplay-Videos** - stumm und kurz (< 10 Sekunden)
+- **Fallback-Bild** - für Browser ohne Video-Support
+- **Lazy Loading** - Videos erst bei Bedarf laden
+
+### Dateigrößen
+
+| Asset-Typ | Max. Größe | Empfohlene Größe |
+|-----------|------------|------------------|
+| Hero Image | 500 KB | 200-300 KB |
+| Thumbnail | 100 KB | 50-80 KB |
+| Hero Video | 10 MB | 3-5 MB |
+| OG Image | 300 KB | 150-200 KB |
+
+## Ordnerstruktur
+
+```
+public/
+└── assets/
+    ├── cases/
+    │   ├── btp-delivery-hero.jpg
+    │   ├── btp-delivery-hero.mp4
+    │   ├── btp-delivery-thumb.jpg
+    │   ├── data-quality-hero.jpg
+    │   └── ...
+    ├── og/
+    │   ├── btp-delivery.jpg
+    │   ├── data-quality.jpg
+    │   └── ...
+    └── team/
+        ├── ceo-portrait.jpg
+        └── consultant-portrait.jpg
+```
+
+## Häufige Fehler
+
+### ❌ Falscher Pfad
+
+```json
+// Falsch:
+"heroImage": "assets/cases/hero.jpg"
+
+// Richtig:
+"heroImage": "/assets/cases/hero.jpg"
+```
+
+### ❌ Nicht unterstützte Endung
+
+```json
+// Falsch:
+"heroImage": "/assets/cases/hero.gif"
+
+// Richtig:
+"heroImage": "/assets/cases/hero.jpg"
+```
+
+### ❌ Sehr große Dateien
+
+- **Problem**: LCP (Largest Contentful Paint) leidet
+- **Lösung**: Bilder komprimieren (z. B. mit TinyPNG, ImageOptim)
+- **Ziel**: Hero-Bilder < 300 KB
+
+## Tools zur Optimierung
+
+### Bilder
+
+- **TinyPNG** - https://tinypng.com/
+- **ImageOptim** - https://imageoptim.com/
+- **Squoosh** - https://squoosh.app/
+- **Sharp** (CLI) - `npm install -g sharp-cli`
+
+### Videos
+
+- **HandBrake** - https://handbrake.fr/
+- **FFmpeg** (CLI):
+  ```bash
+  ffmpeg -i input.mp4 -vcodec h264 -acodec aac -b:v 1M output.mp4
+  ```
+
+## Beispiel: Neues Hero-Bild hinzufügen
+
+### 1. Bild vorbereiten
+
+```bash
+# Mit Sharp (CLI)
+sharp input.jpg -o hero.jpg --resize 1920 --quality 80
+
+# Mit ImageMagick
+convert input.jpg -resize 1920x -quality 80 hero.jpg
+```
+
+### 2. Datei platzieren
+
+```bash
+cp hero.jpg public/assets/cases/my-case-hero.jpg
+```
+
+### 3. Im Case referenzieren
+
+```json
+{
+  "slug": "my-case",
+  "heroImage": "/assets/cases/my-case-hero.jpg"
+}
+```
+
+### 4. OG-Image generieren
+
+```bash
+npm run generate:og
+```
+
+## Barrierefreiheit
+
+### Alt-Texte
+
+- **Beschreibend**: "SAP BTP Cloud-Architektur Diagramm"
+- **Nicht redundant**: Nicht "Bild von..." verwenden
+- **Kontext**: Was zeigt das Bild im Case-Kontext?
+
+### Beispiel
+
+```tsx
+<img 
+  src="/assets/cases/btp-hero.jpg" 
+  alt="SAP Business Technology Platform Cloud-Architektur mit CI/CD Pipeline"
+/>
+```
+
+## Performance-Tipps
+
+### Lazy Loading
+
+```tsx
+<img 
+  src="/assets/cases/hero.jpg" 
+  loading="lazy"
+  decoding="async"
+/>
+```
+
+### Responsive Images
+
+```tsx
+<img 
+  src="/assets/cases/hero.jpg"
+  srcSet="
+    /assets/cases/hero-480.jpg 480w,
+    /assets/cases/hero-960.jpg 960w,
+    /assets/cases/hero-1920.jpg 1920w
+  "
+  sizes="(max-width: 768px) 100vw, 50vw"
+/>
+```
+
+### WebP Format
+
+```bash
+# Mit cwebp (CLI)
+cwebp -q 80 input.jpg -o output.webp
+```
+
+```tsx
+<picture>
+  <source srcSet="/assets/cases/hero.webp" type="image/webp" />
+  <img src="/assets/cases/hero.jpg" alt="Hero" />
+</picture>
+```
+
+## Nächste Schritte
+
+- [Case anlegen](/docs/how-to/create-case) - Neuen Case mit Assets erstellen
+- [Review & Publish](/docs/how-to/review-publish) - Case freigeben
+- [Content Model](/docs/content-model) - Datenstruktur verstehen
+

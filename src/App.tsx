@@ -8,6 +8,9 @@ import DocsIndex from './docs/pages/index.mdx';
 import CMSWorkflow from './docs/pages/cms-workflow.mdx';
 import AdminDocs from './docs/pages/admin.mdx';
 import ContentModel from './docs/pages/content-model.mdx';
+import CreateCaseGuide from './docs/pages/how-to/create-case.mdx';
+import ReviewPublishGuide from './docs/pages/how-to/review-publish.mdx';
+import AssetsGuide from './docs/pages/how-to/assets.mdx';
 import CookieBanner from './components/CookieBanner';
 
 // Valid language codes
@@ -54,6 +57,11 @@ function App() {
             <Route path="cms-workflow" element={<CMSWorkflow />} />
             <Route path="admin" element={<AdminDocs />} />
             <Route path="content-model" element={<ContentModel />} />
+            
+            {/* How-to Guides */}
+            <Route path="how-to/create-case" element={<CreateCaseGuide />} />
+            <Route path="how-to/review-publish" element={<ReviewPublishGuide />} />
+            <Route path="how-to/assets" element={<AssetsGuide />} />
           </Route>
 
           {/* Language-prefixed routes: /:lng/* */}
