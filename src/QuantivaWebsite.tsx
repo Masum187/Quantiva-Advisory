@@ -756,9 +756,9 @@ export default function QuantivaWebsite() {
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               
               return (
-                <a 
+                <article 
                   key={service.id} 
-                  href={serviceUrl}
+                  onClick={() => window.location.href = serviceUrl}
                   className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300 cursor-pointer"
                 >
                   {/* Hintergrundbild mit Zoom beim Hover */}
@@ -779,7 +779,7 @@ export default function QuantivaWebsite() {
                       {lang === 'de' ? 'Mehr erfahren' : 'Learn more'} <ChevronRight className="w-5 h-5" />
                     </span>
                   </div>
-                </a>
+                </article>
               );
             })}
           </StaggerSlideIn>
