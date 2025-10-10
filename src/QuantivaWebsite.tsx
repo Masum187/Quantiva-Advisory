@@ -123,19 +123,7 @@ export function useLanguage(): LangCtx {
 // ────────────────────────────────────────────────────────────────────────────────
 // Content constants
 // ────────────────────────────────────────────────────────────────────────────────
-const NAV_ITEMS = [
-  { id: "hero", de: "Start", en: "Home" },
-  { id: "about", de: "Über uns", en: "About" },
-  { id: "team", de: "Team", en: "Team" },
-  { id: "services", de: "Leistungen", en: "Services" },
-  { id: "services-detail", de: "Kompetenzen", en: "Capabilities" },
-  { id: "caseslink", de: "Angebote", en: "Offers" },
-  { id: "careers", de: "Karriere", en: "Careers" },
-  { id: "contact", de: "Kontakt", en: "Contact" },
-  { id: "meeting", de: "Termin", en: "Book a call" },
-];
-
-// SERVICES constant removed - inline data used in components instead
+// All constants removed - now using JSON-based CMS (content.json, team.json)
 
 // ────────────────────────────────────────────────────────────────────────────────
 // Animation Components
@@ -403,31 +391,28 @@ function ServicesDetailSection() {
 
 function CareersSection() {
   const { lang } = useLanguage();
-  const jobs = [
-    { titleDe: "Senior SAP BTP Engineer (m/w/d)", titleEn: "Senior SAP BTP Engineer", loc: "Remote/DACH", type: "Full-time" },
-    { titleDe: "Cloud Security Consultant (m/w/d)", titleEn: "Cloud Security Consultant", loc: "Remote/DACH", type: "Full-time" },
-    { titleDe: "AI Solutions Architect (m/w/d)", titleEn: "AI Solutions Architect", loc: "Remote/DACH", type: "Full-time" },
-  ];
+  const careers = useCareersContent(lang);
+  
   return (
     <section id="careers" className="bg-black py-20 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6">
         <SlideIn direction="up" delay={0.1}>
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white">
-              {lang==='de' ? 'Karriere' : 'Careers'}
+              {careers.title}
             </h2>
             <p className="mt-3 text-gray-400">
-              {lang==='de' ? 'Wachse mit uns – in Engineering, Security, Data & AI.' : 'Grow with us – in engineering, security, data & AI.'}
+              {careers.subtitle}
             </p>
           </div>
         </SlideIn>
         <StaggerSlideIn className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {jobs.map((j)=>(
-            <div key={j.titleEn} className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
-              <div className="text-lg font-semibold text-white">{lang==='de'? j.titleDe : j.titleEn}</div>
-              <div className="mt-1 text-sm text-gray-400">{j.loc} · {j.type}</div>
+          {careers.positions.map((job)=>(
+            <div key={job.id} className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
+              <div className="text-lg font-semibold text-white">{job.title}</div>
+              <div className="mt-1 text-sm text-gray-400">{job.location} · {job.type}</div>
               <a href={CAREER_FORM_URL} className="mt-4 inline-flex items-center gap-2 rounded-xl bg-teal-600 px-4 py-2 font-medium text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition">
-                {lang==='de'?'Jetzt bewerben':'Apply now'} <ArrowRight className="h-4 w-4" />
+                {careers.applyButton} <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           ))}
@@ -439,6 +424,7 @@ function CareersSection() {
 
 function ContactFormSection() {
   const { lang } = useLanguage();
+  const contact = useContactContent(lang);
   const [sent, setSent] = useState<null | "ok" | "error">(null);
   const [form, setForm] = useState({ name: "", email: "", msg: "" });
 
@@ -454,33 +440,33 @@ function ContactFormSection() {
       <div className="mx-auto max-w-6xl">
         <SlideIn direction="up" delay={0.1}>
           <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-8 shadow-2xl shadow-teal-500/20">
-            <h2 className="text-3xl font-bold text-white">{lang==='de'?'Kontakt':'Contact'}</h2>
+            <h2 className="text-3xl font-bold text-white">{contact.title}</h2>
             <p className="mt-2 text-gray-400">
-              {lang==='de' ? 'Wir melden uns in der Regel innerhalb von 24 Stunden.' : 'We usually get back within 24 hours.'}
+              {contact.subtitle}
             </p>
 
             <form onSubmit={onSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-1">
-                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="name">{lang==='de'?'Name':'Name'}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="name">{contact.form.name}</label>
                 <input id="name" value={form.name} onChange={e=>setForm({...form, name: e.target.value})}
-                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder={lang==='de'?'Ihr Name':'Your name'} />
+                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder={contact.form.name} />
               </div>
               <div className="sm:col-span-1">
-                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="email">E-Mail</label>
+                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="email">{contact.form.email}</label>
                 <input id="email" type="email" value={form.email} onChange={e=>setForm({...form, email: e.target.value})}
                   className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder="name@example.com" />
               </div>
               <div className="sm:col-span-2">
-                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="msg">{lang==='de'?'Nachricht':'Message'}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-300" htmlFor="msg">{contact.form.message}</label>
                 <textarea id="msg" rows={5} value={form.msg} onChange={e=>setForm({...form, msg: e.target.value})}
-                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder={lang==='de'?'Wie können wir helfen?':'How can we help?'} />
+                  className="w-full rounded-lg border border-teal-500/30 bg-slate-900/50 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-400" placeholder={contact.form.message} />
               </div>
               <div className="sm:col-span-2 flex flex-wrap items-center gap-3">
                 <button type="submit" className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-5 py-2 font-semibold text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition">
-                  <Send className="h-4 w-4" /> {lang==='de'?'Nachricht senden':'Send message'}
+                  <Send className="h-4 w-4" /> {contact.form.submit}
                 </button>
-                {sent==="ok" && <span className="text-teal-400">{lang==='de'?'Danke! Wir melden uns zeitnah.':'Thanks! We will get back soon.'}</span>}
-                {sent==="error" && <span className="text-red-400">{lang==='de'?'Bitte alle Felder ausfüllen.':'Please fill all fields.'}</span>}
+                {sent==="ok" && <span className="text-teal-400">{contact.form.success}</span>}
+                {sent==="error" && <span className="text-red-400">{contact.form.error}</span>}
               </div>
             </form>
 
@@ -497,6 +483,7 @@ function ContactFormSection() {
 
 function MeetingCalendlySection() {
   const { lang } = useLanguage();
+  const meeting = useMeetingContent(lang);
 
   useEffect(() => {
     // Calendly Widget laden, falls noch nicht vorhanden
@@ -524,12 +511,12 @@ function MeetingCalendlySection() {
       <div className="mx-auto max-w-6xl px-6">
         <SlideIn direction="up" delay={0.1}>
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
-            {lang==='de'?'Termin vereinbaren':'Book a call'}
+            {meeting.title}
           </h2>
         </SlideIn>
         <SlideIn direction="up" delay={0.2}>
           <p className="mt-3 text-center text-gray-400">
-            {lang==='de'?'Wählen Sie direkt einen Slot für ein Erstgespräch.':'Pick a slot for an intro call.'}
+            {meeting.subtitle}
           </p>
         </SlideIn>
         
@@ -538,7 +525,7 @@ function MeetingCalendlySection() {
           <div className="mt-10 rounded-2xl border border-teal-500/30 bg-white overflow-hidden shadow-2xl shadow-teal-500/20">
             <div
               className="calendly-inline-widget"
-              data-url={`${CALENDLY_URL}?hide_event_type_details=1&hide_gdpr_banner=1`}
+              data-url={`${meeting.calendlyUrl}?hide_event_type_details=1&hide_gdpr_banner=1`}
               style={{ minWidth: 320, height: 720, width: '100%' }}
             />
           </div>
@@ -551,13 +538,13 @@ function MeetingCalendlySection() {
               {lang==='de'?'Widget lädt nicht? Öffnen Sie Calendly direkt:':'Widget not loading? Open Calendly directly:'}
             </p>
             <a
-              href={CALENDLY_URL}
+              href={meeting.calendlyUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-6 py-3 font-medium text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition"
               onClick={() => analytics.trackCalendlyOpen('fallback_button')}
             >
-              {lang==='de'?'Zu Calendly →':'Go to Calendly →'}
+              {meeting.fallbackButton}
             </a>
           </div>
         </SlideIn>
@@ -574,6 +561,7 @@ export default function QuantivaWebsite() {
   const hero = useHero(lang);
   const nav = useNavigationContent(lang);
   const services = useServices(lang);
+  const footer = useFooterContent(lang);
 
   const scrollTo = (id: string) => {
     // Track navigation
@@ -682,7 +670,7 @@ export default function QuantivaWebsite() {
           </nav>
 
           {/* Mobile Toggle */}
-          <LangMenuMobile lang={lang} switchLang={() => setLang(lang === 'de' ? 'en' : 'de')} items={NAV_ITEMS} />
+          <LangMenuMobile lang={lang} switchLang={() => setLang(lang === 'de' ? 'en' : 'de')} items={nav.items} />
         </div>
       </header>
 
@@ -822,31 +810,36 @@ export default function QuantivaWebsite() {
       <footer className="bg-slate-900 text-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3">
           <div>
-            <h4 className="mb-2 font-semibold">{lang === 'de' ? 'Unternehmen' : 'Company'}</h4>
+            <h4 className="mb-2 font-semibold">{footer.quickLinks.title}</h4>
             <ul className="space-y-1 text-white/90">
-              <li><a className="hover:underline" href={localePath('/#hero')}>Home</a></li>
-              <li><a className="hover:underline" href={localePath('/#services')}>{lang === 'de' ? 'Leistungen' : 'Services'}</a></li>
-              <li><a className="hover:underline" href={localePath('/cases')}>Cases</a></li>
+              {footer.quickLinks.items.map((link) => (
+                <li key={link.href}>
+                  <a className="hover:underline" href={localePath(link.href)}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
-            <h4 className="mb-2 font-semibold">{lang === 'de' ? 'Ressourcen' : 'Resources'}</h4>
+            <h4 className="mb-2 font-semibold">{footer.contact.title}</h4>
             <ul className="space-y-1 text-white/90">
-              <li><a className="hover:underline" href={localePath('/blog')}>Blog</a></li>
-              <li><a className="hover:underline" href={localePath('/press')}>{lang === 'de' ? 'Presse' : 'Press'}</a></li>
-              <li><a className="hover:underline" href={localePath('/careers')}>{lang === 'de' ? 'Karriere' : 'Careers'}</a></li>
+              <li><a className="hover:underline" href={`mailto:${footer.contact.email}`}>{footer.contact.email}</a></li>
+              <li><a className="hover:underline" href={`tel:${footer.contact.phone}`}>{footer.contact.phone}</a></li>
+              <li className="text-white/70">{footer.contact.address}</li>
             </ul>
           </div>
           <div>
-            <h4 className="mb-2 font-semibold">{lang === 'de' ? 'Rechtliches' : 'Legal'}</h4>
+            <h4 className="mb-2 font-semibold">{footer.social.title}</h4>
             <ul className="space-y-1 text-white/90">
-              <li><a className="hover:underline" href={localePath('/privacy')}>{lang === 'de' ? 'Datenschutz' : 'Privacy'}</a></li>
-              <li><a className="hover:underline" href={localePath('/imprint')}>{lang === 'de' ? 'Impressum' : 'Imprint'}</a></li>
+              <li><a className="hover:underline" href={footer.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a className="hover:underline" href={footer.social.twitter} target="_blank" rel="noopener noreferrer">Twitter</a></li>
+              <li><a className="hover:underline" href={footer.social.github} target="_blank" rel="noopener noreferrer">GitHub</a></li>
             </ul>
           </div>
         </div>
         <div className="bg-black/40 py-4 text-center text-sm text-white/80">
-          © {new Date().getFullYear()} Quantiva Advisory
+          {footer.copyright}
         </div>
       </footer>
     </div>
