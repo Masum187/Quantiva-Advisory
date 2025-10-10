@@ -69,6 +69,10 @@ async function buildOg({ slug, heroImage, title }) {
   const badge = await ensureBadgePng();
 
   try {
+    // Try to read and validate the image first
+    const metadata = await sharp(src).metadata();
+    
+    // Create pipeline with validated image
     const pipeline = sharp(src).resize(1200, 630, { fit: "cover", position: "attention" });
     const comps = [{ input: overlaySVG(title), gravity: "southwest" }];
     if (badge) comps.push({ input: badge, top: 40, left: 40 });
@@ -76,8 +80,57 @@ async function buildOg({ slug, heroImage, title }) {
     await pipeline.composite(comps).jpeg({ quality: 85, mozjpeg: true }).toFile(dest);
     console.log("✅", path.relative(ROOT, dest));
   } catch (error) {
-    console.warn(`⚠️ Hero image ${src} is not a valid image format, skipping ${slug}`);
+    // If image processing fails, create a fallback OG image with just text
+    console.warn(`⚠️ Hero image ${src} is not a valid image format, creating fallback for ${slug}`);
+    try {
+      await createFallbackOg(slug, title, badge);
+    } catch (fallbackError) {
+      console.error(`❌ Failed to create fallback OG image for ${slug}:`, fallbackError.message);
+    }
   }
+}
+
+async function createFallbackOg(slug, title, badge) {
+  const dest = path.join(OUTDIR, `${slug}.jpg`);
+  
+  // Create a simple gradient background
+  const width = 1200;
+  const height = 630;
+  
+  // Create base image with teal gradient
+  const svg = Buffer.from(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+      <defs>
+        <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0" stop-color="#0d9488"/>
+          <stop offset="1" stop-color="#0f766e"/>
+        </linearGradient>
+      </defs>
+      <rect width="${width}" height="${height}" fill="url(#bg)"/>
+      <g>
+        <text x="60" y="460"
+          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-size="64" font-weight="800" fill="#fff">
+          ${escapeXML(title)}
+        </text>
+        <text x="60" y="520"
+          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-size="28" font-weight="600" fill="rgba(255,255,255,0.9)">
+          Strategie · Engineering · Enablement
+        </text>
+      </g>
+    </svg>
+  `);
+  
+  const comps = [];
+  if (badge) comps.push({ input: badge, top: 40, left: 40 });
+  
+  await sharp(svg)
+    .composite(comps)
+    .jpeg({ quality: 85, mozjpeg: true })
+    .toFile(dest);
+    
+  console.log("✅ Fallback:", path.relative(ROOT, dest));
 }
 
 (async () => {
