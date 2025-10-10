@@ -43,11 +43,37 @@ function WithLocaleRoutes() {
   );
 }
 
+function RootRedirect() {
+  React.useEffect(() => {
+    // Get preferred language from localStorage or browser
+    const saved = localStorage.getItem('qlang');
+    const browserLang = navigator.language.toLowerCase();
+    const lang = (saved && VALID_LANGUAGES.includes(saved as Language)) 
+      ? saved 
+      : browserLang.startsWith('de') ? 'de' : 'en';
+    
+    // Redirect to language-prefixed route
+    window.location.replace(`/${lang}/`);
+  }, []);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black text-white">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
+        <p>Wird geladen...</p>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
       <MDXRoot>
         <Routes>
+          {/* Root - redirect to language */}
+          <Route path="/" element={<RootRedirect />} />
+
           {/* Admin dashboard - no language prefix */}
           <Route path="/admin" element={<AdminDashboard />} />
 
@@ -67,9 +93,8 @@ function App() {
           {/* Language-prefixed routes: /:lng/* */}
           <Route path="/:lng/*" element={<WithLocaleRoutes />} />
 
-          {/* Root fallback - redirect to preferred language */}
-          {/* This will be handled by the redirectFromRootIfNeeded() function */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Fallback - redirect to German */}
+          <Route path="*" element={<Navigate to="/de/" replace />} />
         </Routes>
         
         {/* Cookie Banner (global) */}
