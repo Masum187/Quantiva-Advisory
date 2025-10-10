@@ -2,6 +2,12 @@
 
 Comprehensive guide for analytics, A/B testing, and privacy-friendly tracking.
 
+> ⚠️ **SECURITY WARNING - SERVER-ONLY CODE**  
+> This documentation contains example code with `process.env` variables and serverless function examples.  
+> **These examples must ONLY run on the server** (API routes, serverless functions, server-side code).  
+> **NEVER expose environment variables or secrets to the client-side bundle!**  
+> All code using `process.env` is marked with `⚠️ SERVER-ONLY` comments.
+
 ---
 
 ## 🎯 Overview
