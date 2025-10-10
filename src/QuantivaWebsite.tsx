@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import casesData from "./data/cases.json";
 import { analytics } from "./utils/analytics";
+import { useTeam } from "./contexts/ContentContext";
 
 /**
  * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
@@ -254,28 +255,7 @@ function AboutTeaser() {
 
 function TeamSection() {
   const { lang } = useLanguage();
-  const teamMembers = [
-    {
-      name: "Gülnur Patan",
-      roleDe: "CEO & Founder",
-      roleEn: "CEO & Founder",
-      expertiseDe: "Strategie, Leadership, Business Development",
-      expertiseEn: "Strategy, leadership, business development",
-      descriptionDe: "Visionäre Führungskraft mit über 15 Jahren Erfahrung in der digitalen Transformation. Spezialisiert auf strategische Beratung und nachhaltiges Wachstum.",
-      descriptionEn: "Visionary leader with over 15 years of experience in digital transformation. Specialized in strategic consulting and sustainable growth.",
-      image: "/team/gulnur-patan.jpg", // Platzhalter - wird durch echte Bilder ersetzt
-    },
-    {
-      name: "Heri Jean Masum",
-      roleDe: "Pre Sales Consultant",
-      roleEn: "Pre Sales Consultant", 
-      expertiseDe: "SAP, Cloud Solutions, Technical Sales",
-      expertiseEn: "SAP, cloud solutions, technical sales",
-      descriptionDe: "Experte für SAP-Lösungen und Cloud-Architekturen. Fokus auf technische Beratung und maßgeschneiderte Lösungsansätze.",
-      descriptionEn: "Expert for SAP solutions and cloud architectures. Focus on technical consulting and tailored solution approaches.",
-      image: "/team/heri-jean-masum.jpg", // Platzhalter - wird durch echte Bilder ersetzt
-    },
-  ];
+  const teamMembers = useTeam();
 
   return (
     <section id="team" className="bg-black py-20 border-t border-white/10">

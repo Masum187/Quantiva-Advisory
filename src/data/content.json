@@ -1,0 +1,347 @@
+{
+  "hero": {
+    "de": {
+      "title": "Digitale Transformation für dein Unternehmen",
+      "subtitle": "SAP · Cloud · AI · Integration",
+      "description": "Strategische Beratung, technische Exzellenz und nachhaltige Lösungen für Ihren digitalen Erfolg",
+      "ctaPrimary": "Jetzt Beraten lassen",
+      "ctaSecondary": "Referenzen ansehen"
+    },
+    "en": {
+      "title": "Digital Transformation for Your Business",
+      "subtitle": "SAP · Cloud · AI · Integration",
+      "description": "Strategic consulting, technical excellence and sustainable solutions for your digital success",
+      "ctaPrimary": "Get Consulting Now",
+      "ctaSecondary": "View References"
+    }
+  },
+  "about": {
+    "de": {
+      "title": "Über Quantiva Advisory",
+      "text": "Wir sind Ihr vertrauenswürdiger Partner für digitale Transformation und IT-Consulting. Mit tiefem Verständnis für SAP-Technologien und innovativen Lösungsansätzen gestalten wir die digitale Zukunft unserer Kunden.",
+      "stats": {
+        "experience": { "value": "15+", "label": "Jahre Erfahrung" },
+        "projects": { "value": "200+", "label": "Erfolgreiche Projekte" },
+        "clients": { "value": "50+", "label": "Zufriedene Kunden" }
+      }
+    },
+    "en": {
+      "title": "About Quantiva Advisory",
+      "text": "We are your trusted partner for digital transformation and IT consulting. With deep understanding of SAP technologies and innovative solution approaches, we shape the digital future of our customers.",
+      "stats": {
+        "experience": { "value": "15+", "label": "Years of Experience" },
+        "projects": { "value": "200+", "label": "Successful Projects" },
+        "clients": { "value": "50+", "label": "Satisfied Clients" }
+      }
+    }
+  },
+  "services": {
+    "de": {
+      "title": "Unsere Services",
+      "subtitle": "Maßgeschneiderte Lösungen für Ihre digitale Transformation",
+      "items": [
+        {
+          "id": "sap",
+          "title": "SAP Beratung",
+          "description": "Expertise in S/4HANA, BTP, Fiori und SAP-Integration. Von der Strategie bis zur Implementierung.",
+          "icon": "Database"
+        },
+        {
+          "id": "cloud",
+          "title": "Cloud Solutions",
+          "description": "AWS, Azure, GCP - Multi-Cloud-Strategien, Migration und Optimierung Ihrer Cloud-Infrastruktur.",
+          "icon": "Cloud"
+        },
+        {
+          "id": "ai",
+          "title": "AI & Machine Learning",
+          "description": "Intelligente Automatisierung, Predictive Analytics und KI-gestützte Geschäftsprozesse.",
+          "icon": "Brain"
+        },
+        {
+          "id": "integration",
+          "title": "System Integration",
+          "description": "API-First Architekturen, Microservices und nahtlose Systemintegration.",
+          "icon": "Boxes"
+        },
+        {
+          "id": "security",
+          "title": "Cyber Security",
+          "description": "Ganzheitliche Sicherheitskonzepte, Compliance und Risikomanagement.",
+          "icon": "Shield"
+        },
+        {
+          "id": "enablement",
+          "title": "Enablement & Training",
+          "description": "Workshops, Schulungen und Know-how-Transfer für Ihre Teams.",
+          "icon": "Cog"
+        }
+      ]
+    },
+    "en": {
+      "title": "Our Services",
+      "subtitle": "Tailored solutions for your digital transformation",
+      "items": [
+        {
+          "id": "sap",
+          "title": "SAP Consulting",
+          "description": "Expertise in S/4HANA, BTP, Fiori and SAP integration. From strategy to implementation.",
+          "icon": "Database"
+        },
+        {
+          "id": "cloud",
+          "title": "Cloud Solutions",
+          "description": "AWS, Azure, GCP - Multi-cloud strategies, migration and optimization of your cloud infrastructure.",
+          "icon": "Cloud"
+        },
+        {
+          "id": "ai",
+          "title": "AI & Machine Learning",
+          "description": "Intelligent automation, predictive analytics and AI-powered business processes.",
+          "icon": "Brain"
+        },
+        {
+          "id": "integration",
+          "title": "System Integration",
+          "description": "API-first architectures, microservices and seamless system integration.",
+          "icon": "Boxes"
+        },
+        {
+          "id": "security",
+          "title": "Cyber Security",
+          "description": "Holistic security concepts, compliance and risk management.",
+          "icon": "Shield"
+        },
+        {
+          "id": "enablement",
+          "title": "Enablement & Training",
+          "description": "Workshops, training and knowledge transfer for your teams.",
+          "icon": "Cog"
+        }
+      ]
+    }
+  },
+  "contact": {
+    "de": {
+      "title": "Kontakt aufnehmen",
+      "subtitle": "Lassen Sie uns über Ihr Projekt sprechen",
+      "form": {
+        "name": "Name",
+        "email": "E-Mail",
+        "company": "Unternehmen",
+        "message": "Nachricht",
+        "submit": "Nachricht senden",
+        "success": "Vielen Dank! Wir melden uns in Kürze.",
+        "error": "Fehler beim Senden. Bitte versuchen Sie es erneut."
+      }
+    },
+    "en": {
+      "title": "Get in Touch",
+      "subtitle": "Let's talk about your project",
+      "form": {
+        "name": "Name",
+        "email": "Email",
+        "company": "Company",
+        "message": "Message",
+        "submit": "Send Message",
+        "success": "Thank you! We'll get back to you soon.",
+        "error": "Error sending. Please try again."
+      }
+    }
+  },
+  "meeting": {
+    "de": {
+      "title": "Termin vereinbaren",
+      "subtitle": "Buchen Sie ein kostenloses Erstgespräch",
+      "calendlyUrl": "https://calendly.com/quantivaadvisory",
+      "fallbackButton": "Calendly öffnen"
+    },
+    "en": {
+      "title": "Schedule a Meeting",
+      "subtitle": "Book a free initial consultation",
+      "calendlyUrl": "https://calendly.com/quantivaadvisory",
+      "fallbackButton": "Open Calendly"
+    }
+  },
+  "careers": {
+    "de": {
+      "title": "Karriere bei Quantiva",
+      "subtitle": "Werde Teil unseres Teams",
+      "description": "Wir suchen talentierte Menschen, die mit uns die digitale Zukunft gestalten wollen.",
+      "positions": [
+        {
+          "id": "sap-consultant",
+          "title": "Senior SAP S/4HANA Consultant",
+          "location": "Hamburg / Remote",
+          "type": "Vollzeit"
+        },
+        {
+          "id": "cloud-architect",
+          "title": "Cloud Architect (AWS/Azure)",
+          "location": "München / Remote",
+          "type": "Vollzeit"
+        },
+        {
+          "id": "ai-engineer",
+          "title": "AI/ML Engineer",
+          "location": "Berlin / Remote",
+          "type": "Vollzeit"
+        },
+        {
+          "id": "devops",
+          "title": "DevOps Engineer",
+          "location": "Frankfurt / Remote",
+          "type": "Vollzeit"
+        },
+        {
+          "id": "security",
+          "title": "Cyber Security Specialist",
+          "location": "Düsseldorf / Remote",
+          "type": "Vollzeit"
+        },
+        {
+          "id": "btp-dev",
+          "title": "SAP BTP Developer",
+          "location": "Stuttgart / Remote",
+          "type": "Vollzeit"
+        }
+      ],
+      "applyButton": "Jetzt bewerben"
+    },
+    "en": {
+      "title": "Careers at Quantiva",
+      "subtitle": "Join our team",
+      "description": "We're looking for talented people who want to shape the digital future with us.",
+      "positions": [
+        {
+          "id": "sap-consultant",
+          "title": "Senior SAP S/4HANA Consultant",
+          "location": "Hamburg / Remote",
+          "type": "Full-time"
+        },
+        {
+          "id": "cloud-architect",
+          "title": "Cloud Architect (AWS/Azure)",
+          "location": "Munich / Remote",
+          "type": "Full-time"
+        },
+        {
+          "id": "ai-engineer",
+          "title": "AI/ML Engineer",
+          "location": "Berlin / Remote",
+          "type": "Full-time"
+        },
+        {
+          "id": "devops",
+          "title": "DevOps Engineer",
+          "location": "Frankfurt / Remote",
+          "type": "Full-time"
+        },
+        {
+          "id": "security",
+          "title": "Cyber Security Specialist",
+          "location": "Düsseldorf / Remote",
+          "type": "Full-time"
+        },
+        {
+          "id": "btp-dev",
+          "title": "SAP BTP Developer",
+          "location": "Stuttgart / Remote",
+          "type": "Full-time"
+        }
+      ],
+      "applyButton": "Apply Now"
+    }
+  },
+  "footer": {
+    "de": {
+      "tagline": "Ihr Partner für digitale Transformation",
+      "copyright": "© 2025 Quantiva Advisory. Alle Rechte vorbehalten.",
+      "quickLinks": {
+        "title": "Quick Links",
+        "items": [
+          { "label": "Home", "href": "#home" },
+          { "label": "Über uns", "href": "#about" },
+          { "label": "Services", "href": "#services" },
+          { "label": "Referenzen", "href": "#references" },
+          { "label": "Kontakt", "href": "#contact" }
+        ]
+      },
+      "contact": {
+        "title": "Kontakt",
+        "email": "info@quantivaadvisory.com",
+        "phone": "+49 (0) 123 456789",
+        "address": "Musterstraße 123, 12345 Hamburg"
+      },
+      "social": {
+        "title": "Folgen Sie uns",
+        "linkedin": "https://linkedin.com/company/quantiva",
+        "twitter": "https://twitter.com/quantiva",
+        "github": "https://github.com/quantiva"
+      },
+      "legal": {
+        "imprint": "Impressum",
+        "privacy": "Datenschutz",
+        "terms": "AGB"
+      }
+    },
+    "en": {
+      "tagline": "Your partner for digital transformation",
+      "copyright": "© 2025 Quantiva Advisory. All rights reserved.",
+      "quickLinks": {
+        "title": "Quick Links",
+        "items": [
+          { "label": "Home", "href": "#home" },
+          { "label": "About", "href": "#about" },
+          { "label": "Services", "href": "#services" },
+          { "label": "References", "href": "#references" },
+          { "label": "Contact", "href": "#contact" }
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "info@quantivaadvisory.com",
+        "phone": "+49 (0) 123 456789",
+        "address": "Musterstraße 123, 12345 Hamburg"
+      },
+      "social": {
+        "title": "Follow us",
+        "linkedin": "https://linkedin.com/company/quantiva",
+        "twitter": "https://twitter.com/quantiva",
+        "github": "https://github.com/quantiva"
+      },
+      "legal": {
+        "imprint": "Imprint",
+        "privacy": "Privacy",
+        "terms": "Terms"
+      }
+    }
+  },
+  "navigation": {
+    "de": {
+      "items": [
+        { "id": "home", "label": "Home", "href": "#home" },
+        { "id": "about", "label": "Über uns", "href": "#about" },
+        { "id": "team", "label": "Team", "href": "#team" },
+        { "id": "services", "label": "Services", "href": "#services" },
+        { "id": "cases", "label": "Referenzen", "href": "/de/cases" },
+        { "id": "careers", "label": "Karriere", "href": "#careers" },
+        { "id": "contact", "label": "Kontakt", "href": "#contact" }
+      ],
+      "cta": "Termin buchen"
+    },
+    "en": {
+      "items": [
+        { "id": "home", "label": "Home", "href": "#home" },
+        { "id": "about", "label": "About", "href": "#about" },
+        { "id": "team", "label": "Team", "href": "#team" },
+        { "id": "services", "label": "Services", "href": "#services" },
+        { "id": "cases", "label": "References", "href": "/en/cases" },
+        { "id": "careers", "label": "Careers", "href": "#careers" },
+        { "id": "contact", "label": "Contact", "href": "#contact" }
+      ],
+      "cta": "Book Meeting"
+    }
+  }
+}
+

@@ -12,6 +12,7 @@ import CreateCaseGuide from './docs/pages/how-to/create-case.mdx';
 import ReviewPublishGuide from './docs/pages/how-to/review-publish.mdx';
 import AssetsGuide from './docs/pages/how-to/assets.mdx';
 import CookieBanner from './components/CookieBanner';
+import { ContentProvider } from './contexts/ContentContext';
 
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
@@ -69,37 +70,39 @@ function RootRedirect() {
 function App() {
   return (
     <Router>
-      <MDXRoot>
-        <Routes>
-          {/* Root - redirect to language */}
-          <Route path="/" element={<RootRedirect />} />
+      <ContentProvider>
+        <MDXRoot>
+          <Routes>
+            {/* Root - redirect to language */}
+            <Route path="/" element={<RootRedirect />} />
 
-          {/* Admin dashboard - no language prefix */}
-          <Route path="/admin" element={<AdminDashboard />} />
+            {/* Admin dashboard - no language prefix */}
+            <Route path="/admin" element={<AdminDashboard />} />
 
-          {/* Documentation - no language prefix */}
-          <Route path="/docs" element={<DocsLayout />}>
-            <Route index element={<DocsIndex />} />
-            <Route path="cms-workflow" element={<CMSWorkflow />} />
-            <Route path="admin" element={<AdminDocs />} />
-            <Route path="content-model" element={<ContentModel />} />
-            
-            {/* How-to Guides */}
-            <Route path="how-to/create-case" element={<CreateCaseGuide />} />
-            <Route path="how-to/review-publish" element={<ReviewPublishGuide />} />
-            <Route path="how-to/assets" element={<AssetsGuide />} />
-          </Route>
+            {/* Documentation - no language prefix */}
+            <Route path="/docs" element={<DocsLayout />}>
+              <Route index element={<DocsIndex />} />
+              <Route path="cms-workflow" element={<CMSWorkflow />} />
+              <Route path="admin" element={<AdminDocs />} />
+              <Route path="content-model" element={<ContentModel />} />
+              
+              {/* How-to Guides */}
+              <Route path="how-to/create-case" element={<CreateCaseGuide />} />
+              <Route path="how-to/review-publish" element={<ReviewPublishGuide />} />
+              <Route path="how-to/assets" element={<AssetsGuide />} />
+            </Route>
 
-          {/* Language-prefixed routes: /:lng/* */}
-          <Route path="/:lng/*" element={<WithLocaleRoutes />} />
+            {/* Language-prefixed routes: /:lng/* */}
+            <Route path="/:lng/*" element={<WithLocaleRoutes />} />
 
-          {/* Fallback - redirect to German */}
-          <Route path="*" element={<Navigate to="/de/" replace />} />
-        </Routes>
-        
-        {/* Cookie Banner (global) */}
-        <CookieBanner />
-      </MDXRoot>
+            {/* Fallback - redirect to German */}
+            <Route path="*" element={<Navigate to="/de/" replace />} />
+          </Routes>
+          
+          {/* Cookie Banner (global) */}
+          <CookieBanner />
+        </MDXRoot>
+      </ContentProvider>
     </Router>
   );
 }
