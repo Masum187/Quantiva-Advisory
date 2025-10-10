@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   Menu, X, ChevronRight,
   Shield, Mail, Phone, ArrowRight,
-  Brain, Boxes, Cog, Briefcase, Send, Users, Database, Cloud
+  Brain, Boxes, Cog, Briefcase, Send, Users
 } from "lucide-react";
 import casesData from "./data/cases.json";
 import { analytics } from "./utils/analytics";
@@ -31,7 +31,6 @@ import {
  */
 
 const CAREER_FORM_URL = "https://example.com/career-form";
-const CALENDLY_URL = "https://calendly.com/quantivaadvisory";
 
 // helpers
 const ORIGIN = (typeof window !== 'undefined' && window.location.origin) || 'https://quantivaadvisory.com';

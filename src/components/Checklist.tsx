@@ -76,7 +76,7 @@ export function CheckItem({
   children: React.ReactNode;
   defaultChecked?: boolean;
 }) {
-  const { ns, values, toggle } = useChecklist();
+  const { values, toggle } = useChecklist();
   const checked = values[id] ?? defaultChecked;
 
   // A11y: label + keyboard toggle (Space/Enter)
