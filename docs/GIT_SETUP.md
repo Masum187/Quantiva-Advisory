@@ -367,3 +367,4 @@ git reset --hard HEAD~1
 ---
 
 *Letzte Aktualisierung: Oktober 2025*
+

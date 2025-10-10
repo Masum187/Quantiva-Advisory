@@ -4,11 +4,20 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   Menu, X, ChevronRight,
   Shield, Mail, Phone, ArrowRight,
-  Brain, Boxes, Cog, Briefcase, Send, Users
+  Brain, Boxes, Cog, Briefcase, Send, Users, Database, Cloud
 } from "lucide-react";
 import casesData from "./data/cases.json";
 import { analytics } from "./utils/analytics";
-import { useTeam } from "./contexts/ContentContext";
+import {
+  useTeam,
+  useHero,
+  useServices,
+  useNavigationContent,
+  useFooterContent,
+  useContactContent,
+  useMeetingContent,
+  useCareersContent
+} from "./contexts/ContentContext";
 
 /**
  * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
@@ -562,6 +571,9 @@ function MeetingCalendlySection() {
 // ────────────────────────────────────────────────────────────────────────────────
 export default function QuantivaWebsite() {
   const { lang, setLang, localePath } = useLanguage();
+  const hero = useHero(lang);
+  const nav = useNavigationContent(lang);
+  const services = useServices(lang);
 
   const scrollTo = (id: string) => {
     // Track navigation
@@ -574,7 +586,6 @@ export default function QuantivaWebsite() {
 
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
-  const navLabel = (item: any) => (lang === 'de' ? item.de : item.en);
 
   const siteTitle = 'Quantiva Advisory – Strategie · Engineering · Enablement';
   const siteDesc = 'Digitale Exzellenz mit SAP, Cloud & Compliance.';
@@ -637,13 +648,23 @@ export default function QuantivaWebsite() {
 
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-2 md:flex">
-            {NAV_ITEMS.map((it) => (
+            {nav.items.map((it) => (
               <button
                 key={it.id}
-                onClick={() => scrollTo(it.id)}
+                onClick={() => {
+                  if (it.href) {
+                    if (it.href.startsWith('/')) {
+                      window.location.href = it.href;
+                    } else {
+                      scrollTo(it.id);
+                    }
+                  } else {
+                    scrollTo(it.id);
+                  }
+                }}
                 className="px-4 py-2 rounded-md hover:bg-white/10 transition text-sm"
               >
-                {navLabel(it)}
+                {it.label}
               </button>
             ))}
             <button
@@ -690,29 +711,26 @@ export default function QuantivaWebsite() {
           className="relative z-10 mx-auto max-w-5xl px-6 text-center text-white"
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight">
-            {lang === 'de' ? (
-              <>Gemeinsam neu erfinden <span className="text-teal-300">mit messbarem Mehrwert</span></>
-            ) : (
-              <>Reinvent together <span className="text-teal-300">with measurable impact</span></>
-            )}
+            {hero.title}
           </h1>
+          <p className="mx-auto mt-3 max-w-xl text-xl md:text-2xl text-teal-400 font-semibold">
+            {hero.subtitle}
+          </p>
           <p className="mx-auto mt-5 max-w-2xl text-lg md:text-xl text-white/90">
-            {lang === 'de'
-              ? 'Strategie, Engineering & Enablement – sicher, compliant, skalierbar.'
-              : 'Strategy, engineering & enablement – secure, compliant, scalable.'}
+            {hero.description}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <button
               onClick={() => scrollTo('services')}
               className="inline-flex items-center gap-2 rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold shadow hover:bg-teal-600"
             >
-              {lang === 'de' ? 'Leistungen ansehen' : 'View services'} <ChevronRight className="h-5 w-5" />
+              {hero.ctaPrimary} <ChevronRight className="h-5 w-5" />
             </button>
             <a
               href={localePath('/cases')}
               className="inline-flex items-center gap-2 rounded-2xl bg-white/90 px-6 py-3 text-base font-semibold text-slate-900 shadow hover:bg-white"
             >
-              {lang === 'de' ? 'Angebote entdecken' : 'Explore offers'} <ChevronRight className="h-5 w-5" />
+              {hero.ctaSecondary} <ChevronRight className="h-5 w-5" />
             </a>
           </div>
         </motion.div>
@@ -729,77 +747,32 @@ export default function QuantivaWebsite() {
         <div className="mx-auto max-w-7xl px-6">
           <SlideIn direction="up" delay={0.1}>
             <h2 className="text-center text-3xl font-bold text-white md:text-4xl">
-              {lang === 'de' ? 'Unsere Leistungen' : 'Our Services'}
+              {services.title}
             </h2>
           </SlideIn>
           <SlideIn direction="up" delay={0.2}>
             <p className="mx-auto mt-3 max-w-2xl text-center text-gray-400">
-              {lang === 'de'
-                ? 'Von der Analyse bis zum Betrieb – mit klarer Wirkung.'
-                : 'From assessment to operations – with clear outcomes.'}
+              {services.subtitle}
             </p>
           </SlideIn>
 
           <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                titleDe: "Cyber Security",
-                titleEn: "Cyber Security",
-                textDe: "Zero Trust, Penetration Testing und Sicherheitsarchitekturen.",
-                textEn: "Zero Trust, penetration testing and security architectures.",
-                img: "https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop",
-              },
-              {
-                titleDe: "Microservices & APIs",
-                titleEn: "Microservices & APIs",
-                textDe: "Skalierbare Microservice-Architekturen und API-first Designs.",
-                textEn: "Scalable microservice architectures and API-first designs.",
-                img: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop",
-              },
-              {
-                titleDe: "Künstliche Intelligenz (AI)",
-                titleEn: "Artificial Intelligence (AI)",
-                textDe: "KI-gestützte Lösungen zur Automatisierung und Wertschöpfung.",
-                textEn: "AI-powered solutions for automation and value creation.",
-                img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-              },
-              {
-                titleDe: "SAP Services",
-                titleEn: "SAP Services",
-                textDe: "ABAP, Fiori, SAP BTP & Integrationslösungen für moderne Prozesse.",
-                textEn: "ABAP, Fiori, SAP BTP & integration solutions for modern processes.",
-                img: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop",
-              },
-              {
-                titleDe: "Digitalstrategie",
-                titleEn: "Digital Strategy",
-                textDe: "Ganzheitliche Strategien für zukunftsfähige Geschäftsmodelle.",
-                textEn: "Holistic strategies for future-ready business models.",
-                img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
-              },
-              {
-                titleDe: "Cloud-Lösungen",
-                titleEn: "Cloud Solutions",
-                textDe: "Skalierbare Architekturen und DevOps-Enablement.",
-                textEn: "Scalable architectures and DevOps enablement.",
-                img: "https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?q=80&w=1200&auto=format&fit=crop",
-              },
-            ].map((s) => (
-              <article key={s.titleEn} className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300">
+            {services.items.slice(0, 6).map((service) => (
+              <article key={service.id} className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300">
                 {/* Hintergrundbild mit Zoom beim Hover */}
                 <div
                   className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${s.img})` }}
+                  style={{ backgroundImage: `url(https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop)` }}
                 />
                 {/* Gradient-Overlay (wird dunkler beim Hover) */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition group-hover:bg-black/70" />
                 {/* Titel (immer sichtbar) */}
                 <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
-                  <h3 className="text-xl font-semibold drop-shadow-lg">{lang === 'de' ? s.titleDe : s.titleEn}</h3>
+                  <h3 className="text-xl font-semibold drop-shadow-lg">{service.title}</h3>
                 </div>
                 {/* Beschreibung (fährt beim Hover hoch) */}
                 <div className="absolute inset-0 z-20 flex translate-y-full items-center justify-center bg-gradient-to-br from-black/95 via-slate-900/95 to-black/95 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
-                  <p className="max-w-sm text-base text-gray-200">{lang === 'de' ? s.textDe : s.textEn}</p>
+                  <p className="max-w-sm text-base text-gray-200">{service.description}</p>
                 </div>
               </article>
             ))}
@@ -815,23 +788,23 @@ export default function QuantivaWebsite() {
         <div className="mx-auto max-w-4xl px-6 text-center">
           <SlideIn direction="up" delay={0.1}>
             <h2 className="text-3xl font-bold drop-shadow-lg">
-              {lang === 'de' ? 'Bereit für den nächsten Schritt?' : 'Ready for the next step?'}
-            </h2>
+            {lang === 'de' ? 'Bereit für den nächsten Schritt?' : 'Ready for the next step?'}
+          </h2>
           </SlideIn>
           <SlideIn direction="up" delay={0.2}>
             <p className="mt-2 text-white/95 text-lg">
-              {lang === 'de'
-                ? 'Sprechen wir über messbare Ergebnisse – passend zu Ihren Zielen.'
-                : "Let's talk measurable outcomes – aligned to your goals."}
-            </p>
+            {lang === 'de'
+              ? 'Sprechen wir über messbare Ergebnisse – passend zu Ihren Zielen.'
+              : "Let's talk measurable outcomes – aligned to your goals."}
+          </p>
           </SlideIn>
           <SlideIn direction="up" delay={0.3}>
-            <a
-              href={localePath('/#contact')}
+          <a
+            href={localePath('/#contact')}
               className="mt-6 inline-block rounded-2xl bg-white px-8 py-4 font-bold text-teal-600 shadow-xl hover:bg-gray-100 hover:scale-105 transition-transform"
-            >
-              {lang === 'de' ? 'Kontakt aufnehmen' : 'Get in touch'}
-            </a>
+          >
+            {lang === 'de' ? 'Kontakt aufnehmen' : 'Get in touch'}
+          </a>
           </SlideIn>
         </div>
       </section>

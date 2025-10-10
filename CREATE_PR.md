@@ -218,3 +218,5 @@ Oder gehen Sie zu:
 **Viel Erfolg mit dem Pull Request!** 🚀
 
 Öffnen Sie jetzt: https://github.com/Masum187/Quantiva-Advisory/compare/main...feature/mermaid-mdx-documentation
+
+

@@ -438,3 +438,5 @@ Aktuelles Setup beibehalten und MDX bei Bedarf später hinzufügen.
 **Priorität:** 🟡 Medium (Optional)  
 **Aufwand:** ~8-12 Stunden  
 **Erstellt:** Oktober 2025
+
+

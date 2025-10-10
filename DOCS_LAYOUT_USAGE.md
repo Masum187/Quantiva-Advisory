@@ -386,3 +386,5 @@ import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 **Status:** ✅ DocsLayout ist bereit  
 **Nächster Schritt:** Docs-Seiten erstellen  
 **Erstellt:** Oktober 2025
+
+
