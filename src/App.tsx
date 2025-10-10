@@ -23,6 +23,12 @@ import SAPPage from './pages/services/SAPPage';
 import DigitalStrategyPage from './pages/services/DigitalStrategyPage';
 import CloudPage from './pages/services/CloudPage';
 
+// Capability Detail Pages
+import CyberSecurityCapability from './pages/capabilities/CyberSecurityCapability';
+import MicroservicesCapability from './pages/capabilities/MicroservicesCapability';
+import AICapability from './pages/capabilities/AICapability';
+import SAPCapability from './pages/capabilities/SAPCapability';
+
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
 type Language = typeof VALID_LANGUAGES[number];
@@ -48,6 +54,12 @@ function WithLocaleRoutes() {
       <Route path="services/sap" element={<SAPPage />} />
       <Route path="services/digital-strategy" element={<DigitalStrategyPage />} />
       <Route path="services/cloud" element={<CloudPage />} />
+      
+      {/* Capability Detail Pages */}
+      <Route path="capabilities/cyber-security" element={<CyberSecurityCapability />} />
+      <Route path="capabilities/microservices" element={<MicroservicesCapability />} />
+      <Route path="capabilities/ai" element={<AICapability />} />
+      <Route path="capabilities/sap" element={<SAPCapability />} />
       
       {/* Cases overview for this language */}
       <Route path="cases" element={<CasesPage />} />

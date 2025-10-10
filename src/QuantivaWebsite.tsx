@@ -330,7 +330,7 @@ function ServicesDetailSection() {
       titleEn: "Cyber Security",
       bulletsDe: ["Zero Trust & IAM", "Security Architecture", "Audits & Hardening", "Threat Modeling"],
       bulletsEn: ["Zero trust & IAM", "Security architecture", "Audits & hardening", "Threat modeling"],
-      cta: "/cases/cyber-security",
+      cta: "/capabilities/cyber-security",
     },
     {
       icon: Boxes,
@@ -338,7 +338,7 @@ function ServicesDetailSection() {
       titleEn: "Microservices & APIs",
       bulletsDe: ["Domain-Driven Design", "API-Gateway & Governance", "Event-/Async-Patterns", "Observability"],
       bulletsEn: ["Domain-driven design", "API gateway & governance", "Event/async patterns", "Observability"],
-      cta: "/cases/microservices",
+      cta: "/capabilities/microservices",
     },
     {
       icon: Brain,
@@ -346,7 +346,7 @@ function ServicesDetailSection() {
       titleEn: "Artificial Intelligence (AI)",
       bulletsDe: ["Use-Case Discovery", "Model Training & Eval", "MLOps & GenAI", "Guardrails & Compliance"],
       bulletsEn: ["Use-case discovery", "Model training & eval", "MLOps & GenAI", "Guardrails & compliance"],
-      cta: "/cases/ai",
+      cta: "/capabilities/ai",
     },
     {
       icon: Cog,
@@ -354,7 +354,7 @@ function ServicesDetailSection() {
       titleEn: "SAP Services",
       bulletsDe: ["ABAP/Fiori", "SAP BTP & Integration", "GxP/CSV & Test Mgmt", "Change & Release"],
       bulletsEn: ["ABAP/Fiori", "SAP BTP & integration", "GxP/CSV & test mgmt", "Change & release"],
-      cta: "/cases/sap",
+      cta: "/capabilities/sap",
     },
   ];
   return (
