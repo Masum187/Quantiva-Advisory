@@ -18,6 +18,7 @@ import {
   useMeetingContent,
   useCareersContent
 } from "./contexts/ContentContext";
+import ReferencesSlider from "./components/ReferencesSlider";
 
 /**
  * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
@@ -797,6 +798,9 @@ export default function QuantivaWebsite() {
 
       {/* Services Detail */}
       <ServicesDetailSection />
+
+      {/* References Slider */}
+      <ReferencesSlider lang={lang} />
 
       {/* CTA Band */}
       <section className="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-16 text-white border-y border-teal-400/30 shadow-2xl shadow-teal-500/30">
