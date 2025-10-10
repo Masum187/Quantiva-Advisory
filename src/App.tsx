@@ -8,6 +8,7 @@ import DocsIndex from './docs/pages/index.mdx';
 import CMSWorkflow from './docs/pages/cms-workflow.mdx';
 import AdminDocs from './docs/pages/admin.mdx';
 import ContentModel from './docs/pages/content-model.mdx';
+import CookieBanner from './components/CookieBanner';
 
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
@@ -62,6 +63,9 @@ function App() {
           {/* This will be handled by the redirectFromRootIfNeeded() function */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        
+        {/* Cookie Banner (global) */}
+        <CookieBanner />
       </MDXRoot>
     </Router>
   );

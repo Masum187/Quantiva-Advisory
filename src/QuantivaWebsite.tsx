@@ -7,6 +7,7 @@ import {
   Brain, Boxes, Cog, Briefcase, Send, Users
 } from "lucide-react";
 import casesData from "./data/cases.json";
+import { analytics } from "./utils/analytics";
 
 /**
  * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
@@ -76,8 +77,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [lang]);
 
   const setLang: LangCtx['setLang'] = (l, opts) => {
+    const oldLang = lang;
     _setLang(l);
     try { localStorage.setItem('qlang', l); } catch {}
+    
+    // Track language switch
+    if (oldLang !== l) {
+      analytics.trackLanguageSwitch(oldLang, l);
+    }
+    
     if (opts?.navigate !== false && typeof window !== 'undefined') {
       const nextPath = replaceLocaleInPath(window.location.pathname, l);
       window.location.assign(nextPath + window.location.search + window.location.hash);
@@ -557,6 +565,7 @@ function MeetingCalendlySection() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-6 py-3 font-medium text-white hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition"
+              onClick={() => analytics.trackCalendlyOpen('fallback_button')}
             >
               {lang==='de'?'Zu Calendly →':'Go to Calendly →'}
             </a>
@@ -574,6 +583,9 @@ export default function QuantivaWebsite() {
   const { lang, setLang, localePath } = useLanguage();
 
   const scrollTo = (id: string) => {
+    // Track navigation
+    analytics.trackNavigationClick(id, window.location.pathname);
+    
     if (id === 'caseslink') { window.location.href = localePath('/cases'); return; }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1058,6 +1070,13 @@ export function CaseDetailPage() {
   // read slug from path
   const slug = (typeof window !== 'undefined') ? window.location.pathname.split('/').filter(Boolean).pop() || '' : '';
   const caseData = casesData.find(c => c.slug === slug) as any;
+
+  // Track case view
+  useEffect(() => {
+    if (caseData && slug) {
+      analytics.trackCaseView(slug, caseData.category || 'unknown');
+    }
+  }, [slug, caseData]);
 
   if (!caseData) {
     return (
