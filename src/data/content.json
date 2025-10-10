@@ -5,14 +5,18 @@
       "subtitle": "SAP · Cloud · AI · Integration",
       "description": "Strategische Beratung, technische Exzellenz und nachhaltige Lösungen für Ihren digitalen Erfolg",
       "ctaPrimary": "Jetzt Beraten lassen",
-      "ctaSecondary": "Referenzen ansehen"
+      "ctaSecondary": "Referenzen ansehen",
+      "backgroundVideo": "/assets/hero-bg.mp4",
+      "backgroundImage": "/assets/hero-fallback.jpg"
     },
     "en": {
       "title": "Digital Transformation for Your Business",
       "subtitle": "SAP · Cloud · AI · Integration",
       "description": "Strategic consulting, technical excellence and sustainable solutions for your digital success",
       "ctaPrimary": "Get Consulting Now",
-      "ctaSecondary": "View References"
+      "ctaSecondary": "View References",
+      "backgroundVideo": "/assets/hero-bg.mp4",
+      "backgroundImage": "/assets/hero-fallback.jpg"
     }
   },
   "about": {

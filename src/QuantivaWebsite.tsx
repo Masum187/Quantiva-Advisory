@@ -676,10 +676,10 @@ export default function QuantivaWebsite() {
 
       {/* Hero */}
       <section id="hero" className="relative min-h-[86vh] flex items-center justify-center overflow-hidden">
-        {/* Video/Bild-Hintergrund */}
+        {/* Video/Bild-Hintergrund - Medien aus CMS */}
         <motion.video
-          src="/assets/hero-bg.mp4"
-          poster="/assets/hero-fallback.jpg"
+          src={(hero as any).backgroundVideo || "/assets/hero-bg.mp4"}
+          poster={(hero as any).backgroundImage || "/assets/hero-fallback.jpg"}
           autoPlay
           muted
           loop
