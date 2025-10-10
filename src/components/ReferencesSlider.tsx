@@ -16,6 +16,7 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
       quote: lang === 'de' ? c.quote?.textDe : c.quote?.textEn,
       industry: c.industry,
       category: c.category,
+      logo: c.heroImage, // Verwende heroImage als Logo/Hintergrundbild
     }));
 
   // Dupliziere die Referenzen für nahtloses Looping
@@ -56,7 +57,7 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
           {duplicatedReferences.map((ref, index) => (
             <motion.div
               key={`${ref.id}-${index}`}
-              className="flex-shrink-0 w-[300px] h-[200px] rounded-3xl bg-gradient-to-br from-teal-500/20 via-slate-800/50 to-slate-900/80 border border-teal-500/30 p-6 shadow-xl shadow-teal-500/10 backdrop-blur-sm"
+              className="relative flex-shrink-0 w-[300px] h-[200px] rounded-3xl border border-teal-500/30 shadow-xl shadow-teal-500/10 overflow-hidden group"
               whileHover={{
                 scale: 1.05,
                 borderColor: 'rgba(20, 184, 166, 0.6)',
@@ -64,32 +65,46 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
               }}
               transition={{ duration: 0.3 }}
             >
-              {/* Quote Icon */}
-              <div className="mb-3">
-                <svg
-                  className="h-8 w-8 text-teal-400 opacity-50"
-                  fill="currentColor"
-                  viewBox="0 0 32 32"
-                >
-                  <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                </svg>
-              </div>
+              {/* Hintergrundbild (Logo/Hero Image) */}
+              {ref.logo && (
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                  style={{ backgroundImage: `url(${ref.logo})` }}
+                />
+              )}
+              
+              {/* Gradient Overlay für Lesbarkeit */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-800/90 to-black/95 backdrop-blur-[2px]" />
+              
+              {/* Content */}
+              <div className="relative z-10 h-full flex flex-col p-6">
+                {/* Quote Icon */}
+                <div className="mb-3">
+                  <svg
+                    className="h-8 w-8 text-teal-400 opacity-50"
+                    fill="currentColor"
+                    viewBox="0 0 32 32"
+                  >
+                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                  </svg>
+                </div>
 
-              {/* Quote Text */}
-              <p className="text-sm text-gray-200 leading-relaxed mb-4 line-clamp-4">
-                "{ref.quote}"
-              </p>
+                {/* Quote Text */}
+                <p className="text-sm text-white leading-relaxed mb-4 line-clamp-4 drop-shadow-lg">
+                  "{ref.quote}"
+                </p>
 
-              {/* Author & Tags */}
-              <div className="mt-auto">
-                <p className="text-xs font-semibold text-teal-400 mb-2">{ref.company}</p>
-                <div className="flex gap-2">
-                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30">
-                    {ref.industry}
-                  </span>
-                  <span className="inline-block px-2 py-1 text-xs rounded-full bg-slate-700/50 text-gray-300 border border-slate-600">
-                    {ref.category}
-                  </span>
+                {/* Author & Tags */}
+                <div className="mt-auto">
+                  <p className="text-xs font-semibold text-teal-400 mb-2 drop-shadow-md">{ref.company}</p>
+                  <div className="flex gap-2">
+                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-teal-500/30 text-teal-300 border border-teal-500/40 backdrop-blur-sm">
+                      {ref.industry}
+                    </span>
+                    <span className="inline-block px-2 py-1 text-xs rounded-full bg-slate-700/60 text-gray-200 border border-slate-600/50 backdrop-blur-sm">
+                      {ref.category}
+                    </span>
+                  </div>
                 </div>
               </div>
             </motion.div>
