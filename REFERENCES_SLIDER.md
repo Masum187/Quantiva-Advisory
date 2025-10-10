@@ -8,11 +8,13 @@ Ein animierter Slider, der Kundenreferenzen in Form von **Bubbles** (Karten) anz
 
 ### Visuelle Elemente:
 - ✅ **Bubble-Design**: Abgerundete Karten mit Gradient-Hintergrund
+- ✅ **Kunden-Logos**: Hero Images als Hintergrundbild (mit Overlay für Lesbarkeit)
 - ✅ **Automatisches Scrollen**: Von links nach rechts (nahtlose Loop-Animation)
-- ✅ **Hover-Effekt**: Karten vergrößern sich beim Hover (Scale 1.05)
+- ✅ **Hover-Effekt**: Karten vergrößern sich beim Hover (Scale 1.05) + Logo zoomt (Scale 1.10)
 - ✅ **Fade-Effekt**: Gradient-Overlays an den Seiten für sanften Übergang
 - ✅ **Quote-Icon**: Klassisches Anführungszeichen-Symbol
 - ✅ **Tags**: Branche und Kategorie als farbige Badges
+- ✅ **Drop-Shadow**: Text-Schatten für bessere Lesbarkeit über Bildern
 
 ### Farben & Styling:
 - **Hintergrund**: Gradient von `slate-900` → `slate-800` → `black`
@@ -44,6 +46,7 @@ import ReferencesSlider from './components/ReferencesSlider';
   - `quote.author` - Autor/Firma
   - `industry` - Branche (z.B. "Pharma", "Healthcare")
   - `category` - Kategorie (z.B. "Cloud", "Daten")
+  - `heroImage` - Logo/Hintergrundbild (wird als Background Image verwendet)
 
 ### Animation:
 - **Framer Motion**: `motion.div` mit `animate` prop
@@ -117,6 +120,7 @@ Aktuell werden folgende Referenzen angezeigt (mit Quotes):
   "titleEn": "Project Title",
   "category": "Cloud",
   "industry": "Finance",
+  "heroImage": "/assets/cases/neuer-case-hero.jpg",
   "quote": {
     "textDe": "Zitat auf Deutsch",
     "textEn": "Quote in English",
@@ -125,7 +129,28 @@ Aktuell werden folgende Referenzen angezeigt (mit Quotes):
 }
 ```
 
-2. **Speichern** - Der Slider zeigt die neue Referenz automatisch an!
+2. **Logo/Bild hinzufügen** in `public/assets/cases/` (empfohlen: 1200×630px)
+
+3. **Speichern** - Der Slider zeigt die neue Referenz automatisch an!
+
+## 🖼️ Logo/Hintergrundbild-Empfehlungen
+
+### Bildformat:
+- **Auflösung**: 1200×630px (optimal für OG-Images)
+- **Format**: JPG, PNG, WebP
+- **Dateigröße**: < 500KB (für schnelle Ladezeiten)
+- **Seitenverhältnis**: 16:9 oder 1.91:1
+
+### Bildinhalt:
+- **Kunden-Logo**: Zentriert oder dezent platziert
+- **Projekt-Bild**: Relevantes Bild zum Case (z.B. Dashboard, Architektur)
+- **Branding**: Dezent, nicht zu dominant (Overlay sorgt für Lesbarkeit)
+
+### Technische Details:
+- Das Bild wird als `background-image` mit `bg-cover` und `bg-center` dargestellt
+- Ein Gradient-Overlay (`slate-900/95` → `slate-800/90` → `black/95`) sorgt für Lesbarkeit
+- Beim Hover zoomt das Bild leicht (Scale 1.10) für einen dynamischen Effekt
+- `backdrop-blur-[2px]` sorgt für einen leichten Unschärfe-Effekt
 
 ## 🎨 Anpassungen
 
@@ -161,7 +186,9 @@ className="...bg-slate-700/50 text-gray-300..." // Kategorie
 
 - ✅ Automatisches Scrollen (links → rechts)
 - ✅ Nahtlose Loop-Animation
-- ✅ Hover-Effekt (Vergrößerung)
+- ✅ Hover-Effekt (Vergrößerung + Logo-Zoom)
+- ✅ Kunden-Logos als Hintergrundbilder
+- ✅ Gradient-Overlay für Lesbarkeit
 - ✅ Fade-Overlays an den Seiten
 - ✅ Responsive Design
 - ✅ Mehrsprachig (DE/EN)
@@ -169,6 +196,7 @@ className="...bg-slate-700/50 text-gray-300..." // Kategorie
 - ✅ Quote-Icon für visuelle Hierarchie
 - ✅ Branche & Kategorie Tags
 - ✅ Accessibility (ARIA-Labels)
+- ✅ Drop-Shadow für bessere Lesbarkeit
 
 ## 🚀 Performance
 
