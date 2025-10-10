@@ -1,6 +1,7 @@
 /**
  * Cookie Banner Component
  * GDPR-compliant consent banner for analytics
+ * Privacy-friendly, no cookies, anonymous tracking
  */
 
 import React, { useState, useEffect } from 'react';

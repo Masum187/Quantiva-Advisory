@@ -17,6 +17,7 @@ import { analytics } from "./utils/analytics";
  * - SEO: Organization, CollectionPage, Article JSON-LD
  * - Canonical, hreflang, Open Graph, Twitter Cards per page
  * - NEW: Global LanguageContext with URL prefix /de/ /en/
+ * - Analytics: Custom event tracking integrated
  */
 
 const CAREER_FORM_URL = "https://example.com/career-form";
