@@ -76,7 +76,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   }, [lang]);
 
-  const setLang: LangCtx['setLang'] = (l, opts) => {
+  const setLang: LangCtx['setLang'] = useCallback((l, opts) => {
     const oldLang = lang;
     _setLang(l);
     try { localStorage.setItem('qlang', l); } catch {}
@@ -90,7 +90,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const nextPath = replaceLocaleInPath(window.location.pathname, l);
       window.location.assign(nextPath + window.location.search + window.location.hash);
     }
-  };
+  }, [lang]);
 
   const localePath: LangCtx['localePath'] = useCallback((p) => {
     if (typeof window === 'undefined') return `/${lang}${p}`;
