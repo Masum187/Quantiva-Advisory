@@ -2,6 +2,16 @@
 
 So organisierst du Bilder/Videos für Cases.
 
+<GuideProgress ns="howto-assets" total={5} />
+
+<Checklist ns="howto-assets" title="Assets Checkliste">
+  <CheckItem id="naming">Naming-Schema prüfen (<code>/assets/cases/&lt;slug&gt;-hero.jpg</code>)</CheckItem>
+  <CheckItem id="upload">Bilder/Videos in <code>/public/assets/</code> hochladen</CheckItem>
+  <CheckItem id="paths">Pfade im Case-Drawer eintragen (heroImage/heroMedia)</CheckItem>
+  <CheckItem id="og">OG-Images generieren (<code>npm run generate:og</code>)</CheckItem>
+  <CheckItem id="verify">Assets im Browser testen</CheckItem>
+</Checklist>
+
 ## Pfade & Formate
 
 - **Bilder**: `/assets/...` (`.jpg`, `.jpeg`, `.png`, `.webp`)
@@ -206,6 +216,7 @@ cwebp -q 80 input.jpg -o output.webp
 - [Case anlegen](/docs/how-to/create-case) - Neuen Case mit Assets erstellen
 - [Review & Publish](/docs/how-to/review-publish) - Case freigeben
 - [Content Model](/docs/content-model) - Datenstruktur verstehen
+
 
 
 

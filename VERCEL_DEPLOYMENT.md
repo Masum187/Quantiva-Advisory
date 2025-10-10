@@ -266,3 +266,4 @@ Stellen Sie sicher, dass alle benötigten Variablen gesetzt sind.
 **Erstellt:** Oktober 2025
 
 
+

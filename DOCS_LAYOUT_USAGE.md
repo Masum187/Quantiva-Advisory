@@ -388,3 +388,4 @@ import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 **Erstellt:** Oktober 2025
 
 
+
