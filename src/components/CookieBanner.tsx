@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { setAnalyticsConsent, privacyConfig } from '../utils/privacy';
-import { X, Shield, CheckCircle } from 'lucide-react';
+import { X, Shield } from 'lucide-react';
 
 export default function CookieBanner() {
   const [show, setShow] = useState(false);
@@ -82,19 +82,19 @@ export default function CookieBanner() {
             {/* Privacy Features */}
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <Shield className="h-4 w-4 text-teal-400" />
                 <span>Keine Cookies</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <Shield className="h-4 w-4 text-teal-400" />
                 <span>Anonyme IPs</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <Shield className="h-4 w-4 text-teal-400" />
                 <span>GDPR-konform</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <Shield className="h-4 w-4 text-teal-400" />
                 <span>90 Tage Speicherung</span>
               </div>
             </div>

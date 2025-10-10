@@ -78,20 +78,20 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [lang]);
 
   const setLang: LangCtx['setLang'] = useCallback((l, opts) => {
-    const oldLang = lang;
-    _setLang(l);
+    _setLang((oldLang) => {
+      // Track language switch
+      if (oldLang !== l) {
+        analytics.trackLanguageSwitch(oldLang, l);
+      }
+      return l;
+    });
     try { localStorage.setItem('qlang', l); } catch {}
-    
-    // Track language switch
-    if (oldLang !== l) {
-      analytics.trackLanguageSwitch(oldLang, l);
-    }
     
     if (opts?.navigate !== false && typeof window !== 'undefined') {
       const nextPath = replaceLocaleInPath(window.location.pathname, l);
       window.location.assign(nextPath + window.location.search + window.location.hash);
     }
-  }, [lang]);
+  }, []);
 
   const localePath: LangCtx['localePath'] = useCallback((p) => {
     if (typeof window === 'undefined') return `/${lang}${p}`;
