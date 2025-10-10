@@ -745,21 +745,22 @@ export default function QuantivaWebsite() {
 
           <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {services.items.slice(0, 6).map((service, index) => {
+              // Reihenfolge entspricht content.json: sap, cloud, ai, integration, security, enablement
               const serviceUrls = [
-                'cyber-security',
-                'cloud',
-                'ai',
-                'sap',
-                'digital-strategy',
-                'microservices'
+                'sap',              // SAP Beratung
+                'cloud',            // Cloud Solutions
+                'ai',               // AI & Machine Learning
+                'microservices',    // System Integration
+                'cyber-security',   // Cyber Security
+                'digital-strategy'  // Enablement & Training
               ];
               const serviceImages = [
-                'https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop', // Cyber Security
+                'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop', // SAP
                 'https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?q=80&w=1200&auto=format&fit=crop', // Cloud
                 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop', // AI
-                'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop', // SAP
-                'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop', // Digital Strategy
-                'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop'  // Microservices
+                'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop', // Integration/Microservices
+                'https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop', // Cyber Security
+                'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop'  // Enablement/Training
               ];
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               
