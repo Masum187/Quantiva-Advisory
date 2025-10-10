@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { redirectFromRootIfNeeded } from './i18nRedirect';
 import { LanguageProvider } from './QuantivaWebsite';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Redirect from root to preferred language before React mounts
 redirectFromRootIfNeeded();
@@ -16,6 +17,7 @@ root.render(
   <React.StrictMode>
     <LanguageProvider>
       <App />
+      <SpeedInsights />
     </LanguageProvider>
   </React.StrictMode>
 );
