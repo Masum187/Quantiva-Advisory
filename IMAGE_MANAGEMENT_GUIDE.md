@@ -59,21 +59,28 @@
 />
 ```
 
-#### 2. **Service-Card-Bilder** ❌ HARDCODIERT
-- **Datei**: `src/QuantivaWebsite.tsx` (Zeile 758-764)
+#### 2. **Service-Card-Bilder** ✅ CMS (NEU!)
+- **Datei**: `src/data/content.json`
+- **Feld**: `services.items[].image`
 - **Pfade**: Unsplash-URLs (6 Bilder für die Service-Karten)
 - **Verwendung**: Hintergrundbilder der 6 Service-Karten auf der Startseite
-- **Verwaltung**: ❌ Hardcodiert im Code
+- **Verwaltung**: ✅ Vollständig über CMS editierbar
 
-```typescript
-const serviceImages = [
-  'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop', // SAP
-  'https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?q=80&w=1200&auto=format&fit=crop', // Cloud
-  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop', // AI
-  'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop', // Integration
-  'https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop', // Security
-  'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop'  // Enablement
-];
+```json
+{
+  "services": {
+    "de": {
+      "items": [
+        {
+          "id": "sap",
+          "title": "SAP Beratung",
+          "image": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?..."
+        },
+        ...
+      ]
+    }
+  }
+}
 ```
 
 #### 3. **OG-Images (Open Graph)** ❌ HARDCODIERT
@@ -143,32 +150,32 @@ const serviceImages = [
 | **Case-Bilder** | ~6 | ✅ Ja | `cases.json` → `heroImage` |
 | **Case-Videos** | ~2 | ✅ Ja | `cases.json` → `heroMedia` |
 | **Referenzen-Logos** | ~2 | ✅ Ja | `cases.json` → `heroImage` (wiederverwendet) |
+| **Service-Cards** | 6 | ✅ Ja | `content.json` → `services.items[].image` |
 | **Hero-Video** | 1 | ❌ Nein | Hardcodiert: `/assets/hero-bg.mp4` |
 | **Hero-Fallback** | 1 | ❌ Nein | Hardcodiert: `/assets/hero-fallback.jpg` |
-| **Service-Cards** | 6 | ❌ Nein | Hardcodiert: Unsplash-URLs |
 | **OG-Images** | ~10 | ❌ Nein | Automatisch generiert |
 | **Favicon/Icons** | 5 | ❌ Nein | Statische Assets |
 
 ### Statistik:
-- ✅ **CMS-verwaltbar**: ~10 Bilder (Team + Cases)
-- ❌ **Hardcodiert**: ~23 Bilder (Hero, Services, OG, Icons)
-- 📊 **CMS-Abdeckung**: ~30% der Bilder
+- ✅ **CMS-verwaltbar**: ~16 Bilder (Team + Cases + Services)
+- ❌ **Hardcodiert**: ~17 Bilder (Hero, OG, Icons)
+- 📊 **CMS-Abdeckung**: ~50% der Bilder ⬆️
 
 ---
 
 ## 🚀 Nächste Schritte (optional)
 
-### Option 1: Service-Bilder ins CMS migrieren
-**Aufwand**: ~30 Minuten  
-**Vorteil**: +6 Bilder im CMS verwaltbar (→ 50% Abdeckung)
+### ✅ Option 1: Service-Bilder ins CMS migrieren
+**Status**: ✅ **ERLEDIGT!**  
+**Ergebnis**: +6 Bilder im CMS verwaltbar (→ 50% Abdeckung erreicht!)
 
 ### Option 2: Hero-Video/Bild ins CMS migrieren
 **Aufwand**: ~20 Minuten  
-**Vorteil**: +2 Bilder im CMS verwaltbar
+**Vorteil**: +2 Bilder im CMS verwaltbar (→ 55% Abdeckung)
 
 ### Option 3: Alle Bilder ins CMS migrieren
-**Aufwand**: ~1-2 Stunden  
-**Vorteil**: 100% Bilder-Verwaltung über CMS
+**Aufwand**: ~1 Stunde  
+**Vorteil**: 100% Bilder-Verwaltung über CMS (außer OG-Images & Icons)
 
 ---
 
@@ -188,27 +195,35 @@ const serviceImages = [
 4. Speichere die Änderungen
 5. Lade das neue Bild in `public/assets/cases/` hoch
 
-### Service-Bilder ändern (aktuell):
-1. Öffne `src/QuantivaWebsite.tsx`
-2. Suche nach `serviceImages` (Zeile 758)
-3. Ändere die Unsplash-URL
-4. Speichere und committe die Änderung
+### Service-Bilder ändern:
+1. Öffne `/admin/content` im Browser
+2. Wähle **"Services"** Tab
+3. Scrolle zu den einzelnen Services (SAP, Cloud, AI, etc.)
+4. Ändere das `image` Feld (z.B. neue Unsplash-URL oder lokaler Pfad)
+5. Speichere die Änderungen
+6. Die Änderungen sind sofort sichtbar! ✨
 
 ---
 
-## 💡 Empfehlung
+## 💡 Status & Empfehlung
 
-**Für maximale Flexibilität** empfehle ich, die **Service-Card-Bilder** ins CMS zu migrieren. Das würde bedeuten:
+### ✅ **Erfolgreich umgesetzt!**
 
-- ✅ **50%+ aller Bilder** wären im CMS verwaltbar
+Die **Service-Card-Bilder** wurden ins CMS migriert! Das bedeutet:
+
+- ✅ **50% aller Bilder** sind jetzt im CMS verwaltbar
 - ✅ **Keine Code-Änderungen** mehr nötig für Bild-Updates
-- ✅ **Einfache Verwaltung** über das Admin-Dashboard
+- ✅ **Einfache Verwaltung** über `/admin/content`
+- ✅ **Sofortige Änderungen** ohne Deployment
 
-Soll ich das für dich umsetzen? 🚀
+### 🎯 Nächster Schritt (optional):
+
+Um noch mehr Flexibilität zu erreichen, könnte das **Hero-Video** und **Hero-Fallback-Bild** ebenfalls ins CMS migriert werden. Das würde die CMS-Abdeckung auf **55%** erhöhen.
 
 ---
 
 **Erstellt:** 2025-10-10  
-**Version:** 1.0  
-**Status:** ✅ Dokumentation vollständig
+**Aktualisiert:** 2025-10-10  
+**Version:** 2.0  
+**Status:** ✅ Service-Bilder ins CMS migriert (50% Abdeckung erreicht!)
 

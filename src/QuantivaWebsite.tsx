@@ -755,14 +755,6 @@ export default function QuantivaWebsite() {
                 'cyber-security',   // Cyber Security
                 'digital-strategy'  // Enablement & Training
               ];
-              const serviceImages = [
-                'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop', // SAP
-                'https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?q=80&w=1200&auto=format&fit=crop', // Cloud
-                'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop', // AI
-                'https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop', // Integration/Microservices
-                'https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop', // Cyber Security
-                'https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop'  // Enablement/Training
-              ];
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               
               return (
@@ -771,10 +763,10 @@ export default function QuantivaWebsite() {
                   onClick={() => window.location.href = serviceUrl}
                   className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300 cursor-pointer"
                 >
-                  {/* Hintergrundbild mit Zoom beim Hover */}
+                  {/* Hintergrundbild mit Zoom beim Hover - Bild aus CMS */}
                   <div
                     className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${serviceImages[index]})` }}
+                    style={{ backgroundImage: `url(${(service as any).image})` }}
                   />
                   {/* Gradient-Overlay (wird dunkler beim Hover) */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition group-hover:bg-black/70" />
