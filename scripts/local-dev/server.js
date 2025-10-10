@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files from the React app build directory
-app.use(express.static(path.join(__dirname, 'build')));
+// Note: This server is in scripts/local-dev/, so we need to go up 2 levels to reach build/
+app.use(express.static(path.resolve(__dirname, '../../build')));
 
 // API endpoint for contact form
 app.post('/api/contact', (req, res) => {
@@ -64,7 +65,7 @@ app.post('/api/contact', (req, res) => {
 
 // Catch all handler: send back React's index.html file for any non-API routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, '../../build/index.html'));
 });
 
 app.listen(PORT, () => {

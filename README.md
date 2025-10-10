@@ -100,28 +100,6 @@ This starts:
 
 The production build will be served on port 3001 (or the PORT environment variable).
 
-### Migration to Vite (Optional)
-
-If you want to migrate from Create React App to Vite for faster builds:
-
-1. Install Vite and plugins:
-   ```bash
-   npm install --save-dev vite @vitejs/plugin-react
-   ```
-
-2. Update package.json scripts:
-   ```json
-   {
-     "scripts": {
-       "dev": "vite",
-       "build": "vite build",
-       "preview": "vite preview"
-     }
-   }
-   ```
-
-3. The sitemap generation will continue to work with the `postbuild` hook.
-
 ## Project Structure
 
 ```

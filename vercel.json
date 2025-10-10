@@ -1,6 +1,42 @@
-{  "rewrites": [
+{
+  "version": 2,
+  "framework": "create-react-app",
+  "builds": [
     {
-      "source": "/(.*)",
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "rewrites": [
+    {
+      "source": "/(de|en)(/.*)?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/cases",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/cases/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin(.*)?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/docs(.*)?",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/services/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/capabilities/(.*)",
       "destination": "/index.html"
     }
   ],
@@ -14,5 +50,7 @@
         }
       ]
     }
-  ]
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
 }
