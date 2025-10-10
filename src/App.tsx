@@ -15,6 +15,14 @@ import AssetsGuide from './docs/pages/how-to/assets.mdx';
 import CookieBanner from './components/CookieBanner';
 import { ContentProvider } from './contexts/ContentContext';
 
+// Service Detail Pages
+import CyberSecurityPage from './pages/services/CyberSecurityPage';
+import MicroservicesPage from './pages/services/MicroservicesPage';
+import AIPage from './pages/services/AIPage';
+import SAPPage from './pages/services/SAPPage';
+import DigitalStrategyPage from './pages/services/DigitalStrategyPage';
+import CloudPage from './pages/services/CloudPage';
+
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
 type Language = typeof VALID_LANGUAGES[number];
@@ -32,6 +40,14 @@ function WithLocaleRoutes() {
     <Routes>
       {/* Homepage for this language */}
       <Route index element={<QuantivaWebsite />} />
+      
+      {/* Service Detail Pages */}
+      <Route path="services/cyber-security" element={<CyberSecurityPage />} />
+      <Route path="services/microservices" element={<MicroservicesPage />} />
+      <Route path="services/ai" element={<AIPage />} />
+      <Route path="services/sap" element={<SAPPage />} />
+      <Route path="services/digital-strategy" element={<DigitalStrategyPage />} />
+      <Route path="services/cloud" element={<CloudPage />} />
       
       {/* Cases overview for this language */}
       <Route path="cases" element={<CasesPage />} />

@@ -744,25 +744,44 @@ export default function QuantivaWebsite() {
           </SlideIn>
 
           <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.items.slice(0, 6).map((service) => (
-              <article key={service.id} className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300">
-                {/* Hintergrundbild mit Zoom beim Hover */}
-                <div
-                  className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
-                  style={{ backgroundImage: `url(https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop)` }}
-                />
-                {/* Gradient-Overlay (wird dunkler beim Hover) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition group-hover:bg-black/70" />
-                {/* Titel (immer sichtbar) */}
-                <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
-                  <h3 className="text-xl font-semibold drop-shadow-lg">{service.title}</h3>
-                </div>
-                {/* Beschreibung (fährt beim Hover hoch) */}
-                <div className="absolute inset-0 z-20 flex translate-y-full items-center justify-center bg-gradient-to-br from-black/95 via-slate-900/95 to-black/95 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
-                  <p className="max-w-sm text-base text-gray-200">{service.description}</p>
-                </div>
-              </article>
-            ))}
+            {services.items.slice(0, 6).map((service, index) => {
+              const serviceUrls = [
+                'cyber-security',
+                'cloud',
+                'ai',
+                'sap',
+                'digital-strategy',
+                'microservices'
+              ];
+              const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
+              
+              return (
+                <a 
+                  key={service.id} 
+                  href={serviceUrl}
+                  className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300 cursor-pointer"
+                >
+                  {/* Hintergrundbild mit Zoom beim Hover */}
+                  <div
+                    className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
+                    style={{ backgroundImage: `url(https://images.unsplash.com/photo-1605902711622-cfb43c4437d2?q=80&w=1200&auto=format&fit=crop)` }}
+                  />
+                  {/* Gradient-Overlay (wird dunkler beim Hover) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition group-hover:bg-black/70" />
+                  {/* Titel (immer sichtbar) */}
+                  <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
+                    <h3 className="text-xl font-semibold drop-shadow-lg">{service.title}</h3>
+                  </div>
+                  {/* Beschreibung (fährt beim Hover hoch) */}
+                  <div className="absolute inset-0 z-20 flex flex-col translate-y-full items-center justify-center bg-gradient-to-br from-black/95 via-slate-900/95 to-black/95 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
+                    <p className="max-w-sm text-base text-gray-200 mb-4">{service.description}</p>
+                    <span className="inline-flex items-center gap-2 text-teal-400 font-semibold">
+                      {lang === 'de' ? 'Mehr erfahren' : 'Learn more'} <ChevronRight className="w-5 h-5" />
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
           </StaggerSlideIn>
         </div>
       </section>
