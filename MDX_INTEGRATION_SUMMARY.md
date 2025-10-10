@@ -1,365 +1,276 @@
-# 🎉 MDX Integration - Erfolgreich abgeschlossen!
+# MDX Integration - Zusammenfassung & Status
 
-## ✅ Was wurde implementiert
-
-### 1. **CRACO Setup**
-- ✅ `@craco/craco` installiert
-- ✅ `craco.config.js` erstellt mit MDX-Loader-Konfiguration
-- ✅ `package.json` Scripts auf CRACO umgestellt (`start`, `build`, `test`)
-- ✅ Webpack-Config erweitert für `.mdx` und `.md` Dateien
-
-### 2. **MDX Dependencies**
-- ✅ `@mdx-js/react` installiert
-- ✅ `@mdx-js/loader` installiert
-- ✅ Babel-Loader Integration
-
-### 3. **Mermaid-Komponente aktualisiert**
-**Vorher:**
-```tsx
-<Mermaid chart={`flowchart TD...`} />
-```
-
-**Nachher:**
-```tsx
-<Mermaid>
-{`flowchart TD...`}
-</Mermaid>
-```
-
-**Änderungen:**
-- `chart` prop → `children` prop
-- `chartKey` prop hinzugefügt (optional)
-- MDX-kompatibel
-
-### 4. **MDXRoot Provider**
-**`src/mdx.tsx`** (neu):
-```tsx
-import { MDXProvider } from "@mdx-js/react";
-import Mermaid from "./components/Mermaid";
-
-const components = {
-  Mermaid: (props: any) => <Mermaid {...props} />,
-};
-
-export default function MDXRoot({ children }) {
-  return <MDXProvider components={components}>{children}</MDXProvider>;
-}
-```
-
-### 5. **DocsLayout erweitert**
-- ✅ `Outlet` von React Router importiert
-- ✅ `children` prop als optional markiert
-- ✅ Unterstützt beide Modi:
-  - Mit `children` (React-Komponenten)
-  - Mit `<Outlet />` (MDX-Seiten via Routing)
-
-### 6. **MDX-Seiten erstellt**
-
-#### **`src/docs/pages/index.mdx`**
-- Dokumentations-Übersicht
-- Quick Start Cards
-- Features Grid
-- Technische Referenz
-- Hilfe & Support
-
-#### **`src/docs/pages/cms-workflow.mdx`**
-- CMS Workflow & Berechtigungen
-- Mermaid Status-Flow-Diagramm
-- Rollen-Übersicht
-- Berechtigungs-Matrix
-- Best Practices
-- Wichtige Hinweise
-- CTA-Section
-
-### **`src/docs/pages/admin.mdx`** (NEU)
-- Admin Dashboard Dokumentation
-- Übersicht: Listenansicht, Galerie, Suche/Filter
-- Felder (CaseItem) mit Workflow-Feldern
-- Validierungsregeln
-- Workflow-Aktionen
-- Tipps für Owner/Reviewer, History, Dark Mode
-
-### **`src/docs/pages/content-model.mdx`** (NEU)
-- Content Model Entity-Beschreibung
-- Case-Struktur mit allen Feldern
-- Taxonomy (Kategorien, Branchen, Tech)
-- Medien-Richtlinien und Naming-Konventionen
-- Richtlinien für Content-Erstellung
-- Roadmap für zukünftige Features
-
-### 7. **Router aktualisiert**
-**`src/App.tsx`**:
-```tsx
-import MDXRoot from './mdx';
-import DocsLayout from './components/DocsLayout';
-import DocsIndex from './docs/pages/index.mdx';
-import CMSWorkflow from './docs/pages/cms-workflow.mdx';
-import AdminDocs from './docs/pages/admin.mdx';
-import ContentModel from './docs/pages/content-model.mdx';
-
-<Router>
-  <MDXRoot>
-    <Routes>
-      <Route path="/admin" element={<AdminDashboard />} />
-      
-      <Route path="/docs" element={<DocsLayout />}>
-        <Route index element={<DocsIndex />} />
-        <Route path="cms-workflow" element={<CMSWorkflow />} />
-        <Route path="admin" element={<AdminDocs />} />
-        <Route path="content-model" element={<ContentModel />} />
-      </Route>
-      
-      <Route path="/:lng/*" element={<WithLocaleRoutes />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  </MDXRoot>
-</Router>
-```
-
-### 8. **Cleanup**
-- ✅ `src/pages/DocsOverview.tsx` gelöscht
-- ✅ `src/pages/DocsWorkflow.tsx` gelöscht
-- ✅ Content zu MDX migriert
+**Datum:** 10. Oktober 2025  
+**Projekt:** Quantiva Website (Create React App)
 
 ---
 
-## 🚀 Verwendung
+## 🎯 Ziel
+Integration von MDX-Dokumentation in das bestehende CRA-Projekt mit Mermaid-Diagramm-Unterstützung.
 
-### **MDX-Seite erstellen:**
+---
 
-1. Erstelle neue `.mdx` Datei in `src/docs/pages/`:
+## ✅ Abgeschlossene Schritte
+
+### 1. Dependencies installiert
+- `@mdx-js/react` v3.1.1
+- `@mdx-js/loader` v3.1.1
+- `@craco/craco` v7.1.0
+- `mermaid` v11.12.0
+
+### 2. CRA auf CRACO umgestellt
+**`package.json`** - Scripts aktualisiert:
+```json
+"scripts": {
+  "start": "craco start",
+  "build": "craco build",
+  "test": "craco test"
+}
+```
+
+### 3. CRACO-Konfiguration erstellt
+**`craco.config.js`** (CommonJS-Format):
+- MDX-Loader mit Babel konfiguriert
+- `.mdx` und `.md` als resolvable Extensions hinzugefügt
+- Funktioniert **OHNE** `"type": "module"` in `package.json`
+
+### 4. Mermaid-Komponente aktualisiert
+**`src/components/Mermaid.tsx`**:
+- Von `chart` prop auf `children` prop umgestellt
+- Kompatibel mit MDX-Syntax: `<Mermaid>{chart}</Mermaid>`
+- Client-side Rendering mit `useEffect`
+
+### 5. MDX-Provider eingerichtet
+**`src/mdx.tsx`** (neu):
+- `MDXProvider` mit Mermaid-Komponente
+- Macht Mermaid global in allen MDX-Dateien verfügbar
+
+### 6. DocsLayout für MDX angepasst
+**`src/components/DocsLayout.tsx`**:
+- `children` prop optional gemacht
+- `Outlet` für React Router nested routes
+- Sidebar mit aktiven States
+- Mobile-responsive
+
+### 7. MDX-Seiten erstellt
+- **`src/docs/pages/index.mdx`** - Dokumentations-Übersicht
+- **`src/docs/pages/cms-workflow.mdx`** - CMS Workflow mit Mermaid-Diagramm
+- **`src/docs/pages/admin.mdx`** - Admin Dashboard Dokumentation
+- **`src/docs/pages/content-model.mdx`** - Content Model Dokumentation
+
+### 8. Router aktualisiert
+**`src/App.tsx`**:
+- `MDXRoot` Provider wrapper
+- Nested routes für `/docs` mit `DocsLayout`
+- MDX-Seiten als Route-Elemente
+
+### 9. Alte React-Seiten entfernt
+- ~~`src/pages/DocsOverview.tsx`~~ (gelöscht)
+- ~~`src/pages/DocsWorkflow.tsx`~~ (gelöscht)
+
+---
+
+## 🔧 Kritische Fixes
+
+### Problem: ES Module Scope Error
+**Fehler:**
+```
+ReferenceError: module is not defined in ES module scope
+```
+
+**Ursache:**
+- `package.json` enthielt `"type": "module"`
+- CRACO und `import-fresh` erwarten CommonJS
+- `craco.config.js` verwendet `module.exports`
+
+**Lösung:**
+1. ✅ `"type": "module"` aus `package.json` entfernt (Commit: `6e9cca2`)
+2. ✅ `craco.config.js` bleibt CommonJS-Format
+3. ✅ Keine `--config` Flags in npm scripts nötig
+
+### Commit History (relevant)
+```
+ab12ffd - chore: Trigger GitHub Actions rebuild after package.json fix
+6e9cca2 - fix: Remove "type": "module" from package.json for CRACO compatibility
+33a4176 - fix: Add ES Module wrapper for craco.config.cjs (reverted)
+03b22c2 - chore: Trigger GitHub Actions rebuild
+1446e27 - fix: Explicitly specify craco.config.cjs in npm scripts (reverted)
+```
+
+---
+
+## 📦 Dateistruktur
+
+```
+quantiva-website/
+├── craco.config.js                    # CRACO-Konfiguration (CommonJS)
+├── package.json                       # OHNE "type": "module"
+├── src/
+│   ├── mdx.tsx                       # MDXProvider (neu)
+│   ├── App.tsx                       # Router mit MDX-Support
+│   ├── components/
+│   │   ├── Mermaid.tsx              # Mermaid-Komponente (children prop)
+│   │   └── DocsLayout.tsx           # Docs-Layout (Outlet-Support)
+│   └── docs/
+│       └── pages/
+│           ├── index.mdx            # Docs-Übersicht (neu)
+│           ├── cms-workflow.mdx     # CMS Workflow (neu)
+│           ├── admin.mdx            # Admin Docs (neu)
+│           └── content-model.mdx    # Content Model (neu)
+```
+
+---
+
+## 🚀 Verfügbare Routes
+
+| Route                      | Komponente/Datei           | Beschreibung                |
+|----------------------------|----------------------------|-----------------------------|
+| `/admin`                   | `AdminDashboard.tsx`       | Admin Dashboard             |
+| `/docs`                    | `index.mdx`                | Dokumentations-Übersicht    |
+| `/docs/cms-workflow`       | `cms-workflow.mdx`         | Workflow & Berechtigungen   |
+| `/docs/admin`              | `admin.mdx`                | Admin Dashboard Doku        |
+| `/docs/content-model`      | `content-model.mdx`        | Content Model               |
+| `/:lng/`                   | `QuantivaWebsite.tsx`      | Hauptwebsite (DE/EN)        |
+| `/:lng/cases`              | `CasesPage`                | Case Studies Übersicht      |
+| `/:lng/cases/:slug`        | `CaseDetailPage`           | Case Study Detail           |
+
+---
+
+## ✅ Testing Checklist
+
+- [x] Dev-Server startet ohne Fehler (`npm start`)
+- [x] CRACO lädt `craco.config.js` korrekt
+- [x] MDX-Seiten werden korrekt gerendert
+- [x] Mermaid-Diagramme werden client-side gerendert
+- [x] DocsLayout Navigation funktioniert
+- [x] Active States in der Sidebar funktionieren
+- [x] Mobile-Responsiveness funktioniert
+- [x] Alle Routes sind erreichbar
+- [ ] GitHub Actions Build erfolgreich (warte auf neuesten Commit-Build)
+
+---
+
+## 🐛 Bekannte Probleme & Lösungen
+
+### 1. GitHub Actions Build läuft auf altem Commit
+**Problem:** GitHub Actions cached möglicherweise alte Commits.
+
+**Lösung:** 
+- Warten Sie 2-3 Minuten, bis GitHub den neuesten Commit (`ab12ffd`) aufnimmt
+- Der Build sollte dann automatisch erfolgreich sein
+- Falls nicht: Manuell einen neuen Build triggern über GitHub Actions UI
+
+### 2. Lokaler Dev-Server zeigt "module is not defined"
+**Problem:** Node.js cached die alte `package.json` mit `"type": "module"`.
+
+**Lösung:**
+1. Dev-Server stoppen (`Ctrl+C`)
+2. `node_modules/.cache/` löschen: `rm -rf node_modules/.cache`
+3. Dev-Server neu starten: `npm start`
+
+### 3. MDX-Import funktioniert nicht
+**Problem:** TypeScript kennt `.mdx` Extension nicht.
+
+**Lösung:** TypeScript-Deklaration hinzufügen:
+```ts
+// src/react-app-env.d.ts
+declare module '*.mdx' {
+  let MDXComponent: (props: any) => JSX.Element;
+  export default MDXComponent;
+}
+```
+
+---
+
+## 📚 Verwendung
+
+### Neue MDX-Seite hinzufügen
+
+1. **MDX-Datei erstellen:**
 ```mdx
+// src/docs/pages/neue-seite.mdx
 import Mermaid from "../../components/Mermaid";
 
-# Meine Dokumentation
+# Neue Seite
 
 <Mermaid>
-{`flowchart TD
-  A[Start] --> B[End]
+{`graph LR
+  A --> B
 `}
 </Mermaid>
 ```
 
-2. Importiere in `App.tsx`:
+2. **Route in App.tsx hinzufügen:**
 ```tsx
-import MyDocs from './docs/pages/my-docs.mdx';
-```
+import NeueSeite from './docs/pages/neue-seite.mdx';
 
-3. Füge Route hinzu:
-```tsx
 <Route path="/docs" element={<DocsLayout />}>
-  <Route path="my-docs" element={<MyDocs />} />
+  <Route index element={<DocsIndex />} />
+  <Route path="neue-seite" element={<NeueSeite />} />
 </Route>
 ```
 
-### **React-Komponenten in MDX:**
+3. **Link in Sidebar hinzufügen:**
+```tsx
+// src/components/DocsLayout.tsx
+<NavItem href="/docs/neue-seite">Neue Seite</NavItem>
+```
+
+### Mermaid-Diagramm in MDX verwenden
 
 ```mdx
-import { Button } from '../components/Button';
-
-# Meine Seite
-
-<Button onClick={() => alert('Hello')}>
-  Click me
-</Button>
-```
-
-### **Lucide Icons in MDX:**
-
-```mdx
-import { CheckCircle, XCircle } from 'lucide-react';
-
-## Features
-
-<CheckCircle className="h-6 w-6 text-green-600" />
+<Mermaid>
+{`flowchart TD
+  A[Start] --> B[End]
+  
+  classDef highlight fill:#10b981,stroke:#059669
+  class A highlight
+`}
+</Mermaid>
 ```
 
 ---
 
-## 📁 Dateistruktur
+## 🔗 Wichtige Links
 
-```
-quantiva-website/
-├── craco.config.js          # CRACO-Konfiguration
-├── package.json             # Scripts auf CRACO umgestellt
-├── src/
-│   ├── mdx.tsx             # MDXProvider
-│   ├── App.tsx             # Router mit MDXRoot
-│   ├── components/
-│   │   ├── Mermaid.tsx     # Aktualisiert (children prop)
-│   │   └── DocsLayout.tsx  # Erweitert (Outlet support)
-│   └── docs/
-│       └── pages/
-│           ├── index.mdx           # Docs-Übersicht
-│           └── cms-workflow.mdx    # CMS Workflow
-```
+- **Lokale Dev-URL:** http://localhost:3000/docs
+- **GitHub Repo:** https://github.com/Masum187/Quantiva-Advisory
+- **GitHub Actions:** https://github.com/Masum187/Quantiva-Advisory/actions
+- **Vercel Deployment:** (wird nach erfolgreichem Build automatisch deployt)
 
 ---
 
-## 🧪 Testing
+## 📝 Nächste Schritte (optional)
 
-### **Verfügbare Routes:**
-- ✅ http://localhost:3000/docs
-- ✅ http://localhost:3000/docs/cms-workflow
-- ✅ http://localhost:3000/admin
-
-### **Was testen:**
-1. Navigation zwischen Docs-Seiten
-2. Mermaid-Diagramm-Rendering
-3. Lucide Icons
-4. Responsive Design
-5. Dark Mode (falls aktiviert)
-6. Links zu externen Seiten
-7. Sidebar Active States
+1. **Search-Funktion:** Implementieren Sie eine echte Suche (z. B. mit Algolia oder Fuse.js)
+2. **Table of Contents:** Automatisch generiertes Inhaltsverzeichnis für lange MDX-Seiten
+3. **Code-Syntax-Highlighting:** Prism oder Shiki für Code-Blöcke
+4. **Dark Mode Toggle:** Persistente Dark Mode Präferenz
+5. **Versioning:** Support für mehrere Dokumentationsversionen
+6. **PDF Export:** Dokumentation als PDF exportieren
 
 ---
 
-## 🎨 Styling in MDX
+## ✨ Features
 
-### **Tailwind CSS funktioniert:**
-```mdx
-<div className="bg-blue-50 p-4 rounded-lg">
-  Custom Box
-</div>
-```
-
-### **Prose Styling:**
-MDX-Content wird automatisch mit Tailwind Typography gestylt:
-- `h1`, `h2`, `h3`, etc.
-- `p`, `ul`, `ol`, `li`
-- `a`, `strong`, `em`, `code`
-- `blockquote`, `pre`, `table`
-
-### **not-prose für Custom Styling:**
-```mdx
-<div className="not-prose">
-  {/* Hier wird Prose-Styling deaktiviert */}
-  <div className="grid grid-cols-3 gap-4">
-    ...
-  </div>
-</div>
-```
+- ✅ MDX-Support in Create React App (CRACO)
+- ✅ Mermaid-Diagramme (client-side rendering)
+- ✅ React Router nested routes
+- ✅ Responsive Sidebar Navigation
+- ✅ Active Route Highlighting
+- ✅ Dark Mode Support (CSS)
+- ✅ TypeScript Support
+- ✅ Tailwind CSS Styling
+- ✅ Prose Typography für Markdown
+- ✅ Mobile-First Design
 
 ---
 
-## 🔧 Konfiguration
+## 👨‍💻 Maintainer
 
-### **CRACO Config (`craco.config.js`):**
-```js
-module.exports = {
-  webpack: {
-    configure: (config) => {
-      // MDX-Lader
-      config.module.rules.push({
-        test: /\.mdx?$/,
-        use: [
-          { loader: require.resolve('babel-loader') },
-          { loader: require.resolve('@mdx-js/loader') }
-        ]
-      });
-      
-      // Extensions
-      config.resolve.extensions.push('.mdx', '.md');
-      
-      return config;
-    }
-  }
-};
-```
-
-### **Remark/Rehype Plugins hinzufügen:**
-```js
-{
-  loader: require.resolve('@mdx-js/loader'),
-  options: {
-    remarkPlugins: [remarkGfm, remarkToc],
-    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings]
-  }
-}
-```
+**Heri Jean Masum**  
+Pre Sales Consultant @ Quantiva Advisory
 
 ---
 
-## 📊 Statistiken
-
-**Dateien geändert:** 11
-- **Neu:** 4 (craco.config.js, mdx.tsx, 2x .mdx)
-- **Geändert:** 5 (package.json, App.tsx, DocsLayout.tsx, Mermaid.tsx, package-lock.json)
-- **Gelöscht:** 2 (DocsOverview.tsx, DocsWorkflow.tsx)
-
-**Zeilen:**
-- **Hinzugefügt:** +2444
-- **Entfernt:** -513
-- **Netto:** +1931
-
----
-
-## ✅ Vorteile
-
-1. **Bessere Content-Authoring-Experience**
-   - Markdown für Text
-   - React-Komponenten für Interaktivität
-   - Keine JSX-Boilerplate
-
-2. **Mermaid-Integration**
-   - Nahtlose Verwendung in MDX
-   - `children` prop statt `chart` prop
-   - Konsistent mit MDX-Syntax
-
-3. **Kein CRA Eject**
-   - CRACO überschreibt Webpack-Config
-   - Alle CRA-Features bleiben erhalten
-   - Updates weiterhin möglich
-
-4. **Wiederverwendbare Komponenten**
-   - Mermaid, Icons, Buttons, etc.
-   - Via MDXProvider global verfügbar
-   - Konsistentes Styling
-
-5. **Flexibles Routing**
-   - Nested Routes mit React Router
-   - DocsLayout als Wrapper
-   - Active Link Highlighting
-
----
-
-## 🚀 Nächste Schritte (optional)
-
-1. **Weitere Docs-Seiten:**
-   - `admin-dashboard.mdx`
-   - `content-model.mdx`
-   - `how-to/create-case.mdx`
-   - `how-to/review-publish.mdx`
-
-2. **Remark/Rehype Plugins:**
-   - `remark-gfm` (GitHub Flavored Markdown)
-   - `remark-toc` (Table of Contents)
-   - `rehype-slug` (Heading IDs)
-   - `rehype-autolink-headings` (Anchor Links)
-
-3. **Search Integration:**
-   - Algolia DocSearch
-   - Meilisearch
-   - Fuse.js (client-side)
-
-4. **Code Syntax Highlighting:**
-   - `rehype-prism-plus`
-   - `rehype-highlight`
-
----
-
-## 📚 Ressourcen
-
-- **MDX:** https://mdxjs.com/
-- **CRACO:** https://craco.js.org/
-- **React Router:** https://reactrouter.com/
-- **Tailwind Typography:** https://tailwindcss.com/docs/typography-plugin
-- **Mermaid:** https://mermaid.js.org/
-
----
-
-**Status:** ✅ **Erfolgreich abgeschlossen**  
-**Commit:** `79f1925`  
-**Branch:** `main`  
-**Datum:** Oktober 2025
-
+**Status:** ✅ **Lokal erfolgreich** | ⏳ **GitHub Actions Build läuft**
