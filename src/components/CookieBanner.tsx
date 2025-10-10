@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { hasAnalyticsConsent, setAnalyticsConsent, privacyConfig } from '../utils/privacy';
+import { setAnalyticsConsent, privacyConfig } from '../utils/privacy';
 import { X, Shield, CheckCircle } from 'lucide-react';
 
 export default function CookieBanner() {

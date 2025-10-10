@@ -99,7 +99,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return `/${current}${p.startsWith('/') ? p : `/${p}`}`;
   }, [lang]);
 
-  const value = useMemo(() => ({ lang, setLang, localePath }), [lang, localePath]);
+  const value = useMemo(() => ({ lang, setLang, localePath }), [lang, setLang, localePath]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
