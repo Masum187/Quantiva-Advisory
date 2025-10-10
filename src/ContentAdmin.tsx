@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Download, Upload, Eye, Code, Globe, FileText, Users } from 'lucide-react';
+import { Download, Upload, Eye, Globe, FileText, Users } from 'lucide-react';
 import contentData from './data/content.json';
 import teamData from './data/team.json';
 
