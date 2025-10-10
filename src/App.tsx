@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import QuantivaWebsite, { CasesPage, CaseDetailPage } from './QuantivaWebsite';
 import AdminDashboard from './AdminDashboard';
+import ContentAdmin from './ContentAdmin';
 import MDXRoot from './mdx';
 import DocsLayout from './components/DocsLayout';
 import DocsIndex from './docs/pages/index.mdx';
@@ -73,11 +74,12 @@ function App() {
       <ContentProvider>
         <MDXRoot>
           <Routes>
-            {/* Root - redirect to language */}
-            <Route path="/" element={<RootRedirect />} />
+          {/* Root - redirect to language */}
+          <Route path="/" element={<RootRedirect />} />
 
-            {/* Admin dashboard - no language prefix */}
-            <Route path="/admin" element={<AdminDashboard />} />
+          {/* Admin dashboard - no language prefix */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/content" element={<ContentAdmin />} />
 
             {/* Documentation - no language prefix */}
             <Route path="/docs" element={<DocsLayout />}>
