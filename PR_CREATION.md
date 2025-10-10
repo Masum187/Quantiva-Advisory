@@ -1,16 +1,27 @@
 # PR Creation Feature - Quantiva Admin Dashboard
 
-## ✅ **Complete Implementation**
+> ⚠️ **DEPRECATED**: The serverless API function `/api/create-pr.ts` has been removed from the codebase.  
+> The current workflow uses **direct file editing** via the Admin Dashboard with manual Git commits.  
+> See [Current Workflow](#current-workflow) below for the updated process.
 
-### 🎯 **What's Been Implemented:**
+---
 
-1. **Serverless API Function** (`/api/create-pr.ts`):
-   - ✅ **Vercel-compatible** serverless function
-   - ✅ **GitHub integration** via Octokit
-   - ✅ **Secure token handling** (server-side only)
-   - ✅ **Branch creation** with unique timestamps
-   - ✅ **File commit** with proper author information
-   - ✅ **Pull Request creation** with descriptive titles
+## ⚠️ **Legacy Implementation (DEPRECATED)**
+
+The following documentation describes the **original serverless API approach**, which has been **removed** due to:
+- Vercel Edge Function compatibility issues
+- Missing dependencies in production builds
+- Simplified workflow via direct file editing
+
+### 🎯 **What Was Implemented (Legacy):**
+
+1. **Serverless API Function** (`/api/create-pr.ts`) - **REMOVED**:
+   - ❌ ~~Vercel-compatible serverless function~~
+   - ❌ ~~GitHub integration via Octokit~~
+   - ❌ ~~Secure token handling (server-side only)~~
+   - ❌ ~~Branch creation with unique timestamps~~
+   - ❌ ~~File commit with proper author information~~
+   - ❌ ~~Pull Request creation with descriptive titles~~
 
 2. **Admin Dashboard Integration**:
    - ✅ **PR Creation Button** in toolbar
@@ -254,17 +265,64 @@ vercel --prod
    curl -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO
    ```
 
-### 🎯 **Ready for Production!**
+---
 
-The PR creation feature provides:
+## ✅ **Current Workflow** (Updated 2025-10-10)
 
-- ✅ **Seamless integration** with existing CI/CD pipeline
-- ✅ **Secure token handling** with server-side processing
-- ✅ **User-friendly interface** with clear feedback
-- ✅ **Robust error handling** for edge cases
-- ✅ **Production-ready** with proper validation
-- ✅ **Team collaboration** through PR workflow
-- ✅ **Data quality assurance** through automated validation
-- ✅ **Version control** with proper Git history
+The **simplified workflow** for content updates:
 
-**The admin dashboard now supports full production workflow with automated PR creation!** 🚀
+### 1. **Edit Content via Admin Dashboard**
+- Navigate to `/admin` or `/admin/content`
+- Make changes to cases, services, team, or other content
+- Click **"Download JSON"** to export changes
+
+### 2. **Manual Git Commit**
+```bash
+# Copy downloaded JSON to src/data/
+cp ~/Downloads/cases.json src/data/cases.json
+
+# Review changes
+git diff src/data/cases.json
+
+# Commit changes
+git add src/data/cases.json
+git commit -m "Update: cases.json via Admin Dashboard"
+
+# Push to GitHub
+git push origin main
+```
+
+### 3. **Automated Deployment**
+- Vercel automatically deploys on push to `main`
+- GitHub Actions run validation tests
+- Changes go live within ~2 minutes
+
+### 🎯 **Benefits of Current Workflow:**
+
+- ✅ **No serverless dependencies** - Simpler build process
+- ✅ **Direct file editing** - No API overhead
+- ✅ **Git history intact** - Manual commits with proper messages
+- ✅ **Faster deployments** - No API function cold starts
+- ✅ **Easier debugging** - Transparent Git workflow
+- ✅ **Version control** - Full control over commit messages
+
+### 📝 **Alternative: GitHub Web UI**
+
+You can also edit files directly on GitHub:
+1. Navigate to `src/data/cases.json` on GitHub
+2. Click **"Edit this file"** (pencil icon)
+3. Paste JSON content from Admin Dashboard
+4. Add commit message
+5. Click **"Commit changes"**
+
+---
+
+## 🔧 **For Future Reference: API Implementation**
+
+If you want to **re-implement** the serverless API approach:
+1. Review commit history for `/api/create-pr.ts` implementation
+2. Add missing dependencies: `@octokit/rest`, `@vercel/node`
+3. Configure environment variables on Vercel
+4. See legacy documentation above for code examples
+
+**Current Status**: API removed in favor of simplified Git workflow ✅

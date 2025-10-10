@@ -1,0 +1,46 @@
+name: Generate sitemap
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/data/cases.json'
+      - 'src/App.tsx'
+      - 'sitemap.mjs'
+      - 'package.json'
+  schedule:
+    - cron: '0 2 * * 1' # every Monday 02:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install deps (ci)
+        run: npm ci
+
+      - name: Generate sitemap
+        run: node sitemap.mjs
+
+      - name: Commit and push sitemap if changed
+        run: |
+          if [[ -n "$(git status --porcelain public/sitemap.xml)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/sitemap.xml
+            git commit -m "chore(ci): update sitemap.xml"
+            git push
+          else
+            echo "No sitemap changes"
+          fi
+

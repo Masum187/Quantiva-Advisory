@@ -62,17 +62,19 @@ A modern, responsive website for Quantiva Advisory with internationalization (Ge
 
 2. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Running with API Server
+### Local API Server (optional)
 
-To test the contact form functionality, run both the React app and the API server:
+This project deploys as a **static SPA on Vercel**. The included Express server is only for local experiments and lives under `scripts/local-dev/server.js`.
+
+Run both in development:
 
 ```bash
 npm run dev
 ```
 
-This will start:
-- React development server on port 3000
-- Express API server on port 3001
+This starts:
+- React dev server on port 3000
+- Local dev server on port 3001 (optional)
 
 ### Building for Production
 
@@ -138,8 +140,9 @@ quantiva-website/
 │   ├── QuantivaWebsite.tsx # Main website component with all pages
 │   ├── App.tsx           # App wrapper with routing
 │   └── index.css         # Tailwind CSS imports
-├── sitemap.js            # Dynamic sitemap generation script
-├── server.js             # Express API server
+├── sitemap.mjs           # Dynamic sitemap generation script
+├── scripts/
+│   └── local-dev/server.js  # Local-only Express server (not deployed)
 ├── vercel.json           # Vercel deployment configuration
 ├── nginx.conf            # Nginx server configuration
 ├── deploy.sh             # Deployment script

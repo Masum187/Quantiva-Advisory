@@ -2,6 +2,12 @@
 
 > **Quantiva Enterprise CMS** – Rollenbasiertes Workflow-System für Content Management
 
+> ⚠️ **SECURITY WARNING - SERVER-ONLY CODE**  
+> This documentation contains example code with `process.env` variables (VERCEL_TOKEN, SLACK_WEBHOOK_URL, JWT_SECRET).  
+> **These examples must ONLY run on the server** (API routes, serverless functions, server-side code).  
+> **NEVER expose environment variables or secrets to the client-side bundle!**  
+> All code using `process.env` is marked with `⚠️ SERVER-ONLY` comments.
+
 ---
 
 ## 📋 Inhaltsverzeichnis
@@ -549,10 +555,12 @@ async function publishCase(slug: string) {
   
   await Promise.all([
     // Vercel Deployment triggern
+    // ⚠️ SERVER-ONLY: This code must run on the server (API route or serverless function)
+    // Never expose VERCEL_TOKEN or other secrets to the client!
     fetch('https://api.vercel.com/v1/deployments', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
+        Authorization: `Bearer ${process.env.VERCEL_TOKEN}`, // ⚠️ SERVER-ONLY
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -562,7 +570,8 @@ async function publishCase(slug: string) {
     }),
     
     // Slack-Benachrichtigung
-    fetch(process.env.SLACK_WEBHOOK_URL, {
+    // ⚠️ SERVER-ONLY: Webhook URLs must never be exposed to the client!
+    fetch(process.env.SLACK_WEBHOOK_URL, { // ⚠️ SERVER-ONLY
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -613,13 +622,15 @@ function generatePreviewLink(
   caseSlug: string, 
   expiresIn: number = 24 * 60 * 60 // 24 Stunden
 ): string {
+  // ⚠️ SERVER-ONLY: JWT signing must happen on the server
+  // Never expose JWT_SECRET to the client!
   const token = jwt.sign(
-    { 
-      slug: caseSlug, 
+    {
+      slug: caseSlug,
       type: 'preview',
       generatedBy: currentUser.email
     },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET, // ⚠️ SERVER-ONLY
     { expiresIn }
   );
   
@@ -644,7 +655,8 @@ export async function getServerSideProps(context) {
   const { slug, token } = context.query;
   
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // ⚠️ SERVER-ONLY: JWT verification must happen on the server
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // ⚠️ SERVER-ONLY
     
     if (decoded.slug !== slug || decoded.type !== 'preview') {
       throw new Error('Invalid token');
