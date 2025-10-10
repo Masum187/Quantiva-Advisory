@@ -288,7 +288,7 @@ function TeamSection() {
         
         <StaggerSlideIn className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {teamMembers.map((member, index) => (
-            <div key={member.name} className="flex gap-6 p-6 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
+            <div key={member.name} className="flex gap-6 p-6 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300 h-full min-h-[280px]">
               {/* Profilbild */}
               <div className="flex-shrink-0">
                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 border-2 border-teal-400/50 overflow-hidden">
@@ -312,7 +312,7 @@ function TeamSection() {
               </div>
               
               {/* Text-Informationen */}
-              <div className="flex-1 min-w-0">
+              <div className="flex-1 min-w-0 flex flex-col">
                 <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
                   {member.name}
                 </h3>
@@ -322,7 +322,7 @@ function TeamSection() {
                 <p className="text-gray-300 text-sm mb-3">
                   {lang === 'de' ? member.expertiseDe : member.expertiseEn}
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-400 text-sm leading-relaxed flex-grow">
                   {lang === 'de' ? member.descriptionDe : member.descriptionEn}
                 </p>
               </div>
