@@ -674,213 +674,113 @@ export default function QuantivaWebsite() {
         </div>
       </header>
 
-      {/* Hero - Ultra Modern with Animated Gradient Background */}
-      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Gradient Background - Multi-Layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-black" />
-        
-        {/* Animated Teal Gradient Layer */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-cyan-900/20 to-transparent"
-          animate={{
-            opacity: [0.4, 0.7, 0.4],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        
-        {/* Animated Blue Gradient Layer */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-tl from-blue-900/30 via-transparent to-teal-900/20"
-          animate={{
-            opacity: [0.3, 0.6, 0.3],
-            scale: [1.1, 1, 1.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-        
-        {/* Radial Gradient Overlay - Central Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/20 via-transparent to-transparent" />
-        
-        {/* Dark Vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-
-        {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-teal-400/40 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-
-        {/* Grid Pattern Overlay */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
+      {/* Hero - Accenture Style */}
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-black">
+        {/* Subtle Texture Background */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
         </div>
 
-        {/* Content Container */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ 
-            duration: 1, 
-            ease: [0.22, 1, 0.36, 1],
-            delay: 0.2 
-          }}
-          className="relative z-10 mx-auto max-w-6xl px-6 text-center"
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-teal-300 text-sm font-medium"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-            </span>
-            Ihre digitale Zukunft beginnt hier
-          </motion.div>
-
-          {/* Main Heading - with Gradient Text */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight text-white mb-6"
-          >
-            <span className="block">{hero.title.split('.')[0]}.</span>
-            <span className="block bg-gradient-to-r from-teal-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
-              {hero.title.split('.')[1] || 'Neu gedacht.'}
-            </span>
-          </motion.h1>
-
-          {/* Subtitle with Glassmorphism */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="mx-auto max-w-3xl mb-8"
-          >
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 shadow-2xl">
-              <p className="text-xl md:text-2xl text-teal-300 font-semibold mb-3">
-                {hero.subtitle}
-              </p>
-              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
-                {hero.description}
-              </p>
-            </div>
-          </motion.div>
-
-          {/* CTA Buttons - Modern Design */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <button
-              onClick={() => scrollTo('services')}
-              className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-lg font-bold rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-teal-500/50 hover:scale-105"
+        <div className="container mx-auto px-6 lg:px-12 py-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Main Heading - Accenture Style */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="relative z-10 flex items-center gap-2">
-                {hero.ctaPrimary} 
-                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </button>
-            
-            <a
-              href={localePath('/cases')}
-              className="group relative px-8 py-4 bg-white/10 backdrop-blur-md text-white text-lg font-bold rounded-2xl border-2 border-white/30 overflow-hidden transition-all duration-300 hover:bg-white/20 hover:border-teal-400 hover:scale-105"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                {hero.ctaSecondary}
-                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </a>
-          </motion.div>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.1] tracking-tight mb-8">
+                {lang === 'de' ? (
+                  <>
+                    DIGITALE<br />
+                    TRANSFORMATION<br />
+                    <span className="text-teal-400">NEU GEDACHT</span>
+                  </>
+                ) : (
+                  <>
+                    DIGITAL<br />
+                    TRANSFORMATION<br />
+                    <span className="text-teal-400">REIMAGINED</span>
+                  </>
+                )}
+              </h1>
 
-          {/* Stats Bar - Modern Tech Companies Style */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9 }}
-            className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto"
-          >
-            {[
-              { value: "50+", label: lang === 'de' ? "Erfolgreiche Projekte" : "Successful Projects" },
-              { value: "99%", label: lang === 'de' ? "Kundenzufriedenheit" : "Client Satisfaction" },
-              { value: "24/7", label: lang === 'de' ? "Support" : "Support" }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1 + index * 0.1 }}
-                className="text-center"
+              {/* Video Play Button */}
+              <button 
+                className="group flex items-center gap-3 text-white hover:text-teal-400 transition-colors"
+                onClick={() => scrollTo('services')}
               >
-                <div className="text-3xl md:text-4xl font-black text-teal-400 mb-2">
-                  {stat.value}
+                <div className="w-14 h-14 rounded-full border-2 border-white group-hover:border-teal-400 flex items-center justify-center transition-all group-hover:scale-110">
+                  <div className="w-0 h-0 border-l-[12px] border-l-current border-y-[8px] border-y-transparent ml-1"></div>
                 </div>
-                <div className="text-xs md:text-sm text-gray-400 font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+                <span className="text-sm font-medium uppercase tracking-wider">
+                  {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
+                </span>
+              </button>
+            </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col items-center gap-2 cursor-pointer"
-            onClick={() => scrollTo('services')}
-          >
-            <span className="text-white/60 text-sm font-medium">Scroll</span>
-            <ChevronRight className="h-5 w-5 text-teal-400 rotate-90" />
-          </motion.div>
-        </motion.div>
+            {/* Right: Content - Accenture Style */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              className="space-y-8"
+            >
+              {/* Subtitle with Accent */}
+              <div className="border-l-4 border-teal-500 pl-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-teal-400 mb-4">
+                  {hero.subtitle}
+                </h2>
+              </div>
+
+              {/* Description Text */}
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                {lang === 'de' ? (
+                  <>
+                    Die Technologien, die wir entwickeln, die Strategien, die wir umsetzen, 
+                    die Lösungen, die wir schaffen, die Expertise, die wir einbringen, 
+                    die Prozesse, die wir optimieren, die Systeme, die wir integrieren, 
+                    die Innovation, die wir vorantreiben – gemeinsam können wir alles neu erfinden.
+                  </>
+                ) : (
+                  <>
+                    The technologies we develop, the strategies we implement, 
+                    the solutions we create, the expertise we bring, 
+                    the processes we optimize, the systems we integrate, 
+                    the innovation we drive – together we can reinvent everything.
+                  </>
+                )}
+              </p>
+
+              {/* CTA Button */}
+              <a
+                href={localePath('/cases')}
+                className="inline-flex items-center gap-3 px-6 py-4 bg-teal-600 text-white text-base font-bold rounded-sm hover:bg-teal-500 transition-all group"
+              >
+                {lang === 'de' ? 'Was wir machen' : 'What we do'}
+                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </a>
+
+              {/* Stats - Minimalist */}
+              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800">
+                {[
+                  { value: "50+", label: lang === 'de' ? "Projekte" : "Projects" },
+                  { value: "99%", label: lang === 'de' ? "Zufriedenheit" : "Satisfaction" },
+                  { value: "24/7", label: "Support" }
+                ].map((stat, index) => (
+                  <div key={index} className="text-center lg:text-left">
+                    <div className="text-3xl md:text-4xl font-black text-white mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs text-gray-400 uppercase tracking-wider">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* About Teaser */}
