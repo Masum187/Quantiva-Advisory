@@ -158,6 +158,7 @@ function CareerLevelsCarousel({ levels, lang }: { levels: any[]; lang: string })
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Touch/Mouse drag handlers

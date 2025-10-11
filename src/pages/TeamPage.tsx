@@ -63,6 +63,7 @@ export default function TeamPage() {
     // Try to play after a short delay
     const timer = setTimeout(playAudio, 500);
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const content = {
@@ -242,7 +243,9 @@ export default function TeamPage() {
                       {t.cta}
                     </a>
                     <a
-                      href="#"
+                      href="https://www.linkedin.com/company/quantiva-advisory"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
                     >
                       <Linkedin className="h-5 w-5" />
