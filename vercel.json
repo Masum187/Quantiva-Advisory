@@ -7,7 +7,7 @@
       "use": "@vercel/static-build"
     }
   ],
-  "installCommand": "npm ci",
+  "installCommand": "npm ci --no-cache",
   "buildCommand": "npm run build",
   "outputDirectory": "build",
   "rewrites": [

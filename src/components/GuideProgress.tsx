@@ -64,3 +64,4 @@ export default function GuideProgress({ ns, total, className }: Props) {
   );
 }
 
+

@@ -123,3 +123,4 @@ console.log(`   - Static routes: ${STATIC_PATHS.length}`);
 console.log(`   - Case routes: ${CASE_SLUGS.length}`);
 console.log(`   - Total URLs: ${(STATIC_PATHS.length + CASE_SLUGS.length) * LOCALES.length}`);
 
+
