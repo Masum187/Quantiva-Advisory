@@ -38,20 +38,35 @@ export default function TeamPage() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Suno Music Playlist - Add your tracks here!
+  // ☁️ Cloudinary Configuration
+  // Option 1: Use environment variable (recommended for production)
+  // Option 2: Hardcode your Cloud Name below
+  const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'YOUR_CLOUD_NAME';
+  // Get your Cloud Name from: https://cloudinary.com/console
+  
+  // 🎵 Suno Music Playlist - Cloudinary CDN
+  // Upload your Suno MP3s to Cloudinary and update the Public IDs below
   const musicPlaylist = [
     {
-      url: '/audio/quantiva-theme-1.mp3', // Replace with your Suno track
-      title: 'Quantiva Theme',
+      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/quantum-vision.mp3`,
+      title: 'Quantum Vision',
       artist: 'Suno AI',
     },
     {
-      url: '/audio/quantiva-theme-2.mp3', // Add more tracks as needed
+      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/digital-future.mp3`,
+      title: 'Digital Future',
+      artist: 'Suno AI',
+    },
+    {
+      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/innovation-flow.mp3`,
       title: 'Innovation Flow',
       artist: 'Suno AI',
     },
-    // Add more Suno tracks here
+    // Add more tracks: Just upload to Cloudinary and add here!
   ];
+  
+  // 💡 Tip: Use 'q_auto' in URL for automatic quality optimization
+  // 📚 Setup Guide: See CLOUDINARY_SETUP.md in project root
 
   // Toggle background music
   const toggleMusic = () => {

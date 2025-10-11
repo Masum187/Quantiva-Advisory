@@ -4,6 +4,22 @@
 
 ---
 
+## ⚠️ **WICHTIG: Cloudinary-Integration ist jetzt live!**
+
+**Für die beste Performance und professionelle Lösung:**
+→ **Verwenden Sie Cloudinary CDN** (siehe `CLOUDINARY_SETUP.md`)
+
+**Diese Anleitung (lokale MP3-Dateien) ist nur für:**
+- Schnelles lokales Testing
+- Sehr kleine Projekte ohne Traffic
+- Wenn Cloudinary nicht gewünscht ist
+
+**Empfohlener Workflow:**
+1. ✅ **Quick Start:** Lokale Dateien (diese Anleitung)
+2. ✅ **Production:** Cloudinary CDN (`CLOUDINARY_SETUP.md`)
+
+---
+
 ## 📋 **Schritt 1: Tracks von Suno herunterladen**
 
 ### 1.1 Gehen Sie zu Ihrer Suno-Bibliothek

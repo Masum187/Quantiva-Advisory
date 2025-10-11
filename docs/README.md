@@ -38,13 +38,33 @@
 - **[Git Setup Guide](./GIT_SETUP.md)** – GitHub Repository Setup
 - **[Mermaid Integration](./MERMAID_INTEGRATION_GUIDE.md)** – Diagramme in Dokumentation
 
+### Media & Assets
+
+#### Suno Music Integration
+- **[Cloudinary Setup für Suno-Musik](../CLOUDINARY_SETUP.md)** ☁️ – CDN-Integration (Empfohlen)
+  - Account erstellen & konfigurieren
+  - Tracks hochladen & verwalten
+  - URLs generieren & optimieren
+  - Environment Variables Setup
+  - Best Practices & Troubleshooting
+- **[Suno Music Setup – Lokale Dateien](../SUNO_MUSIC_SETUP.md)** 🎵 – Alternative für Quick Start
+  - Tracks von Suno herunterladen
+  - Lokale Integration in public/audio
+  - Playlist-Konfiguration
+
+#### Environment Variables
+- **[Environment Variables Guide](../ENV_VARIABLES.md)** 🔐 – Alle Umgebungsvariablen
+  - REACT_APP_CLOUDINARY_CLOUD_NAME (Cloudinary CDN)
+  - REACT_APP_ELEVENLABS_KEY (AI Voice für Career Page)
+  - Setup für lokal & Vercel
+  - Sicherheits-Best-Practices
+
 ### Weitere Dokumentation
 
 *(Platzhalter für zukünftige Dokumentation)*
 
 - **API-Dokumentation** – REST API Endpoints
 - **Komponenten-Bibliothek** – UI-Komponenten
-- **Deployment-Guide** – Production Deployment
 - **Entwickler-Handbuch** – Setup & Development
 
 ---
