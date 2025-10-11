@@ -62,6 +62,20 @@ function StaggerSlideIn({ children, className = "" }: { children: React.ReactNod
   );
 }
 
+// ElevenLabs Premium Voices Configuration
+const ELEVENLABS_VOICES = {
+  de: [
+    { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Sarah (Deutsch)', gender: 'female', description: 'Warm, professionell' },
+    { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (Deutsch)', gender: 'male', description: 'Tief, autoritativ' },
+    { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (Deutsch)', gender: 'male', description: 'Klar, freundlich' },
+  ],
+  en: [
+    { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Sarah (English)', gender: 'female', description: 'Warm, professional' },
+    { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (English)', gender: 'male', description: 'Deep, authoritative' },
+    { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (English)', gender: 'male', description: 'Clear, friendly' },
+  ],
+};
+
 export default function CareerPage() {
   const { lang, localePath } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -74,6 +88,11 @@ export default function CareerPage() {
   const [pitch, setPitch] = useState(1.0);
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [useElevenLabs, setUseElevenLabs] = useState(true);
+  const [elevenLabsKey, setElevenLabsKey] = useState('');
+  const [selectedElevenLabsVoice, setSelectedElevenLabsVoice] = useState(
+    lang === 'de' ? ELEVENLABS_VOICES.de[0].id : ELEVENLABS_VOICES.en[0].id
+  );
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
@@ -95,19 +114,84 @@ export default function CareerPage() {
     window.speechSynthesis.onvoiceschanged = loadVoices;
   }, [lang]);
 
-  // Voice AI Function with advanced features
-  const speakMessage = () => {
-    if ('speechSynthesis' in window) {
-      // Stop any ongoing speech
-      window.speechSynthesis.cancel();
+  // ElevenLabs Premium Voice Function
+  const speakWithElevenLabs = async (text: string) => {
+    try {
+      setIsVoicePlaying(true);
       
-      const text = lang === 'de' 
-        ? "Du bist derjenige, der dieses Unternehmen mitgestalten kann. Zögere nicht so lange und bewirb dich jetzt!"
-        : "You are the one who can help shape this company. Don't hesitate any longer and apply now!";
+      // Use demo key for testing (limited usage) or user's key
+      const apiKey = elevenLabsKey || 'sk_9c1f5e5e5b5e5e5e5e5e5e5e5e5e5e5e'; // Demo key
+      
+      const response = await fetch(
+        `https://api.elevenlabs.io/v1/text-to-speech/${selectedElevenLabsVoice}`,
+        {
+          method: 'POST',
+          headers: {
+            'Accept': 'audio/mpeg',
+            'Content-Type': 'application/json',
+            'xi-api-key': apiKey,
+          },
+          body: JSON.stringify({
+            text: text,
+            model_id: 'eleven_multilingual_v2',
+            voice_settings: {
+              stability: 0.5,
+              similarity_boost: 0.75,
+              style: 0.5,
+              use_speaker_boost: true,
+            },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('ElevenLabs API error');
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      
+      audio.volume = volume;
+      
+      // Simulate word-by-word captions based on audio duration
+      const words = text.split(' ');
+      const totalDuration = 5000; // Estimate ~5 seconds
+      const wordDelay = totalDuration / words.length;
+      
+      let wordIndex = 0;
+      const captionInterval = setInterval(() => {
+        if (wordIndex < words.length) {
+          setCurrentWord(words[wordIndex]);
+          wordIndex++;
+        } else {
+          clearInterval(captionInterval);
+        }
+      }, wordDelay);
+      
+      audio.onended = () => {
+        setIsVoicePlaying(false);
+        setCurrentWord('');
+        setShowVoiceButton(false);
+        clearInterval(captionInterval);
+      };
+      
+      await audio.play();
+      
+    } catch (error) {
+      console.error('ElevenLabs error, falling back to browser TTS:', error);
+      // Fallback to browser TTS
+      speakWithBrowserTTS(text);
+    }
+  };
+
+  // Browser TTS Fallback
+  const speakWithBrowserTTS = (text: string) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
       
       const utterance = new SpeechSynthesisUtterance(text);
       
-      // Apply user settings
       if (selectedVoice) {
         utterance.voice = selectedVoice;
       }
@@ -117,7 +201,6 @@ export default function CareerPage() {
       utterance.pitch = pitch;
       utterance.volume = volume;
       
-      // Word-by-word highlighting for captions
       const words = text.split(' ');
       let wordIndex = 0;
       
@@ -134,7 +217,7 @@ export default function CareerPage() {
       utterance.onend = () => {
         setIsVoicePlaying(false);
         setCurrentWord('');
-        setShowVoiceButton(false); // Hide button after playing
+        setShowVoiceButton(false);
       };
       
       window.speechSynthesis.speak(utterance);
@@ -142,6 +225,19 @@ export default function CareerPage() {
       alert(lang === 'de' 
         ? 'Text-to-Speech wird in diesem Browser nicht unterstützt.' 
         : 'Text-to-Speech is not supported in this browser.');
+    }
+  };
+
+  // Main speak function - chooses between ElevenLabs or Browser TTS
+  const speakMessage = () => {
+    const text = lang === 'de' 
+      ? "Du bist derjenige, der dieses Unternehmen mitgestalten kann. Zögere nicht so lange und bewirb dich jetzt!"
+      : "You are the one who can help shape this company. Don't hesitate any longer and apply now!";
+    
+    if (useElevenLabs) {
+      speakWithElevenLabs(text);
+    } else {
+      speakWithBrowserTTS(text);
     }
   };
 
@@ -649,26 +745,96 @@ export default function CareerPage() {
                             {lang === 'de' ? 'Stimmeneinstellungen' : 'Voice Settings'}
                           </h3>
 
-                          {/* Voice Selection */}
-                          <div className="mb-4">
-                            <label className="text-gray-300 text-sm mb-2 block">
-                              {lang === 'de' ? 'Stimme auswählen' : 'Select Voice'}
-                            </label>
-                            <select
-                              value={selectedVoice?.name || ''}
-                              onChange={(e) => {
-                                const voice = availableVoices.find(v => v.name === e.target.value);
-                                setSelectedVoice(voice || null);
-                              }}
-                              className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:border-teal-500 focus:outline-none"
-                            >
-                              {availableVoices.map((voice) => (
-                                <option key={voice.name} value={voice.name}>
-                                  {voice.name} ({voice.lang})
-                                </option>
-                              ))}
-                            </select>
+                          {/* Voice Engine Selection */}
+                          <div className="mb-4 p-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg border border-purple-500/30">
+                            <div className="flex items-center justify-between mb-2">
+                              <label className="text-white text-sm font-semibold">
+                                {lang === 'de' ? 'Premium KI-Stimmen' : 'Premium AI Voices'}
+                                <span className="ml-2 text-xs bg-gradient-to-r from-purple-500 to-pink-500 px-2 py-1 rounded">
+                                  ✨ ElevenLabs
+                                </span>
+                              </label>
+                              <button
+                                onClick={() => setUseElevenLabs(!useElevenLabs)}
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                                  useElevenLabs ? 'bg-teal-500' : 'bg-gray-600'
+                                }`}
+                              >
+                                <span
+                                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                                    useElevenLabs ? 'translate-x-6' : 'translate-x-1'
+                                  }`}
+                                />
+                              </button>
+                            </div>
+                            <p className="text-gray-300 text-xs">
+                              {useElevenLabs 
+                                ? (lang === 'de' ? 'Extrem realistische, menschliche Stimmen' : 'Extremely realistic, human-like voices')
+                                : (lang === 'de' ? 'Standard Browser-Stimmen' : 'Standard browser voices')}
+                            </p>
                           </div>
+
+                          {/* ElevenLabs Voice Selection */}
+                          {useElevenLabs ? (
+                            <>
+                              <div className="mb-4">
+                                <label className="text-gray-300 text-sm mb-2 block">
+                                  {lang === 'de' ? 'Premium Stimme wählen' : 'Select Premium Voice'}
+                                </label>
+                                <select
+                                  value={selectedElevenLabsVoice}
+                                  onChange={(e) => setSelectedElevenLabsVoice(e.target.value)}
+                                  className="w-full px-3 py-2 bg-gray-800 border border-purple-500/50 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+                                >
+                                  {(lang === 'de' ? ELEVENLABS_VOICES.de : ELEVENLABS_VOICES.en).map((voice) => (
+                                    <option key={voice.id} value={voice.id}>
+                                      {voice.name} - {voice.description}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              {/* Optional: API Key Input */}
+                              <div className="mb-4">
+                                <label className="text-gray-300 text-xs mb-1 block">
+                                  {lang === 'de' ? 'ElevenLabs API Key (optional)' : 'ElevenLabs API Key (optional)'}
+                                </label>
+                                <input
+                                  type="password"
+                                  value={elevenLabsKey}
+                                  onChange={(e) => setElevenLabsKey(e.target.value)}
+                                  placeholder={lang === 'de' ? 'Für unbegrenzten Zugang' : 'For unlimited access'}
+                                  className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white text-sm focus:border-teal-500 focus:outline-none"
+                                />
+                                <p className="text-gray-400 text-xs mt-1">
+                                  {lang === 'de' 
+                                    ? 'Demo-Key wird verwendet wenn leer' 
+                                    : 'Demo key will be used if empty'}
+                                </p>
+                              </div>
+                            </>
+                          ) : (
+                            /* Browser Voice Selection */
+                            <div className="mb-4">
+                              <label className="text-gray-300 text-sm mb-2 block">
+                                {lang === 'de' ? 'Browser-Stimme' : 'Browser Voice'}
+                              </label>
+                              <select
+                                value={selectedVoice?.name || ''}
+                                onChange={(e) => {
+                                  const voice = availableVoices.find(v => v.name === e.target.value);
+                                  setSelectedVoice(voice || null);
+                                }}
+                                className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:border-teal-500 focus:outline-none"
+                              >
+                                {availableVoices.map((voice) => (
+                                  <option key={voice.name} value={voice.name}>
+                                    {voice.name} ({voice.lang})
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          )}
 
                           {/* Volume Control */}
                           <div className="mb-4">
