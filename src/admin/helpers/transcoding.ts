@@ -9,7 +9,8 @@ export async function transcodeToWebm(input: File): Promise<Blob> {
   // sehr einfache, schnelle WebM-Transcodierung
   await ffmpeg.exec(["-i", "in.mp4", "-c:v", "libvpx-vp9", "-b:v", "0", "-crf", "35", "-an", "out.webm"]);
   const data = await ffmpeg.readFile("out.webm");
-  return new Blob([data as Uint8Array], { type: "video/webm" });
+  // TypeScript 5 requires explicit buffer handling for Blob constructor
+  return new Blob([new Uint8Array(data as Uint8Array)], { type: "video/webm" });
 }
 
 // Helper to normalize paths
