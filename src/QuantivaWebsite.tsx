@@ -674,27 +674,17 @@ export default function QuantivaWebsite() {
         </div>
       </header>
 
-      {/* Hero - Ultra Modern with Video Background */}
+      {/* Hero - Ultra Modern with Animated Gradient Background */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background - Cloudinary CDN */}
-        <motion.video
-          src={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'demo'}/video/upload/q_auto:good,w_1920/v1/quantiva-assets/videos/hero-corporate-tech.mp4`}
-          poster={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'demo'}/image/upload/q_auto,w_1920/v1/quantiva-assets/hero-fallback.jpg`}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-          style={{ y }}
-        />
+        {/* Animated Gradient Background - Multi-Layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-black" />
         
-        {/* Animated Gradient Overlays - 3D Depth Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/50 to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
+        {/* Animated Teal Gradient Layer */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-transparent to-blue-900/20"
+          className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-cyan-900/20 to-transparent"
           animate={{
-            opacity: [0.3, 0.5, 0.3],
+            opacity: [0.4, 0.7, 0.4],
+            scale: [1, 1.1, 1],
           }}
           transition={{
             duration: 8,
@@ -702,6 +692,28 @@ export default function QuantivaWebsite() {
             ease: "easeInOut"
           }}
         />
+        
+        {/* Animated Blue Gradient Layer */}
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-tl from-blue-900/30 via-transparent to-teal-900/20"
+          animate={{
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1.1, 1, 1.1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+        
+        {/* Radial Gradient Overlay - Central Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/20 via-transparent to-transparent" />
+        
+        {/* Dark Vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
 
         {/* Floating Particles */}
         {[...Array(20)].map((_, i) => (
