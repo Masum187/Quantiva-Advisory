@@ -419,7 +419,7 @@ export default function CareerPage() {
           </div>
         </motion.section>
 
-        {/* Career Areas Section */}
+        {/* Career Areas Section - Accenture Style with Images */}
         <section className="py-20 bg-black border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
@@ -428,22 +428,109 @@ export default function CareerPage() {
               </h2>
             </SlideIn>
 
-            <StaggerSlideIn className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {t.areas.map((area, index) => {
-                const Icon = area.icon;
-                return (
-                  <div
-                    key={index}
-                    className="group relative p-8 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-teal-500/30 hover:border-teal-400/60 hover:shadow-xl hover:shadow-teal-500/20 transition-all duration-300"
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-500/10 to-transparent rounded-bl-full"></div>
-                    <Icon className="h-12 w-12 text-teal-400 mb-4 group-hover:scale-110 transition-transform duration-300" />
-                    <h3 className="text-2xl font-bold text-white mb-3">{area.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{area.description}</p>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {/* Strategy & Consulting */}
+              <SlideIn direction="left" delay={0.2}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop"
+                    alt="Strategy & Consulting"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[0].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[0].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
-                );
-              })}
-            </StaggerSlideIn>
+                </div>
+              </SlideIn>
+
+              {/* Technology & Engineering */}
+              <SlideIn direction="up" delay={0.3}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop"
+                    alt="Technology & Engineering"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[1].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[1].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-white group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* SAP Solutions */}
+              <SlideIn direction="right" delay={0.4}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+                    alt="SAP Solutions"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[2].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[2].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Cloud & Infrastructure */}
+              <SlideIn direction="left" delay={0.5}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
+                    alt="Cloud & Infrastructure"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-800/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[3].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[3].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-white group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Cyber Security */}
+              <SlideIn direction="up" delay={0.6}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
+                    alt="Cyber Security"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[4].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[4].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Artificial Intelligence */}
+              <SlideIn direction="right" delay={0.7}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop"
+                    alt="Artificial Intelligence"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[5].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[5].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-white group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+            </div>
           </div>
         </section>
 
@@ -480,8 +567,8 @@ export default function CareerPage() {
           </div>
         </section>
 
-        {/* Wellbeing Section */}
-        <section className="py-20 bg-gradient-to-br from-slate-900 to-black border-t border-white/10">
+        {/* Wellbeing Section - Accenture Style */}
+        <section className="py-20 bg-black border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
               <div className="text-center mb-16">
@@ -494,21 +581,152 @@ export default function CareerPage() {
               </div>
             </SlideIn>
 
-            <StaggerSlideIn className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {t.wellbeingAreas.map((area, index) => {
-                const Icon = area.icon;
-                return (
-                  <div
-                    key={index}
-                    className="p-8 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-teal-500/30 hover:border-teal-400/60 hover:shadow-xl hover:shadow-teal-500/20 transition-all duration-300"
-                  >
-                    <Icon className="h-12 w-12 text-teal-400 mb-4" />
-                    <h3 className="text-xl font-bold text-white mb-3">{area.title}</h3>
-                    <p className="text-gray-300 leading-relaxed">{area.description}</p>
+            {/* Asymmetric Grid Layout - Accenture Style */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {/* Large Featured Card - Mental Health (spans 2 rows on desktop) */}
+              <SlideIn direction="left" delay={0.2} className="lg:row-span-2">
+                <div className="group relative h-full min-h-[500px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop"
+                    alt="Mental Health"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-3xl font-bold text-white mb-4">{t.wellbeingAreas[0].title}</h3>
+                    <p className="text-gray-200 mb-6 leading-relaxed">{t.wellbeingAreas[0].description}</p>
+                    <button className="self-start inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                      <ChevronRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
                   </div>
-                );
-              })}
-            </StaggerSlideIn>
+                </div>
+              </SlideIn>
+
+              {/* Top-right Card - Relationship-oriented */}
+              <SlideIn direction="up" delay={0.3} className="lg:col-span-2">
+                <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
+                    alt="Team Collaboration"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-teal-900/80 via-teal-800/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.wellbeingAreas[1].title}</h3>
+                    <p className="text-gray-100 mb-4 leading-relaxed max-w-xl">{t.wellbeingAreas[1].description}</p>
+                    <button className="self-start inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Communitys entdecken' : 'Discover Communities'}
+                      <ChevronRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Bottom-right Card - Physical Health */}
+              <SlideIn direction="right" delay={0.4}>
+                <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
+                    alt="Physical Health"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[2].title}</h3>
+                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[2].description}</p>
+                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Bottom-right Card 2 - Purpose-driven */}
+              <SlideIn direction="right" delay={0.5}>
+                <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
+                    alt="Purpose Driven"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[3].title}</h3>
+                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[3].description}</p>
+                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Wovon wir überzeugt sind' : 'Our Beliefs'}
+                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </SlideIn>
+            </div>
+
+            {/* Second Row - 3 Equal Cards */}
+            <div className="grid gap-6 md:grid-cols-3 mt-6">
+              <SlideIn direction="up" delay={0.6}>
+                <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+                    alt="Career Ready"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[4].title}</h3>
+                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[4].description}</p>
+                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Trainings & Weiterbildung' : 'Training & Development'}
+                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </SlideIn>
+
+              <SlideIn direction="up" delay={0.7}>
+                <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=800&auto=format&fit=crop"
+                    alt="Global Perspectives"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[5].title}</h3>
+                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[5].description}</p>
+                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </SlideIn>
+
+              <SlideIn direction="up" delay={0.8}>
+                <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
+                    alt="Financial Wellbeing"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/50 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{lang === 'de' ? 'Finanzielle Vergütung' : 'Financial Rewards'}</h3>
+                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">
+                      {lang === 'de' 
+                        ? 'Wir bieten Rewards- und Benefits-Pakete, die deinen Bedürfnissen entsprechen.' 
+                        : 'We offer rewards and benefits packages that meet your needs.'}
+                    </p>
+                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </SlideIn>
+            </div>
           </div>
         </section>
 
