@@ -39,10 +39,9 @@ export default function TeamPage() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // ☁️ Cloudinary Configuration
-  // Option 1: Use environment variable (recommended for production)
-  // Option 2: Hardcode your Cloud Name below
-  const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'YOUR_CLOUD_NAME';
-  // Get your Cloud Name from: https://cloudinary.com/console
+  // Cloud Name: dbrisux8i
+  // Environment variable for production (optional): REACT_APP_CLOUDINARY_CLOUD_NAME
+  const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'dbrisux8i';
   
   // 🎵 Suno Music Playlist - Cloudinary CDN
   // Upload your Suno MP3s to Cloudinary and update the Public IDs below
