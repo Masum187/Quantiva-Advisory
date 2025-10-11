@@ -1,23 +1,16 @@
 /**
- * 🎣 React Hooks for Contentful
+ * 🎣 React Hooks for Contentful (SDK v11 Compatible)
  * 
- * Easy-to-use hooks for fetching content from Contentful
- * Falls back to local JSON if Contentful is not configured
+ * Simple hooks with automatic fallback to local JSON
  */
 
 import { useState, useEffect } from 'react';
 import {
-  getPageContent,
-  getServices,
-  getTeamMembers,
-  getCaseStudies,
-  getCaseStudy,
-  transformPageContent,
-  transformService,
-  transformTeamMember,
-  transformCaseStudy,
+  fetchEntries,
+  fetchEntry,
   isContentfulEnabled,
-  getCachedContent,
+  richTextToPlainText,
+  getAssetUrl,
 } from '../utils/contentful';
 
 // Fallback imports
@@ -26,9 +19,9 @@ import teamData from '../data/team.json';
 import casesData from '../data/cases.json';
 
 /**
- * Hook to fetch page content (hero, about, etc.)
+ * Hook to fetch simplified page content
  */
-export function usePageContent(section: string, language: 'de' | 'en') {
+export function usePageContent(section?: string) {
   const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -40,209 +33,57 @@ export function usePageContent(section: string, language: 'de' | 'en') {
 
         if (isContentfulEnabled) {
           // Fetch from Contentful
-          const cacheKey = `page-${section}-${language}`;
-          const entry = await getCachedContent(cacheKey, () => 
-            getPageContent(section, language)
-          );
-          const transformed = transformPageContent(entry);
-          setContent(transformed);
+          const entry = await fetchEntry('pageContent', section ? {} : undefined);
+          
+          if (entry && entry.fields) {
+            // Transform RichText fields to plain text
+            const transformed: any = {};
+            
+            if (entry.fields.heroText) {
+              transformed.hero = {
+                title: richTextToPlainText(entry.fields.heroText),
+              };
+            }
+            
+            if (entry.fields.about) {
+              transformed.about = {
+                text: richTextToPlainText(entry.fields.about),
+              };
+            }
+            
+            if (entry.fields.footer) {
+              transformed.footer = {
+                text: richTextToPlainText(entry.fields.footer),
+              };
+            }
+            
+            setContent(transformed);
+          } else {
+            // Fallback to local JSON
+            setContent(contentData);
+          }
         } else {
-          // Fallback to local JSON
-          const localContent = (contentData as any)[section]?.[language];
-          setContent(localContent);
+          // Use local JSON
+          setContent(contentData);
         }
       } catch (err) {
         console.error('Error fetching page content:', err);
         setError(err as Error);
-        
         // Fallback to local JSON on error
-        const localContent = (contentData as any)[section]?.[language];
-        setContent(localContent);
+        setContent(contentData);
       } finally {
         setLoading(false);
       }
     }
 
     fetchContent();
-  }, [section, language]);
+  }, [section]);
 
   return { content, loading, error };
 }
 
 /**
- * Hook to fetch all services
- */
-export function useServices(language: 'de' | 'en') {
-  const [services, setServices] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    async function fetchServices() {
-      try {
-        setLoading(true);
-
-        if (isContentfulEnabled) {
-          // Fetch from Contentful
-          const cacheKey = `services-${language}`;
-          const entries = await getCachedContent(cacheKey, getServices);
-          const transformed = entries.map(entry => transformService(entry, language));
-          setServices(transformed);
-        } else {
-          // Fallback to local JSON
-          const localServices = (contentData as any).services?.[language]?.items || [];
-          setServices(localServices);
-        }
-      } catch (err) {
-        console.error('Error fetching services:', err);
-        setError(err as Error);
-        
-        // Fallback to local JSON on error
-        const localServices = (contentData as any).services?.[language]?.items || [];
-        setServices(localServices);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchServices();
-  }, [language]);
-
-  return { services, loading, error };
-}
-
-/**
- * Hook to fetch team members
- */
-export function useTeamMembers(language: 'de' | 'en') {
-  const [teamMembers, setTeamMembers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    async function fetchTeamMembers() {
-      try {
-        setLoading(true);
-
-        if (isContentfulEnabled) {
-          // Fetch from Contentful
-          const cacheKey = `team-${language}`;
-          const entries = await getCachedContent(cacheKey, getTeamMembers);
-          const transformed = entries.map(entry => transformTeamMember(entry, language));
-          setTeamMembers(transformed);
-        } else {
-          // Fallback to local JSON
-          const localTeam = (teamData as any)[language] || [];
-          setTeamMembers(localTeam);
-        }
-      } catch (err) {
-        console.error('Error fetching team members:', err);
-        setError(err as Error);
-        
-        // Fallback to local JSON on error
-        const localTeam = (teamData as any)[language] || [];
-        setTeamMembers(localTeam);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchTeamMembers();
-  }, [language]);
-
-  return { teamMembers, loading, error };
-}
-
-/**
- * Hook to fetch all case studies
- */
-export function useCaseStudies(language: 'de' | 'en') {
-  const [caseStudies, setCaseStudies] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    async function fetchCaseStudies() {
-      try {
-        setLoading(true);
-
-        if (isContentfulEnabled) {
-          // Fetch from Contentful
-          const cacheKey = `cases-${language}`;
-          const entries = await getCachedContent(cacheKey, getCaseStudies);
-          const transformed = entries.map(entry => transformCaseStudy(entry, language));
-          setCaseStudies(transformed);
-        } else {
-          // Fallback to local JSON
-          const localCases = Array.isArray(casesData) ? casesData : [];
-          setCaseStudies(localCases);
-        }
-      } catch (err) {
-        console.error('Error fetching case studies:', err);
-        setError(err as Error);
-        
-        // Fallback to local JSON on error
-        const localCases = Array.isArray(casesData) ? casesData : [];
-        setCaseStudies(localCases);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchCaseStudies();
-  }, [language]);
-
-  return { caseStudies, loading, error };
-}
-
-/**
- * Hook to fetch single case study
- */
-export function useCaseStudy(slug: string, language: 'de' | 'en') {
-  const [caseStudy, setCaseStudy] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    async function fetchCaseStudy() {
-      try {
-        setLoading(true);
-
-        if (isContentfulEnabled) {
-          // Fetch from Contentful
-          const cacheKey = `case-${slug}-${language}`;
-          const entry = await getCachedContent(cacheKey, () => getCaseStudy(slug));
-          const transformed = entry ? transformCaseStudy(entry, language) : null;
-          setCaseStudy(transformed);
-        } else {
-          // Fallback to local JSON
-          const localCases = Array.isArray(casesData) ? casesData : [];
-          const localCase = localCases.find((c: any) => c.slug === slug);
-          setCaseStudy(localCase || null);
-        }
-      } catch (err) {
-        console.error(`Error fetching case study ${slug}:`, err);
-        setError(err as Error);
-        
-        // Fallback to local JSON on error
-        const localCases = Array.isArray(casesData) ? casesData : [];
-        const localCase = localCases.find((c: any) => c.slug === slug);
-        setCaseStudy(localCase || null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    if (slug) {
-      fetchCaseStudy();
-    }
-  }, [slug, language]);
-
-  return { caseStudy, loading, error };
-}
-
-/**
- * Hook to check if Contentful is enabled
+ * Hook to check Contentful status
  */
 export function useContentfulStatus() {
   return {
@@ -252,24 +93,59 @@ export function useContentfulStatus() {
 }
 
 /**
+ * Simple hook for any content type
+ */
+export function useContentfulEntries<T = any>(
+  contentType: string,
+  query: any = {},
+  fallback: T[] = []
+) {
+  const [entries, setEntries] = useState<T[]>(fallback);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    async function fetch() {
+      try {
+        setLoading(true);
+        
+        if (isContentfulEnabled) {
+          const result = await fetchEntries(contentType, query);
+          setEntries(result as T[]);
+        } else {
+          setEntries(fallback);
+        }
+      } catch (err) {
+        console.error(`Error fetching ${contentType}:`, err);
+        setError(err as Error);
+        setEntries(fallback);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetch();
+  }, [contentType, JSON.stringify(query), JSON.stringify(fallback)]);
+
+  return { entries, loading, error };
+}
+
+/**
  * Example Usage:
  * 
  * function HeroSection() {
- *   const { content, loading } = usePageContent('hero', 'de');
+ *   const { content, loading } = usePageContent();
  *   
  *   if (loading) return <Spinner />;
  *   
- *   return <h1>{content?.title}</h1>;
+ *   return <h1>{content?.hero?.title}</h1>;
  * }
  * 
- * function ServicesSection() {
- *   const { services, loading } = useServices('de');
+ * function CustomContent() {
+ *   const { entries } = useContentfulEntries('myContentType', {
+ *     'fields.category': 'news'
+ *   }, []);
  *   
- *   if (loading) return <Spinner />;
- *   
- *   return services.map(service => (
- *     <ServiceCard key={service.id} {...service} />
- *   ));
+ *   return entries.map(entry => <div key={entry.sys.id}>...</div>);
  * }
  */
-
