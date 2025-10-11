@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { Linkedin, Mail, Award, Users, Target, TrendingUp, Volume2, VolumeX } from 'lucide-react';
+import { Linkedin, Mail, Award, Users, Target, TrendingUp, Volume2, VolumeX, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../QuantivaWebsite';
 
 // Animation Components
@@ -35,7 +35,23 @@ function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.Re
 export default function TeamPage() {
   const { lang } = useLanguage();
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Suno Music Playlist - Add your tracks here!
+  const musicPlaylist = [
+    {
+      url: '/audio/quantiva-theme-1.mp3', // Replace with your Suno track
+      title: 'Quantiva Theme',
+      artist: 'Suno AI',
+    },
+    {
+      url: '/audio/quantiva-theme-2.mp3', // Add more tracks as needed
+      title: 'Innovation Flow',
+      artist: 'Suno AI',
+    },
+    // Add more Suno tracks here
+  ];
 
   // Toggle background music
   const toggleMusic = () => {
@@ -48,6 +64,31 @@ export default function TeamPage() {
       setIsMusicPlaying(!isMusicPlaying);
     }
   };
+
+  // Go to next track
+  const nextTrack = () => {
+    setCurrentTrackIndex((prev) => (prev + 1) % musicPlaylist.length);
+    setIsMusicPlaying(true);
+  };
+
+  // Go to previous track
+  const previousTrack = () => {
+    setCurrentTrackIndex((prev) => (prev - 1 + musicPlaylist.length) % musicPlaylist.length);
+    setIsMusicPlaying(true);
+  };
+
+  // Auto-play next track when current ends
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      const handleEnded = () => {
+        nextTrack();
+      };
+      audio.addEventListener('ended', handleEnded);
+      return () => audio.removeEventListener('ended', handleEnded);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentTrackIndex]);
 
   // Auto-play music on mount (with user interaction)
   useEffect(() => {
@@ -180,31 +221,68 @@ export default function TeamPage() {
       </Helmet>
 
       <div className="min-h-screen bg-black relative">
-        {/* Background Music */}
+        {/* Background Music - Suno Playlist */}
         <audio
           ref={audioRef}
-          loop
-          src="https://cdn.pixabay.com/audio/2022/03/10/audio_4184b67e4d.mp3"
+          src={musicPlaylist[currentTrackIndex].url}
+          onEnded={nextTrack}
         />
 
-        {/* Music Toggle Button */}
-        <button
-          onClick={toggleMusic}
-          className="fixed top-24 right-8 z-50 w-14 h-14 rounded-full bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 flex items-center justify-center hover:bg-teal-500/30 hover:scale-110 transition-all duration-300 group"
-          aria-label={isMusicPlaying ? 'Pause music' : 'Play music'}
-        >
-          {isMusicPlaying ? (
-            <Volume2 className="h-6 w-6 text-teal-400 group-hover:text-teal-300" />
-          ) : (
-            <VolumeX className="h-6 w-6 text-gray-400 group-hover:text-teal-400" />
-          )}
+        {/* Music Control Panel */}
+        <div className="fixed top-24 right-8 z-50 flex flex-col gap-2">
+          {/* Now Playing Info */}
           {isMusicPlaying && (
-            <span className="absolute -top-1 -right-1 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
-            </span>
+            <div className="bg-black/80 backdrop-blur-sm border border-teal-400/30 rounded-lg px-4 py-2 text-right animate-slide-in">
+              <p className="text-xs text-gray-400">Now Playing</p>
+              <p className="text-sm font-semibold text-white">{musicPlaylist[currentTrackIndex].title}</p>
+              <p className="text-xs text-teal-400">{musicPlaylist[currentTrackIndex].artist}</p>
+            </div>
           )}
-        </button>
+
+          {/* Music Controls */}
+          <div className="flex gap-2">
+            {/* Previous Track */}
+            {musicPlaylist.length > 1 && (
+              <button
+                onClick={previousTrack}
+                className="w-10 h-10 rounded-full bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 flex items-center justify-center hover:bg-teal-500/30 hover:scale-110 transition-all duration-300 group"
+                aria-label="Previous track"
+              >
+                <ChevronRight className="h-5 w-5 text-teal-400 rotate-180" />
+              </button>
+            )}
+
+            {/* Play/Pause */}
+            <button
+              onClick={toggleMusic}
+              className="w-14 h-14 rounded-full bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 flex items-center justify-center hover:bg-teal-500/30 hover:scale-110 transition-all duration-300 group"
+              aria-label={isMusicPlaying ? 'Pause music' : 'Play music'}
+            >
+              {isMusicPlaying ? (
+                <Volume2 className="h-6 w-6 text-teal-400 group-hover:text-teal-300" />
+              ) : (
+                <VolumeX className="h-6 w-6 text-gray-400 group-hover:text-teal-400" />
+              )}
+              {isMusicPlaying && (
+                <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
+                </span>
+              )}
+            </button>
+
+            {/* Next Track */}
+            {musicPlaylist.length > 1 && (
+              <button
+                onClick={nextTrack}
+                className="w-10 h-10 rounded-full bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 flex items-center justify-center hover:bg-teal-500/30 hover:scale-110 transition-all duration-300 group"
+                aria-label="Next track"
+              >
+                <ChevronRight className="h-5 w-5 text-teal-400" />
+              </button>
+            )}
+          </div>
+        </div>
 
         {/* Hero Section - Leadership */}
         <section className="relative min-h-[80vh] flex items-center bg-gradient-to-br from-slate-900 via-black to-slate-900">
