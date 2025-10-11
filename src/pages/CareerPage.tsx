@@ -7,6 +7,7 @@ import {
   Brain, Cloud, Code, Database, Globe, Zap, Menu, X
 } from 'lucide-react';
 import { useLanguage } from '../QuantivaWebsite';
+import { ElevenLabsClient } from 'elevenlabs-js';
 
 // Animation Components
 function SlideIn({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; className?: string }) {
@@ -114,7 +115,7 @@ export default function CareerPage() {
     window.speechSynthesis.onvoiceschanged = loadVoices;
   }, [lang, selectedVoice]);
 
-  // ElevenLabs Premium Voice Function
+  // ElevenLabs Premium Voice Function (using official SDK)
   const speakWithElevenLabs = async (text: string) => {
     try {
       setIsVoicePlaying(true);
@@ -129,39 +130,38 @@ export default function CareerPage() {
         return;
       }
 
-      const response = await fetch(
-        `https://api.elevenlabs.io/v1/text-to-speech/${selectedElevenLabsVoice}`,
+      // Initialize ElevenLabs client
+      const elevenlabs = new ElevenLabsClient({
+        apiKey: apiKey,
+      });
+
+      // Convert text to speech using official SDK
+      const audio = await elevenlabs.textToSpeech.convert(
+        selectedElevenLabsVoice,
         {
-          method: 'POST',
-          headers: {
-            'Accept': 'audio/mpeg',
-            'Content-Type': 'application/json',
-            'xi-api-key': apiKey,
+          text: text,
+          model_id: 'eleven_multilingual_v2',
+          output_format: 'mp3_44100_128',
+          voice_settings: {
+            stability: 0.5,
+            similarity_boost: 0.75,
+            style: 0.5,
+            use_speaker_boost: true,
           },
-          body: JSON.stringify({
-            text: text,
-            model_id: 'eleven_multilingual_v2',
-            voice_settings: {
-              stability: 0.5,
-              similarity_boost: 0.75,
-              style: 0.5,
-              use_speaker_boost: true,
-            },
-          }),
         }
       );
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('ElevenLabs API error:', errorText);
-        throw new Error('ElevenLabs API error');
+      // Convert audio stream to blob for playback with volume control
+      const chunks: BlobPart[] = [];
+      for await (const chunk of audio) {
+        chunks.push(chunk as BlobPart);
       }
-
-      const audioBlob = await response.blob();
+      const audioBlob = new Blob(chunks, { type: 'audio/mpeg' });
       const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
+      const audioElement = new Audio(audioUrl);
       
-      audio.volume = volume;
+      // Apply volume control
+      audioElement.volume = volume;
       
       // Simulate word-by-word captions based on audio duration
       const words = text.split(' ');
@@ -178,14 +178,15 @@ export default function CareerPage() {
         }
       }, wordDelay);
       
-      audio.onended = () => {
+      audioElement.onended = () => {
         setIsVoicePlaying(false);
         setCurrentWord('');
         setShowVoiceButton(false);
         clearInterval(captionInterval);
+        URL.revokeObjectURL(audioUrl); // Clean up
       };
       
-      await audio.play();
+      await audioElement.play();
       
     } catch (error) {
       console.error('ElevenLabs error, falling back to browser TTS:', error);

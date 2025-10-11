@@ -20,6 +20,7 @@
     "autoprefixer": "^10.4.21",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
+    "elevenlabs-js": "^1.2.6",
     "express": "^5.1.0",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
