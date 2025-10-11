@@ -38,14 +38,33 @@
 - **[Git Setup Guide](./GIT_SETUP.md)** – GitHub Repository Setup
 - **[Mermaid Integration](./MERMAID_INTEGRATION_GUIDE.md)** – Diagramme in Dokumentation
 
+### Deployment & Git Workflow
+
+- **[Deployment Workflow](./DEPLOYMENT_WORKFLOW.md)** 🚀 – Preview vs. Production
+  - Branch-Strategie (`main` vs. `develop`)
+  - Vercel-Konfiguration
+  - Environment Variables
+  - Workflows im Alltag
+  - Troubleshooting
+- **[Vercel Setup Guide](./VERCEL_SETUP_GUIDE.md)** ⚙️ – Schritt-für-Schritt
+  - Git-Integration konfigurieren
+  - Domains einrichten
+  - Environment Variables trennen
+  - Build-Einstellungen
+  - Verifikation & Testing
+- **[Git Workflow Quick Reference](./GIT_WORKFLOW_QUICKREF.md)** ⚡ – Copy & Paste
+  - Neues Feature entwickeln
+  - Hotfix für Production
+  - Branch-Management
+  - Commit-Konventionen
+  - Häufige Probleme & Lösungen
+
 ### Weitere Dokumentation
 
 *(Platzhalter für zukünftige Dokumentation)*
 
 - **API-Dokumentation** – REST API Endpoints
 - **Komponenten-Bibliothek** – UI-Komponenten
-- **Deployment-Guide** – Production Deployment
-- **Entwickler-Handbuch** – Setup & Development
 
 ---
 
@@ -76,16 +95,26 @@ npm start
 docs/
 ├── README.md                      # Diese Datei
 ├── cms-workflow.md                # Workflow & Berechtigungen
-├── MDX_DECISION_QUICKSTART.md     # ⚡ MDX vs. Alternativen (Quick)
-├── MDX_ALTERNATIVES_GUIDE.md      # 📚 MDX vs. Alternativen (Vollständig)
-├── VITE_MDX_INTEGRATION.md        # 🔧 Vite & MDX Integration (Technisch)
-├── MDX_SETUP_CRA.md               # MDX Setup für CRA (aktuell)
-├── MDX_FUTURE_SETUP.md            # MDX Migration für Zukunft
-├── GIT_SETUP.md                   # Git Repository Setup
-├── MERMAID_INTEGRATION_GUIDE.md   # Mermaid-Diagramme
-├── api/                           # API-Dokumentation (geplant)
-├── components/                    # Komponenten-Docs (geplant)
-└── deployment/                    # Deployment-Guides (geplant)
+│
+├── MDX & Vite
+│   ├── MDX_DECISION_QUICKSTART.md     # ⚡ MDX vs. Alternativen (Quick)
+│   ├── MDX_ALTERNATIVES_GUIDE.md      # 📚 MDX vs. Alternativen (Vollständig)
+│   ├── VITE_MDX_INTEGRATION.md        # 🔧 Vite & MDX Integration (Technisch)
+│   ├── MDX_SETUP_CRA.md               # MDX Setup für CRA (aktuell)
+│   └── MDX_FUTURE_SETUP.md            # MDX Migration für Zukunft
+│
+├── Deployment & Git
+│   ├── DEPLOYMENT_WORKFLOW.md         # 🚀 Preview vs. Production
+│   ├── VERCEL_SETUP_GUIDE.md          # ⚙️ Vercel Setup Step-by-Step
+│   └── GIT_WORKFLOW_QUICKREF.md       # ⚡ Git Quick Reference
+│
+├── Setup
+│   ├── GIT_SETUP.md                   # Git Repository Setup
+│   └── MERMAID_INTEGRATION_GUIDE.md   # Mermaid-Diagramme
+│
+└── Geplant
+    ├── api/                           # API-Dokumentation
+    └── components/                    # Komponenten-Docs
 ```
 
 ---
@@ -143,6 +172,12 @@ docs/
 
 ### Geplante Dokumentation
 
+- [x] **Deployment-Guide** ✅
+  - [x] Vercel Deployment
+  - [x] Environment Variables
+  - [x] Preview vs. Production
+  - [x] Git Workflow
+  
 - [ ] **API-Dokumentation**
   - REST Endpoints
   - Authentication
@@ -152,11 +187,6 @@ docs/
   - UI-Komponenten
   - Props & Events
   - Beispiele
-  
-- [ ] **Deployment-Guide**
-  - Vercel Deployment
-  - Environment Variables
-  - CI/CD Pipeline
   
 - [ ] **Entwickler-Handbuch**
   - Setup & Installation
