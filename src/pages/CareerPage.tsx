@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
-  ChevronRight, ArrowRight, Briefcase, Users, Heart, TrendingUp,
+  ChevronRight, ArrowRight, Users, Heart, TrendingUp,
   GraduationCap, Lightbulb, Target, Award, Shield, Sparkles,
   Brain, Cloud, Code, Database, Globe, Zap, Menu, X
 } from 'lucide-react';
@@ -112,7 +112,7 @@ export default function CareerPage() {
 
     loadVoices();
     window.speechSynthesis.onvoiceschanged = loadVoices;
-  }, [lang]);
+  }, [lang, selectedVoice]);
 
   // ElevenLabs Premium Voice Function
   const speakWithElevenLabs = async (text: string) => {
@@ -257,6 +257,7 @@ export default function CareerPage() {
     }, 3000);
     
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
   // Content Data
