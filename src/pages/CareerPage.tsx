@@ -9,7 +9,7 @@ import {
 import { useLanguage } from '../QuantivaWebsite';
 
 // Animation Components
-function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number }) {
+function SlideIn({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; className?: string }) {
   const variants = {
     hidden: {
       opacity: 0,
@@ -30,6 +30,7 @@ function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.Re
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
       variants={variants}
+      className={className}
     >
       {children}
     </motion.div>
