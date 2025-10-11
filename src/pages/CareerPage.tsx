@@ -62,6 +62,251 @@ function StaggerSlideIn({ children, className = "" }: { children: React.ReactNod
   );
 }
 
+// Career Levels Carousel Component with Swipe Support
+function CareerLevelsCarousel({ levels, lang }: { levels: any[]; lang: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [dragStart, setDragStart] = useState<number | null>(null);
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
+
+  const carouselData = [
+    {
+      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop',
+      gradient: 'from-purple-900/90 via-purple-800/70 to-transparent',
+      icon: GraduationCap,
+      iconBg: 'bg-white/20',
+      ctaText: lang === 'de' ? 'Praktika entdecken' : 'Discover Internships',
+      ctaBg: 'bg-white/10 border-white/30 hover:bg-white/20 hover:border-white/50',
+      ctaTextColor: 'text-white',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop',
+      gradient: 'from-black/95 via-black/60 to-transparent',
+      icon: Lightbulb,
+      iconBg: 'bg-teal-500/30',
+      ctaText: lang === 'de' ? 'Einstiegsprogramme' : 'Entry Programs',
+      ctaBg: 'bg-teal-500/20 border-teal-400/40 hover:bg-teal-500/30 hover:border-teal-400/60',
+      ctaTextColor: 'text-teal-300',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop',
+      gradient: 'from-black/95 via-black/60 to-transparent',
+      icon: Target,
+      iconBg: 'bg-blue-500/30',
+      ctaText: lang === 'de' ? 'Karrierewege' : 'Career Paths',
+      ctaBg: 'bg-blue-500/20 border-blue-400/40 hover:bg-blue-500/30 hover:border-blue-400/60',
+      ctaTextColor: 'text-blue-300',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop',
+      gradient: 'from-orange-900/90 via-orange-800/70 to-transparent',
+      icon: Award,
+      iconBg: 'bg-white/20',
+      ctaText: lang === 'de' ? 'Leadership-Programme' : 'Leadership Programs',
+      ctaBg: 'bg-white/10 border-white/30 hover:bg-white/20 hover:border-white/50',
+      ctaTextColor: 'text-white',
+    },
+  ];
+
+  // Auto-rotate effect
+  React.useEffect(() => {
+    if (isHovered) {
+      setProgress(0);
+      return;
+    }
+
+    const duration = 5000; // 5 seconds
+    const interval = 50; // Update every 50ms
+    const increment = (interval / duration) * 100;
+
+    const progressTimer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          setCurrentIndex((current) => (current + 1) % carouselData.length);
+          return 0;
+        }
+        return prev + increment;
+      });
+    }, interval);
+
+    return () => clearInterval(progressTimer);
+  }, [currentIndex, isHovered, carouselData.length]);
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+    setProgress(0);
+  };
+
+  const goToPrevious = () => {
+    setDirection('left');
+    setCurrentIndex((current) => (current - 1 + carouselData.length) % carouselData.length);
+    setProgress(0);
+  };
+
+  const goToNext = () => {
+    setDirection('right');
+    setCurrentIndex((current) => (current + 1) % carouselData.length);
+    setProgress(0);
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goToPrevious();
+      if (e.key === 'ArrowRight') goToNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Touch/Mouse drag handlers
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    setDragStart(clientX);
+    setIsHovered(true);
+  };
+
+  const handleDragEnd = (e: React.MouseEvent | React.TouchEvent) => {
+    if (dragStart === null) return;
+    
+    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
+    const diff = dragStart - clientX;
+    
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left → next slide (comes from right)
+        goToNext();
+      } else {
+        // Swipe right → previous slide (comes from left)
+        goToPrevious();
+      }
+    }
+    
+    setDragStart(null);
+    setIsHovered(false);
+  };
+
+  const currentCard = carouselData[currentIndex];
+  const currentLevel = levels[currentIndex];
+  const Icon = currentCard.icon;
+
+  return (
+    <div className="relative">
+      {/* Previous Button */}
+      <button
+        onClick={goToPrevious}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 text-white hover:bg-black/70 hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+        aria-label="Previous slide"
+      >
+        <ChevronRight className="h-6 w-6 rotate-180 group-hover:-translate-x-1 transition-transform" />
+      </button>
+
+      {/* Next Button */}
+      <button
+        onClick={goToNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-white/20 text-white hover:bg-black/70 hover:scale-110 transition-all duration-300 flex items-center justify-center group"
+        aria-label="Next slide"
+      >
+        <ChevronRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+      </button>
+
+      {/* Main Carousel Card */}
+      <div
+        className="relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing select-none"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onMouseDown={handleDragStart}
+        onMouseUp={handleDragEnd}
+        onTouchStart={handleDragStart}
+        onTouchEnd={handleDragEnd}
+      >
+        <motion.img
+          key={currentIndex}
+          src={currentCard.image}
+          alt={currentLevel.title}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ 
+            x: direction === 'right' ? 100 : -100,
+            scale: 1.1, 
+            opacity: 0 
+          }}
+          animate={{ 
+            x: 0,
+            scale: 1, 
+            opacity: 1 
+          }}
+          exit={{ 
+            x: direction === 'right' ? -100 : 100,
+            scale: 0.9,
+            opacity: 0 
+          }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+        />
+        <div className={`absolute inset-0 bg-gradient-to-r ${currentCard.gradient}`}></div>
+
+        {/* Content */}
+        <motion.div
+          key={`content-${currentIndex}`}
+          className="relative h-full flex flex-col justify-end p-8 md:p-12"
+          initial={{ 
+            opacity: 0, 
+            x: direction === 'right' ? 50 : -50 
+          }}
+          animate={{ 
+            opacity: 1, 
+            x: 0 
+          }}
+          transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+        >
+          <div className="mb-6">
+            <div className={`w-16 h-16 rounded-full ${currentCard.iconBg} backdrop-blur-sm flex items-center justify-center mb-6`}>
+              <Icon className="h-8 w-8 text-white" />
+            </div>
+          </div>
+          <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">{currentLevel.title}</h3>
+          <p className="text-xl text-gray-100 mb-8 leading-relaxed max-w-3xl">{currentLevel.description}</p>
+          <button className={`self-start inline-flex items-center px-8 py-4 ${currentCard.ctaBg} ${currentCard.ctaTextColor} backdrop-blur-sm border rounded-lg font-semibold transition-all duration-300 group/btn`}>
+            {currentCard.ctaText}
+            <ArrowRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-2 transition-transform" />
+          </button>
+        </motion.div>
+
+        {/* Progress Bar */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+          <div
+            className="h-full bg-white/80 transition-all duration-50"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+      </div>
+
+      {/* Navigation Dots */}
+      <div className="flex justify-center gap-3 mt-8">
+        {carouselData.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`relative h-3 rounded-full transition-all duration-300 ${
+              index === currentIndex ? 'w-12 bg-teal-500' : 'w-3 bg-white/30 hover:bg-white/50'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          >
+            {index === currentIndex && (
+              <div className="absolute inset-0 rounded-full bg-white/50 animate-pulse"></div>
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Slide Counter */}
+      <div className="text-center mt-4 text-gray-400 font-semibold">
+        {currentIndex + 1} / {carouselData.length}
+      </div>
+    </div>
+  );
+}
+
 // ElevenLabs Premium Voices Configuration
 const ELEVENLABS_VOICES = {
   de: [
@@ -1033,36 +1278,24 @@ export default function CareerPage() {
           </div>
         </section>
 
-        {/* Career Levels Section */}
+        {/* Career Levels Section - Rotating Carousel */}
         <section className="py-20 bg-black border-t border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
-              <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">
-                {t.levelsTitle}
-              </h2>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                  {t.levelsTitle}
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  {lang === 'de' 
+                    ? 'Egal, an welchem Punkt deiner Karriere du dich befindest' 
+                    : 'No matter where you are in your career journey'}
+                </p>
+              </div>
             </SlideIn>
 
-            <StaggerSlideIn className="grid gap-6 md:grid-cols-2">
-              {t.levels.map((level, index) => {
-                const Icon = level.icon;
-                return (
-                  <div
-                    key={index}
-                    className="flex gap-6 p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 border border-teal-500/30 hover:border-teal-400/60 hover:shadow-xl hover:shadow-teal-500/20 transition-all duration-300"
-                  >
-                    <div className="flex-shrink-0">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
-                        <Icon className="h-8 w-8 text-white" />
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2">{level.title}</h3>
-                      <p className="text-gray-300 leading-relaxed">{level.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </StaggerSlideIn>
+            {/* Rotating Carousel */}
+            <CareerLevelsCarousel levels={t.levels} lang={lang} />
           </div>
         </section>
 

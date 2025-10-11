@@ -338,9 +338,9 @@
       "items": [
         { "id": "home", "label": "Home", "href": "#home" },
         { "id": "about", "label": "Über uns", "href": "#about" },
-        { "id": "team", "label": "Team", "href": "#team" },
         { "id": "services", "label": "Services", "href": "#services" },
         { "id": "cases", "label": "Referenzen", "href": "/de/cases" },
+        { "id": "team", "label": "Team", "href": "/de/team" },
         { "id": "careers", "label": "Karriere", "href": "/de/karriere" },
         { "id": "contact", "label": "Kontakt", "href": "#contact" }
       ],
@@ -350,9 +350,9 @@
       "items": [
         { "id": "home", "label": "Home", "href": "#home" },
         { "id": "about", "label": "About", "href": "#about" },
-        { "id": "team", "label": "Team", "href": "#team" },
         { "id": "services", "label": "Services", "href": "#services" },
         { "id": "cases", "label": "References", "href": "/en/cases" },
+        { "id": "team", "label": "Team", "href": "/en/team" },
         { "id": "careers", "label": "Careers", "href": "/en/career" },
         { "id": "contact", "label": "Contact", "href": "#contact" }
       ],

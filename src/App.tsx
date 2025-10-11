@@ -31,6 +31,7 @@ import SAPCapability from './pages/capabilities/SAPCapability';
 
 // Career Page
 import CareerPage from './pages/CareerPage';
+import TeamPage from './pages/TeamPage';
 
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
@@ -67,6 +68,9 @@ function WithLocaleRoutes() {
       {/* Career Page */}
       <Route path="karriere" element={<CareerPage />} />
       <Route path="career" element={<CareerPage />} />
+      
+      {/* Team Page */}
+      <Route path="team" element={<TeamPage />} />
       
       {/* Cases overview for this language */}
       <Route path="cases" element={<CasesPage />} />
