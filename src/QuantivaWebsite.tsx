@@ -674,53 +674,200 @@ export default function QuantivaWebsite() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section id="hero" className="relative min-h-[86vh] flex items-center justify-center overflow-hidden">
-        {/* Video/Bild-Hintergrund - Medien aus CMS */}
+      {/* Hero - Ultra Modern with Video Background */}
+      <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Video Background - Cloudinary CDN */}
         <motion.video
-          src={(hero as any).backgroundVideo || "/assets/hero-bg.mp4"}
-          poster={(hero as any).backgroundImage || "/assets/hero-fallback.jpg"}
+          src={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'demo'}/video/upload/q_auto:good,w_1920/v1/quantiva-assets/videos/hero-corporate-tech.mp4`}
+          poster={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'demo'}/image/upload/q_auto,w_1920/v1/quantiva-assets/hero-fallback.jpg`}
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover scale-105"
           style={{ y }}
         />
-        {/* Mehrstufiges Overlay für starke Lesbarkeit */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-900/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
+        
+        {/* Animated Gradient Overlays - 3D Depth Effect */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/50 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-transparent to-blue-900/20"
+          animate={{
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
 
-        {/* Content */}
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-teal-400/40 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+
+        {/* Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        {/* Content Container */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="relative z-10 mx-auto max-w-5xl px-6 text-center text-white"
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ 
+            duration: 1, 
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.2 
+          }}
+          className="relative z-10 mx-auto max-w-6xl px-6 text-center"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight">
-            {hero.title}
-          </h1>
-          <p className="mx-auto mt-3 max-w-xl text-xl md:text-2xl text-teal-400 font-semibold">
-            {hero.subtitle}
-          </p>
-          <p className="mx-auto mt-5 max-w-2xl text-lg md:text-xl text-white/90">
-            {hero.description}
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-teal-300 text-sm font-medium"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+            </span>
+            Ihre digitale Zukunft beginnt hier
+          </motion.div>
+
+          {/* Main Heading - with Gradient Text */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tight text-white mb-6"
+          >
+            <span className="block">{hero.title.split('.')[0]}.</span>
+            <span className="block bg-gradient-to-r from-teal-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
+              {hero.title.split('.')[1] || 'Neu gedacht.'}
+            </span>
+          </motion.h1>
+
+          {/* Subtitle with Glassmorphism */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mx-auto max-w-3xl mb-8"
+          >
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 shadow-2xl">
+              <p className="text-xl md:text-2xl text-teal-300 font-semibold mb-3">
+                {hero.subtitle}
+              </p>
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+                {hero.description}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* CTA Buttons - Modern Design */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
             <button
               onClick={() => scrollTo('services')}
-              className="inline-flex items-center gap-2 rounded-2xl bg-teal-500 px-6 py-3 text-base font-semibold shadow hover:bg-teal-600"
+              className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-lg font-bold rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-teal-500/50 hover:scale-105"
             >
-              {hero.ctaPrimary} <ChevronRight className="h-5 w-5" />
+              <span className="relative z-10 flex items-center gap-2">
+                {hero.ctaPrimary} 
+                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
+            
             <a
               href={localePath('/cases')}
-              className="inline-flex items-center gap-2 rounded-2xl bg-white/90 px-6 py-3 text-base font-semibold text-slate-900 shadow hover:bg-white"
+              className="group relative px-8 py-4 bg-white/10 backdrop-blur-md text-white text-lg font-bold rounded-2xl border-2 border-white/30 overflow-hidden transition-all duration-300 hover:bg-white/20 hover:border-teal-400 hover:scale-105"
             >
-              {hero.ctaSecondary} <ChevronRight className="h-5 w-5" />
+              <span className="relative z-10 flex items-center gap-2">
+                {hero.ctaSecondary}
+                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </span>
             </a>
-          </div>
+          </motion.div>
+
+          {/* Stats Bar - Modern Tech Companies Style */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto"
+          >
+            {[
+              { value: "50+", label: lang === 'de' ? "Erfolgreiche Projekte" : "Successful Projects" },
+              { value: "99%", label: lang === 'de' ? "Kundenzufriedenheit" : "Client Satisfaction" },
+              { value: "24/7", label: lang === 'de' ? "Support" : "Support" }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1 + index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-3xl md:text-4xl font-black text-teal-400 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-xs md:text-sm text-gray-400 font-medium">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center gap-2 cursor-pointer"
+            onClick={() => scrollTo('services')}
+          >
+            <span className="text-white/60 text-sm font-medium">Scroll</span>
+            <ChevronRight className="h-5 w-5 text-teal-400 rotate-90" />
+          </motion.div>
         </motion.div>
       </section>
 
