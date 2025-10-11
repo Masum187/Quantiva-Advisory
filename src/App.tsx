@@ -29,6 +29,9 @@ import MicroservicesCapability from './pages/capabilities/MicroservicesCapabilit
 import AICapability from './pages/capabilities/AICapability';
 import SAPCapability from './pages/capabilities/SAPCapability';
 
+// Career Page
+import CareerPage from './pages/CareerPage';
+
 // Valid language codes
 const VALID_LANGUAGES = ['de', 'en'] as const;
 type Language = typeof VALID_LANGUAGES[number];
@@ -60,6 +63,10 @@ function WithLocaleRoutes() {
       <Route path="capabilities/microservices" element={<MicroservicesCapability />} />
       <Route path="capabilities/ai" element={<AICapability />} />
       <Route path="capabilities/sap" element={<SAPCapability />} />
+      
+      {/* Career Page */}
+      <Route path="karriere" element={<CareerPage />} />
+      <Route path="career" element={<CareerPage />} />
       
       {/* Cases overview for this language */}
       <Route path="cases" element={<CasesPage />} />

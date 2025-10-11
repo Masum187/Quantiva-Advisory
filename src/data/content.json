@@ -341,7 +341,7 @@
         { "id": "team", "label": "Team", "href": "#team" },
         { "id": "services", "label": "Services", "href": "#services" },
         { "id": "cases", "label": "Referenzen", "href": "/de/cases" },
-        { "id": "careers", "label": "Karriere", "href": "#careers" },
+        { "id": "careers", "label": "Karriere", "href": "/de/karriere" },
         { "id": "contact", "label": "Kontakt", "href": "#contact" }
       ],
       "cta": "Termin buchen"
@@ -353,7 +353,7 @@
         { "id": "team", "label": "Team", "href": "#team" },
         { "id": "services", "label": "Services", "href": "#services" },
         { "id": "cases", "label": "References", "href": "/en/cases" },
-        { "id": "careers", "label": "Careers", "href": "#careers" },
+        { "id": "careers", "label": "Careers", "href": "/en/career" },
         { "id": "contact", "label": "Contact", "href": "#contact" }
       ],
       "cta": "Book Meeting"
