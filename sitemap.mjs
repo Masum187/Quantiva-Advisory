@@ -8,8 +8,14 @@ const TODAY = new Date().toISOString().split("T")[0];
 
 const STATIC_PATHS = ["/", "/cases"];
 
-// Load case slugs from JSON data source
-const casesData = JSON.parse(fs.readFileSync(path.join(process.cwd(), "src", "data", "cases.json"), "utf-8"));
+// Load case slugs from JSON data source (with fallback for missing file)
+let casesData = [];
+try {
+  const casesPath = path.join(process.cwd(), "src", "data", "cases.json");
+  casesData = JSON.parse(fs.readFileSync(casesPath, "utf-8"));
+} catch (err) {
+  console.warn("Warning: cases.json not found or invalid, generating sitemap without case pages:", err.message);
+}
 const CASE_SLUGS = casesData.map(c => c.slug);
 
 function urlNode(basePath) {
