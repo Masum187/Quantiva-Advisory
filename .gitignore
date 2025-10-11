@@ -11,6 +11,10 @@
 # production
 /build
 
+# Vite files (not used, project uses CRA)
+/index.html
+/dist
+
 # misc
 .DS_Store
 .env.local
