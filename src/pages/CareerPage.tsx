@@ -119,9 +119,16 @@ export default function CareerPage() {
     try {
       setIsVoicePlaying(true);
       
-      // Use demo key for testing (limited usage) or user's key
-      const apiKey = elevenLabsKey || 'sk_9c1f5e5e5b5e5e5e5e5e5e5e5e5e5e5e'; // Demo key
+      // Use environment variable (production), user's key, or fallback to browser TTS
+      const apiKey = process.env.REACT_APP_ELEVENLABS_KEY || elevenLabsKey;
       
+      // Check if API key is available
+      if (!apiKey) {
+        console.warn('No ElevenLabs API key found, falling back to browser TTS');
+        speakWithBrowserTTS(text);
+        return;
+      }
+
       const response = await fetch(
         `https://api.elevenlabs.io/v1/text-to-speech/${selectedElevenLabsVoice}`,
         {
@@ -145,6 +152,8 @@ export default function CareerPage() {
       );
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('ElevenLabs API error:', errorText);
         throw new Error('ElevenLabs API error');
       }
 
