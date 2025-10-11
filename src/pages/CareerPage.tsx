@@ -67,11 +67,35 @@ export default function CareerPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const [showVoiceButton, setShowVoiceButton] = useState(true);
+  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
+  const [currentWord, setCurrentWord] = useState('');
+  const [volume, setVolume] = useState(1.0);
+  const [rate, setRate] = useState(0.95);
+  const [pitch, setPitch] = useState(1.0);
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
 
-  // Voice AI Function
+  // Load available voices
+  React.useEffect(() => {
+    const loadVoices = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const filtered = voices.filter(voice => 
+        voice.lang.startsWith(lang === 'de' ? 'de' : 'en')
+      );
+      setAvailableVoices(filtered);
+      if (filtered.length > 0 && !selectedVoice) {
+        setSelectedVoice(filtered[0]);
+      }
+    };
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }, [lang]);
+
+  // Voice AI Function with advanced features
   const speakMessage = () => {
     if ('speechSynthesis' in window) {
       // Stop any ongoing speech
@@ -83,27 +107,41 @@ export default function CareerPage() {
       
       const utterance = new SpeechSynthesisUtterance(text);
       
-      // Set German or English voice
-      const voices = window.speechSynthesis.getVoices();
-      const germanVoice = voices.find(voice => voice.lang.startsWith(lang === 'de' ? 'de' : 'en'));
-      if (germanVoice) {
-        utterance.voice = germanVoice;
+      // Apply user settings
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
       }
       
       utterance.lang = lang === 'de' ? 'de-DE' : 'en-US';
-      utterance.rate = 0.95; // Slightly slower for clarity
-      utterance.pitch = 1.0;
-      utterance.volume = 1.0;
+      utterance.rate = rate;
+      utterance.pitch = pitch;
+      utterance.volume = volume;
+      
+      // Word-by-word highlighting for captions
+      const words = text.split(' ');
+      let wordIndex = 0;
+      
+      utterance.onboundary = (event) => {
+        if (event.name === 'word') {
+          if (wordIndex < words.length) {
+            setCurrentWord(words[wordIndex]);
+            wordIndex++;
+          }
+        }
+      };
       
       utterance.onstart = () => setIsVoicePlaying(true);
       utterance.onend = () => {
         setIsVoicePlaying(false);
+        setCurrentWord('');
         setShowVoiceButton(false); // Hide button after playing
       };
       
       window.speechSynthesis.speak(utterance);
     } else {
-      alert('Text-to-Speech wird in diesem Browser nicht unterstützt.');
+      alert(lang === 'de' 
+        ? 'Text-to-Speech wird in diesem Browser nicht unterstützt.' 
+        : 'Text-to-Speech is not supported in this browser.');
     }
   };
 
@@ -503,7 +541,7 @@ export default function CareerPage() {
                   {t.heroSubtitle}
                 </p>
                 
-                {/* Voice Message Display */}
+                {/* Voice Message Display with Live Captions */}
                 {isVoicePlaying && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -517,13 +555,42 @@ export default function CareerPage() {
                         transition={{ duration: 0.5, repeat: Infinity }}
                         className="w-3 h-3 bg-teal-400 rounded-full"
                       ></motion.div>
-                      <span className="text-teal-400 font-semibold">KI spricht...</span>
+                      <span className="text-teal-400 font-semibold">
+                        {lang === 'de' ? 'KI spricht...' : 'AI speaking...'}
+                      </span>
                     </div>
-                    <p className="text-white text-lg leading-relaxed">
-                      {lang === 'de' 
+                    
+                    {/* Full Text with Live Word Highlighting */}
+                    <p className="text-white text-lg leading-relaxed mb-2">
+                      {(lang === 'de' 
                         ? "Du bist derjenige, der dieses Unternehmen mitgestalten kann. Zögere nicht so lange und bewirb dich jetzt!"
-                        : "You are the one who can help shape this company. Don't hesitate any longer and apply now!"}
+                        : "You are the one who can help shape this company. Don't hesitate any longer and apply now!"
+                      ).split(' ').map((word, idx) => (
+                        <span
+                          key={idx}
+                          className={`inline-block mr-1 transition-all duration-200 ${
+                            word === currentWord 
+                              ? 'text-teal-300 font-bold scale-110' 
+                              : 'text-white'
+                          }`}
+                        >
+                          {word}
+                        </span>
+                      ))}
                     </p>
+                    
+                    {/* Current Word Highlight */}
+                    {currentWord && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="mt-3 text-center"
+                      >
+                        <span className="inline-block px-4 py-2 bg-teal-500/30 rounded-lg text-teal-300 font-bold text-xl">
+                          {currentWord}
+                        </span>
+                      </motion.div>
+                    )}
                   </motion.div>
                 )}
 
@@ -536,26 +603,138 @@ export default function CareerPage() {
                     <ChevronRight className="ml-2 h-5 w-5" />
                   </a>
                   
-                  {/* Voice Button */}
+                  {/* Voice Control Buttons */}
                   {showVoiceButton && (
-                    <button
-                      onClick={speakMessage}
-                      disabled={isVoicePlaying}
-                      className={`inline-flex items-center px-6 py-3 backdrop-blur-sm border-2 border-teal-400/50 text-white text-base font-semibold rounded-xl hover:bg-teal-500/20 transition-all duration-300 ${
-                        isVoicePlaying ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'
-                      }`}
-                    >
-                      <svg 
-                        className={`w-5 h-5 mr-2 ${isVoicePlaying ? 'animate-pulse' : ''}`} 
-                        fill="currentColor" 
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" />
-                      </svg>
-                      {isVoicePlaying 
-                        ? (lang === 'de' ? 'KI spricht...' : 'AI speaking...') 
-                        : (lang === 'de' ? 'KI-Botschaft anhören' : 'Listen to AI Message')}
-                    </button>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex flex-wrap gap-3 justify-center">
+                        <button
+                          onClick={speakMessage}
+                          disabled={isVoicePlaying}
+                          className={`inline-flex items-center px-6 py-3 backdrop-blur-sm border-2 border-teal-400/50 text-white text-base font-semibold rounded-xl hover:bg-teal-500/20 transition-all duration-300 ${
+                            isVoicePlaying ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'
+                          }`}
+                        >
+                          <svg 
+                            className={`w-5 h-5 mr-2 ${isVoicePlaying ? 'animate-pulse' : ''}`} 
+                            fill="currentColor" 
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" />
+                          </svg>
+                          {isVoicePlaying 
+                            ? (lang === 'de' ? 'KI spricht...' : 'AI speaking...') 
+                            : (lang === 'de' ? 'KI-Botschaft anhören' : 'Listen to AI Message')}
+                        </button>
+
+                        <button
+                          onClick={() => setShowVoiceSettings(!showVoiceSettings)}
+                          className="inline-flex items-center px-4 py-3 backdrop-blur-sm border-2 border-gray-400/50 text-white text-base font-semibold rounded-xl hover:bg-gray-500/20 transition-all duration-300 hover:scale-105"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        </button>
+                      </div>
+
+                      {/* Voice Settings Panel */}
+                      {showVoiceSettings && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="p-6 bg-black/60 backdrop-blur-md border border-teal-500/30 rounded-2xl max-w-md mx-auto"
+                        >
+                          <h3 className="text-white font-bold mb-4 text-center">
+                            {lang === 'de' ? 'Stimmeneinstellungen' : 'Voice Settings'}
+                          </h3>
+
+                          {/* Voice Selection */}
+                          <div className="mb-4">
+                            <label className="text-gray-300 text-sm mb-2 block">
+                              {lang === 'de' ? 'Stimme auswählen' : 'Select Voice'}
+                            </label>
+                            <select
+                              value={selectedVoice?.name || ''}
+                              onChange={(e) => {
+                                const voice = availableVoices.find(v => v.name === e.target.value);
+                                setSelectedVoice(voice || null);
+                              }}
+                              className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:border-teal-500 focus:outline-none"
+                            >
+                              {availableVoices.map((voice) => (
+                                <option key={voice.name} value={voice.name}>
+                                  {voice.name} ({voice.lang})
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+
+                          {/* Volume Control */}
+                          <div className="mb-4">
+                            <label className="text-gray-300 text-sm mb-2 block flex items-center justify-between">
+                              <span>{lang === 'de' ? 'Lautstärke' : 'Volume'}</span>
+                              <span className="text-teal-400">{Math.round(volume * 100)}%</span>
+                            </label>
+                            <input
+                              type="range"
+                              min="0"
+                              max="1"
+                              step="0.1"
+                              value={volume}
+                              onChange={(e) => setVolume(parseFloat(e.target.value))}
+                              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                            />
+                          </div>
+
+                          {/* Speed Control */}
+                          <div className="mb-4">
+                            <label className="text-gray-300 text-sm mb-2 block flex items-center justify-between">
+                              <span>{lang === 'de' ? 'Geschwindigkeit' : 'Speed'}</span>
+                              <span className="text-teal-400">{rate.toFixed(2)}x</span>
+                            </label>
+                            <input
+                              type="range"
+                              min="0.5"
+                              max="2"
+                              step="0.05"
+                              value={rate}
+                              onChange={(e) => setRate(parseFloat(e.target.value))}
+                              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                            />
+                          </div>
+
+                          {/* Pitch Control */}
+                          <div className="mb-4">
+                            <label className="text-gray-300 text-sm mb-2 block flex items-center justify-between">
+                              <span>{lang === 'de' ? 'Tonhöhe' : 'Pitch'}</span>
+                              <span className="text-teal-400">{pitch.toFixed(2)}</span>
+                            </label>
+                            <input
+                              type="range"
+                              min="0.5"
+                              max="2"
+                              step="0.1"
+                              value={pitch}
+                              onChange={(e) => setPitch(parseFloat(e.target.value))}
+                              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                            />
+                          </div>
+
+                          {/* Reset Button */}
+                          <button
+                            onClick={() => {
+                              setVolume(1.0);
+                              setRate(0.95);
+                              setPitch(1.0);
+                            }}
+                            className="w-full px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                          >
+                            {lang === 'de' ? 'Zurücksetzen' : 'Reset to Default'}
+                          </button>
+                        </motion.div>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
