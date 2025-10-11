@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { Helmet } from "react-helmet";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import {
   Menu, X, ChevronRight,
   Shield, Mail, Phone, ArrowRight,
@@ -572,8 +572,7 @@ export default function QuantivaWebsite() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const { scrollYProgress } = useScroll();
-  // const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]); // Not used in current hero design
+  // Parallax scrolling removed for simpler Accenture-style hero
 
   const siteTitle = 'Quantiva Advisory – Strategie · Engineering · Enablement';
   const siteDesc = 'Digitale Exzellenz mit SAP, Cloud & Compliance.';
@@ -681,16 +680,15 @@ export default function QuantivaWebsite() {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
         </div>
 
-        <div className="container mx-auto px-6 lg:px-12 xl:px-16 py-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+        <div className="container mx-auto px-6 lg:px-12 py-20 relative z-10 max-w-7xl">
+          <div className="grid lg:grid-cols-[45%_55%] xl:grid-cols-[48%_52%] gap-12 lg:gap-16 items-center">
             {/* Left: Main Heading - Accenture Style */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="lg:pr-4"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black text-white leading-[1.05] tracking-tight mb-8">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-8 break-words">
                 {lang === 'de' ? (
                   <>
                     DIGITALE<br />
