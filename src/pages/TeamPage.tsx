@@ -44,24 +44,22 @@ export default function TeamPage() {
   const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'dbrisux8i';
   
   // 🎵 Suno Music Playlist - Cloudinary CDN
-  // Upload your Suno MP3s to Cloudinary and update the Public IDs below
+  // Your Suno tracks from: https://console.cloudinary.com/console/c-dbrisux8i/media_library
   const musicPlaylist = [
     {
-      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/quantum-vision.mp3`,
-      title: 'Quantum Vision',
+      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/west-side-rollin_tnpcbq.mp3`,
+      title: 'West Side Rollin',
       artist: 'Suno AI',
     },
-    {
-      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/digital-future.mp3`,
-      title: 'Digital Future',
-      artist: 'Suno AI',
-    },
-    {
-      url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/innovation-flow.mp3`,
-      title: 'Innovation Flow',
-      artist: 'Suno AI',
-    },
-    // Add more tracks: Just upload to Cloudinary and add here!
+    // Add more tracks below:
+    // 1. Upload MP3 to Cloudinary
+    // 2. Copy the Public ID (e.g., 'your-track-name_abc123')
+    // 3. Add new object:
+    // {
+    //   url: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/upload/q_auto/YOUR_PUBLIC_ID.mp3`,
+    //   title: 'Your Track Title',
+    //   artist: 'Suno AI',
+    // },
   ];
   
   // 💡 Tip: Use 'q_auto' in URL for automatic quality optimization
