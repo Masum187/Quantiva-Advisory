@@ -65,9 +65,56 @@ function StaggerSlideIn({ children, className = "" }: { children: React.ReactNod
 export default function CareerPage() {
   const { lang, localePath } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVoicePlaying, setIsVoicePlaying] = useState(false);
+  const [showVoiceButton, setShowVoiceButton] = useState(true);
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
+
+  // Voice AI Function
+  const speakMessage = () => {
+    if ('speechSynthesis' in window) {
+      // Stop any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      const text = lang === 'de' 
+        ? "Du bist derjenige, der dieses Unternehmen mitgestalten kann. Zögere nicht so lange und bewirb dich jetzt!"
+        : "You are the one who can help shape this company. Don't hesitate any longer and apply now!";
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Set German or English voice
+      const voices = window.speechSynthesis.getVoices();
+      const germanVoice = voices.find(voice => voice.lang.startsWith(lang === 'de' ? 'de' : 'en'));
+      if (germanVoice) {
+        utterance.voice = germanVoice;
+      }
+      
+      utterance.lang = lang === 'de' ? 'de-DE' : 'en-US';
+      utterance.rate = 0.95; // Slightly slower for clarity
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+      
+      utterance.onstart = () => setIsVoicePlaying(true);
+      utterance.onend = () => {
+        setIsVoicePlaying(false);
+        setShowVoiceButton(false); // Hide button after playing
+      };
+      
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Text-to-Speech wird in diesem Browser nicht unterstützt.');
+    }
+  };
+
+  // Auto-play voice after 3 seconds on component mount
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      speakMessage();
+    }, 3000);
+    
+    return () => clearTimeout(timer);
+  }, [lang]);
 
   // Content Data
   const content = {
@@ -385,7 +432,7 @@ export default function CareerPage() {
           )}
         </nav>
 
-        {/* Hero Section */}
+        {/* Hero Section with Digital AI Head */}
         <motion.section 
           style={{ opacity: heroOpacity, scale: heroScale }}
           className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden"
@@ -393,13 +440,60 @@ export default function CareerPage() {
           {/* Background Gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-teal-900/20 via-black to-black"></div>
           
+          {/* Digital AI Head - Animated Background */}
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1.2, opacity: 0.3 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          >
+            <div className="relative w-full h-full max-w-4xl">
+              {/* Digital Grid Face Effect */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.05, 1],
+                  opacity: [0.3, 0.4, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="absolute inset-0 bg-gradient-to-br from-teal-500/20 via-blue-500/20 to-purple-500/20 rounded-full blur-3xl"
+              ></motion.div>
+              
+              {/* AI Head Image */}
+              <motion.img
+                src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop"
+                alt="Digital AI"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ 
+                  scale: isVoicePlaying ? 1.1 : 1,
+                  opacity: isVoicePlaying ? 0.4 : 0.25,
+                }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 w-full h-full object-contain mix-blend-lighten"
+              />
+              
+              {/* Pulsing Ring Effect */}
+              {isVoicePlaying && (
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 1 }}
+                  animate={{ scale: 1.5, opacity: 0 }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute inset-0 border-4 border-teal-400 rounded-full"
+                ></motion.div>
+              )}
+            </div>
+          </motion.div>
+
           {/* Animated Background Pattern */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-20 left-20 w-72 h-72 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
             <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
             <SlideIn direction="up" delay={0.2}>
               <div className="text-center max-w-4xl mx-auto">
                 <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
@@ -408,13 +502,62 @@ export default function CareerPage() {
                 <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
                   {t.heroSubtitle}
                 </p>
-                <a
-                  href="#openpositions"
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white text-lg font-semibold rounded-xl hover:shadow-2xl hover:shadow-teal-500/50 hover:scale-105 transition-all duration-300"
-                >
-                  {t.heroCTA}
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </a>
+                
+                {/* Voice Message Display */}
+                {isVoicePlaying && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="mb-6 p-6 bg-gradient-to-r from-teal-500/20 to-blue-500/20 backdrop-blur-md border border-teal-500/30 rounded-2xl max-w-2xl mx-auto"
+                  >
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <motion.div
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 0.5, repeat: Infinity }}
+                        className="w-3 h-3 bg-teal-400 rounded-full"
+                      ></motion.div>
+                      <span className="text-teal-400 font-semibold">KI spricht...</span>
+                    </div>
+                    <p className="text-white text-lg leading-relaxed">
+                      {lang === 'de' 
+                        ? "Du bist derjenige, der dieses Unternehmen mitgestalten kann. Zögere nicht so lange und bewirb dich jetzt!"
+                        : "You are the one who can help shape this company. Don't hesitate any longer and apply now!"}
+                    </p>
+                  </motion.div>
+                )}
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <a
+                    href="#openpositions"
+                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white text-lg font-semibold rounded-xl hover:shadow-2xl hover:shadow-teal-500/50 hover:scale-105 transition-all duration-300"
+                  >
+                    {t.heroCTA}
+                    <ChevronRight className="ml-2 h-5 w-5" />
+                  </a>
+                  
+                  {/* Voice Button */}
+                  {showVoiceButton && (
+                    <button
+                      onClick={speakMessage}
+                      disabled={isVoicePlaying}
+                      className={`inline-flex items-center px-6 py-3 backdrop-blur-sm border-2 border-teal-400/50 text-white text-base font-semibold rounded-xl hover:bg-teal-500/20 transition-all duration-300 ${
+                        isVoicePlaying ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'
+                      }`}
+                    >
+                      <svg 
+                        className={`w-5 h-5 mr-2 ${isVoicePlaying ? 'animate-pulse' : ''}`} 
+                        fill="currentColor" 
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" />
+                      </svg>
+                      {isVoicePlaying 
+                        ? (lang === 'de' ? 'KI spricht...' : 'AI speaking...') 
+                        : (lang === 'de' ? 'KI-Botschaft anhören' : 'Listen to AI Message')}
+                    </button>
+                  )}
+                </div>
               </div>
             </SlideIn>
           </div>
