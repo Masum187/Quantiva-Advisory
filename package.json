@@ -48,6 +48,8 @@
     "validate:cases:strict": "node scripts/validate-cases.mjs --strict",
     "report:cases": "node scripts/report-cases.mjs",
     "sitemap": "npm run generate:sitemap",
+    "assets:verify": "node scripts/migrate-assets-to-cloudinary.mjs --verify",
+    "assets:migrate": "node scripts/migrate-assets-to-cloudinary.mjs --migrate",
     "build:sitemap": "npm run generate:sitemap && npm run build",
     "postbuild": "npm run generate:sitemap && npm run generate:og && npm run validate:cases:strict",
     "heroku-postbuild": "npm run build"
