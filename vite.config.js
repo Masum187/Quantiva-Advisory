@@ -14,3 +14,8 @@ export default defineConfig({
   },
 })
 
+// ⚠️ HINWEIS: Diese Datei wird aktuell NICHT verwendet!
+// Das Projekt nutzt Create React App (CRA) mit CRACO.
+// 
+// Für Vite-Migration siehe: /docs/VITE_MDX_INTEGRATION.md
+

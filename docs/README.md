@@ -14,6 +14,30 @@
   - Technische Referenz
   - FAQ
 
+### Setup & Technologie
+
+#### MDX & Vite
+- **[MDX Alternativen – Schnellentscheidung](./MDX_DECISION_QUICKSTART.md)** ⚡ – 2-Minuten-Guide
+  - Soll ich bei MDX bleiben oder wechseln?
+  - Vergleich: MDX, Markdoc, Astro, Contentlayer
+  - Vite-Migration Quick Start
+- **[MDX Alternativen – Vollständiger Guide](./MDX_ALTERNATIVES_GUIDE.md)** 📚 – Detaillierte Analyse
+  - Vite-Integration & Herausforderungen
+  - Ausführliche Alternative-Beschreibungen
+  - Migration-Guides & Code-Beispiele
+  - Entscheidungsbaum & Vergleichstabellen
+- **[Vite & MDX Integration](./VITE_MDX_INTEGRATION.md)** 🔧 – Technische Dokumentation
+  - Häufigste Herausforderungen & Lösungen
+  - Vollständige Vite-Konfiguration (Best Practice)
+  - CRA → Vite Migration Step-by-Step
+  - Performance-Vergleich & Troubleshooting
+- **[MDX Setup für CRA](./MDX_SETUP_CRA.md)** – Aktuelles Setup
+- **[MDX Future Setup](./MDX_FUTURE_SETUP.md)** – Zukünftige Erweiterungen
+
+#### Weitere Setup-Dokumentation
+- **[Git Setup Guide](./GIT_SETUP.md)** – GitHub Repository Setup
+- **[Mermaid Integration](./MERMAID_INTEGRATION_GUIDE.md)** – Diagramme in Dokumentation
+
 ### Weitere Dokumentation
 
 *(Platzhalter für zukünftige Dokumentation)*
@@ -50,11 +74,18 @@ npm start
 
 ```
 docs/
-├── README.md              # Diese Datei
-├── cms-workflow.md        # Workflow & Berechtigungen
-├── api/                   # API-Dokumentation (geplant)
-├── components/            # Komponenten-Docs (geplant)
-└── deployment/            # Deployment-Guides (geplant)
+├── README.md                      # Diese Datei
+├── cms-workflow.md                # Workflow & Berechtigungen
+├── MDX_DECISION_QUICKSTART.md     # ⚡ MDX vs. Alternativen (Quick)
+├── MDX_ALTERNATIVES_GUIDE.md      # 📚 MDX vs. Alternativen (Vollständig)
+├── VITE_MDX_INTEGRATION.md        # 🔧 Vite & MDX Integration (Technisch)
+├── MDX_SETUP_CRA.md               # MDX Setup für CRA (aktuell)
+├── MDX_FUTURE_SETUP.md            # MDX Migration für Zukunft
+├── GIT_SETUP.md                   # Git Repository Setup
+├── MERMAID_INTEGRATION_GUIDE.md   # Mermaid-Diagramme
+├── api/                           # API-Dokumentation (geplant)
+├── components/                    # Komponenten-Docs (geplant)
+└── deployment/                    # Deployment-Guides (geplant)
 ```
 
 ---
