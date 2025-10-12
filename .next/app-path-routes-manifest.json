@@ -1,9 +1,10 @@
 {
+  "/api/contact/route": "/api/contact",
   "/_not-found/page": "/_not-found",
-  "/de/about/page": "/de/about",
   "/de/page": "/de",
-  "/de/career/page": "/de/career",
-  "/en/career/page": "/en/career",
+  "/de/about/page": "/de/about",
+  "/en/about/page": "/en/about",
   "/en/page": "/en",
-  "/en/about/page": "/en/about"
+  "/de/career/page": "/de/career",
+  "/en/career/page": "/en/career"
 }

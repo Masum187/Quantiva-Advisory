@@ -1,12 +1,7 @@
 {
   "version": 1,
   "config": {
-    "env": {
-      "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "bg0up8emai7s",
-      "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "W8mZPPl02kFvyXNtYQgj_AwiwiUon_s5c17qvuQSJbg",
-      "NEXT_PUBLIC_CONTENTFUL_PREVIEW_TOKEN": "W8mZPPl02kFvyXNtYQgj_AwiwiUon_s5c17qvuQSJbg",
-      "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME": "dbrisux8i"
-    },
+    "env": {},
     "eslint": {
       "ignoreDuringBuilds": false
     },
@@ -73,6 +68,11 @@
         {
           "protocol": "https",
           "hostname": "res.cloudinary.com",
+          "pathname": "/**"
+        },
+        {
+          "protocol": "https",
+          "hostname": "images.unsplash.com",
           "pathname": "/**"
         }
       ],
