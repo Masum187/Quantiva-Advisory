@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "next build",
   "installCommand": "npm ci --legacy-peer-deps",
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/(.*)",

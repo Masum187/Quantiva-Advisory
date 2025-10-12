@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   
+  // Fix for multiple lockfiles warning on Vercel
+  outputFileTracingRoot: __dirname,
+  
   // Experimental features disabled for now
   // experimental: {
   //   optimizeCss: true,
