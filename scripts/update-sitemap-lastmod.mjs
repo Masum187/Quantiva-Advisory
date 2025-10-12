@@ -49,15 +49,15 @@ function getFileLastModified(filePath) {
 function getLastModForRoute(route) {
   const today = new Date().toISOString().split('T')[0];
   
-  // Map routes to source files
+  // Map routes to source files (updated for Next.js structure)
   const routeFileMap = {
-    '/': 'src/QuantivaWebsite.tsx',
-    '/cases': 'src/data/cases.json',
+    '/': 'app/components/QuantivaWebsite.tsx',
+    '/cases': 'app/lib/data/cases.json',
   };
   
   // For case detail pages, use cases.json
   if (route.startsWith('/cases/')) {
-    return getGitLastModified('src/data/cases.json') || today;
+    return getGitLastModified('app/lib/data/cases.json') || today;
   }
   
   // For mapped routes, use their source file
@@ -70,8 +70,8 @@ function getLastModForRoute(route) {
   return today;
 }
 
-// Load case slugs from JSON data source
-const casesDataPath = path.join(process.cwd(), "src", "data", "cases.json");
+// Load case slugs from JSON data source (updated for Next.js)
+const casesDataPath = path.join(process.cwd(), "app", "lib", "data", "cases.json");
 const casesData = JSON.parse(fs.readFileSync(casesDataPath, "utf-8"));
 const CASE_SLUGS = casesData.map(c => c.slug);
 
