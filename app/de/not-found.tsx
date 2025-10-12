@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-export default function NotFound() {
+export default function DeNotFound() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
       <motion.div
@@ -12,7 +12,6 @@ export default function NotFound() {
         transition={{ duration: 0.5 }}
         className="max-w-2xl w-full text-center"
       >
-        {/* 404 Number */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -24,56 +23,10 @@ export default function NotFound() {
           </h1>
         </motion.div>
 
-        {/* Illustration */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mb-8"
-        >
-          <svg
-            className="w-64 h-64 mx-auto"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Magnifying Glass */}
-            <circle
-              cx="80"
-              cy="80"
-              r="50"
-              stroke="#0f766e"
-              strokeWidth="6"
-              fill="none"
-            />
-            <line
-              x1="118"
-              y1="118"
-              x2="160"
-              y2="160"
-              stroke="#0f766e"
-              strokeWidth="6"
-              strokeLinecap="round"
-            />
-            {/* Question Mark in Circle */}
-            <text
-              x="80"
-              y="95"
-              fontSize="48"
-              fontWeight="bold"
-              fill="#14b8a6"
-              textAnchor="middle"
-            >
-              ?
-            </text>
-          </svg>
-        </motion.div>
-
-        {/* Error Message */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
           className="mb-8"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -85,20 +38,18 @@ export default function NotFound() {
           </p>
         </motion.div>
 
-        {/* Action Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link
-            href="/"
+            href="/de"
             className="px-8 py-3 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
             Zur Startseite
           </Link>
-
           <button
             onClick={() => window.history.back()}
             className="px-8 py-3 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded-lg border-2 border-gray-300 transition-colors duration-200"
@@ -107,33 +58,23 @@ export default function NotFound() {
           </button>
         </motion.div>
 
-        {/* Popular Links */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.5 }}
           className="mt-12 pt-8 border-t border-gray-200"
         >
           <p className="text-sm text-gray-500 mb-4">
             Oder besuchen Sie eine dieser Seiten:
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/de"
-              className="text-teal-600 hover:text-teal-700 underline"
-            >
+            <Link href="/de" className="text-teal-600 hover:text-teal-700 underline">
               Home
             </Link>
-            <Link
-              href="/de/about"
-              className="text-teal-600 hover:text-teal-700 underline"
-            >
+            <Link href="/de/about" className="text-teal-600 hover:text-teal-700 underline">
               Über uns
             </Link>
-            <Link
-              href="/de/career"
-              className="text-teal-600 hover:text-teal-700 underline"
-            >
+            <Link href="/de/career" className="text-teal-600 hover:text-teal-700 underline">
               Karriere
             </Link>
           </div>
@@ -142,3 +83,4 @@ export default function NotFound() {
     </div>
   );
 }
+

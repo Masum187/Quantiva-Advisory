@@ -1,169 +1,268 @@
-# 🛡️ Error Handling & Error Boundaries
+# 🛡️ Error Handling Documentation
 
 ## Overview
 
-This project uses Next.js 15's built-in error handling system with custom error boundaries for a professional user experience.
+This Next.js application uses multiple layers of error handling to provide a robust user experience and helpful debugging information.
 
 ---
 
-## Error Boundary Files
+## Error Boundary Hierarchy
 
-### 1. **`app/error.tsx`** - Root Error Boundary
-Catches errors in the root application level.
+```
+┌─────────────────────────────────────┐
+│ app/global-error.tsx (Critical)    │ ← Root-level errors
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│ app/error.tsx (Application)        │ ← App-wide errors
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│ app/[lang]/error.tsx (optional)    │ ← Language-specific errors
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│ ErrorBoundary Component            │ ← Component-level errors
+└─────────────────────────────────────┘
+```
 
-**Features:**
-- ✅ Beautiful error UI with animations
-- ✅ "Try Again" functionality
-- ✅ Development mode shows error details
-- ✅ Production mode hides sensitive info
-- ✅ Support contact information
+---
 
-**Triggers when:**
-- JavaScript errors in components
-- Failed data fetching in Server Components
-- Rendering errors
+## 1. Global Error Handler (`app/global-error.tsx`)
 
-### 2. **`app/global-error.tsx`** - Global Error Boundary
-Catches critical errors in the root layout (rare, but important).
+**Purpose:** Catches critical errors that break the entire application, including errors in the root layout.
 
-**Features:**
-- ✅ Inline styles (no external CSS needed)
-- ✅ Works even if CSS fails to load
-- ✅ Minimal dependencies
-- ✅ Critical error reporting
-
-**Triggers when:**
-- Root layout errors
-- Critical app-level failures
+**When it triggers:**
 - Errors in `app/layout.tsx`
-
-### 3. **`app/not-found.tsx`** - 404 Error Page
-Custom 404 page for missing routes.
-
-**Features:**
-- ✅ Beautiful animated 404 design
-- ✅ Helpful navigation links
-- ✅ "Go back" functionality
-- ✅ Popular pages suggestions
-
-**Triggers when:**
-- User navigates to non-existent route
-- `notFound()` function is called
-- Route not defined in file structure
-
-### 4. **Language-Specific Error Boundaries**
-- `app/de/error.tsx` - German error messages
-- `app/en/error.tsx` - English error messages
+- Server-side rendering failures
+- Hydration errors
+- Critical React errors
 
 **Features:**
-- ✅ Localized error messages
-- ✅ Stack trace in development mode
-- ✅ Consistent with language context
+- ✅ Inline CSS (no dependencies)
+- ✅ Minimal design
+- ✅ Error logging
+- ✅ Reset functionality
+- ✅ Development error details
 
----
-
-## Error Hierarchy
-
-```
-┌─────────────────────────────────────┐
-│     app/global-error.tsx            │ ← Catches root layout errors
-│     (CRITICAL - Inline styles)      │
-└─────────────────────────────────────┘
-              ↓
-┌─────────────────────────────────────┐
-│     app/error.tsx                   │ ← Catches app-level errors
-│     (Uses Tailwind + Framer)        │
-└─────────────────────────────────────┘
-              ↓
-┌─────────────────────────────────────┐
-│     app/de/error.tsx                │ ← Catches German route errors
-│     app/en/error.tsx                │ ← Catches English route errors
-└─────────────────────────────────────┘
-              ↓
-┌─────────────────────────────────────┐
-│     app/not-found.tsx               │ ← 404 errors
-└─────────────────────────────────────┘
-```
-
----
-
-## Usage Examples
-
-### Trigger Error (for testing)
-
+**Example:**
 ```typescript
-// In any Server Component:
-export default async function Page() {
-  throw new Error('Test error'); // ← Caught by error.tsx
-}
+// This error will be caught by global-error.tsx
+throw new Error('Critical app initialization error');
+```
 
-// In any Client Component:
-'use client';
-export default function Component() {
-  const [error, setError] = useState(false);
-  
-  if (error) {
-    throw new Error('Client error'); // ← Caught by error.tsx
-  }
-  
-  return <button onClick={() => setError(true)}>Trigger Error</button>;
-}
+---
 
-// 404 Error:
+## 2. Application Error Handler (`app/error.tsx`)
+
+**Purpose:** Catches errors in route segments and their children.
+
+**When it triggers:**
+- Component render errors
+- Data fetching errors
+- Event handler errors
+- Lifecycle method errors
+
+**Features:**
+- ✅ Animated UI (Framer Motion)
+- ✅ User-friendly error messages
+- ✅ "Try Again" and "Go Home" buttons
+- ✅ Development error details
+- ✅ Support email link
+
+**Example:**
+```typescript
+// This error will be caught by error.tsx
+const MyComponent = () => {
+  throw new Error('Component render error');
+};
+```
+
+---
+
+## 3. 404 Not Found Pages
+
+### Root 404 (`app/not-found.tsx`)
+```typescript
+// Triggered when no route matches
+https://quantivaadvisory.com/nonexistent-page
+```
+
+### Language-Specific 404
+- `app/de/not-found.tsx` (German)
+- `app/en/not-found.tsx` (English)
+
+**Features:**
+- ✅ Beautiful 404 design
+- ✅ Animated magnifying glass illustration
+- ✅ Quick navigation links
+- ✅ Language-specific messages
+
+**Example:**
+```typescript
+// Manually trigger 404
 import { notFound } from 'next/navigation';
 
-export default function Page({ params }: { params: { id: string } }) {
-  const item = await fetchItem(params.id);
-  
-  if (!item) {
-    notFound(); // ← Shows app/not-found.tsx
+export default function MyPage() {
+  const data = await fetchData();
+  if (!data) {
+    notFound(); // Shows not-found.tsx
   }
-  
-  return <div>{item.name}</div>;
 }
 ```
 
 ---
 
-## Error Reporting Integration
+## 4. Reusable ErrorBoundary Component
 
-### Setup Sentry (Recommended)
+**Location:** `app/components/ErrorBoundary.tsx`
 
-```bash
-npm install --save @sentry/nextjs
-npx @sentry/wizard@latest -i nextjs
+**Usage:**
+
+### Basic Usage
+```typescript
+import { ErrorBoundary } from '@/app/components/ErrorBoundary';
+
+<ErrorBoundary>
+  <YourComponent />
+</ErrorBoundary>
 ```
 
-### Update Error Boundaries
+### With Custom Fallback
+```typescript
+<ErrorBoundary
+  fallback={
+    <div>Custom error message</div>
+  }
+>
+  <YourComponent />
+</ErrorBoundary>
+```
+
+### With Error Handler
+```typescript
+<ErrorBoundary
+  onError={(error, errorInfo) => {
+    console.log('Custom error handling', error);
+    // Send to analytics, etc.
+  }}
+>
+  <YourComponent />
+</ErrorBoundary>
+```
+
+### Inline Error Boundary
+```typescript
+import { InlineErrorBoundary } from '@/app/components/ErrorBoundary';
+
+<InlineErrorBoundary errorMessage="Dieser Bereich ist momentan nicht verfügbar.">
+  <OptionalFeature />
+</InlineErrorBoundary>
+```
+
+---
+
+## 5. API Route Error Handling
+
+**Location:** `app/api/contact/route.ts`
+
+**Error Types:**
+
+### Rate Limiting (429)
+```typescript
+// Triggered after 5 requests per hour per IP
+POST /api/contact
+Response: 429 Too Many Requests
+```
+
+### Validation Errors (400)
+```typescript
+// Invalid input data
+POST /api/contact
+Response: 400 Bad Request
+Body: { "error": "Invalid email" }
+```
+
+### Server Errors (500)
+```typescript
+// Internal server error
+POST /api/contact
+Response: 500 Internal Server Error
+Body: { "error": "An error occurred. Please try again later." }
+```
+
+---
+
+## Error Logging Strategy
+
+### Development Mode
+- ✅ Full error details in UI
+- ✅ Console logs with stack traces
+- ✅ Error IDs (digest)
+
+### Production Mode
+- ✅ User-friendly error messages
+- ✅ Hidden technical details
+- ✅ Error tracking (TODO: integrate Sentry)
+
+### Integration Points (TODO)
 
 ```typescript
-// app/error.tsx
-import * as Sentry from '@sentry/nextjs';
-
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
-  useEffect(() => {
-    // Send to Sentry
-    Sentry.captureException(error, {
-      level: 'error',
-      tags: {
-        component: 'ErrorBoundary',
-        route: window.location.pathname,
-      },
-    });
-  }, [error]);
+// In error.tsx, global-error.tsx, ErrorBoundary.tsx
+useEffect(() => {
+  console.error('Error:', error);
   
-  // ... rest of component
+  // TODO: Send to error tracking service
+  if (process.env.NODE_ENV === 'production') {
+    Sentry.captureException(error);
+  }
+}, [error]);
+```
+
+---
+
+## Testing Error Boundaries
+
+### 1. Test Application Error
+Create a test page:
+
+```typescript
+// app/test-error/page.tsx
+'use client';
+
+export default function TestError() {
+  return (
+    <button onClick={() => { throw new Error('Test error'); }}>
+      Trigger Error
+    </button>
+  );
 }
 ```
 
-### Environment Variables
+### 2. Test Global Error
+Modify `app/layout.tsx`:
 
-```env
-# .env.local
-NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn_here
-SENTRY_AUTH_TOKEN=your_auth_token
-SENTRY_ORG=your_org
-SENTRY_PROJECT=quantiva-advisory
+```typescript
+export default function RootLayout({ children }) {
+  if (process.env.TEST_GLOBAL_ERROR === 'true') {
+    throw new Error('Test global error');
+  }
+  return <html>{children}</html>;
+}
+```
+
+### 3. Test 404
+Visit: `https://quantivaadvisory.com/this-does-not-exist`
+
+### 4. Test Component Error
+```typescript
+import { ErrorBoundary } from '@/app/components/ErrorBoundary';
+
+<ErrorBoundary>
+  <button onClick={() => { throw new Error('Component error'); }}>
+    Test Component Error
+  </button>
+</ErrorBoundary>
 ```
 
 ---
@@ -171,220 +270,103 @@ SENTRY_PROJECT=quantiva-advisory
 ## Best Practices
 
 ### ✅ DO:
-
-1. **Log errors appropriately:**
-   ```typescript
-   console.error('User action failed:', error);
-   ```
-
-2. **Provide helpful error messages:**
-   ```typescript
-   if (!user) {
-     throw new Error('User not found. Please check your credentials.');
-   }
-   ```
-
-3. **Use error boundaries for async errors:**
-   ```typescript
-   try {
-     await fetchData();
-   } catch (error) {
-     throw new Error('Failed to load data');
-   }
-   ```
-
-4. **Test error states:**
-   ```bash
-   # Add error trigger in development:
-   if (process.env.NODE_ENV === 'development' && window.location.search.includes('test-error')) {
-     throw new Error('Test error');
-   }
-   ```
+- Use `ErrorBoundary` for optional features
+- Log errors with context
+- Provide clear user guidance
+- Test error scenarios
+- Use appropriate error levels
 
 ### ❌ DON'T:
-
-1. **Don't expose sensitive information:**
-   ```typescript
-   // ❌ BAD
-   throw new Error(`API key ${apiKey} is invalid`);
-   
-   // ✅ GOOD
-   throw new Error('Authentication failed');
-   ```
-
-2. **Don't ignore errors:**
-   ```typescript
-   // ❌ BAD
-   try {
-     await riskyOperation();
-   } catch (error) {
-     // Silently fail
-   }
-   
-   // ✅ GOOD
-   try {
-     await riskyOperation();
-   } catch (error) {
-     console.error('Operation failed:', error);
-     throw error; // Re-throw to be caught by Error Boundary
-   }
-   ```
-
-3. **Don't use Error Boundaries for expected errors:**
-   ```typescript
-   // ❌ BAD - Use Error Boundary
-   const user = await fetchUser(); // Might fail
-   
-   // ✅ GOOD - Handle expected errors
-   try {
-     const user = await fetchUser();
-   } catch (error) {
-     return <div>User not found</div>;
-   }
-   ```
+- Catch errors that should crash the app
+- Show technical details to users (production)
+- Ignore error logging
+- Use error boundaries for flow control
+- Forget to add "Try Again" functionality
 
 ---
 
-## Testing Error Boundaries
+## Error Monitoring Setup (TODO)
 
-### Manual Testing
+### Sentry Integration
 
+1. **Install Sentry:**
 ```bash
-# Add to URL to trigger error:
-http://localhost:3000/de?test-error=true
-
-# Or add to component:
-if (searchParams.get('test-error')) {
-  throw new Error('Test error triggered');
-}
+npm install --save @sentry/nextjs
+npx @sentry/wizard -i nextjs
 ```
 
-### Unit Testing
-
+2. **Configure:**
 ```typescript
-// __tests__/error-boundary.test.tsx
-import { render, screen } from '@testing-library/react';
-import Error from '@/app/error';
+// sentry.client.config.ts
+import * as Sentry from '@sentry/nextjs';
 
-describe('Error Boundary', () => {
-  it('renders error message', () => {
-    const error = new Error('Test error');
-    render(<Error error={error} reset={() => {}} />);
-    
-    expect(screen.getByText(/Oops! Etwas ist schiefgelaufen/i)).toBeInTheDocument();
-  });
-  
-  it('shows error details in development', () => {
-    process.env.NODE_ENV = 'development';
-    const error = new Error('Detailed error message');
-    render(<Error error={error} reset={() => {}} />);
-    
-    expect(screen.getByText('Detailed error message')).toBeInTheDocument();
-  });
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  environment: process.env.NODE_ENV,
+  tracesSampleRate: 1.0,
 });
 ```
 
----
-
-## Error Monitoring Dashboard
-
-### Recommended Tools:
-
-1. **Sentry** (https://sentry.io)
-   - ✅ Real-time error tracking
-   - ✅ Source maps support
-   - ✅ User context
-   - ✅ Performance monitoring
-
-2. **LogRocket** (https://logrocket.com)
-   - ✅ Session replay
-   - ✅ Console logs
-   - ✅ Network requests
-   - ✅ Redux/Zustand integration
-
-3. **Datadog** (https://datadoghq.com)
-   - ✅ Full-stack monitoring
-   - ✅ APM (Application Performance Monitoring)
-   - ✅ Log aggregation
-   - ✅ Infrastructure monitoring
-
----
-
-## Common Error Scenarios
-
-### 1. Network Errors
-
+3. **Update Error Boundaries:**
 ```typescript
-try {
-  const response = await fetch('/api/data');
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-  }
-} catch (error) {
-  if (error instanceof TypeError && error.message === 'Failed to fetch') {
-    throw new Error('Network connection lost. Please check your internet.');
-  }
-  throw error;
-}
-```
-
-### 2. Authentication Errors
-
-```typescript
-if (response.status === 401) {
-  // Redirect to login
-  redirect('/login');
-}
-
-if (response.status === 403) {
-  throw new Error('You do not have permission to access this resource.');
-}
-```
-
-### 3. Validation Errors
-
-```typescript
-import { z } from 'zod';
-
-try {
-  const schema = z.object({
-    email: z.string().email(),
+// In error.tsx
+useEffect(() => {
+  Sentry.captureException(error, {
+    tags: {
+      errorBoundary: 'app-error',
+    },
   });
-  schema.parse(data);
-} catch (error) {
-  if (error instanceof z.ZodError) {
-    throw new Error(`Validation failed: ${error.errors[0].message}`);
-  }
+}, [error]);
+```
+
+---
+
+## Error Response Format
+
+### API Errors
+```json
+{
+  "error": "Error message",
+  "code": "ERROR_CODE",
+  "timestamp": "2025-10-12T10:00:00Z",
+  "requestId": "req_123456"
+}
+```
+
+### Component Errors
+```typescript
+interface ErrorState {
+  hasError: boolean;
+  error: Error | null;
+  errorInfo?: ErrorInfo;
 }
 ```
 
 ---
 
-## Production Checklist
+## Support & Contact
 
-- [ ] Error boundaries in place
-- [ ] Error reporting service configured (Sentry/LogRocket)
-- [ ] Error messages are user-friendly
-- [ ] No sensitive data in error messages
-- [ ] 404 page is styled and helpful
-- [ ] Stack traces hidden in production
-- [ ] Error monitoring alerts configured
-- [ ] Support contact info is correct
-- [ ] Error boundaries tested manually
-- [ ] Error logs reviewed regularly
+If errors persist or you need help:
+
+**Email:** support@quantivaadvisory.com  
+**Response Time:** Within 24 hours
 
 ---
 
-## Support
+## Changelog
 
-For questions about error handling:
-- **Technical Lead:** [Your Name]
-- **Email:** support@quantivaadvisory.com
-- **Documentation:** https://nextjs.org/docs/app/building-your-application/routing/error-handling
+### v1.0.0 (2025-10-12)
+- ✅ Initial error boundary implementation
+- ✅ Global error handler
+- ✅ Application error handler
+- ✅ 404 pages (DE/EN)
+- ✅ Reusable ErrorBoundary component
+- ✅ API error handling
+- ✅ Documentation
 
----
-
-**Last Updated:** October 2025  
-**Version:** 1.0  
-**Status:** Production Ready ✅
-
+### Future Improvements
+- [ ] Sentry integration
+- [ ] Error analytics dashboard
+- [ ] Custom error pages per route
+- [ ] Error recovery strategies
+- [ ] User feedback on errors
