@@ -7,6 +7,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { setAnalyticsConsent, privacyConfig } from '../lib/utils/privacy';
 import { X, Shield } from 'lucide-react';
 
@@ -150,9 +151,9 @@ export default function CookieBanner() {
           {/* Footer */}
           <div className="px-6 pb-4 text-xs text-gray-500 dark:text-gray-400 text-center">
             Mehr Informationen in unserer{' '}
-            <a href="/privacy" className="text-teal-600 dark:text-teal-400 hover:underline">
+            <Link href="/privacy" className="text-teal-600 dark:text-teal-400 hover:underline">
               Datenschutzerklärung
-            </a>
+            </Link>
           </div>
         </div>
       </div>
