@@ -4,12 +4,12 @@
   "/page": "/",
   "/de/team/page": "/de/team",
   "/en/team/page": "/en/team",
-  "/de/page": "/de",
-  "/de/cases/page": "/de/cases",
-  "/de/about/page": "/de/about",
-  "/en/career/page": "/en/career",
-  "/de/career/page": "/de/career",
   "/en/about/page": "/en/about",
+  "/de/about/page": "/de/about",
+  "/de/career/page": "/de/career",
+  "/de/cases/page": "/de/cases",
+  "/de/page": "/de",
+  "/en/page": "/en",
   "/en/cases/page": "/en/cases",
-  "/en/page": "/en"
+  "/en/career/page": "/en/career"
 }

@@ -4,12 +4,12 @@
   "/page": "app/page.js",
   "/de/team/page": "app/de/team/page.js",
   "/en/team/page": "app/en/team/page.js",
-  "/de/page": "app/de/page.js",
-  "/de/cases/page": "app/de/cases/page.js",
-  "/de/about/page": "app/de/about/page.js",
-  "/en/career/page": "app/en/career/page.js",
-  "/de/career/page": "app/de/career/page.js",
   "/en/about/page": "app/en/about/page.js",
+  "/de/about/page": "app/de/about/page.js",
+  "/de/career/page": "app/de/career/page.js",
+  "/de/cases/page": "app/de/cases/page.js",
+  "/de/page": "app/de/page.js",
+  "/en/page": "app/en/page.js",
   "/en/cases/page": "app/en/cases/page.js",
-  "/en/page": "app/en/page.js"
+  "/en/career/page": "app/en/career/page.js"
 }
