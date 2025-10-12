@@ -4,12 +4,12 @@
   "/page": "/",
   "/de/about/page": "/de/about",
   "/de/team/page": "/de/team",
-  "/de/page": "/de",
   "/en/about/page": "/en/about",
   "/en/team/page": "/en/team",
+  "/de/career/page": "/de/career",
+  "/de/page": "/de",
   "/en/career/page": "/en/career",
   "/de/cases/page": "/de/cases",
   "/en/page": "/en",
-  "/de/career/page": "/de/career",
   "/en/cases/page": "/en/cases"
 }

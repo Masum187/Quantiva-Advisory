@@ -286,6 +286,16 @@ export default function AboutPage() {
               >
                 {/* 3D Card Container */}
                 <div className="relative h-full p-12 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/20">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
+                      alt="Team Collaboration & Mission"
+                      className="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-purple-800/60 to-purple-900/80" />
+                  </div>
+                  
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 rounded-3xl opacity-20">
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent rounded-3xl" />
@@ -368,6 +378,16 @@ export default function AboutPage() {
               >
                 {/* 3D Card Container */}
                 <div className="relative h-full p-12 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&auto=format&q=80"
+                      alt="Innovation & Future Vision"
+                      className="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-900/80 via-teal-800/60 to-teal-900/80" />
+                  </div>
+                  
                   {/* Animated Background Pattern */}
                   <div className="absolute inset-0 rounded-3xl opacity-20">
                     <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-transparent rounded-3xl" />
@@ -512,6 +532,16 @@ export default function AboutPage() {
                 className="group relative"
               >
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/30">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&auto=format&q=80"
+                      alt="Excellence & Quality"
+                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/85 via-purple-800/70 to-purple-900/85" />
+                  </div>
+                  
                   {/* 3D Glow Effect */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
@@ -568,6 +598,16 @@ export default function AboutPage() {
                 className="group relative"
               >
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop&auto=format&q=80"
+                      alt="Innovation & Technology"
+                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-900/85 via-teal-800/70 to-teal-900/85" />
+                  </div>
+                  
                   {/* 3D Glow Effect */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
@@ -624,6 +664,16 @@ export default function AboutPage() {
                 className="group relative"
               >
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/30">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&auto=format&q=80"
+                      alt="Partnership & Collaboration"
+                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/85 via-purple-800/70 to-purple-900/85" />
+                  </div>
+                  
                   {/* 3D Glow Effect */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
@@ -680,6 +730,16 @@ export default function AboutPage() {
                 className="group relative"
               >
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
+                  {/* Background Image */}
+                  <div className="absolute inset-0 rounded-3xl overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop&auto=format&q=80"
+                      alt="Sustainability & Green Technology"
+                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-900/85 via-teal-800/70 to-teal-900/85" />
+                  </div>
+                  
                   {/* 3D Glow Effect */}
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
