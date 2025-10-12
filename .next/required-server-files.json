@@ -114,7 +114,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/herijeanmasum",
+    "outputFileTracingRoot": "/Users/herijeanmasum/Developer/quantiva-website",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -303,7 +303,7 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.js",
     "turbopack": {
-      "root": "/Users/herijeanmasum"
+      "root": "/Users/herijeanmasum/Developer/quantiva-website"
     },
     "_originalRedirects": [
       {
@@ -314,7 +314,7 @@
     ]
   },
   "appDir": "/Users/herijeanmasum/Developer/quantiva-website",
-  "relativeAppDir": "Developer/quantiva-website",
+  "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",

@@ -83,16 +83,6 @@
       "static/chunks/502-891aa8fed6a69a4f.js",
       "static/chunks/app/de/page-1d868481be533aa9.js"
     ],
-    "/de/about/page": [
-      "static/chunks/webpack-61a3b49e6f825fd2.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-1d6964326070bc17.js",
-      "static/chunks/main-app-d8d17bdd6fcab281.js",
-      "static/chunks/215-36b352c014a460ce.js",
-      "static/chunks/577-fdcf842ad85f9229.js",
-      "static/chunks/502-891aa8fed6a69a4f.js",
-      "static/chunks/app/de/about/page-1d868481be533aa9.js"
-    ],
     "/en/layout": [
       "static/chunks/webpack-61a3b49e6f825fd2.js",
       "static/chunks/4bd1b696-21f374d1156f834a.js",
@@ -120,6 +110,18 @@
       "static/chunks/619-e4c01f9ce2cbef7f.js",
       "static/chunks/app/en/not-found-000cd493ef2ba502.js"
     ],
+    "/en/career/page": [
+      "static/chunks/webpack-61a3b49e6f825fd2.js",
+      "static/chunks/4bd1b696-21f374d1156f834a.js",
+      "static/chunks/255-1d6964326070bc17.js",
+      "static/chunks/main-app-d8d17bdd6fcab281.js",
+      "static/chunks/215-36b352c014a460ce.js",
+      "static/chunks/577-fdcf842ad85f9229.js",
+      "static/chunks/273-460d068feff75eba.js",
+      "static/chunks/502-891aa8fed6a69a4f.js",
+      "static/chunks/368-4a8dc5e90344f733.js",
+      "static/chunks/app/en/career/page-06d5eb089c2dcb03.js"
+    ],
     "/en/about/page": [
       "static/chunks/webpack-61a3b49e6f825fd2.js",
       "static/chunks/4bd1b696-21f374d1156f834a.js",
@@ -140,6 +142,16 @@
       "static/chunks/502-891aa8fed6a69a4f.js",
       "static/chunks/app/en/page-1d868481be533aa9.js"
     ],
+    "/de/about/page": [
+      "static/chunks/webpack-61a3b49e6f825fd2.js",
+      "static/chunks/4bd1b696-21f374d1156f834a.js",
+      "static/chunks/255-1d6964326070bc17.js",
+      "static/chunks/main-app-d8d17bdd6fcab281.js",
+      "static/chunks/215-36b352c014a460ce.js",
+      "static/chunks/577-fdcf842ad85f9229.js",
+      "static/chunks/502-891aa8fed6a69a4f.js",
+      "static/chunks/app/de/about/page-1d868481be533aa9.js"
+    ],
     "/de/career/page": [
       "static/chunks/webpack-61a3b49e6f825fd2.js",
       "static/chunks/4bd1b696-21f374d1156f834a.js",
@@ -151,18 +163,6 @@
       "static/chunks/502-891aa8fed6a69a4f.js",
       "static/chunks/368-4a8dc5e90344f733.js",
       "static/chunks/app/de/career/page-78029b569869cf64.js"
-    ],
-    "/en/career/page": [
-      "static/chunks/webpack-61a3b49e6f825fd2.js",
-      "static/chunks/4bd1b696-21f374d1156f834a.js",
-      "static/chunks/255-1d6964326070bc17.js",
-      "static/chunks/main-app-d8d17bdd6fcab281.js",
-      "static/chunks/215-36b352c014a460ce.js",
-      "static/chunks/577-fdcf842ad85f9229.js",
-      "static/chunks/273-460d068feff75eba.js",
-      "static/chunks/502-891aa8fed6a69a4f.js",
-      "static/chunks/368-4a8dc5e90344f733.js",
-      "static/chunks/app/en/career/page-06d5eb089c2dcb03.js"
     ]
   }
 }

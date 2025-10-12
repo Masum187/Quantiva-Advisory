@@ -5,6 +5,9 @@ const nextConfig = {
   // Fix for multiple lockfiles warning on Vercel
   outputFileTracingRoot: __dirname,
   
+  // Explicitly set output directory for Vercel
+  distDir: '.next',
+  
   // Experimental features disabled for now
   // experimental: {
   //   optimizeCss: true,
