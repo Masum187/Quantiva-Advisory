@@ -29,11 +29,13 @@ jobs:
       - name: Verify sitemap generation
         run: |
           echo "Checking generated files..."
-          ls -la build/
+          ls -la public/
           echo "Sitemap content:"
-          head -10 build/sitemap.xml
+          head -10 public/sitemap.xml
           echo "Robots.txt content:"
-          cat build/robots.txt
+          cat public/robots.txt
+          echo "Next.js build output:"
+          ls -la .next/ 2>/dev/null || echo "No .next directory (expected for static export)"
 
       # Uncomment and configure for your deployment target:
       
