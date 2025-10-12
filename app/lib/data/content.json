@@ -277,7 +277,7 @@
         "title": "Quick Links",
         "items": [
           { "label": "Home", "href": "#home" },
-          { "label": "Über uns", "href": "#about" },
+          { "label": "Über uns", "href": "/de/about" },
           { "label": "Services", "href": "#services" },
           { "label": "Referenzen", "href": "#references" },
           { "label": "Kontakt", "href": "#contact" }
@@ -308,7 +308,7 @@
         "title": "Quick Links",
         "items": [
           { "label": "Home", "href": "#home" },
-          { "label": "About", "href": "#about" },
+          { "label": "About", "href": "/en/about" },
           { "label": "Services", "href": "#services" },
           { "label": "References", "href": "#references" },
           { "label": "Contact", "href": "#contact" }
@@ -337,7 +337,7 @@
     "de": {
       "items": [
         { "id": "home", "label": "Home", "href": "#home" },
-        { "id": "about", "label": "Über uns", "href": "#about" },
+        { "id": "about", "label": "Über uns", "href": "/de/about" },
         { "id": "services", "label": "Services", "href": "#services" },
         { "id": "cases", "label": "Referenzen", "href": "/de/cases" },
         { "id": "team", "label": "Team", "href": "/de/team" },
@@ -349,7 +349,7 @@
     "en": {
       "items": [
         { "id": "home", "label": "Home", "href": "#home" },
-        { "id": "about", "label": "About", "href": "#about" },
+        { "id": "about", "label": "About", "href": "/en/about" },
         { "id": "services", "label": "Services", "href": "#services" },
         { "id": "cases", "label": "References", "href": "/en/cases" },
         { "id": "team", "label": "Team", "href": "/en/team" },
