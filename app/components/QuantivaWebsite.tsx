@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
+import Image from 'next/image';
 import { motion, useInView } from "framer-motion";
 import {
   Menu, X, ChevronRight,
@@ -269,23 +270,20 @@ function TeamSection() {
             <div key={member.name} className="flex gap-6 p-6 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300 h-full min-h-[280px]">
               {/* Profilbild */}
               <div className="flex-shrink-0">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 border-2 border-teal-400/50 overflow-hidden">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      // Fallback falls Bild nicht geladen werden kann
-                      e.currentTarget.style.display = 'none';
-                      const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (nextElement) {
-                        nextElement.style.display = 'flex';
-                      }
-                    }}
-                  />
-                  <div className="w-full h-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-2xl hidden">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </div>
+                <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 border-2 border-teal-400/50 overflow-hidden">
+                  {member.image ? (
+                    <Image 
+                      src={member.image} 
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 96px, 128px"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-2xl">
+                      {member.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                  )}
                 </div>
               </div>
               
@@ -1084,7 +1082,14 @@ export function CaseDetailPage() {
             className="absolute inset-0 w-full h-full object-cover"
           />
         ) : (
-          <img src={caseData.heroImage} alt={pageTitleText} className="absolute inset-0 w-full h-full object-cover" />
+          <Image 
+            src={caseData.heroImage} 
+            alt={pageTitleText} 
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
         <div className="relative z-10 px-6 max-w-4xl text-center">
