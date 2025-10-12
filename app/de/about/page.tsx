@@ -240,149 +240,490 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Mission & Vision - Innovative 3D Cards */}
+      <section className="py-32 bg-gradient-to-b from-black via-purple-900/5 to-black relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/5 to-teal-500/5 rounded-full blur-2xl animate-spin" style={{ animationDuration: '20s' }} />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <SlideIn>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Unsere Mission & Vision
+            <div className="text-center mb-20">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="inline-block px-8 py-4 rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 border border-purple-500/30 mb-8"
+              >
+                <span className="text-purple-300 text-sm font-semibold tracking-wider">UNSERE IDENTITÄT</span>
+              </motion.div>
+              <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+                Mission &{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+                  Vision
+                </span>
               </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 Wir glauben an eine Zukunft, in der Technologie Menschen befähigt und Unternehmen transformiert
               </p>
             </div>
           </SlideIn>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <SlideIn direction="left">
-              <div className="h-full p-10 rounded-3xl bg-gradient-to-br from-purple-900/30 to-purple-800/20 border border-purple-500/30 backdrop-blur-sm">
-                <div className="w-16 h-16 rounded-2xl bg-purple-500/20 flex items-center justify-center mb-6">
-                  <Target className="w-8 h-8 text-purple-400" />
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Mission Card - Interactive 3D */}
+            <SlideIn direction="left" delay={0.2}>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.02,
+                  rotateY: 5,
+                  rotateX: 5,
+                }}
+                className="group relative"
+              >
+                {/* 3D Card Container */}
+                <div className="relative h-full p-12 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/20">
+                  {/* Animated Background Pattern */}
+                  <div className="absolute inset-0 rounded-3xl opacity-20">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent rounded-3xl" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400/30 to-transparent rounded-full blur-xl" />
+                  </div>
+                  
+                  {/* Floating Particles */}
+                  <motion.div
+                    animate={{
+                      y: [-10, 10, -10],
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-8 right-8 w-4 h-4 bg-purple-400/60 rounded-full blur-sm"
+                  />
+                  <motion.div
+                    animate={{
+                      y: [10, -10, 10],
+                      rotate: [360, 0],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute bottom-8 left-8 w-3 h-3 bg-teal-400/60 rounded-full blur-sm"
+                  />
+
+                  {/* Icon with Glow Effect */}
+                  <div className="relative mb-8">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Target className="w-10 h-10 text-purple-300 group-hover:text-white transition-colors" />
+                    </div>
+                    <div className="absolute inset-0 w-20 h-20 rounded-2xl bg-purple-400/20 blur-xl group-hover:blur-2xl transition-all duration-300" />
+                  </div>
+
+                  <h3 className="text-4xl font-bold text-white mb-6 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-white transition-all duration-300">
+                    Mission
+                  </h3>
+                  
+                  <p className="text-gray-300 leading-relaxed text-lg group-hover:text-gray-200 transition-colors duration-300">
+                    Wir befähigen Unternehmen, ihre digitale Transformation erfolgreich zu meistern. 
+                    Durch modernste Technologien, tiefes Fachwissen und echte Partnerschaft schaffen 
+                    wir nachhaltige Wertschöpfung und Wettbewerbsvorteile.
+                  </p>
+
+                  {/* Progress Bar Animation */}
+                  <div className="mt-8">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-purple-300 font-medium">Excellence</span>
+                      <span className="text-sm text-purple-300 font-medium">100%</span>
+                    </div>
+                    <div className="w-full h-2 bg-purple-900/50 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "100%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 2, delay: 0.5 }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Mission</h3>
-                <p className="text-gray-300 leading-relaxed text-lg">
-                  Wir befähigen Unternehmen, ihre digitale Transformation erfolgreich zu meistern. 
-                  Durch modernste Technologien, tiefes Fachwissen und echte Partnerschaft schaffen 
-                  wir nachhaltige Wertschöpfung und Wettbewerbsvorteile.
-                </p>
-              </div>
+              </motion.div>
             </SlideIn>
 
-            <SlideIn direction="right">
-              <div className="h-full p-10 rounded-3xl bg-gradient-to-br from-teal-900/30 to-teal-800/20 border border-teal-500/30 backdrop-blur-sm">
-                <div className="w-16 h-16 rounded-2xl bg-teal-500/20 flex items-center justify-center mb-6">
-                  <Sparkles className="w-8 h-8 text-teal-400" />
+            {/* Vision Card - Interactive 3D */}
+            <SlideIn direction="right" delay={0.4}>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.02,
+                  rotateY: -5,
+                  rotateX: 5,
+                }}
+                className="group relative"
+              >
+                {/* 3D Card Container */}
+                <div className="relative h-full p-12 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
+                  {/* Animated Background Pattern */}
+                  <div className="absolute inset-0 rounded-3xl opacity-20">
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-transparent rounded-3xl" />
+                    <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-teal-400/30 to-transparent rounded-full blur-xl" />
+                  </div>
+                  
+                  {/* Floating Particles */}
+                  <motion.div
+                    animate={{
+                      y: [10, -10, 10],
+                      rotate: [360, 0],
+                    }}
+                    transition={{
+                      duration: 7,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-8 left-8 w-4 h-4 bg-teal-400/60 rounded-full blur-sm"
+                  />
+                  <motion.div
+                    animate={{
+                      y: [-10, 10, -10],
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      duration: 9,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute bottom-8 right-8 w-3 h-3 bg-purple-400/60 rounded-full blur-sm"
+                  />
+
+                  {/* Icon with Glow Effect */}
+                  <div className="relative mb-8">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Sparkles className="w-10 h-10 text-teal-300 group-hover:text-white transition-colors" />
+                    </div>
+                    <div className="absolute inset-0 w-20 h-20 rounded-2xl bg-teal-400/20 blur-xl group-hover:blur-2xl transition-all duration-300" />
+                  </div>
+
+                  <h3 className="text-4xl font-bold text-white mb-6 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-teal-400 group-hover:to-white transition-all duration-300">
+                    Vision
+                  </h3>
+                  
+                  <p className="text-gray-300 leading-relaxed text-lg group-hover:text-gray-200 transition-colors duration-300">
+                    Wir streben danach, der vertrauenswürdigste Partner für digitale Transformation 
+                    im DACH-Raum zu werden. Eine Zukunft, in der Innovation und menschliche Expertise 
+                    Hand in Hand gehen.
+                  </p>
+
+                  {/* Progress Bar Animation */}
+                  <div className="mt-8">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-teal-300 font-medium">Innovation</span>
+                      <span className="text-sm text-teal-300 font-medium">100%</span>
+                    </div>
+                    <div className="w-full h-2 bg-teal-900/50 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "100%" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 2, delay: 0.7 }}
+                        className="h-full bg-gradient-to-r from-teal-500 to-teal-400 rounded-full"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Vision</h3>
-                <p className="text-gray-300 leading-relaxed text-lg">
-                  Wir streben danach, der vertrauenswürdigste Partner für digitale Transformation 
-                  im DACH-Raum zu werden. Eine Zukunft, in der Innovation und menschliche Expertise 
-                  Hand in Hand gehen.
-                </p>
-              </div>
+              </motion.div>
             </SlideIn>
           </div>
         </div>
       </section>
 
-      {/* Values - Expandable Sections */}
-      <section className="py-24 bg-gradient-to-b from-black to-purple-900/10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Values - Innovative 3D Accordion */}
+      <section className="py-32 bg-gradient-to-b from-black via-purple-900/5 to-black relative overflow-hidden">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/3 left-1/3 w-80 h-80 bg-gradient-to-r from-purple-500/5 to-teal-500/5 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-gradient-to-r from-teal-500/5 to-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '3s' }} />
+          
+          {/* Floating Geometric Shapes */}
+          <motion.div
+            animate={{
+              y: [-20, 20, -20],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-20 right-20 w-8 h-8 border-2 border-purple-400/30 rotate-45"
+          />
+          <motion.div
+            animate={{
+              y: [20, -20, 20],
+              rotate: [360, 0],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute bottom-20 left-20 w-6 h-6 bg-teal-400/20 rounded-full"
+          />
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <SlideIn>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Unsere Werte & Prinzipien
+            <div className="text-center mb-20">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="inline-block px-8 py-4 rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 border border-purple-500/30 mb-8"
+              >
+                <span className="text-purple-300 text-sm font-semibold tracking-wider">UNSERE WERTE</span>
+              </motion.div>
+              <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+                Werte &{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+                  Prinzipien
+                </span>
               </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 Was uns antreibt und wie wir arbeiten
               </p>
             </div>
           </SlideIn>
 
-          <div className="space-y-2 bg-black/40 backdrop-blur-sm rounded-3xl border border-purple-500/20 overflow-hidden">
-            <ExpandableSection title="Excellence" icon={Award} defaultOpen={true}>
-              <p className="mb-4">
-                Excellence ist kein Ziel, sondern eine Reise. Wir streben in jedem Projekt, bei jeder 
-                Interaktion nach höchster Qualität. Das bedeutet:
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3">
-                  <span className="text-purple-400 mt-1">✓</span>
-                  <span>Best Practices aus über 15 Jahren Projekterfahrung</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-purple-400 mt-1">✓</span>
-                  <span>Kontinuierliche Qualitätssicherung auf allen Ebenen</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-purple-400 mt-1">✓</span>
-                  <span>Zertifizierte Experten mit tiefem Fachwissen</span>
-                </li>
-              </ul>
-            </ExpandableSection>
+          {/* Innovative 3D Values Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Excellence Card */}
+            <SlideIn direction="left" delay={0.2}>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: 10,
+                  z: 50,
+                }}
+                className="group relative"
+              >
+                <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/30">
+                  {/* 3D Glow Effect */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Floating Particles */}
+                  <motion.div
+                    animate={{
+                      y: [-5, 5, -5],
+                      x: [-2, 2, -2],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-4 right-4 w-2 h-2 bg-purple-400/60 rounded-full blur-sm"
+                  />
 
-            <ExpandableSection title="Innovation" icon={Sparkles}>
-              <p className="mb-4">
-                Technologie entwickelt sich rasant. Wir bleiben am Puls der Zeit und bringen die neuesten 
-                Innovationen in Ihre Organisation:
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
-                  <span>Cloud-native Architekturen und Microservices</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
-                  <span>KI und Machine Learning Integration</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
-                  <span>Moderne DevOps und CI/CD Pipelines</span>
-                </li>
-              </ul>
-            </ExpandableSection>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Award className="w-8 h-8 text-purple-300 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-white transition-all duration-300">
+                      Excellence
+                    </h3>
+                  </div>
 
-            <ExpandableSection title="Partnerschaft" icon={Users}>
-              <p className="mb-4">
-                Wir verstehen uns als echte Partner unserer Kunden. Das bedeutet langfristige 
-                Beziehungen auf Augenhöhe:
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3">
-                  <span className="text-purple-400 mt-1">✓</span>
-                  <span>Transparente Kommunikation auf allen Ebenen</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-purple-400 mt-1">✓</span>
-                  <span>Gemeinsame Zielsetzung und Erfolgsmetriken</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-purple-400 mt-1">✓</span>
-                  <span>Langfristige Betreuung über das Projekt hinaus</span>
-                </li>
-              </ul>
-            </ExpandableSection>
+                  <p className="text-gray-300 leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                    Excellence ist kein Ziel, sondern eine Reise. Wir streben in jedem Projekt nach höchster Qualität.
+                  </p>
 
-            <ExpandableSection title="Nachhaltigkeit" icon={Globe}>
-              <p className="mb-4">
-                Digitale Transformation muss nachhaltig sein - technologisch, wirtschaftlich und ökologisch:
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
-                  <span>Green IT und energieeffiziente Cloud-Lösungen</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
-                  <span>Langlebige Architekturen statt Quick Fixes</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-teal-400 mt-1">✓</span>
-                  <span>Wissenstransfer und Enablement Ihrer Teams</span>
-                </li>
-              </ul>
-            </ExpandableSection>
+                  {/* Interactive Progress Rings */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" />
+                      <span className="text-sm text-purple-300">Qualität</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                      <span className="text-sm text-teal-300">Innovation</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </SlideIn>
+
+            {/* Innovation Card */}
+            <SlideIn direction="right" delay={0.4}>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: -10,
+                  z: 50,
+                }}
+                className="group relative"
+              >
+                <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
+                  {/* 3D Glow Effect */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Floating Particles */}
+                  <motion.div
+                    animate={{
+                      y: [5, -5, 5],
+                      x: [2, -2, 2],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full blur-sm"
+                  />
+
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Sparkles className="w-8 h-8 text-teal-300 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-teal-400 group-hover:to-white transition-all duration-300">
+                      Innovation
+                    </h3>
+                  </div>
+
+                  <p className="text-gray-300 leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                    Wir bleiben am Puls der Zeit und bringen die neuesten Innovationen in Ihre Organisation.
+                  </p>
+
+                  {/* Interactive Progress Rings */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse" />
+                      <span className="text-sm text-teal-300">Cloud</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                      <span className="text-sm text-purple-300">AI/ML</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </SlideIn>
+
+            {/* Partnership Card */}
+            <SlideIn direction="left" delay={0.6}>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: 10,
+                  z: 50,
+                }}
+                className="group relative"
+              >
+                <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/30">
+                  {/* 3D Glow Effect */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Floating Particles */}
+                  <motion.div
+                    animate={{
+                      y: [-3, 3, -3],
+                      x: [-1, 1, -1],
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-4 right-4 w-2 h-2 bg-purple-400/60 rounded-full blur-sm"
+                  />
+
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Users className="w-8 h-8 text-purple-300 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-white transition-all duration-300">
+                      Partnerschaft
+                    </h3>
+                  </div>
+
+                  <p className="text-gray-300 leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                    Wir verstehen uns als echte Partner unserer Kunden mit langfristigen Beziehungen.
+                  </p>
+
+                  {/* Interactive Progress Rings */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" />
+                      <span className="text-sm text-purple-300">Vertrauen</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                      <span className="text-sm text-teal-300">Transparenz</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </SlideIn>
+
+            {/* Sustainability Card */}
+            <SlideIn direction="right" delay={0.8}>
+              <motion.div
+                whileHover={{ 
+                  scale: 1.05,
+                  rotateY: -10,
+                  z: 50,
+                }}
+                className="group relative"
+              >
+                <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
+                  {/* 3D Glow Effect */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Floating Particles */}
+                  <motion.div
+                    animate={{
+                      y: [3, -3, 3],
+                      x: [1, -1, 1],
+                    }}
+                    transition={{
+                      duration: 7,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute top-4 right-4 w-2 h-2 bg-teal-400/60 rounded-full blur-sm"
+                  />
+
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Globe className="w-8 h-8 text-teal-300 group-hover:text-white transition-colors" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-teal-400 group-hover:to-white transition-all duration-300">
+                      Nachhaltigkeit
+                    </h3>
+                  </div>
+
+                  <p className="text-gray-300 leading-relaxed mb-6 group-hover:text-gray-200 transition-colors duration-300">
+                    Digitale Transformation muss nachhaltig sein - technologisch, wirtschaftlich und ökologisch.
+                  </p>
+
+                  {/* Interactive Progress Rings */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-teal-400 rounded-full animate-pulse" />
+                      <span className="text-sm text-teal-300">Green IT</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+                      <span className="text-sm text-purple-300">Langlebig</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </SlideIn>
           </div>
         </div>
       </section>
