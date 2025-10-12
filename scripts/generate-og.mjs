@@ -3,7 +3,7 @@ import path from "path";
 import sharp from "sharp";
 
 const ROOT   = process.cwd();
-const DATA   = path.join(ROOT, "src", "data", "cases.json");        // <- Datenquelle
+const DATA   = path.join(ROOT, "app", "lib", "data", "cases.json");  // <- Updated for Next.js
 const OUTDIR = path.join(ROOT, "public", "assets", "og");
 const BADGE  = path.join(ROOT, "public", "logo-badge.svg");
 

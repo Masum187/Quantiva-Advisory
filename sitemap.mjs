@@ -11,7 +11,7 @@ const STATIC_PATHS = ["/", "/cases"];
 // Load case slugs from JSON data source (with fallback for missing file)
 let casesData = [];
 try {
-  const casesPath = path.join(process.cwd(), "src", "data", "cases.json");
+  const casesPath = path.join(process.cwd(), "app", "lib", "data", "cases.json"); // Updated for Next.js
   casesData = JSON.parse(fs.readFileSync(casesPath, "utf-8"));
 } catch (err) {
   console.warn("Warning: cases.json not found or invalid, generating sitemap without case pages:", err.message);

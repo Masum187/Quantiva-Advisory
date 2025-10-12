@@ -8,8 +8,8 @@ import addFormats from "ajv-formats";
 const STRICT = process.argv.includes("--strict"); // <— NEU
 
 const ROOT = process.cwd();
-const DATA_PATH = path.join(ROOT, "src", "data", "cases.json");
-const TAXO_PATH = path.join(ROOT, "src", "data", "taxonomy.json"); // <-- NEU
+const DATA_PATH = path.join(ROOT, "app", "lib", "data", "cases.json"); // Updated for Next.js
+const TAXO_PATH = path.join(ROOT, "app", "lib", "data", "taxonomy.json"); // Updated for Next.js
 
 // ---------- JSON Schema ----------
 const schema = {
