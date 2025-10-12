@@ -6,10 +6,10 @@
   "/de/team/page": "/de/team",
   "/en/about/page": "/en/about",
   "/en/team/page": "/en/team",
-  "/de/career/page": "/de/career",
-  "/en/cases/page": "/en/cases",
-  "/de/cases/page": "/de/cases",
-  "/de/page": "/de",
   "/en/career/page": "/en/career",
-  "/en/page": "/en"
+  "/de/career/page": "/de/career",
+  "/de/page": "/de",
+  "/de/cases/page": "/de/cases",
+  "/en/page": "/en",
+  "/en/cases/page": "/en/cases"
 }

@@ -219,13 +219,13 @@ export default function AboutPage() {
                 <div className="flex gap-4 mt-6 justify-center">
                   <Link
                     href="/de#contact"
-                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-purple-600 transition-all duration-300"
+                    className="px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-xl font-semibold hover:from-teal-700 hover:to-teal-600 transition-all duration-300"
                   >
                     Jetzt Kontakt aufnehmen
                   </Link>
                   <Link
                     href="/de/cases"
-                    className="px-6 py-3 bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all duration-300"
+                    className="px-6 py-3 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white rounded-xl font-semibold hover:bg-teal-500/10 transition-all duration-300"
                   >
                     Erfolgsgeschichten
                   </Link>
@@ -254,18 +254,22 @@ export default function AboutPage() {
             {/* Left: Text Content */}
             <SlideIn direction="left">
               <div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6 }}
-                  className="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 border border-purple-500/30 mb-8"
-                >
-                  <span className="text-purple-300 text-sm font-semibold tracking-wider">ÜBER QUANTIVA ADVISORY</span>
-                </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8"
+              >
+                {/* Quantiva Logo */}
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">Q</span>
+                </div>
+                <span className="text-teal-300 text-sm font-semibold tracking-wider">ÜBER QUANTIVA ADVISORY</span>
+              </motion.div>
 
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
                   Digitale Excellence{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
                     ist unser Herzstück
                   </span>
                 </h1>
@@ -278,13 +282,13 @@ export default function AboutPage() {
                 <div className="flex gap-4">
                   <Link
                     href="/de/career"
-                    className="px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-purple-600 transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105"
+                    className="px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-xl font-semibold hover:from-teal-700 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 hover:scale-105"
                   >
                     Karriere bei uns
                   </Link>
                   <Link
                     href="/de/team"
-                    className="px-8 py-4 bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all duration-300"
+                    className="px-8 py-4 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white rounded-xl font-semibold hover:bg-teal-500/10 transition-all duration-300"
                   >
                     Unser Team
                   </Link>
@@ -373,13 +377,17 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="inline-block px-8 py-4 rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 border border-purple-500/30 mb-8"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8"
               >
-                <span className="text-purple-300 text-sm font-semibold tracking-wider">UNSERE IDENTITÄT</span>
+                {/* Quantiva Logo */}
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">Q</span>
+                </div>
+                <span className="text-teal-300 text-sm font-semibold tracking-wider">UNSERE IDENTITÄT</span>
               </motion.div>
               <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
                 Mission &{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
                   Vision
                 </span>
               </h2>
@@ -607,13 +615,17 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="inline-block px-8 py-4 rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 border border-purple-500/30 mb-8"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8"
               >
-                <span className="text-purple-300 text-sm font-semibold tracking-wider">UNSERE WERTE</span>
+                {/* Quantiva Logo */}
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">Q</span>
+                </div>
+                <span className="text-teal-300 text-sm font-semibold tracking-wider">UNSERE WERTE</span>
               </motion.div>
               <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
                 Werte &{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
                   Prinzipien
                 </span>
               </h2>
@@ -1028,18 +1040,18 @@ export default function AboutPage() {
               Bereit für Ihre digitale Transformation? Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/de#contact"
-                className="px-10 py-5 bg-gradient-to-r from-purple-600 to-purple-500 text-white text-lg font-semibold rounded-xl hover:from-purple-700 hover:to-purple-600 transition-all duration-300 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105"
-              >
-                Jetzt Kontakt aufnehmen
-              </Link>
-              <Link
-                href="/de/cases"
-                className="px-10 py-5 bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white text-lg font-semibold rounded-xl hover:bg-white/10 transition-all duration-300"
-              >
-                Erfolgsgeschichten ansehen
-              </Link>
+                <Link
+                  href="/de#contact"
+                  className="px-10 py-5 bg-gradient-to-r from-teal-600 to-teal-500 text-white text-lg font-semibold rounded-xl hover:from-teal-700 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 hover:scale-105"
+                >
+                  Jetzt Kontakt aufnehmen
+                </Link>
+                <Link
+                  href="/de/cases"
+                  className="px-10 py-5 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white text-lg font-semibold rounded-xl hover:bg-teal-500/10 transition-all duration-300"
+                >
+                  Erfolgsgeschichten ansehen
+                </Link>
             </div>
           </SlideIn>
         </div>
