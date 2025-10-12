@@ -53,6 +53,16 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/de/karriere',
+        destination: '/de/career',
+        permanent: false,
+      },
+      {
+        source: '/en/careers',
+        destination: '/en/career',
+        permanent: false,
+      },
     ];
   },
 

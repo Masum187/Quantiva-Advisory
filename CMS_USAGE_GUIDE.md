@@ -489,3 +489,4 @@ Next.js API Routes + NextAuth.js
 2. **Contentful** (professionell, empfohlen)
 3. **Aktuelles System beibehalten** (Content Admin + Export)
 
+

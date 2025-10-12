@@ -193,3 +193,4 @@ Falls nichts funktioniert:
 **Solution:** Vercel Dashboard → Output Directory → LEER LASSEN
 **Status:** ⏳ Wartet auf Dashboard-Änderung
 
+

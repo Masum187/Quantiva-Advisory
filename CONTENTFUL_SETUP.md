@@ -356,3 +356,4 @@ const client = contentful.createClient({
 
 **Bereit? Sagen Sie mir Ihre API Keys und ich implementiere alles!** 🚀
 
+

@@ -395,3 +395,4 @@ Settings → Users
 
 **Fragen? Siehe `CONTENTFUL_SETUP.md` für Details!** 🚀
 
+

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export default function EnError({
@@ -87,12 +88,12 @@ export default function EnError({
             Try again
           </button>
 
-          <a
+          <Link
             href="/en"
-            className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition-colors text-center"
+            className="px-8 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition-colors text-center inline-block"
           >
             Go to homepage
-          </a>
+          </Link>
         </div>
 
         {/* Support Contact */}

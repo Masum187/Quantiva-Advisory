@@ -609,3 +609,4 @@ npm run tsc --noEmit  # Fehler finden
 - [MDX Alternativen Guide](./MDX_ALTERNATIVES_GUIDE.md)
 - [MDX Schnellentscheidung](./MDX_DECISION_QUICKSTART.md)
 
+

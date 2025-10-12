@@ -537,3 +537,4 @@ flowchart TD
 **Nächste Review:** Bei Projekt-Milestone oder nach 6 Monaten  
 **Maintainer:** Quantiva Advisory Development Team
 
+

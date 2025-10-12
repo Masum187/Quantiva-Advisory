@@ -16,6 +16,18 @@
       "destination": "/",
       "statusCode": 308,
       "regex": "^(?!/_next)/home(?:/)?$"
+    },
+    {
+      "source": "/de/karriere",
+      "destination": "/de/career",
+      "statusCode": 307,
+      "regex": "^(?!/_next)/de/karriere(?:/)?$"
+    },
+    {
+      "source": "/en/careers",
+      "destination": "/en/career",
+      "statusCode": 307,
+      "regex": "^(?!/_next)/en/careers(?:/)?$"
     }
   ],
   "headers": [
@@ -54,6 +66,12 @@
   "dynamicRoutes": [],
   "staticRoutes": [
     {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
       "page": "/_not-found",
       "regex": "^/_not\\-found(?:/)?$",
       "routeKeys": {},
@@ -78,6 +96,18 @@
       "namedRegex": "^/de/career(?:/)?$"
     },
     {
+      "page": "/de/cases",
+      "regex": "^/de/cases(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/cases(?:/)?$"
+    },
+    {
+      "page": "/de/team",
+      "regex": "^/de/team(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/team(?:/)?$"
+    },
+    {
       "page": "/en",
       "regex": "^/en(?:/)?$",
       "routeKeys": {},
@@ -94,6 +124,18 @@
       "regex": "^/en/career(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/en/career(?:/)?$"
+    },
+    {
+      "page": "/en/cases",
+      "regex": "^/en/cases(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/cases(?:/)?$"
+    },
+    {
+      "page": "/en/team",
+      "regex": "^/en/team(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/team(?:/)?$"
     }
   ],
   "dataRoutes": [],
