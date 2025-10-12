@@ -1,15 +1,15 @@
 {
-  "/api/contact/route": "/api/contact",
   "/_not-found/page": "/_not-found",
+  "/api/contact/route": "/api/contact",
   "/page": "/",
   "/de/about/page": "/de/about",
   "/de/team/page": "/de/team",
   "/en/about/page": "/en/about",
   "/en/team/page": "/en/team",
   "/de/career/page": "/de/career",
+  "/en/cases/page": "/en/cases",
+  "/de/cases/page": "/de/cases",
   "/de/page": "/de",
   "/en/career/page": "/en/career",
-  "/de/cases/page": "/de/cases",
-  "/en/page": "/en",
-  "/en/cases/page": "/en/cases"
+  "/en/page": "/en"
 }

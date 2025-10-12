@@ -13,7 +13,9 @@ import {
   Award,
   Heart,
   Zap,
-  Shield
+  Shield,
+  Play,
+  X
 } from 'lucide-react';
 
 // Animation Component
@@ -87,6 +89,8 @@ function ExpandableSection({ title, icon: Icon, children, defaultOpen = false }:
 }
 
 export default function AboutPage() {
+  const [showCEOAvatar, setShowCEOAvatar] = useState(false);
+
   const stats = [
     { value: '15+', label: 'Jahre Erfahrung', icon: Award },
     { value: '200+', label: 'Erfolgreiche Projekte', icon: Target },
@@ -119,6 +123,118 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Synthesia-Style CEO Avatar Modal */}
+      {showCEOAvatar && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="relative w-full max-w-4xl bg-black rounded-3xl border border-white/20 overflow-hidden"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowCEOAvatar(false)}
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Avatar Video Container */}
+            <div className="relative w-full h-[600px] bg-gradient-to-br from-purple-900/30 to-teal-900/30">
+              {/* Synthesia-Style Avatar */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-white/20">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&auto=format&q=80"
+                    alt="Gülnur Patan - CEO Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                  {/* Subtle Animation Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent animate-pulse" />
+                </div>
+              </div>
+
+              {/* Floating Elements */}
+              <motion.div
+                animate={{
+                  y: [-10, 10, -10],
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute top-20 left-20 w-4 h-4 bg-purple-400/60 rounded-full blur-sm"
+              />
+              <motion.div
+                animate={{
+                  y: [10, -10, 10],
+                  rotate: [360, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute bottom-20 right-20 w-3 h-3 bg-teal-400/60 rounded-full blur-sm"
+              />
+            </div>
+
+            {/* Personalized Message */}
+            <div className="p-8 bg-gradient-to-r from-purple-900/20 to-teal-900/20">
+              <div className="text-center mb-6">
+                <h3 className="text-3xl font-bold text-white mb-2">Gülnur Patan</h3>
+                <p className="text-purple-300">CEO & Gründerin, Quantiva Advisory</p>
+              </div>
+
+              <div className="max-w-3xl mx-auto">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
+                >
+                  <h4 className="text-xl font-bold text-white mb-4">Unsere Innovation, Erfolge & Ziele</h4>
+                  
+                  <div className="space-y-4 text-gray-300 leading-relaxed">
+                    <p>
+                      <span className="text-purple-400 font-semibold">🚀 Innovation:</span> Wir revolutionieren die digitale Transformation 
+                      durch cutting-edge Technologien wie KI, Cloud-native Architekturen und moderne DevOps-Praktiken.
+                    </p>
+                    
+                    <p>
+                      <span className="text-teal-400 font-semibold">🏆 Erfolge:</span> Über 200 erfolgreiche Projekte, 50+ zufriedene Kunden 
+                      und 15+ Jahre Expertise haben uns zu einem vertrauenswürdigen Partner im DACH-Raum gemacht.
+                    </p>
+                    
+                    <p>
+                      <span className="text-purple-400 font-semibold">🎯 Ziele:</span> Wir streben danach, der führende Partner für 
+                      nachhaltige digitale Transformation zu werden und dabei Innovation mit menschlicher Expertise zu verbinden.
+                    </p>
+                  </div>
+                </motion.div>
+
+                <div className="flex gap-4 mt-6 justify-center">
+                  <Link
+                    href="/de#contact"
+                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-purple-600 transition-all duration-300"
+                  >
+                    Jetzt Kontakt aufnehmen
+                  </Link>
+                  <Link
+                    href="/de/cases"
+                    className="px-6 py-3 bg-white/5 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/10 transition-all duration-300"
+                  >
+                    Erfolgsgeschichten
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
       {/* Hero Section with Illustration */}
       <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-purple-900/20 via-black to-teal-900/20">
         {/* Animated Background Pattern */}
@@ -285,21 +401,15 @@ export default function AboutPage() {
                 className="group relative"
               >
                 {/* 3D Card Container */}
-                <div className="relative h-full p-12 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/20">
-                  {/* Background Image */}
+                <div className="relative h-full p-12 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
+                  {/* Background Image - Full Visibility */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
                     <img
                       src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
                       alt="Team Collaboration & Mission"
-                      className="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-purple-800/60 to-purple-900/80" />
-                  </div>
-                  
-                  {/* Animated Background Pattern */}
-                  <div className="absolute inset-0 rounded-3xl opacity-20">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent rounded-3xl" />
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400/30 to-transparent rounded-full blur-xl" />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
                   </div>
                   
                   {/* Floating Particles */}
@@ -377,21 +487,15 @@ export default function AboutPage() {
                 className="group relative"
               >
                 {/* 3D Card Container */}
-                <div className="relative h-full p-12 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
-                  {/* Background Image */}
+                <div className="relative h-full p-12 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
+                  {/* Background Image - Full Visibility */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
                     <img
                       src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&auto=format&q=80"
                       alt="Innovation & Future Vision"
-                      className="w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-900/80 via-teal-800/60 to-teal-900/80" />
-                  </div>
-                  
-                  {/* Animated Background Pattern */}
-                  <div className="absolute inset-0 rounded-3xl opacity-20">
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-transparent rounded-3xl" />
-                    <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-teal-400/30 to-transparent rounded-full blur-xl" />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
                   </div>
                   
                   {/* Floating Particles */}
@@ -531,15 +635,15 @@ export default function AboutPage() {
                 }}
                 className="group relative"
               >
-                <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/30">
-                  {/* Background Image */}
+                <div className="relative h-full p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
+                  {/* Background Image - Full Visibility */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
                     <img
                       src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&auto=format&q=80"
                       alt="Excellence & Quality"
-                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+                      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/85 via-purple-800/70 to-purple-900/85" />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
                   </div>
                   
                   {/* 3D Glow Effect */}
@@ -793,13 +897,23 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <SlideIn direction="left">
-              <div className="relative">
+              <div className="relative group cursor-pointer" onClick={() => setShowCEOAvatar(true)}>
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-3xl blur-3xl"></div>
                 <img
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=700&fit=crop&auto=format&q=80"
                   alt="Gülnur Patan - CEO"
-                  className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20"
+                  className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20 group-hover:scale-105 transition-transform duration-300"
                 />
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl">
+                    <Play className="w-8 h-8 text-purple-600 ml-1" />
+                  </div>
+                </div>
+                {/* Hover Text */}
+                <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm rounded-lg p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-white text-sm font-medium">Klicken Sie für eine persönliche Nachricht</p>
+                </div>
               </div>
             </SlideIn>
 
