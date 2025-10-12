@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { useLanguage } from '../../QuantivaWebsite';
 import { Brain, Sparkles, TrendingUp, Shield, CheckCircle, ArrowLeft } from 'lucide-react';
 
@@ -51,11 +52,13 @@ export default function AICapability() {
         </div>
 
         {/* Image */}
-        <div className="mb-12 rounded-2xl overflow-hidden border border-teal-500/30">
-          <img 
+        <div className="relative mb-12 rounded-2xl overflow-hidden border border-teal-500/30 h-96">
+          <Image 
             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop" 
             alt="Artificial Intelligence"
-            className="w-full h-96 object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
 
@@ -117,11 +120,13 @@ export default function AICapability() {
         </section>
 
         {/* Image 2 */}
-        <div className="mb-12 rounded-2xl overflow-hidden border border-teal-500/30">
-          <img 
+        <div className="relative mb-12 rounded-2xl overflow-hidden border border-teal-500/30 h-80">
+          <Image 
             src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop" 
             alt="Machine Learning"
-            className="w-full h-80 object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
 

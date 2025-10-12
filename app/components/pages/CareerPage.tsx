@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   ChevronRight, ArrowRight, Users, Heart, TrendingUp,
@@ -1171,10 +1172,12 @@ export default function CareerPage() {
               {/* Strategy & Consulting */}
               <SlideIn direction="left" delay={0.2}>
                 <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop"
                     alt="Strategy & Consulting"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1188,10 +1191,12 @@ export default function CareerPage() {
               {/* Technology & Engineering */}
               <SlideIn direction="up" delay={0.3}>
                 <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop"
                     alt="Technology & Engineering"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/60 to-black/20"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1205,10 +1210,12 @@ export default function CareerPage() {
               {/* SAP Solutions */}
               <SlideIn direction="right" delay={0.4}>
                 <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
                     alt="SAP Solutions"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1222,10 +1229,12 @@ export default function CareerPage() {
               {/* Cloud & Infrastructure */}
               <SlideIn direction="left" delay={0.5}>
                 <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
                     alt="Cloud & Infrastructure"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-800/60 to-black/20"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1239,10 +1248,12 @@ export default function CareerPage() {
               {/* Cyber Security */}
               <SlideIn direction="up" delay={0.6}>
                 <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop"
                     alt="Cyber Security"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1256,10 +1267,12 @@ export default function CareerPage() {
               {/* Artificial Intelligence */}
               <SlideIn direction="right" delay={0.7}>
                 <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop"
                     alt="Artificial Intelligence"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/60 to-black/20"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1313,10 +1326,12 @@ export default function CareerPage() {
               {/* Large Featured Card - Mental Health (spans 2 rows on desktop) */}
               <SlideIn direction="left" delay={0.2} className="lg:row-span-2">
                 <div className="group relative h-full min-h-[500px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop"
                     alt="Mental Health"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1333,10 +1348,12 @@ export default function CareerPage() {
               {/* Top-right Card - Relationship-oriented */}
               <SlideIn direction="up" delay={0.3} className="lg:col-span-2">
                 <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
                     alt="Team Collaboration"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 66vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-teal-900/80 via-teal-800/60 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-8">
@@ -1353,10 +1370,12 @@ export default function CareerPage() {
               {/* Bottom-right Card - Physical Health */}
               <SlideIn direction="right" delay={0.4}>
                 <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
                     alt="Physical Health"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-6">
@@ -1373,10 +1392,12 @@ export default function CareerPage() {
               {/* Bottom-right Card 2 - Purpose-driven */}
               <SlideIn direction="right" delay={0.5}>
                 <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
                     alt="Purpose Driven"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-6">
@@ -1395,10 +1416,12 @@ export default function CareerPage() {
             <div className="grid gap-6 md:grid-cols-3 mt-6">
               <SlideIn direction="up" delay={0.6}>
                 <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
                     alt="Career Ready"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-6">
@@ -1414,10 +1437,12 @@ export default function CareerPage() {
 
               <SlideIn direction="up" delay={0.7}>
                 <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=800&auto=format&fit=crop"
                     alt="Global Perspectives"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-6">
@@ -1433,10 +1458,12 @@ export default function CareerPage() {
 
               <SlideIn direction="up" delay={0.8}>
                 <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
                     alt="Financial Wellbeing"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/50 to-transparent"></div>
                   <div className="relative h-full flex flex-col justify-end p-6">

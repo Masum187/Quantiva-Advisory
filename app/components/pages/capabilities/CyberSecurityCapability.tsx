@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { useLanguage } from '../../QuantivaWebsite';
 import { Shield, Lock, Eye, AlertTriangle, CheckCircle, ArrowLeft } from 'lucide-react';
 
@@ -51,11 +52,13 @@ export default function CyberSecurityCapability() {
         </div>
 
         {/* Image */}
-        <div className="mb-12 rounded-2xl overflow-hidden border border-teal-500/30">
-          <img 
+        <div className="relative mb-12 rounded-2xl overflow-hidden border border-teal-500/30 h-96">
+          <Image 
             src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop" 
             alt="Cyber Security"
-            className="w-full h-96 object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
 
@@ -117,11 +120,13 @@ export default function CyberSecurityCapability() {
         </section>
 
         {/* Image 2 */}
-        <div className="mb-12 rounded-2xl overflow-hidden border border-teal-500/30">
-          <img 
+        <div className="relative mb-12 rounded-2xl overflow-hidden border border-teal-500/30 h-80">
+          <Image 
             src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop" 
             alt="Security Operations"
-            className="w-full h-80 object-cover"
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
 
