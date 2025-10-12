@@ -5,20 +5,23 @@
 5:I[3293,["215","static/chunks/215-36b352c014a460ce.js","619","static/chunks/619-e4c01f9ce2cbef7f.js","345","static/chunks/app/not-found-c28f1ec81e47cbc7.js"],"default"]
 6:I[8955,["177","static/chunks/app/layout-067384137e7883c6.js"],"Analytics"]
 7:I[8854,["177","static/chunks/app/layout-067384137e7883c6.js"],"SpeedInsights"]
-8:I[7502,["215","static/chunks/215-36b352c014a460ce.js","577","static/chunks/577-fdcf842ad85f9229.js","502","static/chunks/502-891aa8fed6a69a4f.js","970","static/chunks/app/en/about/page-1d868481be533aa9.js"],"LanguageProvider"]
+8:I[7502,["215","static/chunks/215-36b352c014a460ce.js","577","static/chunks/577-fdcf842ad85f9229.js","502","static/chunks/502-891aa8fed6a69a4f.js","496","static/chunks/app/en/page-5912e3176707a14f.js"],"LanguageProvider"]
 9:I[5259,["215","static/chunks/215-36b352c014a460ce.js","577","static/chunks/577-fdcf842ad85f9229.js","502","static/chunks/502-891aa8fed6a69a4f.js","723","static/chunks/app/en/layout-a26d3c2303205d8c.js"],"ContentProvider"]
 a:I[2461,["215","static/chunks/215-36b352c014a460ce.js","619","static/chunks/619-e4c01f9ce2cbef7f.js","841","static/chunks/app/en/error-c9c9167950b2040f.js"],"default"]
 b:I[8791,["215","static/chunks/215-36b352c014a460ce.js","619","static/chunks/619-e4c01f9ce2cbef7f.js","975","static/chunks/app/en/not-found-000cd493ef2ba502.js"],"default"]
-c:I[7502,["215","static/chunks/215-36b352c014a460ce.js","577","static/chunks/577-fdcf842ad85f9229.js","502","static/chunks/502-891aa8fed6a69a4f.js","970","static/chunks/app/en/about/page-1d868481be533aa9.js"],"default"]
-d:I[4431,[],"OutletBoundary"]
-f:I[5278,[],"AsyncMetadataOutlet"]
-11:I[4431,[],"ViewportBoundary"]
-13:I[4431,[],"MetadataBoundary"]
-14:"$Sreact.suspense"
-16:I[8731,["219","static/chunks/app/global-error-76351b607330baf4.js"],"default"]
-:HL["/_next/static/css/a82965feaf8533be.css","style"]
-0:{"P":null,"b":"6K5pl1nK4c47Hf6ujkcwc","p":"","c":["","en","about"],"i":false,"f":[[["",{"children":["en",{"children":["about",{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/a82965feaf8533be.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"de","children":["$","body",null,{"children":[["$","$L2",null,{"parallelRouterKey":"children","error":"$3","errorStyles":[],"errorScripts":[],"template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$L5",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L6",null,{}],["$","$L7",null,{}]]}]}]]}],{"children":["en",["$","$1","c",{"children":[null,["$","$L8",null,{"children":["$","$L9",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$a","errorStyles":[],"errorScripts":[],"template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$Lb",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":["about",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$Lc",null,{}],null,["$","$Ld",null,{"children":["$Le",["$","$Lf",null,{"promise":"$@10"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$L11",null,{"children":"$L12"}],null],["$","$L13",null,{"children":["$","div",null,{"hidden":true,"children":["$","$14",null,{"fallback":null,"children":"$L15"}]}]}]]}],false]],"m":"$undefined","G":["$16",[]],"s":false,"S":true}
-12:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-e:null
-10:{"metadata":[["$","title","0",{"children":"About Us"}],["$","meta","1",{"name":"description","content":"Learn more about Quantiva Advisory - Your partner for SAP, Cloud and AI consulting."}],["$","link","2",{"rel":"canonical","href":"/en/about"}],["$","link","3",{"rel":"alternate","hrefLang":"de-DE","href":"/de/about"}],["$","link","4",{"rel":"alternate","hrefLang":"en-US","href":"/en/about"}]],"error":null,"digest":"$undefined"}
-15:"$10:metadata"
+c:I[1959,[],"ClientPageRoot"]
+d:I[5249,["215","static/chunks/215-36b352c014a460ce.js","619","static/chunks/619-e4c01f9ce2cbef7f.js","970","static/chunks/app/en/about/page-9b3133a9774b59d1.js"],"default"]
+10:I[4431,[],"OutletBoundary"]
+12:I[5278,[],"AsyncMetadataOutlet"]
+14:I[4431,[],"ViewportBoundary"]
+16:I[4431,[],"MetadataBoundary"]
+17:"$Sreact.suspense"
+19:I[8731,["219","static/chunks/app/global-error-76351b607330baf4.js"],"default"]
+:HL["/_next/static/css/8d6ce6d31659f7f2.css","style"]
+0:{"P":null,"b":"8AZFoN5IZ_GRvSBB4PRV5","p":"","c":["","en","about"],"i":false,"f":[[["",{"children":["en",{"children":["about",{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/8d6ce6d31659f7f2.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"de","children":["$","body",null,{"children":[["$","$L2",null,{"parallelRouterKey":"children","error":"$3","errorStyles":[],"errorScripts":[],"template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$L5",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L6",null,{}],["$","$L7",null,{}]]}]}]]}],{"children":["en",["$","$1","c",{"children":[null,["$","$L8",null,{"children":["$","$L9",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$a","errorStyles":[],"errorScripts":[],"template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","$Lb",null,{}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":["about",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$Lc",null,{"Component":"$d","searchParams":{},"params":{},"promises":["$@e","$@f"]}],null,["$","$L10",null,{"children":["$L11",["$","$L12",null,{"promise":"$@13"}]]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,[["$","$L14",null,{"children":"$L15"}],null],["$","$L16",null,{"children":["$","div",null,{"hidden":true,"children":["$","$17",null,{"fallback":null,"children":"$L18"}]}]}]]}],false]],"m":"$undefined","G":["$19",[]],"s":false,"S":true}
+e:{}
+f:"$0:f:0:1:2:children:2:children:2:children:1:props:children:0:props:params"
+15:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+11:null
+13:{"metadata":[["$","title","0",{"children":"Quantiva Advisory"}],["$","meta","1",{"name":"description","content":"Professional Consulting for SAP, Cloud, AI, Integration, and Cyber Security"}]],"error":null,"digest":"$undefined"}
+18:"$13:metadata"
