@@ -4,7 +4,7 @@
  * Simple hooks with automatic fallback to local JSON
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   fetchEntries,
   fetchEntry,
@@ -104,8 +104,12 @@ export function useContentfulEntries<T = any>(
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  // Memoize serialized values to avoid unnecessary re-renders
+  const queryString = useMemo(() => JSON.stringify(query), [query]);
+  const fallbackString = useMemo(() => JSON.stringify(fallback), [fallback]);
+
   useEffect(() => {
-    async function fetch() {
+    async function fetchData() {
       try {
         setLoading(true);
         
@@ -124,8 +128,9 @@ export function useContentfulEntries<T = any>(
       }
     }
 
-    fetch();
-  }, [contentType, JSON.stringify(query), JSON.stringify(fallback)]);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contentType, queryString, fallbackString]);
 
   return { entries, loading, error };
 }

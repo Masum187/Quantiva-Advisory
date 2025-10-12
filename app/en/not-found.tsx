@@ -34,7 +34,7 @@ export default function EnNotFound() {
           </h2>
           <p className="text-lg text-gray-600 max-w-md mx-auto">
             The page you are looking for does not exist or has been moved.
-            Perhaps you can find what you're looking for on our homepage.
+            Perhaps you can find what you&apos;re looking for on our homepage.
           </p>
         </motion.div>
 

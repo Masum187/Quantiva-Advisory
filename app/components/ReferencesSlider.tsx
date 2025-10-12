@@ -91,7 +91,7 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
 
                 {/* Quote Text */}
                 <p className="text-sm text-white leading-relaxed mb-4 line-clamp-4 drop-shadow-lg">
-                  "{ref.quote}"
+                  &ldquo;{ref.quote}&rdquo;
                 </p>
 
                 {/* Author & Tags */}

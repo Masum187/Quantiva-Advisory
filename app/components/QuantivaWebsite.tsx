@@ -1142,7 +1142,7 @@ export function CaseDetailPage() {
 
           {quote && (
             <motion.blockquote initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-12 border-l-4 border-teal-600 pl-4 text-gray-800 italic">
-              "{quote}"
+              &ldquo;{quote}&rdquo;
               {(caseData as any).quote?.author && (
                 <footer className="not-italic mt-2 text-gray-600">— {(caseData as any).quote.author}</footer>
               )}
