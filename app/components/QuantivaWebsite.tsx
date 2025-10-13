@@ -819,7 +819,7 @@ export default function QuantivaWebsite() {
                 'cyber-security',   // Cyber Security
                 'digital-strategy'  // Enablement & Training
               ];
-              const serviceUrl = localePath(`/capabilities/${serviceUrls[index]}`);
+              const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               
               return (
                 <article 

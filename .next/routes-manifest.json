@@ -138,6 +138,42 @@
       "namedRegex": "^/de/cases(?:/)?$"
     },
     {
+      "page": "/de/services/ai",
+      "regex": "^/de/services/ai(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/services/ai(?:/)?$"
+    },
+    {
+      "page": "/de/services/cloud",
+      "regex": "^/de/services/cloud(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/services/cloud(?:/)?$"
+    },
+    {
+      "page": "/de/services/cyber-security",
+      "regex": "^/de/services/cyber\\-security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/services/cyber\\-security(?:/)?$"
+    },
+    {
+      "page": "/de/services/digital-strategy",
+      "regex": "^/de/services/digital\\-strategy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/services/digital\\-strategy(?:/)?$"
+    },
+    {
+      "page": "/de/services/microservices",
+      "regex": "^/de/services/microservices(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/services/microservices(?:/)?$"
+    },
+    {
+      "page": "/de/services/sap",
+      "regex": "^/de/services/sap(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/services/sap(?:/)?$"
+    },
+    {
       "page": "/de/team",
       "regex": "^/de/team(?:/)?$",
       "routeKeys": {},
@@ -202,6 +238,42 @@
       "regex": "^/en/cases(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/en/cases(?:/)?$"
+    },
+    {
+      "page": "/en/services/ai",
+      "regex": "^/en/services/ai(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/services/ai(?:/)?$"
+    },
+    {
+      "page": "/en/services/cloud",
+      "regex": "^/en/services/cloud(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/services/cloud(?:/)?$"
+    },
+    {
+      "page": "/en/services/cyber-security",
+      "regex": "^/en/services/cyber\\-security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/services/cyber\\-security(?:/)?$"
+    },
+    {
+      "page": "/en/services/digital-strategy",
+      "regex": "^/en/services/digital\\-strategy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/services/digital\\-strategy(?:/)?$"
+    },
+    {
+      "page": "/en/services/microservices",
+      "regex": "^/en/services/microservices(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/services/microservices(?:/)?$"
+    },
+    {
+      "page": "/en/services/sap",
+      "regex": "^/en/services/sap(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/services/sap(?:/)?$"
     },
     {
       "page": "/en/team",
