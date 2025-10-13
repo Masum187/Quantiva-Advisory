@@ -147,12 +147,6 @@ export default function AboutPage() {
                   <span className="text-purple-300 text-sm font-semibold tracking-wider">ABOUT QUANTIVA ADVISORY</span>
                 </motion.div>
 
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-                  Digital Excellence{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-teal-400">
-                    is Our Core
-                  </span>
-                </h1>
 
                 <p className="text-xl text-gray-300 leading-relaxed mb-8">
                   Every day, we shape the digital future of our clients. With expertise in SAP, Cloud and AI, 

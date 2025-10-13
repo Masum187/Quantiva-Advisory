@@ -3,13 +3,13 @@
   "/_not-found/page": "/_not-found",
   "/page": "/",
   "/de/about/page": "/de/about",
-  "/en/about/page": "/en/about",
   "/de/team/page": "/de/team",
+  "/en/about/page": "/en/about",
   "/en/team/page": "/en/team",
-  "/de/page": "/de",
-  "/en/career/page": "/en/career",
   "/de/career/page": "/de/career",
-  "/en/page": "/en",
+  "/de/page": "/de",
   "/de/cases/page": "/de/cases",
+  "/en/career/page": "/en/career",
+  "/en/page": "/en",
   "/en/cases/page": "/en/cases"
 }
