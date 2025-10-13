@@ -1,0 +1,279 @@
+'use client';
+
+import React from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { Cloud, Server, Zap, Shield, ArrowLeft, CheckCircle } from 'lucide-react';
+
+// Enhanced Animation Component with Text Reveal
+function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
+  const variants = {
+    hidden: {
+      opacity: 0,
+      x: direction === 'left' ? -80 : direction === 'right' ? 80 : 0,
+      y: direction === 'up' ? 80 : direction === 'down' ? -80 : 0,
+      scale: 0.9,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      scale: 1,
+    },
+  };
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={variants}
+      transition={{
+        duration,
+        delay,
+        type: "spring",
+        stiffness: 100,
+        damping: 20
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// Text Reveal Animation
+function TextReveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.8,
+        delay,
+        ease: "easeOut"
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function CloudPage() {
+  const services = [
+    {
+      icon: Cloud,
+      title: 'Multi-Cloud Strategy',
+      description: 'Strategische Cloud-Architektur für AWS, Azure und GCP mit optimaler Kosten-Nutzen-Relation.',
+      features: ['Cloud Assessment', 'Migration Planning', 'Cost Optimization', 'Governance Framework']
+    },
+    {
+      icon: Server,
+      title: 'Cloud Migration',
+      description: 'Sichere und effiziente Migration Ihrer Workloads in die Cloud mit minimaler Ausfallzeit.',
+      features: ['Lift & Shift', 'Replatforming', 'Refactoring', 'Data Migration']
+    },
+    {
+      icon: Zap,
+      title: 'Cloud Native Development',
+      description: 'Moderne Anwendungsentwicklung mit Cloud-native Technologien und Microservices-Architekturen.',
+      features: ['Container Orchestration', 'Serverless Computing', 'DevOps Pipelines', 'Auto Scaling']
+    },
+    {
+      icon: Shield,
+      title: 'Cloud Security & Compliance',
+      description: 'Umfassende Sicherheitskonzepte für Cloud-Umgebungen mit Compliance und Governance.',
+      features: ['Identity & Access Management', 'Data Protection', 'Security Monitoring', 'Compliance Auditing']
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346462/kling_20251012_Video_to_Audio__1718_0_ti4mch.mp4"
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-900/30 via-transparent to-blue-900/30"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative py-32 min-h-screen flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <SlideIn delay={0.2}>
+              <div className="text-center mb-16">
+                <Link
+                  href="/de"
+                  className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-8 backdrop-blur-sm bg-white/10 rounded-full px-4 py-2 border border-white/20"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Zurück zur Hauptseite
+                </Link>
+
+                <TextReveal delay={0.5}>
+                  <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-sky-500/30 to-blue-500/30 border border-sky-400/50 mb-12 backdrop-blur-sm">
+                    <Cloud className="w-8 h-8 text-sky-300" />
+                    <span className="text-white text-lg font-semibold tracking-wider">CLOUD SOLUTIONS</span>
+                  </div>
+                </TextReveal>
+
+                <TextReveal delay={0.8}>
+                  <h1 className="text-6xl md:text-8xl font-bold text-white mb-12 leading-tight">
+                    Cloud{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-300">
+                      Transformation
+                    </span>
+                  </h1>
+                </TextReveal>
+
+                <TextReveal delay={1.1}>
+                  <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-16">
+                    Skalieren Sie Ihr Unternehmen mit modernen Cloud-Lösungen.
+                    Von Multi-Cloud-Strategien bis hin zu Cloud-native Development.
+                  </p>
+                </TextReveal>
+
+                <TextReveal delay={1.4}>
+                  <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                    <Link
+                      href="/de#contact"
+                      className="px-12 py-6 bg-gradient-to-r from-sky-600 to-blue-600 text-white text-xl font-semibold rounded-2xl hover:from-sky-700 hover:to-blue-700 transition-all duration-300 shadow-2xl hover:scale-105 backdrop-blur-sm"
+                    >
+                      Cloud-Beratung anfragen
+                    </Link>
+                    <Link
+                      href="/de/capabilities/ai"
+                      className="px-12 py-6 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white text-xl font-semibold rounded-2xl hover:bg-white/30 transition-all duration-300"
+                    >
+                      AI Solutions →
+                    </Link>
+                  </div>
+                </TextReveal>
+              </div>
+            </SlideIn>
+          </div>
+        </section>
+
+        {/* Services Grid */}
+        <section className="py-32 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SlideIn delay={0.2}>
+              <div className="text-center mb-24">
+                <TextReveal delay={0.5}>
+                  <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+                    Unsere{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-300">
+                      Cloud-Dienstleistungen
+                    </span>
+                  </h2>
+                </TextReveal>
+                <TextReveal delay={0.8}>
+                  <p className="text-2xl text-white/80 max-w-3xl mx-auto">
+                    Professionelle Cloud-Lösungen für moderne Unternehmen
+                  </p>
+                </TextReveal>
+              </div>
+            </SlideIn>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <SlideIn key={index} delay={index * 0.2 + 0.5}>
+                    <motion.div
+                      className="p-10 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-500 group"
+                      whileHover={{
+                        scale: 1.05,
+                        y: -10,
+                        transition: { duration: 0.3 }
+                      }}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.2 }}
+                    >
+                      <div className="flex items-center gap-6 mb-8">
+                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-sky-500/30 to-blue-500/30 border border-sky-300/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                          <Icon className="w-10 h-10 text-white" />
+                        </div>
+                        <h3 className="text-3xl font-bold text-white">{service.title}</h3>
+                      </div>
+
+                      <p className="text-white/90 text-lg mb-8 leading-relaxed">
+                        {service.description}
+                      </p>
+
+                      <div className="space-y-4">
+                        {service.features.map((feature, idx) => (
+                          <motion.div
+                            key={idx}
+                            className="flex items-center gap-4"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.2 + idx * 0.1 + 0.8 }}
+                          >
+                            <CheckCircle className="w-6 h-6 text-sky-300 flex-shrink-0" />
+                            <span className="text-white/80 text-lg">{feature}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </SlideIn>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-32 relative">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <SlideIn delay={0.2}>
+              <div className="p-16 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20">
+                <TextReveal delay={0.5}>
+                  <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+                    Bereit für die{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-300">
+                      Cloud-Zukunft?
+                    </span>
+                  </h2>
+                </TextReveal>
+
+                <TextReveal delay={0.8}>
+                  <p className="text-2xl text-white/90 mb-16 max-w-3xl mx-auto">
+                    Lassen Sie uns gemeinsam Ihre Cloud-Strategie entwickeln und umsetzen.
+                  </p>
+                </TextReveal>
+
+                <TextReveal delay={1.1}>
+                  <div className="flex flex-col sm:flex-row gap-8 justify-center">
+                    <Link
+                      href="/de#contact"
+                      className="px-16 py-8 bg-gradient-to-r from-sky-600 to-blue-600 text-white text-2xl font-semibold rounded-2xl hover:from-sky-700 hover:to-blue-700 transition-all duration-300 shadow-2xl hover:scale-105 backdrop-blur-sm"
+                    >
+                      Cloud-Beratung anfragen
+                    </Link>
+                    <Link
+                      href="/de/capabilities/ai"
+                      className="px-16 py-8 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white text-2xl font-semibold rounded-2xl hover:bg-white/30 transition-all duration-300"
+                    >
+                      AI Solutions →
+                    </Link>
+                  </div>
+                </TextReveal>
+              </div>
+            </SlideIn>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}

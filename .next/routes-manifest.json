@@ -96,16 +96,34 @@
       "namedRegex": "^/de/capabilities/ai(?:/)?$"
     },
     {
+      "page": "/de/capabilities/cloud",
+      "regex": "^/de/capabilities/cloud(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/capabilities/cloud(?:/)?$"
+    },
+    {
       "page": "/de/capabilities/cyber-security",
       "regex": "^/de/capabilities/cyber\\-security(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/de/capabilities/cyber\\-security(?:/)?$"
     },
     {
+      "page": "/de/capabilities/digital-strategy",
+      "regex": "^/de/capabilities/digital\\-strategy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/capabilities/digital\\-strategy(?:/)?$"
+    },
+    {
       "page": "/de/capabilities/microservices",
       "regex": "^/de/capabilities/microservices(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/de/capabilities/microservices(?:/)?$"
+    },
+    {
+      "page": "/de/capabilities/sap",
+      "regex": "^/de/capabilities/sap(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/capabilities/sap(?:/)?$"
     },
     {
       "page": "/de/career",
@@ -144,16 +162,34 @@
       "namedRegex": "^/en/capabilities/ai(?:/)?$"
     },
     {
+      "page": "/en/capabilities/cloud",
+      "regex": "^/en/capabilities/cloud(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/capabilities/cloud(?:/)?$"
+    },
+    {
       "page": "/en/capabilities/cyber-security",
       "regex": "^/en/capabilities/cyber\\-security(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/en/capabilities/cyber\\-security(?:/)?$"
     },
     {
+      "page": "/en/capabilities/digital-strategy",
+      "regex": "^/en/capabilities/digital\\-strategy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/capabilities/digital\\-strategy(?:/)?$"
+    },
+    {
       "page": "/en/capabilities/microservices",
       "regex": "^/en/capabilities/microservices(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/en/capabilities/microservices(?:/)?$"
+    },
+    {
+      "page": "/en/capabilities/sap",
+      "regex": "^/en/capabilities/sap(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/capabilities/sap(?:/)?$"
     },
     {
       "page": "/en/career",
