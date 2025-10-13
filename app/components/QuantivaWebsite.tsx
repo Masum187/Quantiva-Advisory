@@ -347,31 +347,100 @@ function ServicesDetailSection() {
     },
   ];
   return (
-    <section id="services-detail" className="bg-black py-20 border-t border-white/10">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="services-detail" className="bg-black py-32 border-t border-white/10 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-teal-900/5 via-transparent to-purple-900/5"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-500/30 to-transparent"></div>
+      
+      <div className="mx-auto max-w-7xl px-6 relative">
         <SlideIn direction="up" delay={0.1}>
-          <h2 className="text-center text-3xl md:text-4xl font-bold text-white">
-            {lang==='de' ? 'Kompetenzen im Detail' : 'Capabilities in detail'}
-          </h2>
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm">
+              <span className="text-teal-300 text-sm font-semibold tracking-wider uppercase">
+                {lang==='de' ? 'Expertise' : 'Expertise'}
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              {lang==='de' ? 'Kompetenzen im' : 'Capabilities in'}{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
+                Detail
+              </span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              {lang==='de' 
+                ? 'Entdecken Sie unsere Kernkompetenzen und innovative Lösungsansätze für Ihre digitale Transformation.'
+                : 'Discover our core competencies and innovative solution approaches for your digital transformation.'}
+            </p>
+          </div>
         </SlideIn>
-        <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {blocks.map((b) => (
-            <article key={b.titleEn} className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-6 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-teal-500/20 border border-teal-500/30">
-                <b.icon className="h-6 w-6 text-teal-400" />
+        
+        <StaggerSlideIn className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {blocks.map((b, index) => (
+            <motion.article 
+              key={b.titleEn} 
+              className="group relative rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/50 to-slate-800/50 p-8 shadow-2xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-500 backdrop-blur-sm hover:scale-105 hover:-translate-y-2"
+              whileHover={{ 
+                y: -10,
+                transition: { duration: 0.3 }
+              }}
+            >
+              {/* Glow Effect */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-400/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                  <b.icon className="h-8 w-8 text-teal-400" />
+                </div>
+                
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-teal-300 transition-colors">
+                  {lang==='de' ? b.titleDe : b.titleEn}
+                </h3>
+                
+                <ul className="mt-4 space-y-3 text-gray-300">
+                  {(lang==='de'? b.bulletsDe : b.bulletsEn).map((t,i)=>(
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-teal-400 flex-shrink-0"></div>
+                      <span className="text-sm">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <div className="mt-8 pt-6 border-t border-white/10">
+                  <a 
+                    href={localePath(b.cta)} 
+                    className="inline-flex items-center gap-2 text-teal-400 hover:text-white font-semibold transition-all duration-300 group-hover:gap-3"
+                  >
+                    <span>{lang==='de' ? 'Mehr erfahren' : 'Learn more'}</span>
+                    <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </a>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-white">
-                {lang==='de' ? b.titleDe : b.titleEn}
-              </h3>
-              <ul className="mt-3 space-y-1 text-sm text-gray-300">
-                {(lang==='de'? b.bulletsDe : b.bulletsEn).map((t,i)=>(<li key={i}>• {t}</li>))}
-              </ul>
-              <a href={localePath(b.cta)} className="mt-4 inline-flex items-center gap-1 text-teal-400 hover:text-teal-300 hover:underline transition">
-                {lang==='de' ? 'Mehr erfahren' : 'Learn more'} <ChevronRight className="h-4 w-4" />
-              </a>
-            </article>
+              
+              {/* Floating Elements */}
+              <div className="absolute top-4 right-4 w-2 h-2 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
+              <div className="absolute bottom-4 left-4 w-1 h-1 bg-teal-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+            </motion.article>
           ))}
         </StaggerSlideIn>
+        
+        {/* Bottom CTA */}
+        <SlideIn direction="up" delay={0.8}>
+          <div className="text-center mt-20">
+            <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-teal-600/20 to-purple-600/20 border border-teal-500/30 backdrop-blur-sm">
+              <span className="text-white/80">
+                {lang==='de' ? 'Benötigen Sie eine maßgeschneiderte Lösung?' : 'Need a custom solution?'}
+              </span>
+              <a 
+                href="#contact" 
+                className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-teal-600 to-purple-600 text-white rounded-xl hover:from-teal-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:scale-105"
+              >
+                {lang==='de' ? 'Kontakt aufnehmen' : 'Get in touch'}
+                <ChevronRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </SlideIn>
       </div>
     </section>
   );
