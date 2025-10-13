@@ -89,9 +89,8 @@ export default function AIServicePage() {
           playsInline
           preload="auto"
         />
-        {/* Very Light Video Overlay */}
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/5 via-transparent to-pink-900/5"></div>
+        {/* Minimal Video Overlay - Only for text readability */}
+        <div className="absolute inset-0 bg-black/5"></div>
       </div>
 
       {/* Content */}
