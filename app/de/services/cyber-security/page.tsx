@@ -123,7 +123,7 @@ export default function CyberSecurityServicePage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Background Video */}
+      {/* Fixed Background Video */}
       <div className="fixed inset-0 z-0">
         <video
           src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760385739/kling_20251014_Text_to_Video_Scene_1__M_930_0_1_djdrj2.mp4"
@@ -134,8 +134,8 @@ export default function CyberSecurityServicePage() {
           playsInline
         />
         {/* Video Overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-red-900/30 via-transparent to-orange-900/30"></div>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-transparent to-orange-900/20"></div>
       </div>
 
       {/* Content */}

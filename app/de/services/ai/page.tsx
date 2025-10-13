@@ -89,8 +89,8 @@ export default function AIServicePage() {
           playsInline
         />
         {/* Video Overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-pink-900/30"></div>
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-pink-900/20"></div>
       </div>
 
       {/* Content */}
