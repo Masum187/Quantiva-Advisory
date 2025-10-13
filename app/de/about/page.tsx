@@ -146,7 +146,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-white/20">
                   <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&auto=format&q=80"
+                    src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
                     alt="Gülnur Patan - CEO Avatar"
                     className="w-full h-full object-cover"
                   />
@@ -906,7 +906,7 @@ export default function AboutPage() {
               <div className="relative group cursor-pointer" onClick={() => setShowCEOAvatar(true)}>
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-3xl blur-3xl"></div>
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=700&fit=crop&auto=format&q=80"
+                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
                   alt="Gülnur Patan - CEO"
                   className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20 group-hover:scale-105 transition-transform duration-300"
                 />
