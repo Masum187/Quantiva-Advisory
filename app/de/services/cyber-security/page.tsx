@@ -132,10 +132,11 @@ export default function CyberSecurityServicePage() {
           muted
           loop
           playsInline
+          preload="auto"
         />
-        {/* Video Overlay */}
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-transparent to-orange-900/20"></div>
+        {/* Minimal Video Overlay */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900/10 via-transparent to-orange-900/10"></div>
       </div>
 
       {/* Content */}
