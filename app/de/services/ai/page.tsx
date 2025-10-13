@@ -78,7 +78,7 @@ export default function AIServicePage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Background Video */}
+      {/* Fixed Background Video */}
       <div className="fixed inset-0 z-0">
         <video
           src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346462/kling_20251012_Video_to_Audio__1718_0_ti4mch.mp4"
