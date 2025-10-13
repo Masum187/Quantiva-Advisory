@@ -347,286 +347,92 @@ function ServicesDetailSection() {
     },
   ];
   return (
-    <section id="services-detail" className="bg-black py-40 border-t border-white/10 relative overflow-hidden">
-      {/* Revolutionary Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-900/10 via-transparent to-purple-900/10"></div>
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
-      
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="grid grid-cols-12 gap-4 h-full">
-          {Array.from({length: 144}).map((_, i) => (
-            <motion.div
-              key={i}
-              className="border border-teal-400/20"
-              animate={{
-                opacity: [0.1, 0.3, 0.1],
-              }}
-              transition={{
-                duration: 3,
-                delay: i * 0.02,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {Array.from({length: 20}).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-teal-400 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              delay: i * 0.2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
-      
-      <div className="mx-auto max-w-8xl px-6 relative">
-        {/* Revolutionary Header */}
+    <section id="services-detail" className="bg-black py-24 border-t border-white/10">
+      <div className="mx-auto max-w-7xl px-6">
         <SlideIn direction="up" delay={0.1}>
-          <div className="text-center mb-24">
-            <motion.div 
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/30 to-purple-500/30 border border-teal-400/50 mb-12 backdrop-blur-lg"
-              whileHover={{ scale: 1.05 }}
-            >
-              <motion.div
-                className="w-3 h-3 bg-teal-400 rounded-full"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-teal-200 text-sm font-semibold tracking-wider uppercase">
-                {lang==='de' ? 'Revolutionäre Expertise' : 'Revolutionary Expertise'}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm">
+              <span className="text-teal-300 text-sm font-semibold tracking-wider uppercase">
+                {lang==='de' ? 'Expertise' : 'Expertise'}
               </span>
-              <motion.div
-                className="w-3 h-3 bg-purple-400 rounded-full"
-                animate={{ scale: [1.2, 1, 1.2] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              />
-            </motion.div>
-            
-            <motion.h2 
-              className="text-5xl md:text-8xl font-black text-white mb-8 leading-tight"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-            >
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
               {lang==='de' ? 'Kompetenzen im' : 'Capabilities in'}{' '}
-              <motion.span 
-                className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400"
-                animate={{
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{
-                  backgroundSize: '200% 200%',
-                }}
-              >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
                 Detail
-              </motion.span>
-            </motion.h2>
-            
-            <motion.p 
-              className="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.6 }}
-            >
+              </span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               {lang==='de' 
-                ? 'Entdecken Sie unsere revolutionären Kernkompetenzen und bahnbrechenden Lösungsansätze für Ihre digitale Transformation.'
-                : 'Discover our revolutionary core competencies and groundbreaking solution approaches for your digital transformation.'}
-            </motion.p>
+                ? 'Entdecken Sie unsere Kernkompetenzen und innovative Lösungsansätze für Ihre digitale Transformation.'
+                : 'Discover our core competencies and innovative solution approaches for your digital transformation.'}
+            </p>
           </div>
         </SlideIn>
         
-        {/* Revolutionary Cards Grid */}
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 relative">
+        <StaggerSlideIn className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {blocks.map((b, index) => (
             <motion.article 
               key={b.titleEn} 
-              className="group relative"
-              initial={{ opacity: 0, y: 100, rotateY: -15 }}
-              animate={{ opacity: 1, y: 0, rotateY: 0 }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.2,
-                type: "spring",
-                stiffness: 100
-              }}
+              className="group relative rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/50 to-slate-800/50 p-8 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-500 backdrop-blur-sm hover:scale-105 hover:-translate-y-2"
               whileHover={{ 
-                y: -20,
-                rotateY: 5,
-                scale: 1.05,
-                transition: { duration: 0.4 }
+                y: -10,
+                transition: { duration: 0.3 }
               }}
             >
-              {/* 3D Card Container */}
-              <div className="relative transform-gpu perspective-1000">
-                {/* Main Card */}
-                <div className="relative rounded-3xl border border-white/20 bg-gradient-to-br from-slate-900/80 to-slate-800/80 p-10 shadow-2xl shadow-teal-500/20 hover:shadow-teal-500/40 transition-all duration-700 backdrop-blur-xl hover:backdrop-blur-2xl group-hover:border-teal-400/60">
-                  
-                  {/* Holographic Overlay */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  
-                  {/* Animated Border */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-teal-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[1px]">
-                    <div className="w-full h-full rounded-3xl bg-gradient-to-br from-slate-900/90 to-slate-800/90"></div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="relative z-10">
-                    {/* Revolutionary Icon */}
-                    <motion.div 
-                      className="mb-8 inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-teal-500/30 to-purple-500/30 border border-teal-400/40 group-hover:border-teal-300/60 transition-all duration-500"
-                      whileHover={{ 
-                        scale: 1.2, 
-                        rotate: 360,
-                        transition: { duration: 0.6 }
-                      }}
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <b.icon className="h-10 w-10 text-teal-300" />
-                      </motion.div>
-                    </motion.div>
-                    
-                    {/* Glowing Title */}
-                    <motion.h3 
-                      className="text-2xl font-black text-white mb-6 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-teal-300 group-hover:to-purple-300 transition-all duration-500"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {lang==='de' ? b.titleDe : b.titleEn}
-                    </motion.h3>
-                    
-                    {/* Revolutionary Bullet Points */}
-                    <ul className="mt-6 space-y-4">
-                      {(lang==='de'? b.bulletsDe : b.bulletsEn).map((t,i)=>(
-                        <motion.li 
-                          key={i} 
-                          className="flex items-center gap-4"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.2 + i * 0.1 + 0.5 }}
-                          whileHover={{ x: 5, transition: { duration: 0.2 } }}
-                        >
-                          <motion.div 
-                            className="w-3 h-3 rounded-full bg-gradient-to-r from-teal-400 to-purple-400 flex-shrink-0"
-                            whileHover={{ scale: 1.5, rotate: 180 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                          <span className="text-gray-300 text-base font-medium group-hover:text-white transition-colors duration-300">
-                            {t}
-                          </span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                    
-                    {/* Revolutionary CTA */}
-                    <div className="mt-10 pt-8 border-t border-white/20">
-                      <motion.a 
-                        href={localePath(b.cta)} 
-                        className="inline-flex items-center gap-3 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400 hover:from-teal-300 hover:to-purple-300 font-bold text-lg transition-all duration-300 group-hover:gap-4"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <span>{lang==='de' ? 'Mehr erfahren' : 'Learn more'}</span>
-                        <motion.div
-                          whileHover={{ x: 5 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <ChevronRight className="h-5 w-5" />
-                        </motion.div>
-                      </motion.a>
-                    </div>
-                  </div>
-                  
-                  {/* Floating Orbs */}
-                  <motion.div 
-                    className="absolute top-6 right-6 w-3 h-3 bg-teal-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      rotate: [0, 180, 360],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <motion.div 
-                    className="absolute bottom-6 left-6 w-2 h-2 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                    animate={{
-                      scale: [1, 1.3, 1],
-                      rotate: [360, 180, 0],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1
-                    }}
-                  />
+              {/* Subtle Glow Effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-teal-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-400/30 group-hover:scale-110 transition-all duration-300">
+                  <b.icon className="h-7 w-7 text-teal-400" />
+                </div>
+                
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-teal-300 transition-colors">
+                  {lang==='de' ? b.titleDe : b.titleEn}
+                </h3>
+                
+                <ul className="mt-4 space-y-3 text-gray-300">
+                  {(lang==='de'? b.bulletsDe : b.bulletsEn).map((t,i)=>(
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-teal-400 flex-shrink-0"></div>
+                      <span className="text-sm">{t}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <div className="mt-8 pt-6 border-t border-white/10">
+                  <a 
+                    href={localePath(b.cta)} 
+                    className="inline-flex items-center gap-2 text-teal-400 hover:text-white font-semibold transition-all duration-300 group-hover:gap-3"
+                  >
+                    <span>{lang==='de' ? 'Mehr erfahren' : 'Learn more'}</span>
+                    <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </a>
                 </div>
               </div>
             </motion.article>
           ))}
-        </div>
+        </StaggerSlideIn>
         
-        {/* Revolutionary Bottom CTA */}
-        <motion.div 
-          className="text-center mt-32"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          <motion.div 
-            className="inline-flex items-center gap-6 px-12 py-6 rounded-3xl bg-gradient-to-r from-teal-600/30 to-purple-600/30 border border-teal-400/50 backdrop-blur-xl"
-            whileHover={{ scale: 1.05, y: -5 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.span 
-              className="text-white/90 text-xl font-semibold"
-              whileHover={{ scale: 1.05 }}
-            >
-              {lang==='de' ? 'Benötigen Sie eine revolutionäre Lösung?' : 'Need a revolutionary solution?'}
-            </motion.span>
-            <motion.a 
-              href="#contact" 
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-teal-600 to-purple-600 text-white rounded-2xl hover:from-teal-700 hover:to-purple-700 transition-all duration-300 shadow-2xl hover:shadow-teal-500/50"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="font-bold">{lang==='de' ? 'Kontakt aufnehmen' : 'Get in touch'}</span>
-              <motion.div
-                whileHover={{ x: 5, rotate: 90 }}
-                transition={{ duration: 0.2 }}
+        {/* Clean Bottom CTA */}
+        <SlideIn direction="up" delay={0.8}>
+          <div className="text-center mt-16">
+            <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-teal-600/20 to-purple-600/20 border border-teal-500/30 backdrop-blur-sm">
+              <span className="text-white/80">
+                {lang==='de' ? 'Benötigen Sie eine maßgeschneiderte Lösung?' : 'Need a custom solution?'}
+              </span>
+              <a 
+                href="#contact" 
+                className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-teal-600 to-purple-600 text-white rounded-xl hover:from-teal-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:scale-105"
               >
-                <ChevronRight className="h-5 w-5" />
-              </motion.div>
-            </motion.a>
-          </motion.div>
-        </motion.div>
+                {lang==='de' ? 'Kontakt aufnehmen' : 'Get in touch'}
+                <ChevronRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </SlideIn>
       </div>
     </section>
   );
