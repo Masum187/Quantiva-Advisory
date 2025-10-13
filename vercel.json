@@ -2,6 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm ci --legacy-peer-deps",
   "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/de/services/(.*)",
+      "destination": "/de/services/$1"
+    },
+    {
+      "source": "/en/services/(.*)",
+      "destination": "/en/services/$1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
