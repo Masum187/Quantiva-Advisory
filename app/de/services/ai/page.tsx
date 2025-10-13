@@ -77,9 +77,26 @@ export default function AIServicePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-purple-900/20 via-black to-pink-900/20">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346462/kling_20251012_Video_to_Audio__1718_0_ti4mch.mp4"
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-pink-900/30"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative py-32 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SlideIn>
             <div className="text-center mb-16">
@@ -228,6 +245,7 @@ export default function AIServicePage() {
           </SlideIn>
         </div>
       </section>
+      </div>
     </div>
   );
 }
