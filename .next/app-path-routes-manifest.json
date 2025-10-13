@@ -2,14 +2,14 @@
   "/api/contact/route": "/api/contact",
   "/_not-found/page": "/_not-found",
   "/page": "/",
-  "/de/about/page": "/de/about",
   "/de/team/page": "/de/team",
+  "/de/about/page": "/de/about",
   "/en/team/page": "/en/team",
   "/en/about/page": "/en/about",
   "/en/career/page": "/en/career",
   "/de/page": "/de",
-  "/en/page": "/en",
   "/de/career/page": "/de/career",
   "/de/cases/page": "/de/cases",
+  "/en/page": "/en",
   "/en/cases/page": "/en/cases"
 }

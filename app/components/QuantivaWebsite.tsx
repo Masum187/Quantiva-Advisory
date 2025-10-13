@@ -240,12 +240,34 @@ function AboutTeaser() {
             </div>
           </SlideIn>
           <SlideIn direction="right" delay={0.4}>
-            <div className="rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 p-10 border border-teal-500/30 shadow-2xl shadow-teal-500/20">
-              <div className="grid grid-cols-2 gap-6 text-center">
-                <div><div className="text-4xl font-extrabold text-teal-400">+10</div><div className="text-sm text-gray-400">{lang==='de'?'Jahre Erfahrung':'Years experience'}</div></div>
-                <div><div className="text-4xl font-extrabold text-teal-400">3x</div><div className="text-sm text-gray-400">{lang==='de'?'schnellere Deployments':'faster deployments'}</div></div>
-                <div><div className="text-4xl font-extrabold text-teal-400">100%</div><div className="text-sm text-gray-400">{lang==='de'?'Audit bestanden':'audit pass'}</div></div>
-                <div><div className="text-4xl font-extrabold text-teal-400">0</div><div className="text-sm text-gray-400">{lang==='de'?'Downtime Releases':'downtime releases'}</div></div>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
+              {/* Background Image */}
+              <div className="relative w-full h-[400px] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format&q=80"
+                  alt="Digital Innovation & Technology"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                
+                {/* Video Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                    <div className="w-0 h-0 border-l-[12px] border-l-teal-600 border-y-[8px] border-y-transparent ml-1"></div>
+                  </div>
+                </div>
+                
+                {/* Floating Elements */}
+                <div className="absolute top-6 left-6 w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
+                <div className="absolute top-8 right-8 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                <div className="absolute bottom-6 left-8 w-2 h-2 bg-teal-300 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                <div className="absolute bottom-8 right-6 w-3 h-3 bg-purple-300 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
+                
+                {/* Content Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">Digitale Innovation</h3>
+                  <p className="text-gray-300 text-sm">Entdecken Sie unsere Technologien</p>
+                </div>
               </div>
             </div>
           </SlideIn>
