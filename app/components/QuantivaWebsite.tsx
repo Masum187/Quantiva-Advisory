@@ -241,16 +241,19 @@ function AboutTeaser() {
           </SlideIn>
           <SlideIn direction="right" delay={0.4}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
-              {/* Background Image */}
+              {/* Video Container */}
               <div className="relative w-full h-[400px] overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&auto=format&q=80"
-                  alt="Digital Innovation & Technology"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                <video
+                  src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
-                {/* Video Overlay */}
+                {/* Play/Pause Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-300">
                     <div className="w-0 h-0 border-l-[12px] border-l-teal-600 border-y-[8px] border-y-transparent ml-1"></div>
