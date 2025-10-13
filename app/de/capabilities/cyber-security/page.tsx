@@ -62,124 +62,175 @@ export default function CyberSecurityPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-red-900/20 via-black to-orange-900/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SlideIn>
-            <div className="text-center mb-16">
-              <Link 
-                href="/de"
-                className="inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors mb-8"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Zurück zur Hauptseite
-              </Link>
-              
-              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 mb-8">
-                <Shield className="w-6 h-6 text-red-400" />
-                <span className="text-red-300 text-sm font-semibold tracking-wider">CYBER SECURITY</span>
-              </div>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760385739/kling_20251014_Text_to_Video_Scene_1__M_930_0_1_djdrj2.mp4"
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900/30 via-transparent to-orange-900/30"></div>
+      </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-                Cyber Security{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
-                  Excellence
-                </span>
-              </h1>
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative py-32 min-h-screen flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <SlideIn>
+              <div className="text-center mb-16">
+                <Link 
+                  href="/de"
+                  className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-8 backdrop-blur-sm bg-white/10 rounded-full px-4 py-2 border border-white/20"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Zurück zur Hauptseite
+                </Link>
+                
+                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-red-500/30 to-orange-500/30 border border-red-400/50 mb-12 backdrop-blur-sm">
+                  <Shield className="w-8 h-8 text-red-300" />
+                  <span className="text-white text-lg font-semibold tracking-wider">CYBER SECURITY</span>
+                </div>
 
-              <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Schutz Ihrer digitalen Assets durch umfassende Sicherheitslösungen. 
-                Von Zero Trust Architekturen bis hin zu proaktivem Threat Modeling.
-              </p>
-            </div>
-          </SlideIn>
-        </div>
-      </section>
+                <h1 className="text-6xl md:text-8xl font-bold text-white mb-12 leading-tight">
+                  Cyber Security{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-orange-300">
+                    Excellence
+                  </span>
+                </h1>
 
-      {/* Services Grid */}
-      <section className="py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SlideIn>
-            <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-                Unsere{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
-                  Sicherheitsdienstleistungen
-                </span>
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Umfassende Cyber Security Lösungen für moderne Unternehmen
-              </p>
-            </div>
-          </SlideIn>
+                <p className="text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed mb-16">
+                  Schutz Ihrer digitalen Assets durch umfassende Sicherheitslösungen. 
+                  Von Zero Trust Architekturen bis hin zu proaktivem Threat Modeling.
+                </p>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <SlideIn key={index} delay={index * 0.1}>
-                  <motion.div
-                    className="p-8 rounded-3xl bg-gradient-to-br from-red-900/10 to-orange-900/10 border border-red-500/20 backdrop-blur-sm hover:border-red-400/40 transition-all duration-300"
-                    whileHover={{ scale: 1.02 }}
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                  <Link
+                    href="/de#contact"
+                    className="px-12 py-6 bg-gradient-to-r from-red-600 to-orange-600 text-white text-xl font-semibold rounded-2xl hover:from-red-700 hover:to-orange-700 transition-all duration-300 shadow-2xl hover:scale-105 backdrop-blur-sm"
                   >
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500/20 to-orange-500/20 border border-red-400/40 flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-red-400" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-white">{service.title}</h3>
-                    </div>
-
-                    <p className="text-gray-300 mb-6 leading-relaxed">
-                      {service.description}
-                    </p>
-
-                    <div className="space-y-3">
-                      {service.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-                          <span className="text-gray-300">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </SlideIn>
-              );
-            })}
+                    Sicherheitsberatung anfragen
+                  </Link>
+                  <Link
+                    href="/de/capabilities/microservices"
+                    className="px-12 py-6 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white text-xl font-semibold rounded-2xl hover:bg-white/30 transition-all duration-300"
+                  >
+                    Microservices →
+                  </Link>
+                </div>
+              </div>
+            </SlideIn>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-red-600 to-orange-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <SlideIn>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-              Bereit für{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-orange-200">
-                maximale Sicherheit?
-              </span>
-            </h2>
-            <p className="text-xl text-red-100 mb-12 max-w-2xl mx-auto">
-              Lassen Sie uns gemeinsam Ihre Cyber Security Strategie entwickeln und umsetzen.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/de#contact"
-                className="px-10 py-5 bg-white text-red-600 text-lg font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:scale-105"
-              >
-                Sicherheitsberatung anfragen
-              </Link>
-              <Link
-                href="/de/capabilities/microservices"
-                className="px-10 py-5 bg-red-500/20 backdrop-blur-sm border-2 border-white/30 text-white text-lg font-semibold rounded-xl hover:bg-red-500/30 transition-all duration-300"
-              >
-                Microservices →
-              </Link>
+        {/* Services Grid */}
+        <section className="py-32 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SlideIn delay={0.2}>
+              <div className="text-center mb-24">
+                <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+                  Unsere{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-orange-300">
+                    Sicherheitsdienstleistungen
+                  </span>
+                </h2>
+                <p className="text-2xl text-white/80 max-w-3xl mx-auto">
+                  Umfassende Cyber Security Lösungen für moderne Unternehmen
+                </p>
+              </div>
+            </SlideIn>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <SlideIn key={index} delay={index * 0.2 + 0.5}>
+                    <motion.div
+                      className="p-10 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-500 group"
+                      whileHover={{ 
+                        scale: 1.05,
+                        y: -10,
+                        transition: { duration: 0.3 }
+                      }}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.2 }}
+                    >
+                      <div className="flex items-center gap-6 mb-8">
+                        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-500/30 to-orange-500/30 border border-red-300/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                          <Icon className="w-10 h-10 text-white" />
+                        </div>
+                        <h3 className="text-3xl font-bold text-white">{service.title}</h3>
+                      </div>
+
+                      <p className="text-white/90 text-lg mb-8 leading-relaxed">
+                        {service.description}
+                      </p>
+
+                      <div className="space-y-4">
+                        {service.features.map((feature, idx) => (
+                          <motion.div 
+                            key={idx} 
+                            className="flex items-center gap-4"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.2 + idx * 0.1 + 0.8 }}
+                          >
+                            <CheckCircle className="w-6 h-6 text-red-300 flex-shrink-0" />
+                            <span className="text-white/80 text-lg">{feature}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </SlideIn>
+                );
+              })}
             </div>
-          </SlideIn>
-        </div>
-      </section>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-32 relative">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <SlideIn delay={0.2}>
+              <div className="p-16 rounded-3xl bg-white/10 backdrop-blur-lg border border-white/20">
+                <h2 className="text-5xl md:text-6xl font-bold text-white mb-8">
+                  Bereit für{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-300 to-orange-300">
+                    maximale Sicherheit?
+                  </span>
+                </h2>
+                
+                <p className="text-2xl text-white/90 mb-16 max-w-3xl mx-auto">
+                  Lassen Sie uns gemeinsam Ihre Cyber Security Strategie entwickeln und umsetzen.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-8 justify-center">
+                  <Link
+                    href="/de#contact"
+                    className="px-16 py-8 bg-gradient-to-r from-red-600 to-orange-600 text-white text-2xl font-semibold rounded-2xl hover:from-red-700 hover:to-orange-700 transition-all duration-300 shadow-2xl hover:scale-105 backdrop-blur-sm"
+                  >
+                    Sicherheitsberatung anfragen
+                  </Link>
+                  <Link
+                    href="/de/capabilities/microservices"
+                    className="px-16 py-8 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white text-2xl font-semibold rounded-2xl hover:bg-white/30 transition-all duration-300"
+                  >
+                    Microservices →
+                  </Link>
+                </div>
+              </div>
+            </SlideIn>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
