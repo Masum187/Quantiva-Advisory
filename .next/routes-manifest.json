@@ -90,6 +90,24 @@
       "namedRegex": "^/de/about(?:/)?$"
     },
     {
+      "page": "/de/capabilities/ai",
+      "regex": "^/de/capabilities/ai(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/capabilities/ai(?:/)?$"
+    },
+    {
+      "page": "/de/capabilities/cyber-security",
+      "regex": "^/de/capabilities/cyber\\-security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/capabilities/cyber\\-security(?:/)?$"
+    },
+    {
+      "page": "/de/capabilities/microservices",
+      "regex": "^/de/capabilities/microservices(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/de/capabilities/microservices(?:/)?$"
+    },
+    {
       "page": "/de/career",
       "regex": "^/de/career(?:/)?$",
       "routeKeys": {},
@@ -118,6 +136,24 @@
       "regex": "^/en/about(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/en/about(?:/)?$"
+    },
+    {
+      "page": "/en/capabilities/ai",
+      "regex": "^/en/capabilities/ai(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/capabilities/ai(?:/)?$"
+    },
+    {
+      "page": "/en/capabilities/cyber-security",
+      "regex": "^/en/capabilities/cyber\\-security(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/capabilities/cyber\\-security(?:/)?$"
+    },
+    {
+      "page": "/en/capabilities/microservices",
+      "regex": "^/en/capabilities/microservices(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/en/capabilities/microservices(?:/)?$"
     },
     {
       "page": "/en/career",
