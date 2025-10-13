@@ -3,13 +3,13 @@
   "/api/contact/route": "/api/contact",
   "/page": "/",
   "/de/about/page": "/de/about",
-  "/en/about/page": "/en/about",
   "/de/team/page": "/de/team",
+  "/en/about/page": "/en/about",
   "/en/team/page": "/en/team",
-  "/en/career/page": "/en/career",
-  "/de/page": "/de",
   "/de/career/page": "/de/career",
-  "/en/page": "/en",
+  "/de/page": "/de",
+  "/en/career/page": "/en/career",
   "/de/cases/page": "/de/cases",
+  "/en/page": "/en",
   "/en/cases/page": "/en/cases"
 }

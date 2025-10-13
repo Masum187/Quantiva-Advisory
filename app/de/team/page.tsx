@@ -287,7 +287,7 @@ export default function TeamPage() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-2xl blur-3xl"></div>
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
                   alt="Dr. Elena Richter"
                   className="relative rounded-2xl w-full h-[600px] object-cover shadow-2xl"
                 />
