@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion, useInView } from "framer-motion";
 import {
   Menu, X, ChevronRight,
@@ -222,11 +221,6 @@ function AboutTeaser() {
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <SlideIn direction="left" delay={0.2}>
             <div>
-              <Link href={lang==='de' ? '/de/about' : '/en/about'}>
-                <h2 className="text-3xl md:text-4xl font-bold text-white hover:text-teal-400 transition-colors duration-300 cursor-pointer">
-                  {lang==='de' ? 'Über Quantiva' : 'About Quantiva'}
-                </h2>
-              </Link>
               <p className="mt-4 text-gray-300">
                 {lang==='de'
                   ? 'Wir verbinden Strategie, Engineering und Enablement für messbare Ergebnisse. Sicher, compliant und skalierbar.'
