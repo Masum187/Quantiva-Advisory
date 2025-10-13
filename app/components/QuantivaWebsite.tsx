@@ -261,63 +261,24 @@ function TeamSection() {
 
   return (
     <section id="team" className="bg-black py-20 border-t border-white/10">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-4xl px-6 text-center">
         <SlideIn direction="up" delay={0.1}>
-          <h2 className="text-center text-3xl md:text-4xl font-bold text-white mb-16">
-            {lang === 'de' ? 'Unser Team' : 'Our Team'}
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
+            {lang === 'de' ? 'Erfahren Sie wer hinter Quantiva Advisory steht' : 'Learn who stands behind Quantiva Advisory'}
           </h2>
-        </SlideIn>
-        
-        <StaggerSlideIn className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-          {teamMembers.map((member, index) => (
-            <div key={member.name} className="flex gap-6 p-6 rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 shadow-xl shadow-teal-500/10 hover:shadow-teal-500/30 hover:border-teal-400/50 transition-all duration-300 h-full min-h-[280px]">
-              {/* Profilbild */}
-              <div className="flex-shrink-0">
-                <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 border-2 border-teal-400/50 overflow-hidden">
-                  {member.image ? (
-                    <Image 
-                      src={member.image} 
-                      alt={member.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 96px, 128px"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-2xl">
-                      {member.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                  )}
-                </div>
-              </div>
-              
-              {/* Text-Informationen */}
-              <div className="flex-1 min-w-0 flex flex-col">
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-teal-400 font-semibold text-sm md:text-base mb-3">
-                  {lang === 'de' ? member.roleDe : member.roleEn}
-                </p>
-                <p className="text-gray-300 text-sm mb-3">
-                  {lang === 'de' ? member.expertiseDe : member.expertiseEn}
-                </p>
-                <p className="text-gray-400 text-sm leading-relaxed flex-grow">
-                  {lang === 'de' ? member.descriptionDe : member.descriptionEn}
-                </p>
-              </div>
-            </div>
-          ))}
-        </StaggerSlideIn>
-
-        {/* Zusätzlicher Text */}
-        <SlideIn direction="up" delay={0.6}>
-          <div className="mt-12 text-center">
-            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-              {lang === 'de' 
-                ? 'Unser interdisziplinäres Team vereint strategische Vision mit technischer Exzellenz. Gemeinsam schaffen wir nachhaltige Lösungen für komplexe Herausforderungen.'
-                : 'Our interdisciplinary team combines strategic vision with technical excellence. Together, we create sustainable solutions for complex challenges.'}
-            </p>
-          </div>
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            {lang === 'de' 
+              ? 'Lernen Sie unser erfahrenes Team kennen, das Ihre digitale Transformation mit Expertise und Leidenschaft vorantreibt.'
+              : 'Get to know our experienced team that drives your digital transformation with expertise and passion.'}
+          </p>
+          <Link 
+            href={lang === 'de' ? '/de/team' : '/en/team'}
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-500 text-white rounded-xl font-semibold hover:from-teal-700 hover:to-teal-600 transition-all duration-300 shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 hover:scale-105"
+          >
+            <Users className="w-5 h-5" />
+            {lang === 'de' ? 'Unser Team entdecken' : 'Discover Our Team'}
+            <ChevronRight className="w-5 h-5" />
+          </Link>
         </SlideIn>
       </div>
     </section>
