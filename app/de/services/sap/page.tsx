@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -45,20 +45,29 @@ export default function SAPServicePage() {
   // Video rotation state
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   
-  const videos = [
+  const videos = useMemo(() => [
     'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
     'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435639/kling_20251014_Text_to_Video_Title__The_4165_1_t3grxn.mp4',
     'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435634/kling_20251014_Text_to_Video_Title__The_4174_2_llyqsp.mp4'
-  ];
+  ], []);
 
-  // Rotate videos every 10 seconds
+  // Rotate videos every 8 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-    }, 10000); // Change video every 10 seconds
+      setCurrentVideoIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % videos.length;
+        console.log(`Switching to video ${nextIndex + 1}/${videos.length}`);
+        return nextIndex;
+      });
+    }, 8000); // Change video every 8 seconds
 
     return () => clearInterval(interval);
   }, [videos.length]);
+
+  // Debug current video
+  useEffect(() => {
+    console.log(`Current video index: ${currentVideoIndex}, Video: ${videos[currentVideoIndex]}`);
+  }, [currentVideoIndex, videos]);
   const offerings = [
     {
       icon: Database,
@@ -161,20 +170,39 @@ export default function SAPServicePage() {
       <div className="fixed inset-0 z-0">
         {videos.map((video, index) => (
           <video
-            key={index}
+            key={`video-${index}`}
             src={video}
-            className={`w-full h-full object-cover transition-opacity duration-1000 ${
-              index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-2000 ${
+              index === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
-            autoPlay
+            autoPlay={index === currentVideoIndex}
             muted
             loop
             playsInline
             preload="auto"
+            onEnded={() => {
+              // Force play when video ends
+              const videoElement = document.querySelector(`video[src="${video}"]`) as HTMLVideoElement;
+              if (videoElement && index === currentVideoIndex) {
+                videoElement.currentTime = 0;
+                videoElement.play().catch(console.log);
+              }
+            }}
+            onLoadStart={() => {
+              console.log(`Video ${index + 1} started loading: ${video.split('/').pop()}`);
+            }}
+            onCanPlay={() => {
+              console.log(`Video ${index + 1} can play: ${video.split('/').pop()}`);
+            }}
           />
         ))}
         {/* Video Overlay */}
-        <div className="absolute inset-0 bg-black/5"></div>
+        <div className="absolute inset-0 bg-black/5 z-20"></div>
+        
+        {/* Video Indicator (for debugging) */}
+        <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm z-30">
+          Video {currentVideoIndex + 1}/{videos.length}
+        </div>
       </div>
 
       {/* Content */}
