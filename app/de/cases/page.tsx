@@ -217,131 +217,151 @@ export default function CasesPage() {
         </div>
       </section>
 
-            {/* Cases Grid - Structured Layout */}
-            <section className="py-20 bg-black">
-              <div className="max-w-7xl mx-auto px-6">
-                <div className="space-y-16">
-                  {casesData.map((caseItem, index) => {
-                    // Different card styles based on index
-                    const cardStyles = [
-                      'rounded-2xl', // Standard rounded
-                      'rounded-3xl', // More rounded
-                      'rounded-none', // Sharp corners
-                      'rounded-l-3xl rounded-r-none', // Left rounded
-                      'rounded-r-3xl rounded-l-none', // Right rounded
-                      'rounded-t-3xl rounded-b-none', // Top rounded
-                    ];
-                    
-                    const cardStyle = cardStyles[index % cardStyles.length];
-                    const isEven = index % 2 === 0;
-                    
-                    return (
-                      <motion.div
-                        key={caseItem.slug}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: index * 0.2 }}
-                        className="group"
-                      >
-                        <Link href={`/de/cases/${caseItem.slug}`}>
-                          <div className={`bg-gray-900/50 backdrop-blur-lg overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-teal-400/50 shadow-2xl hover:shadow-teal-500/20 ${cardStyle} ${
-                            isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                          } flex flex-col lg:flex`}>
-                            {/* Image Section */}
-                            {caseItem.heroImage && (
-                              <div className="relative lg:w-1/2 h-64 lg:h-80 overflow-hidden">
-                                <Image
-                                  src={caseItem.heroImage}
-                                  alt={caseItem.titleDe}
-                                  width={600}
-                                  height={320}
-                                  className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                <div className="absolute top-6 left-6 flex gap-2">
-                                  <span className="px-4 py-2 bg-teal-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-                                    {caseItem.category}
-                                  </span>
-                                  <span className="px-4 py-2 bg-purple-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
-                                    {caseItem.industry}
-                                  </span>
-                                </div>
-                                
-                                {/* Floating Tech Tags */}
-                                {caseItem.tech && caseItem.tech.length > 0 && (
-                                  <div className="absolute bottom-6 right-6 flex flex-wrap gap-2 max-w-32">
-                                    {caseItem.tech.slice(0, 2).map((tech: string, idx: number) => (
-                                      <span
-                                        key={idx}
-                                        className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded-lg border border-white/20"
-                                      >
-                                        {tech}
-                                      </span>
-                                    ))}
-                                    {caseItem.tech.length > 2 && (
-                                      <span className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded-lg border border-white/20">
-                                        +{caseItem.tech.length - 2}
-                                      </span>
-                                    )}
-                                  </div>
-                                )}
+            {/* Individual Project Sections */}
+            {casesData.map((caseItem, index) => {
+              // Different card styles based on index
+              const cardStyles = [
+                'rounded-2xl', // Standard rounded
+                'rounded-3xl', // More rounded
+                'rounded-none', // Sharp corners
+                'rounded-l-3xl rounded-r-none', // Left rounded
+                'rounded-r-3xl rounded-l-none', // Right rounded
+                'rounded-t-3xl rounded-b-none', // Top rounded
+              ];
+              
+              const cardStyle = cardStyles[index % cardStyles.length];
+              const isEven = index % 2 === 0;
+              const sectionBg = index % 2 === 0 ? 'bg-black' : 'bg-gray-900';
+              
+              return (
+                <section key={caseItem.slug} className={`py-24 ${sectionBg} relative`}>
+                  {/* Section Background Pattern */}
+                  <div className="absolute inset-0 opacity-5">
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-teal-500/10 via-transparent to-purple-500/10"></div>
+                    <div className="absolute top-20 right-20 w-32 h-32 bg-teal-500/20 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-20 left-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
+                  </div>
+
+                  <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    {/* Section Header */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6 }}
+                      className="text-center mb-16"
+                    >
+                      <div className="inline-flex items-center gap-4 mb-6">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center">
+                          <span className="text-white font-bold text-2xl">{(index + 1).toString().padStart(2, '0')}</span>
+                        </div>
+                        <div className="h-px bg-gradient-to-r from-transparent via-teal-500 to-transparent flex-1 max-w-32"></div>
+                      </div>
+                      <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                        {caseItem.category}
+                      </h2>
+                      <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                        {caseItem.industry}
+                      </p>
+                    </motion.div>
+
+                    {/* Project Card */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="group"
+                    >
+                      <Link href={`/de/cases/${caseItem.slug}`}>
+                        <div className={`bg-gray-900/50 backdrop-blur-lg overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-teal-400/50 shadow-2xl hover:shadow-teal-500/20 ${cardStyle} ${
+                          isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                        } flex flex-col lg:flex`}>
+                          {/* Image Section */}
+                          {caseItem.heroImage && (
+                            <div className="relative lg:w-1/2 h-64 lg:h-96 overflow-hidden">
+                              <Image
+                                src={caseItem.heroImage}
+                                alt={caseItem.titleDe}
+                                width={600}
+                                height={384}
+                                className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                              <div className="absolute top-6 left-6 flex gap-2">
+                                <span className="px-4 py-2 bg-teal-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+                                  {caseItem.category}
+                                </span>
+                                <span className="px-4 py-2 bg-purple-500/90 backdrop-blur-sm text-white text-sm font-semibold rounded-full">
+                                  {caseItem.industry}
+                                </span>
                               </div>
-                            )}
-
-                            {/* Content Section */}
-                            <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-                              <div className="space-y-6">
-                                {/* Project Number */}
-                                <div className="flex items-center gap-4">
-                                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center">
-                                    <span className="text-white font-bold text-lg">{(index + 1).toString().padStart(2, '0')}</span>
-                                  </div>
-                                  <div className="h-px bg-gradient-to-r from-teal-500 to-transparent flex-1"></div>
+                              
+                              {/* Floating Tech Tags */}
+                              {caseItem.tech && caseItem.tech.length > 0 && (
+                                <div className="absolute bottom-6 right-6 flex flex-wrap gap-2 max-w-32">
+                                  {caseItem.tech.slice(0, 2).map((tech: string, idx: number) => (
+                                    <span
+                                      key={idx}
+                                      className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded-lg border border-white/20"
+                                    >
+                                      {tech}
+                                    </span>
+                                  ))}
+                                  {caseItem.tech.length > 2 && (
+                                    <span className="px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded-lg border border-white/20">
+                                      +{caseItem.tech.length - 2}
+                                    </span>
+                                  )}
                                 </div>
+                              )}
+                            </div>
+                          )}
 
-                                {/* Title */}
-                                <h3 className="text-2xl lg:text-3xl font-bold text-white group-hover:text-teal-400 transition-colors">
-                                  {caseItem.titleDe}
-                                </h3>
+                          {/* Content Section */}
+                          <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                            <div className="space-y-6">
+                              {/* Title */}
+                              <h3 className="text-3xl lg:text-4xl font-bold text-white group-hover:text-teal-400 transition-colors">
+                                {caseItem.titleDe}
+                              </h3>
 
-                                {/* Description */}
-                                <p className="text-gray-300 text-lg leading-relaxed">
-                                  {caseItem.subtitleDe}
-                                </p>
+                              {/* Description */}
+                              <p className="text-gray-300 text-xl leading-relaxed">
+                                {caseItem.subtitleDe}
+                              </p>
 
-                                {/* Technologies Grid */}
-                                {caseItem.tech && caseItem.tech.length > 0 && (
-                                  <div className="flex flex-wrap gap-3">
-                                    {caseItem.tech.map((tech: string, idx: number) => (
-                                      <span
-                                        key={idx}
-                                        className="px-4 py-2 bg-gray-700/50 backdrop-blur-sm text-gray-300 text-sm rounded-xl border border-gray-600/30 hover:border-teal-400/50 transition-colors"
-                                      >
-                                        {tech}
-                                      </span>
-                                    ))}
-                                  </div>
-                                )}
-
-                                {/* Read More Indicator */}
-                                <div className="flex items-center gap-3 text-teal-400 group-hover:text-teal-300 transition-colors">
-                                  <span className="text-sm font-medium">Mehr erfahren</span>
-                                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                              {/* Technologies Grid */}
+                              {caseItem.tech && caseItem.tech.length > 0 && (
+                                <div className="flex flex-wrap gap-3">
+                                  {caseItem.tech.map((tech: string, idx: number) => (
+                                    <span
+                                      key={idx}
+                                      className="px-4 py-2 bg-gray-700/50 backdrop-blur-sm text-gray-300 text-sm rounded-xl border border-gray-600/30 hover:border-teal-400/50 transition-colors"
+                                    >
+                                      {tech}
+                                    </span>
+                                  ))}
                                 </div>
+                              )}
+
+                              {/* Read More Indicator */}
+                              <div className="flex items-center gap-3 text-teal-400 group-hover:text-teal-300 transition-colors pt-4">
+                                <span className="text-lg font-medium">Mehr erfahren</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                               </div>
                             </div>
-
-                            {/* Hover glow effect */}
-                            <div className={`absolute inset-0 bg-gradient-to-r from-teal-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-teal-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-700 pointer-events-none ${cardStyle}`} />
                           </div>
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            </section>
+
+                          {/* Hover glow effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-r from-teal-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-teal-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-700 pointer-events-none ${cardStyle}`} />
+                        </div>
+                      </Link>
+                    </motion.div>
+                  </div>
+                </section>
+              );
+            })}
 
       {/* Future Projects Roadmap */}
       <section className="bg-black py-24">
