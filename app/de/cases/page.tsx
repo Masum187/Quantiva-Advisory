@@ -1047,6 +1047,178 @@ export default function CasesPage() {
         </div>
       </section>
 
+      {/* Community Banner - Moving from Right to Left */}
+      <section className="bg-black py-20 overflow-hidden relative">
+        <div className="relative">
+          {/* Moving Banner Container */}
+          <motion.div
+            initial={{ x: "100%" }}
+            animate={{ x: "-100%" }}
+            transition={{ 
+              duration: 30, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+            className="flex items-center gap-16 whitespace-nowrap"
+          >
+            {/* Community Title */}
+            <div className="text-6xl font-bold text-white flex-shrink-0">
+              Join a thriving community.
+            </div>
+
+            {/* Statistics and Images Grid */}
+            <div className="flex items-center gap-12 flex-shrink-0">
+              {/* Stat 1 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-pink-400 mb-2">50+</div>
+                <div className="text-white text-sm">Erfolgreiche Projekte</div>
+              </div>
+
+              {/* Image 1 - Team Collaboration */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500&auto=format&fit=crop"
+                  alt="Team Collaboration"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Stat 2 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-green-400 mb-2">3</div>
+                <div className="text-white text-sm">Innovative Plattformen</div>
+              </div>
+
+              {/* Image 2 - Development */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=500&auto=format&fit=crop"
+                  alt="Development Team"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Stat 3 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-blue-400 mb-2">100%</div>
+                <div className="text-white text-sm">KI-Integration</div>
+              </div>
+
+              {/* Image 3 - Innovation */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=500&auto=format&fit=crop"
+                  alt="Innovation"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Stat 4 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-purple-400 mb-2">24/7</div>
+                <div className="text-white text-sm">Support & Beratung</div>
+              </div>
+
+              {/* Image 4 - Conference */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=500&auto=format&fit=crop"
+                  alt="Conference"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Repeat for seamless loop */}
+            <div className="text-6xl font-bold text-white flex-shrink-0">
+              Join a thriving community.
+            </div>
+
+            <div className="flex items-center gap-12 flex-shrink-0">
+              {/* Stat 1 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-pink-400 mb-2">50+</div>
+                <div className="text-white text-sm">Erfolgreiche Projekte</div>
+              </div>
+
+              {/* Image 1 - Team Collaboration */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=500&auto=format&fit=crop"
+                  alt="Team Collaboration"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Stat 2 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-green-400 mb-2">3</div>
+                <div className="text-white text-sm">Innovative Plattformen</div>
+              </div>
+
+              {/* Image 2 - Development */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=500&auto=format&fit=crop"
+                  alt="Development Team"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Stat 3 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-blue-400 mb-2">100%</div>
+                <div className="text-white text-sm">KI-Integration</div>
+              </div>
+
+              {/* Image 3 - Innovation */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=500&auto=format&fit=crop"
+                  alt="Innovation"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Stat 4 */}
+              <div className="bg-gray-900 rounded-2xl p-8 text-center min-w-[200px]">
+                <div className="text-5xl font-bold text-purple-400 mb-2">24/7</div>
+                <div className="text-white text-sm">Support & Beratung</div>
+              </div>
+
+              {/* Image 4 - Conference */}
+              <div className="w-32 h-32 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=500&auto=format&fit=crop"
+                  alt="Conference"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Gradient Overlays for smooth edges */}
+          <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="bg-gradient-to-r from-teal-600 to-teal-700 text-white py-16">
         <div className="max-w-4xl mx-auto px-6 text-center">
