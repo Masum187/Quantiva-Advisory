@@ -322,12 +322,12 @@ export default function SAPServicePage() {
               return (
                 <SlideIn key={index} delay={index * 0.1}>
                   <motion.div
-                    className="p-8 rounded-3xl bg-gradient-to-br from-blue-900/10 to-cyan-900/10 border border-blue-500/20 backdrop-blur-sm hover:border-blue-400/40 transition-all duration-300"
+                    className="p-8 rounded-3xl bg-white/5 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-300"
                     whileHover={{ scale: 1.02 }}
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/40 flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-blue-400" />
+                      <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                        <Icon className="w-8 h-8 text-white" />
                       </div>
                       <h3 className="text-2xl font-bold text-white">{offering.title}</h3>
                     </div>
