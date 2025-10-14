@@ -44,35 +44,80 @@ export default function AIServicePage() {
   const offerings = [
     {
       icon: Brain,
-      title: 'Use-Case Discovery',
-      description: 'Identifikation und Bewertung von KI-Anwendungsfällen in Ihrem Unternehmen für maximale Wertschöpfung.',
-      features: ['Business Case Analysis', 'ROI Assessment', 'Feasibility Studies', 'Proof of Concepts'],
-      details: 'Wir identifizieren und bewerten KI-Anwendungsfälle, die den größten Geschäftswert für Ihr Unternehmen schaffen. Durch systematische Analyse Ihrer Prozesse und Daten finden wir die optimalen Einsatzgebiete für künstliche Intelligenz.',
-      benefits: ['Maximale Wertschöpfung durch KI', 'Reduzierte Implementierungsrisiken', 'Klare ROI-Prognosen', 'Strategische KI-Roadmap']
-    },
-    {
-      icon: Cpu,
-      title: 'Model Training & Eval',
-      description: 'Entwicklung, Training und Evaluierung von Machine Learning Modellen für Ihre spezifischen Anwendungsfälle.',
-      features: ['Data Preparation', 'Model Selection', 'Training Pipelines', 'Performance Evaluation'],
-      details: 'Wir entwickeln und trainieren maßgeschneiderte ML-Modelle für Ihre spezifischen Anwendungsfälle. Von der Datenaufbereitung bis zur Modelloptimierung begleiten wir Sie durch den gesamten Entwicklungsprozess.',
-      benefits: ['Maßgeschneiderte ML-Modelle', 'Optimale Performance', 'Skalierbare Lösungen', 'Kontinuierliche Verbesserung']
-    },
-    {
-      icon: Zap,
-      title: 'MLOps & GenAI',
-      description: 'Implementierung von MLOps-Praktiken und Integration von Generative AI in Ihre Geschäftsprozesse.',
-      features: ['Model Deployment', 'CI/CD Pipelines', 'LLM Integration', 'Prompt Engineering'],
-      details: 'Wir implementieren robuste MLOps-Praktiken und integrieren Generative AI in Ihre Geschäftsprozesse. Von der Modellbereitstellung bis zur Prompt-Optimierung schaffen wir nachhaltige KI-Workflows.',
-      benefits: ['Automatisierte ML-Pipelines', 'Generative AI Integration', 'Reduzierte Time-to-Market', 'Skalierbare KI-Infrastruktur']
+      title: 'Use Case Discovery',
+      description: 'Strukturierte Identifikation relevanter KI-Anwendungsfälle, die echten Mehrwert schaffen und Ressourcenverschwendung vermeiden.',
+      features: ['Strukturierter Discovery-Prozess', 'Business Case Analysis', 'ROI Assessment', 'Pilot-Fatigue Vermeidung'],
+      details: 'Wir identifizieren gemeinsam mit Ihnen relevante KI-Anwendungsfälle, die echten Mehrwert schaffen. Unser strukturierter Ansatz sorgt für Klarheit, vermeidet Pilot-Fatigue und hilft Ihnen, Chancen effizient zu nutzen. Studien zeigen, dass über 80% der KI-Pilotprojekte im Markt keinen nachhaltigen Business Impact erzeugen – nur ein strukturierter Prozess macht den Unterschied.',
+      benefits: ['Maximale Wertschöpfung durch KI', 'Vermeidung von Ressourcenverschwendung', 'Klare ROI-Prognosen', 'Strategische KI-Roadmap', 'Nachhaltiger Business Impact']
     },
     {
       icon: Shield,
       title: 'Guardrails & Compliance',
-      description: 'Sicherstellung von Ethik, Transparenz und Compliance in Ihren KI-Lösungen.',
-      features: ['AI Ethics Framework', 'Bias Detection', 'Explainable AI', 'Compliance & Auditing'],
-      details: 'Wir sorgen für ethische, transparente und compliant KI-Lösungen. Durch umfassende Governance-Frameworks und Bias-Detection stellen wir sicher, dass Ihre KI-Systeme vertrauenswürdig und nachvollziehbar sind.',
-      benefits: ['Ethische KI-Implementierung', 'Transparente Entscheidungen', 'Compliance-Sicherheit', 'Vertrauenswürdige KI-Systeme']
+      description: 'Einhaltung regulatorischer Vorgaben für KI-Systeme mit intelligenten Compliance-Lösungen auf Basis internationaler Standards.',
+      features: ['EU AI Act Compliance', 'ISO/IEC 42001', 'NIST AI RMF', 'Bias Detection & Fairness'],
+      details: 'Die Einhaltung regulatorischer Vorgaben für KI-Systeme wird immer komplexer. Mit Guardrails und intelligenten Compliance-Lösungen sorgen wir für Fairness, Sicherheit und Nachvollziehbarkeit Ihrer KI – auf Basis internationaler Standards wie EU AI Act, ISO/IEC 42001 und NIST AI RMF.',
+      benefits: ['Regulatorische Compliance', 'Ethische KI-Implementierung', 'Transparente Entscheidungen', 'Risikominimierung', 'Vertrauenswürdige KI-Systeme']
+    },
+    {
+      icon: Zap,
+      title: 'MLOps & GenAI',
+      description: 'Implementierung moderner MLOps-Plattformen für den gesamten Lebenszyklus von Modellen und Generative AI Integration.',
+      features: ['MLOps-Plattformen', 'Datenpipelines', 'Model Deployment', 'GenAI Integration'],
+      details: 'Wir implementieren moderne MLOps-Plattformen, die den gesamten Lebenszyklus von Modellen automatisieren – von Datenpipelines über Deployment bis Governance. Dabei bringen wir Ihre AI from Concept to Production und sorgen für Nachhaltigkeit und Skalierbarkeit.',
+      benefits: ['Automatisierte ML-Pipelines', 'Generative AI Integration', 'Reduzierte Time-to-Market', 'Skalierbare KI-Infrastruktur', 'Nachhaltige KI-Workflows']
+    },
+    {
+      icon: Cpu,
+      title: 'Model Training & Evaluation',
+      description: 'Entwicklung, Training und laufende Bewertung von Machine Learning und GenAI-Modellen mit Fokus auf Reproduzierbarkeit und Performance.',
+      features: ['Model Selection & Development', 'Training Pipelines', 'Performance Evaluation', 'Reproduzierbarkeit & Transparenz'],
+      details: 'Wir unterstützen Sie bei der Auswahl, Entwicklung und laufenden Bewertung von Machine Learning und GenAI-Modellen. Unsere Methoden sichern Reproduzierbarkeit, Transparenz und Performance – auch unter strengen Compliance-Anforderungen.',
+      benefits: ['Maßgeschneiderte ML-Modelle', 'Optimale Performance', 'Reproduzierbare Ergebnisse', 'Transparente Modellentscheidungen', 'Kontinuierliche Verbesserung']
+    }
+  ];
+
+  const studies = [
+    {
+      title: 'AI Use Case Discovery Whitepaper (2025)',
+      description: 'Strategien zur Identifikation & Umsetzung von KI-Anwendungsfällen, inkl. Marktbeispiele und Self-Assessment für Unternehmen.',
+      topic: 'Use Case Discovery',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      title: 'AI Compliance & Guardrails (2025)',
+      description: 'Überblick zu regulatorischen Anforderungen (EU AI Act, ISO 42001, NIST RMF) und den aktuellen Trends in der AI-Governance.',
+      topic: 'Compliance & Guardrails',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      title: 'MLOps & GenAI Summit Case Studies (2025)',
+      description: 'Erfahrungsberichte & Best Practices zu GenAI, MLOps und Agentic AI in der Praxis. Lessons Learned aus erfolgreichen Implementierungen.',
+      topic: 'MLOps & GenAI',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      title: 'AI Use Case Erfolgsfaktoren (2025)',
+      description: 'Analysen zeigen: Strukturierte Discovery-Prozesse sind entscheidend für den Business Impact von KI-Projekten und verhindern Ressourcenverschwendung.',
+      topic: 'Success Factors',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      title: 'EU AI Act Implementation Guide (2025)',
+      description: 'Praktische Anleitung zur Umsetzung der EU AI Act Anforderungen in Unternehmen. Compliance-Framework und Best Practices.',
+      topic: 'EU AI Act',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'
+    },
+    {
+      title: 'Generative AI Business Impact Study (2025)',
+      description: 'Umfassende Studie zu den Geschäftsauswirkungen von Generative AI in verschiedenen Industrien und Anwendungsbereichen.',
+      topic: 'GenAI Impact',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=1200&auto=format&fit=crop'
     }
   ];
 
@@ -120,10 +165,41 @@ export default function AIServicePage() {
                 </span>
               </h1>
 
-              <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                Intelligente Automatisierung, Predictive Analytics und KI-gestützte Geschäftsprozesse. 
-                Wir helfen Ihnen dabei, das volle Potenzial der künstlichen Intelligenz zu nutzen.
+              <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
+                End-to-End Beratung für moderne KI-Use Cases entlang des gesamten Lebenszyklus – von der Use Case Discovery, über Guardrails & Compliance, bis hin zu MLOps, GenAI, Model Training & Evaluation.
               </p>
+
+              <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                <p className="text-lg text-gray-200 leading-relaxed mb-6">
+                  Als innovatives Beratungsunternehmen begleiten wir Organisationen bei der erfolgreichen Realisierung von KI-Projekten. Unser strukturierter Ansatz sorgt für Klarheit, vermeidet Pilot-Fatigue und hilft Ihnen, Chancen effizient zu nutzen.
+                </p>
+                <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-300">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
+                    <div>
+                      <strong className="text-white">Use Case Discovery:</strong> Strukturierte Identifikation relevanter KI-Anwendungsfälle, die echten Mehrwert schaffen.
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-pink-400 mt-2 flex-shrink-0"></div>
+                    <div>
+                      <strong className="text-white">Guardrails & Compliance:</strong> EU AI Act, ISO/IEC 42001 und NIST AI RMF Compliance für sichere KI-Systeme.
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
+                    <div>
+                      <strong className="text-white">MLOps & GenAI:</strong> Moderne MLOps-Plattformen und Generative AI Integration von Concept to Production.
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-pink-400 mt-2 flex-shrink-0"></div>
+                    <div>
+                      <strong className="text-white">Model Training & Evaluation:</strong> Entwicklung und Bewertung von ML-Modellen mit Fokus auf Reproduzierbarkeit.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </SlideIn>
         </div>
@@ -218,6 +294,118 @@ export default function AIServicePage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Studies Section */}
+      <section className="py-24 bg-transparent">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SlideIn>
+            <div className="text-center mb-20">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
+                  Aktuelle{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300">
+                    Studien & Whitepapers
+                  </span>
+                </h2>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              >
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Wissenschaftlich fundierte Erkenntnisse und praktische Leitfäden für erfolgreiche KI-Implementierungen
+                </p>
+              </motion.div>
+            </div>
+          </SlideIn>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {studies.map((study, index) => (
+              <SlideIn key={index} delay={index * 0.1 + 0.5}>
+                <motion.article
+                  className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-500"
+                  whileHover={{
+                    scale: 1.02,
+                    y: -5,
+                    transition: { duration: 0.3 }
+                  }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  {/* Study Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={study.image}
+                      alt={study.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    
+                    {/* Topic Badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-purple-500/80 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
+                        {study.topic}
+                      </span>
+                    </div>
+
+                    {/* Date Badge */}
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
+                        {study.date}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Study Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors line-clamp-2">
+                      {study.title}
+                    </h3>
+                    
+                    <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {study.description}
+                    </p>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-purple-300 text-sm font-semibold">
+                        Whitepaper lesen →
+                      </span>
+                      <div className="flex items-center gap-2 text-gray-400 text-xs">
+                        <span>{study.date}</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              </SlideIn>
+            ))}
+          </div>
+
+          {/* Studies CTA */}
+          <SlideIn delay={0.8}>
+            <div className="text-center mt-16">
+              <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 backdrop-blur-sm">
+                <span className="text-white/80">
+                  Interesse an detaillierten Studienergebnissen?
+                </span>
+                <Link
+                  href="/de#contact"
+                  className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:scale-105"
+                >
+                  Kontakt aufnehmen
+                  <CheckCircle className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </SlideIn>
         </div>
       </section>
 
