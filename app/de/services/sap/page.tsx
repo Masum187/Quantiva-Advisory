@@ -237,17 +237,17 @@ export default function SAPServicePage() {
                 Zurück zur Hauptseite
               </Link>
               
-              <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 mb-8">
-                <Database className="w-6 h-6 text-blue-400" />
-                <span className="text-blue-300 text-sm font-semibold tracking-wider">SAP BERATUNG</span>
-              </div>
+                    <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 mb-8">
+                      <Database className="w-6 h-6 text-blue-400" />
+                      <span className="text-blue-300 text-sm font-semibold tracking-wider">SAP SERVICES</span>
+                    </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-                SAP{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                  Beratung
-                </span>
-              </h1>
+                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
+                      SAP{' '}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                        Services
+                      </span>
+                    </h1>
 
               <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-8">
                 End-to-End Beratung für Ihre digitale Transformation mit SAP S/4HANA, Cloud Services, KI-Integration und optimaler UX.
@@ -297,7 +297,7 @@ export default function SAPServicePage() {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
                 Unsere{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                  SAP-Dienstleistungen
+                  SAP-Services
                 </span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -463,7 +463,7 @@ export default function SAPServicePage() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
               Bereit für Ihre{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-200">
-                SAP-Transformation?
+                SAP-Services?
               </span>
             </h2>
             <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
@@ -474,7 +474,7 @@ export default function SAPServicePage() {
                 href="/de#contact"
                 className="px-10 py-5 bg-white text-blue-600 text-lg font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:scale-105"
               >
-                SAP-Beratung anfragen
+                SAP-Services anfragen
               </Link>
               <Link
                 href="/de/capabilities/sap"
