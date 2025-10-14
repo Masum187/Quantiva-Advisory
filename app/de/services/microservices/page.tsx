@@ -180,7 +180,7 @@ export default function MicroservicesServicePage() {
               return (
                 <SlideIn key={index} delay={index * 0.2}>
                   <motion.div
-                    className="p-12 rounded-3xl bg-gradient-to-br from-teal-900/10 to-cyan-900/10 border border-teal-500/20 backdrop-blur-sm hover:border-teal-400/40 transition-all duration-300"
+                    className="p-12 rounded-3xl bg-white/5 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-300"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
