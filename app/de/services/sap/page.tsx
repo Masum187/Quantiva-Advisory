@@ -57,12 +57,28 @@ export default function SAPServicePage() {
       setCurrentVideoIndex((prevIndex) => {
         const nextIndex = (prevIndex + 1) % videos.length;
         console.log(`Switching to video ${nextIndex + 1}/${videos.length}`);
+        
+        // Stop current video and start next video
+        setTimeout(() => {
+          const currentVideo = document.querySelector(`video[src="${videos[prevIndex]}"]`) as HTMLVideoElement;
+          const nextVideo = document.querySelector(`video[src="${videos[nextIndex]}"]`) as HTMLVideoElement;
+          
+          if (currentVideo) {
+            currentVideo.pause();
+          }
+          
+          if (nextVideo) {
+            nextVideo.currentTime = 0;
+            nextVideo.play().catch(console.log);
+          }
+        }, 100);
+        
         return nextIndex;
       });
     }, 8000); // Change video every 8 seconds
 
     return () => clearInterval(interval);
-  }, [videos.length]);
+  }, [videos]);
 
   // Debug current video
   useEffect(() => {
@@ -175,7 +191,7 @@ export default function SAPServicePage() {
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-2000 ${
               index === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
-            autoPlay={index === currentVideoIndex}
+            autoPlay={index === 0}
             muted
             loop
             playsInline
@@ -193,6 +209,17 @@ export default function SAPServicePage() {
             }}
             onCanPlay={() => {
               console.log(`Video ${index + 1} can play: ${video.split('/').pop()}`);
+              // Start playing if this is the current video
+              if (index === currentVideoIndex) {
+                const videoElement = document.querySelector(`video[src="${video}"]`) as HTMLVideoElement;
+                if (videoElement) {
+                  videoElement.currentTime = 0;
+                  videoElement.play().catch(console.log);
+                }
+              }
+            }}
+            onPlay={() => {
+              console.log(`Video ${index + 1} started playing: ${video.split('/').pop()}`);
             }}
           />
         ))}
