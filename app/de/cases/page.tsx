@@ -158,39 +158,94 @@ export default function CasesPage() {
         </div>
       </section>
 
-      {/* Interactive Stats Section */}
+      {/* Modern Cases Grid */}
       <section className="relative z-10 py-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { number: "50+", label: "Erfolgreiche Projekte", icon: Target },
-              { number: "3", label: "Innovative Plattformen", icon: Brain },
-              { number: "100%", label: "KI-Integration", icon: Zap }
-            ].map((stat, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Cases</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
+              Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {casesData.map((caseItem, index) => (
               <motion.div
-                key={index}
+                key={caseItem.slug}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="text-center"
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="group relative"
               >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-600/20 border border-teal-400/30 flex items-center justify-center"
-                >
-                  <stat.icon className="w-10 h-10 text-teal-400" />
-                </motion.div>
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
-                  className="text-4xl font-bold text-white mb-2"
-                >
-                  {stat.number}
-                </motion.div>
-                <div className="text-gray-400 text-lg">{stat.label}</div>
+                <Link href={`/de/cases/${caseItem.slug}`}>
+                  <div className="bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/10 hover:border-teal-400/50 transition-all duration-500 shadow-2xl">
+                    {/* Image with animated overlay */}
+                    {caseItem.heroImage && (
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={caseItem.heroImage}
+                          alt={caseItem.titleDe}
+                          width={400}
+                          height={192}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          <span className="px-3 py-1 bg-teal-500/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                            {caseItem.category}
+                          </span>
+                          <span className="px-3 py-1 bg-purple-500/80 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
+                            {caseItem.industry}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors">
+                        {caseItem.titleDe}
+                      </h3>
+
+                      <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                        {caseItem.subtitleDe}
+                      </p>
+
+                      {/* Technologies with modern styling */}
+                      {caseItem.tech && caseItem.tech.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {caseItem.tech.slice(0, 3).map((tech: string, idx: number) => (
+                            <motion.span
+                              key={idx}
+                              whileHover={{ scale: 1.05 }}
+                              className="px-2 py-1 bg-white/10 backdrop-blur-sm text-gray-300 text-xs rounded-lg border border-white/20"
+                            >
+                              {tech}
+                            </motion.span>
+                          ))}
+                          {caseItem.tech.length > 3 && (
+                            <span className="px-2 py-1 text-gray-500 text-xs">
+                              +{caseItem.tech.length - 3} mehr
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Hover effect overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-500/0 to-purple-500/0 group-hover:from-teal-500/5 group-hover:to-purple-500/5 transition-all duration-500 rounded-2xl" />
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
