@@ -23,48 +23,128 @@ import {
 export default function CasesPage() {
   return (
     <div className="min-h-screen bg-black">
-      {/* Hero Section - Modern Dark */}
-      <section className="relative bg-black text-white py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            {/* Modern Logo */}
+      {/* Hero Section - Modern Dark with Video */}
+      <section className="relative bg-black text-white py-24 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text Content */}
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center lg:text-left"
             >
-              <span className="text-white font-bold text-3xl">Q</span>
+              {/* Modern Logo */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl"
+              >
+                <span className="text-white font-bold text-3xl">Q</span>
+              </motion.div>
+
+              {/* Main Title with Gradient */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-6xl md:text-7xl font-bold mb-6"
+              >
+                <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Projekte
+                </span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-xl text-gray-300 leading-relaxed"
+              >
+                Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
+                Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
+              </motion.p>
             </motion.div>
 
-            {/* Main Title with Gradient */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-6xl md:text-7xl font-bold mb-6"
+            {/* Right: Half-Moon Video Animation */}
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, delay: 0.8 }}
+              className="relative"
             >
-              <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Projekte
-              </span>
-            </motion.h1>
+              {/* Half-Moon Video Container */}
+              <div className="relative w-full h-96 lg:h-[500px]">
+                {/* Half-Moon Shape */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="w-full h-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 rounded-full transform translate-x-1/2">
+                    <motion.video
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 1, delay: 1.2 }}
+                      className="w-full h-full object-cover rounded-full"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4" type="video/mp4" />
+                    </motion.video>
+                  </div>
+                </div>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            >
-              Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
-              Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
-            </motion.p>
-          </motion.div>
+                {/* Glow Effect */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.5, delay: 1.5 }}
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400/30 via-purple-400/30 to-pink-400/30 blur-xl"
+                />
+
+                {/* Floating Elements */}
+                <motion.div
+                  animate={{ 
+                    y: [0, -20, 0],
+                    rotate: [0, 5, 0]
+                  }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  className="absolute top-10 right-10 w-8 h-8 bg-teal-400 rounded-full opacity-60"
+                />
+                <motion.div
+                  animate={{ 
+                    y: [0, 15, 0],
+                    rotate: [0, -3, 0]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                  className="absolute bottom-20 right-20 w-6 h-6 bg-purple-400 rounded-full opacity-60"
+                />
+                <motion.div
+                  animate={{ 
+                    y: [0, -10, 0],
+                    rotate: [0, 4, 0]
+                  }}
+                  transition={{ 
+                    duration: 5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: 2
+                  }}
+                  className="absolute top-32 right-32 w-4 h-4 bg-pink-400 rounded-full opacity-60"
+                />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
