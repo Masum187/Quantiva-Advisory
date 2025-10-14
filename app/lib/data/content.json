@@ -5,7 +5,7 @@
       "subtitle": "SAP · Cloud · AI · Integration",
       "description": "Strategische Beratung, technische Exzellenz und nachhaltige Lösungen für Ihren digitalen Erfolg",
       "ctaPrimary": "Jetzt Beraten lassen",
-      "ctaSecondary": "Referenzen ansehen",
+      "ctaSecondary": "Projekte ansehen",
       "backgroundVideo": "/assets/hero-bg.mp4",
       "backgroundImage": "/assets/hero-fallback.jpg"
     },
@@ -14,7 +14,7 @@
       "subtitle": "SAP · Cloud · AI · Integration",
       "description": "Strategic consulting, technical excellence and sustainable solutions for your digital success",
       "ctaPrimary": "Get Consulting Now",
-      "ctaSecondary": "View References",
+      "ctaSecondary": "View Projects",
       "backgroundVideo": "/assets/hero-bg.mp4",
       "backgroundImage": "/assets/hero-fallback.jpg"
     }
@@ -279,7 +279,7 @@
           { "label": "Home", "href": "#home" },
           { "label": "Über uns", "href": "/de/about" },
           { "label": "Services", "href": "#services" },
-          { "label": "Referenzen", "href": "#references" },
+          { "label": "Projekte", "href": "#references" },
           { "label": "Kontakt", "href": "#contact" }
         ]
       },
@@ -310,7 +310,7 @@
           { "label": "Home", "href": "#home" },
           { "label": "About", "href": "/en/about" },
           { "label": "Services", "href": "#services" },
-          { "label": "References", "href": "#references" },
+          { "label": "Projects", "href": "#references" },
           { "label": "Contact", "href": "#contact" }
         ]
       },
@@ -339,7 +339,7 @@
         { "id": "home", "label": "Home", "href": "#home" },
         { "id": "about", "label": "Über uns", "href": "/de/about" },
         { "id": "services", "label": "Services", "href": "#services" },
-        { "id": "cases", "label": "Referenzen", "href": "/de/cases" },
+        { "id": "cases", "label": "Projekte", "href": "/de/cases" },
         { "id": "team", "label": "Team", "href": "/de/team" },
         { "id": "careers", "label": "Karriere", "href": "/de/karriere" },
         { "id": "contact", "label": "Kontakt", "href": "#contact" }
@@ -351,7 +351,7 @@
         { "id": "home", "label": "Home", "href": "#home" },
         { "id": "about", "label": "About", "href": "/en/about" },
         { "id": "services", "label": "Services", "href": "#services" },
-        { "id": "cases", "label": "References", "href": "/en/cases" },
+        { "id": "cases", "label": "Projects", "href": "/en/cases" },
         { "id": "team", "label": "Team", "href": "/en/team" },
         { "id": "careers", "label": "Careers", "href": "/en/career" },
         { "id": "contact", "label": "Contact", "href": "#contact" }
