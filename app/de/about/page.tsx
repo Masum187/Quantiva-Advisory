@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   ChevronDown, 
   Target, 
@@ -145,9 +146,11 @@ export default function AboutPage() {
               {/* Synthesia-Style Avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-white/20">
-                  <img
+                  <Image
                     src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
                     alt="Gülnur Patan - CEO Avatar"
+                    width={320}
+                    height={320}
                     className="w-full h-full object-cover"
                   />
                   {/* Subtle Animation Overlay */}
@@ -303,11 +306,13 @@ export default function AboutPage() {
                 
                 {/* Main Image */}
                 <div className="relative rounded-3xl overflow-hidden border border-purple-500/20">
-                  <img
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
-                    alt="Team Collaboration"
-                    className="w-full h-[500px] object-cover"
-                  />
+                  <Image
+      src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
+      alt="Team Collaboration"
+      width={800}
+      height={600}
+      className="w-full h-[500px] object-cover"
+    />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   
                   {/* Floating Stats */}
@@ -411,11 +416,13 @@ export default function AboutPage() {
                 <div className="relative h-full p-12 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
                   {/* Background Image - Full Visibility */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
-                      alt="Team Collaboration & Mission"
-                      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
-                    />
+                    <Image
+      src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
+      alt="Team Collaboration & Mission"
+      width={800}
+      height={600}
+      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
+    />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
                   </div>
                   
@@ -497,11 +504,13 @@ export default function AboutPage() {
                 <div className="relative h-full p-12 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
                   {/* Background Image - Full Visibility */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&auto=format&q=80"
-                      alt="Innovation & Future Vision"
-                      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
-                    />
+                    <Image
+      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&auto=format&q=80"
+      alt="Innovation & Future Vision"
+      width={800}
+      height={600}
+      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
+    />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
                   </div>
                   
@@ -649,11 +658,13 @@ export default function AboutPage() {
                 <div className="relative h-full p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
                   {/* Background Image - Full Visibility */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&auto=format&q=80"
-                      alt="Excellence & Quality"
-                      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
-                    />
+                    <Image
+      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop&auto=format&q=80"
+      alt="Excellence & Quality"
+      width={800}
+      height={600}
+      className="w-full h-full object-cover opacity-90 group-hover:opacity-95 transition-opacity duration-500"
+    />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-500" />
                   </div>
                   
@@ -715,11 +726,13 @@ export default function AboutPage() {
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
                   {/* Background Image */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop&auto=format&q=80"
-                      alt="Innovation & Technology"
-                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
-                    />
+                    <Image
+      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=600&h=400&fit=crop&auto=format&q=80"
+      alt="Innovation & Technology"
+      width={800}
+      height={600}
+      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+    />
                     <div className="absolute inset-0 bg-gradient-to-br from-teal-900/85 via-teal-800/70 to-teal-900/85" />
                   </div>
                   
@@ -781,11 +794,13 @@ export default function AboutPage() {
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-purple-900/40 via-purple-800/20 to-purple-900/40 border border-purple-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-purple-500/30">
                   {/* Background Image */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&auto=format&q=80"
-                      alt="Partnership & Collaboration"
-                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
-                    />
+                    <Image
+      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&auto=format&q=80"
+      alt="Partnership & Collaboration"
+      width={800}
+      height={600}
+      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+    />
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-900/85 via-purple-800/70 to-purple-900/85" />
                   </div>
                   
@@ -847,11 +862,13 @@ export default function AboutPage() {
                 <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-teal-900/40 via-teal-800/20 to-teal-900/40 border border-teal-500/30 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
                   {/* Background Image */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop&auto=format&q=80"
-                      alt="Sustainability & Green Technology"
-                      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
-                    />
+                    <Image
+      src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop&auto=format&q=80"
+      alt="Sustainability & Green Technology"
+      width={800}
+      height={600}
+      className="w-full h-full object-cover opacity-15 group-hover:opacity-25 transition-opacity duration-500"
+    />
                     <div className="absolute inset-0 bg-gradient-to-br from-teal-900/85 via-teal-800/70 to-teal-900/85" />
                   </div>
                   
@@ -910,11 +927,13 @@ export default function AboutPage() {
             <SlideIn direction="left">
               <div className="relative group cursor-pointer" onClick={() => setShowCEOAvatar(true)}>
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-3xl blur-3xl"></div>
-                <img
-                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
-                  alt="Gülnur Patan - CEO"
-                  className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20 group-hover:scale-105 transition-transform duration-300"
-                />
+                <Image
+      src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
+      alt="Gülnur Patan - CEO"
+      width={800}
+      height={600}
+      className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20 group-hover:scale-105 transition-transform duration-300"
+    />
                 {/* Play Button Overlay */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl">

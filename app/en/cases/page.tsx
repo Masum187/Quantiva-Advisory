@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import casesData from '../../lib/data/cases.json';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'References & Cases – Quantiva Advisory',

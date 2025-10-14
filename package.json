@@ -52,7 +52,9 @@
     "assets:verify": "node scripts/migrate-assets-to-cloudinary.mjs --verify",
     "assets:migrate": "node scripts/migrate-assets-to-cloudinary.mjs --migrate",
     "contentful:migrate": "node scripts/migrate-to-contentful.mjs",
-    "build:sitemap": "npm run generate:sitemap && npm run build",
+    "analyze": "ANALYZE=true npm run build",
+    "analyze:server": "BUNDLE_ANALYZE=server npm run build",
+    "analyze:browser": "BUNDLE_ANALYZE=browser npm run build",
     "postbuild": "npm run generate:sitemap && npm run generate:og && npm run validate:cases:strict"
   },
   "eslintConfig": {
@@ -76,6 +78,7 @@
   "devDependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
+    "@next/bundle-analyzer": "^15.5.5",
     "@octokit/rest": "^22.0.0",
     "@types/body-parser": "^1.19.6",
     "@types/cors": "^2.8.19",

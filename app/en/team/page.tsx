@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Linkedin, Mail, Award, Users, Target, TrendingUp, Volume2, VolumeX, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 // Animation Components
 function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number }) {
@@ -286,11 +287,13 @@ export default function TeamPage() {
             <SlideIn direction="right" delay={0.2}>
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-2xl blur-3xl"></div>
-                <img
-                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
-                  alt="Dr. Elena Richter"
-                  className="relative rounded-2xl w-full h-[600px] object-cover shadow-2xl"
-                />
+                <Image
+      src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
+      alt="Dr. Elena Richter"
+      width={800}
+      height={600}
+      className="relative rounded-2xl w-full h-[600px] object-cover shadow-2xl"
+    />
               </div>
             </SlideIn>
           </div>

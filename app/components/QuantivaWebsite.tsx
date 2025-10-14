@@ -1,9 +1,10 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef, Suspense } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView } from "framer-motion";
+import dynamic from 'next/dynamic';
 import {
   Menu, X, ChevronRight,
   Shield, Mail, Phone, ArrowRight,
@@ -21,7 +22,12 @@ import {
   useMeetingContent,
   useCareersContent
 } from "../lib/contexts/ContentContext";
-import ReferencesSlider from "./ReferencesSlider";
+
+// Dynamic imports for better code splitting
+const ReferencesSlider = dynamic(() => import('./ReferencesSlider'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />,
+  ssr: false
+});
 
 /**
  * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
@@ -728,7 +734,9 @@ export default function QuantivaWebsite() {
       {/* Services Detail */}
 
       {/* References Slider */}
-      <ReferencesSlider lang={lang} />
+      <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg" />}>
+        <ReferencesSlider lang={lang} />
+      </Suspense>
 
       {/* CTA Band */}
       <section className="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-16 text-white border-y border-teal-400/30 shadow-2xl shadow-teal-500/30">

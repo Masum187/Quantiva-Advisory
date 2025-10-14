@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   ChevronDown, 
   Target, 
@@ -187,11 +188,13 @@ export default function AboutPage() {
                 
                 {/* Main Image */}
                 <div className="relative rounded-3xl overflow-hidden border border-purple-500/20">
-                  <img
-                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
-                    alt="Team Collaboration"
-                    className="w-full h-[500px] object-cover"
-                  />
+                  <Image
+      src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop&auto=format&q=80"
+      alt="Team Collaboration"
+      width={800}
+      height={600}
+      className="w-full h-[500px] object-cover"
+    />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                   
                   {/* Floating Stats */}
@@ -397,11 +400,13 @@ export default function AboutPage() {
             <SlideIn direction="left">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-3xl blur-3xl"></div>
-                <img
-                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
-                  alt="Gülnur Patan - CEO"
-                  className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20"
-                />
+                <Image
+      src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
+      alt="Gülnur Patan - CEO"
+      width={800}
+      height={600}
+      className="relative rounded-3xl w-full h-[600px] object-cover border border-purple-500/20"
+    />
               </div>
             </SlideIn>
 
