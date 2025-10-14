@@ -150,6 +150,12 @@ export default function AboutPage() {
                   </div>
                 </motion.div>
 
+                <h1 className="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
+                  This is{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
+                    Us
+                  </span>
+                </h1>
 
                 <p className="text-xl text-gray-300 leading-relaxed mb-8">
                   Every day, we shape the digital future of our clients. With expertise in SAP, Cloud and AI, 
