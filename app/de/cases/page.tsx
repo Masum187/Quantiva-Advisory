@@ -22,80 +22,178 @@ import {
 
 export default function CasesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-teal-600 to-teal-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Referenzen & Success Stories
-          </h1>
-          <p className="text-xl text-teal-100 max-w-3xl">
-            Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
-            Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
-          </p>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-black to-slate-900"></div>
+        <div className="absolute inset-0">
+          {/* Animated Grid */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="grid grid-cols-12 h-full">
+              {Array.from({ length: 144 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="border border-teal-500/10"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 0.3, 0] }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.01,
+                    ease: "easeInOut"
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+          
+          {/* Floating Particles */}
+          {Array.from({ length: 50 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-teal-400 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -100, 0],
+                opacity: [0, 1, 0],
+                scale: [0, 1, 0],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                delay: Math.random() * 10,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Hero Section - Ultra Modern */}
+      <section className="relative z-10 min-h-screen flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="mb-12"
+          >
+            {/* Animated Logo */}
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-teal-400 to-purple-600 flex items-center justify-center shadow-2xl"
+            >
+              <span className="text-white font-bold text-3xl">Q</span>
+            </motion.div>
+
+            {/* Main Title with Gradient Animation */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-6xl md:text-8xl font-bold mb-6"
+            >
+              <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
+                Projekte
+              </span>
+            </motion.h1>
+
+            {/* Subtitle with Typewriter Effect */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="text-2xl md:text-3xl text-gray-300 mb-8"
+            >
+              <span className="inline-block">Innovation meets </span>
+              <motion.span
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="text-teal-400 font-semibold"
+              >
+                Excellence
+              </motion.span>
+            </motion.div>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.9 }}
+              className="text-xl text-gray-400 max-w-4xl mx-auto leading-relaxed"
+            >
+              Entdecken Sie unsere bahnbrechenden Projekte, die die Zukunft der Technologie gestalten.
+              Von KI-gesteuerten SAP-Lösungen bis hin zu revolutionären Recruiting-Plattformen.
+            </motion.p>
+          </motion.div>
+
+          {/* Animated CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(20, 184, 166, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+            >
+              Projekte entdecken
+            </motion.button>
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 border-2 border-teal-400 text-teal-400 rounded-2xl font-semibold text-lg hover:bg-teal-400 hover:text-black transition-all duration-300"
+            >
+              Mehr erfahren
+            </motion.button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Cases Grid */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {casesData.map((caseItem) => (
-            <Link
-              key={caseItem.slug}
-              href={`/de/cases/${caseItem.slug}`}
-              className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Image */}
-              {caseItem.heroImage && (
-                <div className="relative h-48 bg-gradient-to-br from-teal-500 to-teal-600 overflow-hidden">
-                  <img
-                    src={caseItem.heroImage}
-                    alt={caseItem.titleDe}
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
-                  />
-                </div>
-              )}
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  <span className="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">
-                    {caseItem.category}
-                  </span>
-                  <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-semibold rounded-full">
-                    {caseItem.industry}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
-                  {caseItem.titleDe}
-                </h3>
-
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                  {caseItem.subtitleDe}
-                </p>
-
-                {/* Technologies */}
-                {caseItem.tech && caseItem.tech.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {caseItem.tech.slice(0, 3).map((tech: string, idx: number) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {caseItem.tech.length > 3 && (
-                      <span className="px-2 py-1 text-slate-500 text-xs">
-                        +{caseItem.tech.length - 3} mehr
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            </Link>
-          ))}
+      {/* Interactive Stats Section */}
+      <section className="relative z-10 py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { number: "50+", label: "Erfolgreiche Projekte", icon: Target },
+              { number: "3", label: "Innovative Plattformen", icon: Brain },
+              { number: "100%", label: "KI-Integration", icon: Zap }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className="text-center"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-600/20 border border-teal-400/30 flex items-center justify-center"
+                >
+                  <stat.icon className="w-10 h-10 text-teal-400" />
+                </motion.div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
+                  className="text-4xl font-bold text-white mb-2"
+                >
+                  {stat.number}
+                </motion.div>
+                <div className="text-gray-400 text-lg">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
