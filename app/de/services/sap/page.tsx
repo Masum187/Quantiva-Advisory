@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -42,6 +42,23 @@ function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { ch
 }
 
 export default function SAPServicePage() {
+  // Video rotation state
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  
+  const videos = [
+    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435639/kling_20251014_Text_to_Video_Title__The_4165_1_t3grxn.mp4',
+    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435634/kling_20251014_Text_to_Video_Title__The_4174_2_llyqsp.mp4'
+  ];
+
+  // Rotate videos every 10 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    }, 10000); // Change video every 10 seconds
+
+    return () => clearInterval(interval);
+  }, [videos.length]);
   const offerings = [
     {
       icon: Database,
@@ -140,17 +157,22 @@ export default function SAPServicePage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Fixed Background Video */}
+      {/* Rotating Background Videos */}
       <div className="fixed inset-0 z-0">
-        <video
-          src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4"
-          className="w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
+        {videos.map((video, index) => (
+          <video
+            key={index}
+            src={video}
+            className={`w-full h-full object-cover transition-opacity duration-1000 ${
+              index === currentVideoIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
+        ))}
         {/* Video Overlay */}
         <div className="absolute inset-0 bg-black/5"></div>
       </div>
@@ -223,7 +245,7 @@ export default function SAPServicePage() {
       </section>
 
       {/* Service Overview */}
-      <section className="py-24 bg-black">
+      <section className="py-24 bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SlideIn>
             <div className="text-center mb-20">
