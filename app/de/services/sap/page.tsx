@@ -139,9 +139,26 @@ export default function SAPServicePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-blue-900/20 via-black to-cyan-900/20">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Fixed Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4"
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-black/5"></div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative py-32 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SlideIn>
             <div className="text-center mb-16">
@@ -402,6 +419,7 @@ export default function SAPServicePage() {
           </SlideIn>
         </div>
       </section>
+      </div>
     </div>
   );
 }
