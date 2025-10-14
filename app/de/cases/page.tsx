@@ -363,15 +363,31 @@ export default function CasesPage() {
               );
             })}
 
-      {/* Future Projects Roadmap */}
-      <section className="bg-black py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* Future Projects Roadmap - Separated Sections */}
+      {/* QA.Orchestrator Section */}
+      <section className="bg-black py-24 relative">
+        {/* Section Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10"></div>
+          <div className="absolute top-20 right-20 w-32 h-32 bg-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
+            <div className="inline-flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                <span className="text-white font-bold text-2xl">01</span>
+              </div>
+              <div className="h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent flex-1 max-w-32"></div>
+            </div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Future & Past
             </h2>
@@ -380,21 +396,16 @@ export default function CasesPage() {
             </p>
           </motion.div>
 
-          {/* Technical Roadmap */}
+          {/* QA.Orchestrator Project */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mb-16"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="group"
           >
-            <h3 className="text-3xl font-bold text-white mb-4">Technical Roadmap</h3>
-            <p className="text-gray-300 mb-12 max-w-3xl">
-              Entdecken Sie kommende Features, Erweiterungen und Verbesserungen, die KI-fokussierte Innovation im SAP-Testing vorantreiben.
-            </p>
-
-            {/* QA.Orchestrator Project */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="bg-gray-900/50 backdrop-blur-lg rounded-3xl overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-blue-400/50 shadow-2xl hover:shadow-blue-500/20">
+              <div className="grid lg:grid-cols-2 gap-12 items-center p-8 lg:p-12">
               {/* Left: Content */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
@@ -607,17 +618,53 @@ export default function CasesPage() {
                 </table>
               </div>
             </motion.div>
+            </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* PromptSAP Project */}
+      {/* PromptSAP Section */}
+      <section className="bg-gray-900 py-24 relative">
+        {/* Section Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10"></div>
+          <div className="absolute top-20 right-20 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-40 h-40 bg-blue-500/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="mb-16"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="inline-flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center">
+                <span className="text-white font-bold text-2xl">02</span>
+              </div>
+              <div className="h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent flex-1 max-w-32"></div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              PromptSAP
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Prompt-gesteuerter KI-Agent für SAP - Revolutionäre Automatisierung durch natürliche Sprache.
+            </p>
+          </motion.div>
+
+          {/* PromptSAP Project */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="group"
+          >
+            <div className="bg-gray-900/50 backdrop-blur-lg rounded-none overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-emerald-400/50 shadow-2xl hover:shadow-emerald-500/20">
+              <div className="grid lg:grid-cols-2 gap-12 items-center p-8 lg:p-12">
               {/* Left: Visual */}
               <div className="relative">
                 <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 border border-slate-700">
@@ -840,17 +887,53 @@ export default function CasesPage() {
                 <p className="text-gray-400 text-sm">Konsistente Change-Qualität durch KI-gesteuerte Prozesse</p>
               </div>
             </motion.div>
+            </div>
           </motion.div>
+        </div>
+      </section>
 
-          {/* RecruAI Project */}
+      {/* RecruAI Section */}
+      <section className="bg-black py-24 relative">
+        {/* Section Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10"></div>
+          <div className="absolute top-20 right-20 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-40 h-40 bg-pink-500/20 rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="mb-16"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="inline-flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                <span className="text-white font-bold text-2xl">03</span>
+              </div>
+              <div className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent flex-1 max-w-32"></div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              RecruAI
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              KI-gesteuertes End-to-End Recruiting - Revolutionäre Plattform für den europäischen Recruiting-Markt.
+            </p>
+          </motion.div>
+
+          {/* RecruAI Project */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="group"
+          >
+            <div className="bg-gray-900/50 backdrop-blur-lg rounded-l-3xl rounded-r-none overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-purple-400/50 shadow-2xl hover:shadow-purple-500/20">
+              <div className="grid lg:grid-cols-2 gap-12 items-center p-8 lg:p-12">
               {/* Left: Content */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
@@ -1110,8 +1193,14 @@ export default function CasesPage() {
                 </div>
               </div>
             </motion.div>
+            </div>
           </motion.div>
+        </div>
+      </section>
 
+      {/* Next Steps Section */}
+      <section className="bg-gray-900 py-24">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Next Steps */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
