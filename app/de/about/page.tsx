@@ -258,13 +258,12 @@ export default function AboutPage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8"
+                className="mb-8"
               >
                 {/* Quantiva Logo */}
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
                   <span className="text-white font-bold text-lg">Q</span>
                 </div>
-                <span className="text-teal-300 text-sm font-semibold tracking-wider">ÜBER QUANTIVA ADVISORY</span>
               </motion.div>
 
 
