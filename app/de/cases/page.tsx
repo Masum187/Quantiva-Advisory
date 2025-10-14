@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import casesData from '../../lib/data/cases.json';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -21,11 +22,51 @@ import {
 } from 'lucide-react';
 
 export default function CasesPage() {
+  const [isVideoExpanded, setIsVideoExpanded] = useState(false);
+
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section - Modern Dark with Video */}
-      <section className="relative bg-black text-white py-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Full-Page Half-Circle Video */}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: isVideoExpanded ? "0%" : "50%" }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+        className="fixed top-0 right-0 w-[100vw] h-[100vh] z-40 pointer-events-none"
+      >
+        <div className="relative w-full h-full">
+          {/* Half-Circle Shape */}
+          <div className="absolute top-0 right-0 w-[200vw] h-[100vh] overflow-hidden">
+            <div className="w-full h-full bg-gradient-to-r from-teal-500/10 to-purple-500/10 rounded-full transform translate-x-1/2">
+              <motion.video
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isVideoExpanded ? 1 : 0.3 }}
+                transition={{ duration: 0.8 }}
+                className="w-full h-full object-cover rounded-full"
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4" type="video/mp4" />
+              </motion.video>
+            </div>
+          </div>
+
+          {/* Glow Effect */}
+          <motion.div
+            animate={{ 
+              opacity: isVideoExpanded ? 0.6 : 0.2,
+              scale: isVideoExpanded ? 1.1 : 1
+            }}
+            transition={{ duration: 0.8 }}
+            className="absolute top-0 right-0 w-[200vw] h-[100vh] rounded-full bg-gradient-to-r from-teal-400/30 via-purple-400/30 to-pink-400/30 blur-3xl"
+          />
+        </div>
+      </motion.div>
+
+      {/* Hero Section - Modern Dark */}
+      <section className="relative bg-black text-white py-24 z-10">
+        <div className="max-w-7xl mx-auto px-6 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text Content */}
             <motion.div
@@ -61,88 +102,95 @@ export default function CasesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-xl text-gray-300 leading-relaxed"
+                className="text-xl text-gray-300 leading-relaxed mb-8"
               >
                 Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
                 Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
               </motion.p>
+
+              {/* Video Zoom Button */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsVideoExpanded(!isVideoExpanded)}
+                className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto lg:mx-0"
+              >
+                {isVideoExpanded ? (
+                  <>
+                    <span>Video reduzieren</span>
+                    <motion.div
+                      animate={{ rotate: 180 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      →
+                    </motion.div>
+                  </>
+                ) : (
+                  <>
+                    <span>Video erweitern</span>
+                    <motion.div
+                      animate={{ rotate: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      ←
+                    </motion.div>
+                  </>
+                )}
+              </motion.button>
             </motion.div>
 
-            {/* Right: Half-Moon Video Animation */}
+            {/* Right: Floating Elements */}
             <motion.div
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, delay: 0.8 }}
-              className="relative"
+              className="relative h-96 lg:h-[500px] flex items-center justify-center"
             >
-              {/* Half-Moon Video Container */}
-              <div className="relative w-full h-96 lg:h-[500px]">
-                {/* Half-Moon Shape */}
-                <div className="absolute inset-0 overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 rounded-full transform translate-x-1/2">
-                    <motion.video
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 1, delay: 1.2 }}
-                      className="w-full h-full object-cover rounded-full"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                    >
-                      <source src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4" type="video/mp4" />
-                    </motion.video>
-                  </div>
-                </div>
-
-                {/* Glow Effect */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.5, delay: 1.5 }}
-                  className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400/30 via-purple-400/30 to-pink-400/30 blur-xl"
-                />
-
-                {/* Floating Elements */}
-                <motion.div
-                  animate={{ 
-                    y: [0, -20, 0],
-                    rotate: [0, 5, 0]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut" 
-                  }}
-                  className="absolute top-10 right-10 w-8 h-8 bg-teal-400 rounded-full opacity-60"
-                />
-                <motion.div
-                  animate={{ 
-                    y: [0, 15, 0],
-                    rotate: [0, -3, 0]
-                  }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    delay: 1
-                  }}
-                  className="absolute bottom-20 right-20 w-6 h-6 bg-purple-400 rounded-full opacity-60"
-                />
-                <motion.div
-                  animate={{ 
-                    y: [0, -10, 0],
-                    rotate: [0, 4, 0]
-                  }}
-                  transition={{ 
-                    duration: 5, 
-                    repeat: Infinity, 
-                    ease: "easeInOut",
-                    delay: 2
-                  }}
-                  className="absolute top-32 right-32 w-4 h-4 bg-pink-400 rounded-full opacity-60"
-                />
-              </div>
+              {/* Floating Elements */}
+              <motion.div
+                animate={{ 
+                  y: [0, -20, 0],
+                  rotate: [0, 5, 0],
+                  scale: isVideoExpanded ? [1, 1.2, 1] : [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 4, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                className="absolute top-10 right-10 w-8 h-8 bg-teal-400 rounded-full opacity-60"
+              />
+              <motion.div
+                animate={{ 
+                  y: [0, 15, 0],
+                  rotate: [0, -3, 0],
+                  scale: isVideoExpanded ? [1, 1.3, 1] : [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+                className="absolute bottom-20 right-20 w-6 h-6 bg-purple-400 rounded-full opacity-60"
+              />
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                  rotate: [0, 4, 0],
+                  scale: isVideoExpanded ? [1, 1.4, 1] : [1, 1.2, 1]
+                }}
+                transition={{ 
+                  duration: 5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+                className="absolute top-32 right-32 w-4 h-4 bg-pink-400 rounded-full opacity-60"
+              />
             </motion.div>
           </div>
         </div>
