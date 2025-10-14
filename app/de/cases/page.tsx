@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import casesData from '../../lib/data/cases.json';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,6 +23,21 @@ import {
 
 export default function CasesPage() {
   const [isVideoExpanded, setIsVideoExpanded] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  const videos = useMemo(() => [
+    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760470890/Eyes_Zoom_in_seed1137337382_jeox5c.mp4',
+    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760470890/90s_Me_seed3095152270_jjxpfg.mp4'
+  ], []);
+
+  // Rotate videos every 8 seconds
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+    }, 8000);
+
+    return () => clearInterval(interval);
+  }, [videos]);
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
@@ -37,18 +52,24 @@ export default function CasesPage() {
           {/* Half-Circle Shape */}
           <div className="absolute top-0 right-0 w-[200vw] h-[100vh] overflow-hidden">
             <div className="w-full h-full bg-gradient-to-r from-teal-500/10 to-purple-500/10 rounded-full transform translate-x-1/2">
-              <motion.video
-                initial={{ opacity: 0 }}
-                animate={{ opacity: isVideoExpanded ? 1 : 0.3 }}
-                transition={{ duration: 0.8 }}
-                className="w-full h-full object-cover rounded-full"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
-                <source src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4" type="video/mp4" />
-              </motion.video>
+              {videos.map((videoSrc, index) => (
+                <motion.video
+                  key={videoSrc}
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: isVideoExpanded ? (index === currentVideoIndex ? 1 : 0) : (index === currentVideoIndex ? 0.3 : 0)
+                  }}
+                  transition={{ duration: 0.8 }}
+                  className="absolute inset-0 w-full h-full object-cover rounded-full"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{ zIndex: index === currentVideoIndex ? 1 : 0 }}
+                >
+                  <source src={videoSrc} type="video/mp4" />
+                </motion.video>
+              ))}
             </div>
           </div>
 
