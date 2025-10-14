@@ -57,28 +57,32 @@ export default function SAPServicePage() {
       setCurrentVideoIndex((prevIndex) => {
         const nextIndex = (prevIndex + 1) % videos.length;
         console.log(`Switching to video ${nextIndex + 1}/${videos.length}`);
-        
-        // Stop current video and start next video
-        setTimeout(() => {
-          const currentVideo = document.querySelector(`video[src="${videos[prevIndex]}"]`) as HTMLVideoElement;
-          const nextVideo = document.querySelector(`video[src="${videos[nextIndex]}"]`) as HTMLVideoElement;
-          
-          if (currentVideo) {
-            currentVideo.pause();
-          }
-          
-          if (nextVideo) {
-            nextVideo.currentTime = 0;
-            nextVideo.play().catch(console.log);
-          }
-        }, 100);
-        
         return nextIndex;
       });
     }, 8000); // Change video every 8 seconds
 
     return () => clearInterval(interval);
   }, [videos]);
+
+  // Handle video play when currentVideoIndex changes
+  useEffect(() => {
+    // Pause all videos first
+    videos.forEach((video, index) => {
+      const videoElement = document.querySelector(`video[src="${video}"]`) as HTMLVideoElement;
+      if (videoElement) {
+        videoElement.pause();
+      }
+    });
+
+    // Start current video
+    const currentVideo = document.querySelector(`video[src="${videos[currentVideoIndex]}"]`) as HTMLVideoElement;
+    if (currentVideo) {
+      currentVideo.currentTime = 0;
+      currentVideo.play().catch((error) => {
+        console.log(`Failed to play video ${currentVideoIndex + 1}:`, error);
+      });
+    }
+  }, [currentVideoIndex, videos]);
 
   // Debug current video
   useEffect(() => {
@@ -188,38 +192,24 @@ export default function SAPServicePage() {
           <video
             key={`video-${index}`}
             src={video}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-2000 ${
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               index === currentVideoIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
-            autoPlay={index === 0}
             muted
             loop
             playsInline
             preload="auto"
-            onEnded={() => {
-              // Force play when video ends
-              const videoElement = document.querySelector(`video[src="${video}"]`) as HTMLVideoElement;
-              if (videoElement && index === currentVideoIndex) {
-                videoElement.currentTime = 0;
-                videoElement.play().catch(console.log);
-              }
-            }}
             onLoadStart={() => {
               console.log(`Video ${index + 1} started loading: ${video.split('/').pop()}`);
             }}
             onCanPlay={() => {
               console.log(`Video ${index + 1} can play: ${video.split('/').pop()}`);
-              // Start playing if this is the current video
-              if (index === currentVideoIndex) {
-                const videoElement = document.querySelector(`video[src="${video}"]`) as HTMLVideoElement;
-                if (videoElement) {
-                  videoElement.currentTime = 0;
-                  videoElement.play().catch(console.log);
-                }
-              }
             }}
             onPlay={() => {
               console.log(`Video ${index + 1} started playing: ${video.split('/').pop()}`);
+            }}
+            onError={(e) => {
+              console.error(`Video ${index + 1} error:`, e);
             }}
           />
         ))}
