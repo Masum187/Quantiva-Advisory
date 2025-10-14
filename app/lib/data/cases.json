@@ -55,7 +55,7 @@
     "subtitleEn": "Event architecture, Fiori apps, enablement",
     "category": "Integration",
     "industry": "Logistik",
-    "heroImage": "/assets/cases/integration-hero.jpg",
+    "heroImage": "/assets/cases/api-first-hero.jpg",
     "goalsDe": ["Entkopplung der Systeme", "Niedrige Latenz", "Skalierbarkeit"],
     "goalsEn": ["System decoupling", "Low latency", "Scalability"],
     "solutionDe": ["Async‑Events & Topics", "API‑Katalog & Governance", "Fiori‑App Templates"],
