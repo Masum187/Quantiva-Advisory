@@ -22,9 +22,9 @@ import {
 
 export default function CasesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Hero Section - Clean & Modern */}
-      <section className="relative bg-gradient-to-r from-teal-600 to-teal-700 text-white py-20">
+    <div className="min-h-screen bg-black">
+      {/* Hero Section - Modern Dark */}
+      <section className="relative bg-black text-white py-24">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -32,27 +32,44 @@ export default function CasesPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            {/* Simple Logo */}
-            <div className="w-16 h-16 mx-auto mb-8 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <span className="text-white font-bold text-2xl">Q</span>
-            </div>
+            {/* Modern Logo */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl"
+            >
+              <span className="text-white font-bold text-3xl">Q</span>
+            </motion.div>
 
-            {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Projekte & Cases
-            </h1>
+            {/* Main Title with Gradient */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-6xl md:text-7xl font-bold mb-6"
+            >
+              <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Projekte
+              </span>
+            </motion.h1>
 
             {/* Subtitle */}
-            <p className="text-xl text-teal-100 max-w-3xl mx-auto leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            >
               Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
               Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Cases Grid - Clean & Modern */}
-      <section className="py-20 bg-white">
+      {/* Cases Grid - Modern Dark */}
+      <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {casesData.map((caseItem, index) => (
@@ -65,22 +82,23 @@ export default function CasesPage() {
                 className="group"
               >
                 <Link href={`/de/cases/${caseItem.slug}`}>
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
+                  <div className="bg-gray-900/50 backdrop-blur-lg rounded-2xl overflow-hidden hover:bg-gray-800/70 transition-all duration-500 hover:-translate-y-2 border border-gray-700/50 hover:border-teal-400/50 shadow-2xl hover:shadow-teal-500/20">
                     {/* Image */}
                     {caseItem.heroImage && (
-                      <div className="relative h-48 bg-gradient-to-br from-teal-500 to-teal-600 overflow-hidden">
+                      <div className="relative h-48 overflow-hidden">
                         <Image
                           src={caseItem.heroImage}
                           alt={caseItem.titleDe}
                           width={400}
                           height={192}
-                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                          className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700"
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute top-4 left-4 flex gap-2">
-                          <span className="px-3 py-1 bg-teal-600 text-white text-xs font-semibold rounded-full">
+                          <span className="px-3 py-1 bg-teal-500/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
                             {caseItem.category}
                           </span>
-                          <span className="px-3 py-1 bg-purple-600 text-white text-xs font-semibold rounded-full">
+                          <span className="px-3 py-1 bg-purple-500/90 backdrop-blur-sm text-white text-xs font-semibold rounded-full">
                             {caseItem.industry}
                           </span>
                         </div>
@@ -89,11 +107,11 @@ export default function CasesPage() {
 
                     {/* Content */}
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-teal-600 transition-colors">
+                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-teal-400 transition-colors">
                         {caseItem.titleDe}
                       </h3>
 
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      <p className="text-gray-300 text-sm mb-4 line-clamp-3">
                         {caseItem.subtitleDe}
                       </p>
 
@@ -103,19 +121,22 @@ export default function CasesPage() {
                           {caseItem.tech.slice(0, 3).map((tech: string, idx: number) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md"
+                              className="px-2 py-1 bg-gray-700/50 backdrop-blur-sm text-gray-300 text-xs rounded-lg border border-gray-600/30"
                             >
                               {tech}
                             </span>
                           ))}
                           {caseItem.tech.length > 3 && (
-                            <span className="px-2 py-1 text-gray-500 text-xs">
+                            <span className="px-2 py-1 text-gray-400 text-xs">
                               +{caseItem.tech.length - 3} mehr
                             </span>
                           )}
                         </div>
                       )}
                     </div>
+
+                    {/* Hover glow effect */}
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-teal-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-teal-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500 pointer-events-none" />
                   </div>
                 </Link>
               </motion.div>
