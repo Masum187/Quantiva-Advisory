@@ -434,9 +434,15 @@ export default function CasesPage() {
                     Mehr erfahren
                     <ArrowRight className="w-4 h-4" />
                   </button>
-                  <button className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium">
-                    Demo ansehen
-                  </button>
+                  <a 
+                    href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium flex items-center gap-2"
+                  >
+                    Whitepaper lesen
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
               </div>
 
@@ -680,50 +686,75 @@ export default function CasesPage() {
               </div>
 
               {/* Right: Content */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center">
-                    <Brain className="w-6 h-6 text-white" />
+              <div className="space-y-6">
+                {/* Project Tag */}
+                <div className="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-medium rounded-full">
+                  PHASE 2
+                </div>
+                
+                {/* Project Header */}
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center shadow-lg">
+                    <Brain className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">PromptSAP</h4>
-                    <p className="text-gray-400">Prompt-gesteuerter KI-Agent für SAP</p>
+                    <h4 className="text-3xl font-bold text-gray-900">PromptSAP</h4>
+                    <p className="text-gray-600 text-lg">Prompt-gesteuerter KI-Agent für SAP</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                {/* Description */}
+                <p className="text-gray-700 text-lg leading-relaxed">
                   Ein KI-Agent, der durch Prompts direkt Customizing oder ABAP-/UI5-Entwicklung durchführt, automatisch Impact-Analysen erstellt und Tests generiert – bevor Änderungen ins Produktivsystem gelangen.
                 </p>
 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Prompt-to-Change-Mechanismus</h5>
-                      <p className="text-gray-400 text-sm">KI übersetzt Prompts in Customizing oder Entwicklungsänderungen</p>
+                {/* Key Features */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Prompt-to-Change</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">Natürliche Sprache zu SAP-Änderungen</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Impact-Graph-Analyse</h5>
-                      <p className="text-gray-400 text-sm">Automatische Ermittlung aller abhängigen Objekte und Risiken</p>
+                  <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Impact-Analyse</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">Automatische Abhängigkeitsanalyse</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Autonome Testgenerierung</h5>
-                      <p className="text-gray-400 text-sm">Agent erzeugt Testskripte, Testdaten und führt sie aus</p>
+                  <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Testgenerierung</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">Unit-, API- und E2E-Tests</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Transport-Simulation</h5>
-                      <p className="text-gray-400 text-sm">Dry-Run in Testumgebung mit vollständiger Validierung</p>
+                  <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Transport-Simulation</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">Dry-Run mit Validierung</p>
                   </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="flex items-center gap-3">
+                  <button className="px-6 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors font-medium flex items-center gap-2">
+                    Mehr erfahren
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <a 
+                    href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium flex items-center gap-2"
+                  >
+                    Whitepaper lesen
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
               </div>
             </div>
