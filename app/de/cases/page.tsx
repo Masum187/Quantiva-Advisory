@@ -140,7 +140,7 @@ export default function CasesPage() {
       {/* Command Palette */}
       <CommandPalette />
       
-      <div className="min-h-screen bg-white relative overflow-hidden">
+      <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Full-Page Half-Circle Video */}
       <motion.div
         initial={{ x: "100%" }}
@@ -185,222 +185,134 @@ export default function CasesPage() {
         </div>
       </motion.div>
 
-      {/* Hero Section - JoggAI Style */}
-      <section id="main-content" className="relative bg-white py-24 z-10">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Main Hero Content */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-8"
-            >
-              {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium mb-6">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-                Innovation Hub
-              </div>
-              
-              {/* Main Headline */}
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-                #1 KI-Projekt Portfolio
-                <br />
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  für Enterprise-Lösungen
-                </span>
-              </h1>
-              
-              {/* Subtitle */}
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-                Keine Komplexität. Keine Wartezeiten. Quantiva vereinfacht alles.
-                <br />
-                Perfekt für digitale Transformation, KI-Integration und mehr.
-              </p>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <motion.button
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-                >
-                  Kostenlos starten
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-                
-                <motion.button
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsVideoExpanded(!isVideoExpanded)}
-                  className="px-8 py-4 bg-white text-gray-700 rounded-xl font-semibold text-lg border-2 border-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center gap-2"
-                  aria-label={isVideoExpanded ? "Video reduzieren" : "Video ansehen"}
-                >
-                  Demo ansehen
-                  <motion.div
-                    animate={{ rotate: isVideoExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    →
-                  </motion.div>
-                </motion.button>
-              </div>
-              
-              {/* Trust Badge */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="mt-8 text-sm text-gray-500"
-              >
-                *Keine Kreditkarte erforderlich
-              </motion.div>
-            </motion.div>
-          </div>
-          
-          {/* Trust Indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-center"
-          >
-            <p className="text-gray-600 mb-8">
-              Vertraut von 800+ Unternehmen, Entwicklern & Beratern
-            </p>
-            
-            {/* Logo Placeholder */}
-            <div className="flex justify-center items-center gap-8 opacity-60">
-              <div className="w-24 h-12 bg-gray-200 rounded flex items-center justify-center">
-                <span className="text-gray-500 text-sm font-medium">SAP</span>
-              </div>
-              <div className="w-24 h-12 bg-gray-200 rounded flex items-center justify-center">
-                <span className="text-gray-500 text-sm font-medium">Microsoft</span>
-              </div>
-              <div className="w-24 h-12 bg-gray-200 rounded flex items-center justify-center">
-                <span className="text-gray-500 text-sm font-medium">AWS</span>
-              </div>
-              <div className="w-24 h-12 bg-gray-200 rounded flex items-center justify-center">
-                <span className="text-gray-500 text-sm font-medium">Google</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-      </section>
-
-      {/* Features Section - JoggAI Style */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-            >
-              Bessere Qualität, Schnellere Ergebnisse, Niedrigere Kosten
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
-            >
-              Schluss mit komplexen Workflows oder roboterhaften KI-Menschen. 
-              Erstellen Sie hyperrealistische, hochwertige Videos in Minuten.
-            </motion.p>
-          </div>
-
-          {/* Comparison Cards */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-            {/* Old Way */}
+      {/* Hero Section - Modern Dark */}
+      <section id="main-content" className="relative bg-black text-white py-24 z-10">
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border-2 border-red-200"
+              className="text-center lg:text-left"
             >
-              <div className="text-center">
-                <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <span className="text-2xl">❌</span>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Alte Methode</h3>
-                
-                <div className="space-y-4 text-left">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Zeitaufwand</span>
-                    <span className="font-semibold text-red-600">50+ Stunden</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Produktionskosten</span>
-                    <span className="font-semibold text-red-600">1.000€+</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Team erforderlich</span>
-                    <span className="font-semibold text-red-600">3+</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Qualität</span>
-                    <span className="font-semibold text-red-600">Amateur</span>
-                  </div>
-                </div>
-              </div>
+              {/* Modern Logo */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl"
+              >
+                <span className="text-white font-bold text-3xl">Q</span>
+              </motion.div>
+
+              {/* Main Title with Gradient */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-6xl md:text-7xl font-bold mb-6"
+              >
+                <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Projekte
+                </span>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-xl text-gray-300 leading-relaxed mb-8"
+              >
+                Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
+                Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
+              </motion.p>
+
+              {/* Video Zoom Button */}
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsVideoExpanded(!isVideoExpanded)}
+                className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto lg:mx-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                aria-label={isVideoExpanded ? "Video reduzieren" : "Video vergrößern"}
+              >
+                {isVideoExpanded ? (
+                  <>
+                    <span>Video reduzieren</span>
+                    <motion.div
+                      animate={{ rotate: 180 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      →
+                    </motion.div>
+                  </>
+                ) : (
+                  <>
+                    <span>Video erweitern</span>
+                    <motion.div
+                      animate={{ rotate: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      ←
+                    </motion.div>
+                  </>
+                )}
+              </motion.button>
             </motion.div>
 
-            {/* New Way */}
+            {/* Right: Floating Elements */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200 relative overflow-hidden"
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, delay: 0.8 }}
+              className="relative h-96 lg:h-[500px] flex items-center justify-center"
             >
-              {/* Popular Badge */}
-              <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                Beliebt
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <span className="text-2xl">✅</span>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Neue Methode</h3>
-                
-                <div className="space-y-4 text-left">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Zeitaufwand</span>
-                    <span className="font-semibold text-green-600">10 Min</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Produktionskosten</span>
-                    <span className="font-semibold text-green-600">15€+</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Team erforderlich</span>
-                    <span className="font-semibold text-green-600">1</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Qualität</span>
-                    <span className="font-semibold text-green-600">Hoch</span>
-                  </div>
-                </div>
-                
-                <button className="w-full mt-6 bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors">
-                  Jetzt kostenlos testen
-                </button>
-                <p className="text-sm text-gray-500 mt-2">*Keine Kreditkarte erforderlich</p>
-              </div>
+              {/* Floating Elements */}
+              <motion.div
+                animate={{ 
+                  y: [0, -20, 0],
+                  rotate: [0, 5, 0],
+                  scale: isVideoExpanded ? [1, 1.2, 1] : [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 4, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                className="absolute top-10 right-10 w-8 h-8 bg-teal-400 rounded-full opacity-60"
+              />
+              <motion.div
+                animate={{ 
+                  y: [0, 15, 0],
+                  rotate: [0, -3, 0],
+                  scale: isVideoExpanded ? [1, 1.3, 1] : [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+                className="absolute bottom-20 right-20 w-6 h-6 bg-purple-400 rounded-full opacity-60"
+              />
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                  rotate: [0, 4, 0],
+                  scale: isVideoExpanded ? [1, 1.4, 1] : [1, 1.2, 1]
+                }}
+                transition={{ 
+                  duration: 5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+                className="absolute top-32 right-32 w-4 h-4 bg-pink-400 rounded-full opacity-60"
+              />
             </motion.div>
           </div>
         </div>
