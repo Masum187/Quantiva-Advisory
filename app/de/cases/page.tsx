@@ -263,9 +263,19 @@ export default function CasesPage() {
               <div className="relative">
                 {/* Central Node - Quantiva */}
                 <div className="flex justify-center mb-8">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl">
+                  <motion.div 
+                    className="w-20 h-20 rounded-full bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl"
+                    animate={{ 
+                      y: [-5, 5, -5],
+                    }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
                     <span className="text-white font-bold text-lg">Q</span>
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="text-center mb-12">
                   <h4 className="text-xl font-bold text-white">Quantiva Advisory</h4>
@@ -285,9 +295,20 @@ export default function CasesPage() {
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
                       
                       {/* Project Node */}
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                      <motion.div 
+                        className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        animate={{ 
+                          y: [-3, 3, -3],
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0
+                        }}
+                      >
                         <Bot className="w-8 h-8 text-white" />
-                      </div>
+                      </motion.div>
                       <h5 className="text-lg font-bold text-white mb-2">QA.Orchestrator</h5>
                       <p className="text-gray-400 text-sm mb-3">Agentisches Testsystem</p>
                       <div className="text-xs text-blue-400">Phase 1</div>
@@ -302,9 +323,20 @@ export default function CasesPage() {
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
                       
                       {/* Project Node */}
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                      <motion.div 
+                        className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        animate={{ 
+                          y: [-3, 3, -3],
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.8
+                        }}
+                      >
                         <Brain className="w-8 h-8 text-white" />
-                      </div>
+                      </motion.div>
                       <h5 className="text-lg font-bold text-white mb-2">PromptSAP</h5>
                       <p className="text-gray-400 text-sm mb-3">KI-Agent für SAP</p>
                       <div className="text-xs text-emerald-400">Phase 2</div>
@@ -319,9 +351,20 @@ export default function CasesPage() {
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
                       
                       {/* Project Node */}
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                      <motion.div 
+                        className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mx-auto mb-4 shadow-xl"
+                        animate={{ 
+                          y: [-3, 3, -3],
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1.6
+                        }}
+                      >
                         <Users className="w-8 h-8 text-white" />
-                      </div>
+                      </motion.div>
                       <h5 className="text-lg font-bold text-white mb-2">RecruAI</h5>
                       <p className="text-gray-400 text-sm mb-3">KI-Recruiting</p>
                       <div className="text-xs text-purple-400">Phase 3</div>
