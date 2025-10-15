@@ -371,79 +371,98 @@ export default function CasesPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="group"
           >
-            <div className="bg-gray-900/50 backdrop-blur-lg rounded-3xl overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-blue-400/50 shadow-2xl hover:shadow-blue-500/20">
+            <div className="bg-gradient-to-br from-blue-50/90 to-purple-50/90 backdrop-blur-lg rounded-3xl overflow-hidden hover:from-blue-100/90 hover:to-purple-100/90 transition-all duration-700 hover:-translate-y-3 border border-blue-200/50 hover:border-blue-400/50 shadow-2xl hover:shadow-blue-500/20">
               <div className="grid lg:grid-cols-2 gap-12 items-center p-8 lg:p-12">
               {/* Left: Content */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                    <Bot className="w-6 h-6 text-white" />
+              <div className="space-y-6">
+                {/* Project Tag */}
+                <div className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">
+                  PHASE 1
+                </div>
+                
+                {/* Project Header */}
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                    <Bot className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">QA.Orchestrator</h4>
-                    <p className="text-gray-400">Agentisches Testsystem für SAP</p>
+                    <h4 className="text-3xl font-bold text-gray-900">QA.Orchestrator</h4>
+                    <p className="text-gray-600 text-lg">Agentisches Testsystem für SAP</p>
                   </div>
                 </div>
                 
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                {/* Description */}
+                <p className="text-gray-700 text-lg leading-relaxed">
                   Ein agentisches Testsystem, das Anforderungen → Tests → Ausführung → Analyse durchgängig automatisiert – mit tiefem SAP-Prozessverständnis und Change-Impact-Intelligenz.
                 </p>
 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Prozess-getriebene Orchestrierung</h5>
-                      <p className="text-gray-400 text-sm">Domänenspezifisches Prozessmodell als Knowledge Graph</p>
+                {/* Key Features */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Prozess-Orchestrierung</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">Knowledge Graph-basiert</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Change-Impact-AI für SAP</h5>
-                      <p className="text-gray-400 text-sm">Transport- & Customizing-aware Risikoanalyse</p>
+                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Change-Impact-AI</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">Risikoanalyse für SAP</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Constraint-aware Testdatengenerierung</h5>
-                      <p className="text-gray-400 text-sm">DDIC-Metadaten & Customizing-basierte Daten</p>
+                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Testdatengenerierung</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">DDIC & Customizing-aware</p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                    <div>
-                      <h5 className="text-white font-semibold">Multi-Layer Assertions</h5>
-                      <p className="text-gray-400 text-sm">UI + API + Belegfluss-Validierung</p>
+                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                      <h5 className="text-gray-900 font-semibold">Multi-Layer Tests</h5>
                     </div>
+                    <p className="text-gray-600 text-sm">UI + API + Belegfluss</p>
                   </div>
+                </div>
+
+                {/* Call to Action */}
+                <div className="flex items-center gap-3">
+                  <button className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center gap-2">
+                    Mehr erfahren
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium">
+                    Demo ansehen
+                  </button>
                 </div>
               </div>
 
               {/* Right: Visual */}
               <div className="relative">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 border border-slate-700">
+                <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-8 border border-blue-200/50">
                   <div className="grid grid-cols-2 gap-6">
-                    <div className="bg-blue-500/20 rounded-xl p-4 border border-blue-500/30">
-                      <Brain className="w-8 h-8 text-blue-400 mb-3" />
-                      <h6 className="text-white font-semibold text-sm">KI-Layer</h6>
-                      <p className="text-gray-400 text-xs">LLM-Services, CV-Models, Graph-Reasoner</p>
+                    <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <Brain className="w-8 h-8 text-blue-600 mb-4" />
+                      <h6 className="text-gray-900 font-semibold text-sm mb-2">KI-Layer</h6>
+                      <p className="text-gray-600 text-xs">LLM-Services, CV-Models, Graph-Reasoner</p>
                     </div>
-                    <div className="bg-purple-500/20 rounded-xl p-4 border border-purple-500/30">
-                      <Database className="w-8 h-8 text-purple-400 mb-3" />
-                      <h6 className="text-white font-semibold text-sm">Knowledge Layer</h6>
-                      <p className="text-gray-400 text-xs">Prozess-Graph + Metadaten</p>
+                    <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <Database className="w-8 h-8 text-purple-600 mb-4" />
+                      <h6 className="text-gray-900 font-semibold text-sm mb-2">Knowledge Layer</h6>
+                      <p className="text-gray-600 text-xs">Prozess-Graph + Metadaten</p>
                     </div>
-                    <div className="bg-green-500/20 rounded-xl p-4 border border-green-500/30">
-                      <Cog className="w-8 h-8 text-green-400 mb-3" />
-                      <h6 className="text-white font-semibold text-sm">Execution Layer</h6>
-                      <p className="text-gray-400 text-xs">Verteilte Runner, Test-Agents</p>
+                    <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <Cog className="w-8 h-8 text-green-600 mb-4" />
+                      <h6 className="text-gray-900 font-semibold text-sm mb-2">Execution Layer</h6>
+                      <p className="text-gray-600 text-xs">Verteilte Runner, Test-Agents</p>
                     </div>
-                    <div className="bg-orange-500/20 rounded-xl p-4 border border-orange-500/30">
-                      <Shield className="w-8 h-8 text-orange-400 mb-3" />
-                      <h6 className="text-white font-semibold text-sm">Governance</h6>
-                      <p className="text-gray-400 text-xs">Audit, eSign, Traceability</p>
+                    <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
+                      <Shield className="w-8 h-8 text-orange-600 mb-4" />
+                      <h6 className="text-gray-900 font-semibold text-sm mb-2">Governance</h6>
+                      <p className="text-gray-600 text-xs">Audit, eSign, Traceability</p>
                     </div>
                   </div>
                 </div>
@@ -591,7 +610,7 @@ export default function CasesPage() {
       </section>
 
       {/* PromptSAP Section */}
-      <section className="bg-gray-900 py-24 relative">
+      <section className="bg-gradient-to-br from-emerald-50 to-blue-50 py-24 relative">
         {/* Section Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10"></div>
@@ -630,7 +649,7 @@ export default function CasesPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="group"
           >
-            <div className="bg-gray-900/50 backdrop-blur-lg rounded-none overflow-hidden hover:bg-gray-800/70 transition-all duration-700 hover:-translate-y-3 border border-gray-700/50 hover:border-emerald-400/50 shadow-2xl hover:shadow-emerald-500/20">
+            <div className="bg-gradient-to-br from-emerald-50/90 to-blue-50/90 backdrop-blur-lg rounded-none overflow-hidden hover:from-emerald-100/90 hover:to-blue-100/90 transition-all duration-700 hover:-translate-y-3 border border-emerald-200/50 hover:border-emerald-400/50 shadow-2xl hover:shadow-emerald-500/20">
               <div className="grid lg:grid-cols-2 gap-12 items-center p-8 lg:p-12">
               {/* Left: Visual */}
               <div className="relative">
@@ -860,7 +879,7 @@ export default function CasesPage() {
       </section>
 
       {/* RecruAI Section */}
-      <section className="bg-black py-24 relative">
+      <section className="bg-gradient-to-br from-purple-50 to-pink-50 py-24 relative">
         {/* Section Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-500/10 via-transparent to-pink-500/10"></div>
