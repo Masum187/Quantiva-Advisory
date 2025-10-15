@@ -3,56 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* Light theme */
-  --background: 0 0% 100%;
-  --foreground: 222 84% 5%;
-  --card: 0 0% 100%;
-  --card-foreground: 222 84% 5%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222 84% 5%;
-  --primary: 222 89% 52%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 210 40% 96%;
-  --secondary-foreground: 222 84% 5%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --accent: 270 95% 62%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 222 89% 52%;
-  
-  /* Legacy variables for compatibility */
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
   --primary-teal: #0f766e;
   --primary-teal-light: #14b8a6;
   --primary-teal-dark: #0d5850;
-}
-
-.dark {
-  --background: 222 84% 5%;
-  --foreground: 210 40% 98%;
-  --card: 222 84% 5%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222 84% 5%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 222 89% 62%;
-  --primary-foreground: 222 84% 5%;
-  --secondary: 217 33% 17%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217 33% 17%;
-  --muted-foreground: 215 20% 65%;
-  --accent: 270 95% 70%;
-  --accent-foreground: 222 84% 5%;
-  --destructive: 0 62% 50%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217 33% 17%;
-  --input: 217 33% 17%;
-  --ring: 222 89% 62%;
 }
 
 * {
@@ -68,13 +24,13 @@ body {
 }
 
 body {
-  color: hsl(var(--foreground));
-  background: 
-    radial-gradient(120% 60% at 50% -10%, hsl(var(--accent) / 0.06), transparent),
-    hsl(var(--background));
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 a {
@@ -89,59 +45,50 @@ html {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--muted));
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
-  border-radius: 4px;
+  background: var(--primary-teal);
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--accent));
+  background: var(--primary-teal-dark);
 }
 
-/* Typography & Fluid Type */
-h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; }
-h2 { font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 600; line-height: 1.2; }
-h3 { font-size: clamp(1.25rem, 3vw, 2rem); font-weight: 600; line-height: 1.3; }
-h4 { font-size: clamp(1.125rem, 2.5vw, 1.5rem); font-weight: 600; line-height: 1.4; }
-h5 { font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 600; line-height: 1.4; }
-h6 { font-size: clamp(0.875rem, 1.5vw, 1.125rem); font-weight: 600; line-height: 1.4; }
-
-/* Vertical Rhythm */
-h1, h2, h3, h4, h5, h6 { margin-bottom: 1rem; }
-p { margin-bottom: 0.75rem; line-height: 1.6; }
-
-/* Modern Animations */
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-@keyframes revealUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
 }
 
-@keyframes spotlight {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out;
 }
-
-.animate-fade-in { animation: fadeIn 0.5s ease-in; }
-.animate-slide-up { animation: slideUp 0.5s ease-out; }
-.animate-reveal-up { animation: revealUp 0.6s ease-out forwards; }
-.animate-spotlight { animation: spotlight 0.3s ease-out forwards; }
 
 /* Floating animation for bubbles */
 @keyframes float {
@@ -172,131 +119,6 @@ p { margin-bottom: 0.75rem; line-height: 1.6; }
 
 .animate-pulse-slow {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Modern Card Styles */
-.card-modern {
-  @apply rounded-2xl shadow-sm hover:shadow-md transition-[transform,box-shadow] duration-200 will-change-transform;
-  @apply ring-1 ring-border hover:ring-primary/40 relative overflow-hidden;
-  @apply bg-card/50 backdrop-blur-sm border border-border/50;
-}
-
-.card-modern:hover {
-  @apply -translate-y-1 shadow-lg;
-}
-
-/* Gradient Border Effect */
-.card-gradient-border {
-  position: relative;
-}
-
-.card-gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: conic-gradient(from var(--gradient-angle, 0deg), 
-    hsl(var(--accent)), 
-    hsl(var(--primary)), 
-    hsl(var(--accent)));
-  border-radius: inherit;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: xor;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.card-gradient-border:hover::before {
-  opacity: 1;
-}
-
-/* Spotlight Hover Effect */
-.spotlight-hover {
-  position: relative;
-  overflow: hidden;
-}
-
-.spotlight-hover::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-    hsl(var(--accent) / 0.1) 0%, 
-    transparent 50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.spotlight-hover:hover::after {
-  opacity: 1;
-}
-
-/* Focus States */
-.focus-visible:focus-visible {
-  @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
-}
-
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* View Transitions API */
-@supports (view-transition-name: root) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.3s;
-  }
-}
-
-/* Ambient Gradient Scroll Effect */
-body {
-  --scroll-progress: 0%;
-}
-
-.ambient-gradient {
-  background: 
-    radial-gradient(circle at 20% 20%, hsl(var(--accent) / calc(0.02 + var(--scroll-progress) * 0.01)), transparent 50%),
-    radial-gradient(circle at 80% 80%, hsl(var(--primary) / calc(0.02 + var(--scroll-progress) * 0.01)), transparent 50%),
-    radial-gradient(circle at 40% 60%, hsl(var(--accent) / calc(0.01 + var(--scroll-progress) * 0.005)), transparent 50%);
-}
-
-/* Command Palette Styles */
-.command-palette-backdrop {
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.command-palette-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: hsl(var(--foreground));
-}
-
-.command-palette-input::placeholder {
-  color: hsl(var(--muted-foreground));
-}
-
-.command-item {
-  transition: all 0.2s ease;
-}
-
-.command-item:hover {
-  background: hsl(var(--muted) / 0.5);
-}
-
-.command-item.selected {
-  background: hsl(var(--primary) / 0.1);
-  border: 1px solid hsl(var(--primary) / 0.2);
 }
 
 
