@@ -391,9 +391,121 @@ export default function CasesPage() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Future & Past
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Wo Quantiva Advisory als nächstes hinsteuert – und wie unsere KI-Expertise die Zukunft des SAP-Testing prägt.
-            </p>
+          </motion.div>
+
+          {/* Roadmap Tree Structure */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-16"
+          >
+            <div className="bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-gray-700/50">
+              <h3 className="text-2xl font-bold text-white mb-8 text-center">Innovation Roadmap</h3>
+              
+              {/* Tree Structure */}
+              <div className="relative">
+                {/* Central Node - Quantiva */}
+                <div className="flex justify-center mb-8">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl">
+                    <span className="text-white font-bold text-lg">Q</span>
+                  </div>
+                </div>
+                <div className="text-center mb-12">
+                  <h4 className="text-xl font-bold text-white">Quantiva Advisory</h4>
+                  <p className="text-gray-400 text-sm">KI-Expertise & Innovation Hub</p>
+                </div>
+
+                {/* Branch Lines */}
+                <div className="absolute top-32 left-1/2 transform -translate-x-1/2 w-px h-24 bg-gradient-to-b from-teal-500 to-transparent"></div>
+                
+                {/* Three Main Branches */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                  {/* QA.Orchestrator Branch */}
+                  <div className="relative">
+                    <div className="text-center">
+                      {/* Branch Line */}
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gradient-to-b from-blue-500 to-transparent"></div>
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+                      
+                      {/* Project Node */}
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <Bot className="w-8 h-8 text-white" />
+                      </div>
+                      <h5 className="text-lg font-bold text-white mb-2">QA.Orchestrator</h5>
+                      <p className="text-gray-400 text-sm mb-3">Agentisches Testsystem</p>
+                      <div className="text-xs text-blue-400">Phase 1</div>
+                    </div>
+                  </div>
+
+                  {/* PromptSAP Branch */}
+                  <div className="relative">
+                    <div className="text-center">
+                      {/* Branch Line */}
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gradient-to-b from-emerald-500 to-transparent"></div>
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent"></div>
+                      
+                      {/* Project Node */}
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <Brain className="w-8 h-8 text-white" />
+                      </div>
+                      <h5 className="text-lg font-bold text-white mb-2">PromptSAP</h5>
+                      <p className="text-gray-400 text-sm mb-3">KI-Agent für SAP</p>
+                      <div className="text-xs text-emerald-400">Phase 2</div>
+                    </div>
+                  </div>
+
+                  {/* RecruAI Branch */}
+                  <div className="relative">
+                    <div className="text-center">
+                      {/* Branch Line */}
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gradient-to-b from-purple-500 to-transparent"></div>
+                      <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
+                      
+                      {/* Project Node */}
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mx-auto mb-4 shadow-xl">
+                        <Users className="w-8 h-8 text-white" />
+                      </div>
+                      <h5 className="text-lg font-bold text-white mb-2">RecruAI</h5>
+                      <p className="text-gray-400 text-sm mb-3">KI-Recruiting</p>
+                      <div className="text-xs text-purple-400">Phase 3</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Future Extensions */}
+                <div className="mt-12 pt-8 border-t border-gray-700/50">
+                  <div className="text-center">
+                    <div className="inline-flex items-center gap-2 text-gray-400 text-sm mb-4">
+                      <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+                      <span>Zukünftige Erweiterungen</span>
+                      <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+                    </div>
+                    <div className="flex justify-center gap-6 flex-wrap">
+                      <div className="text-center">
+                        <div className="w-12 h-12 rounded-lg bg-gray-700/50 flex items-center justify-center mx-auto mb-2">
+                          <Database className="w-6 h-6 text-gray-400" />
+                        </div>
+                        <span className="text-gray-500 text-xs">Data Platform</span>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 rounded-lg bg-gray-700/50 flex items-center justify-center mx-auto mb-2">
+                          <Shield className="w-6 h-6 text-gray-400" />
+                        </div>
+                        <span className="text-gray-500 text-xs">Security AI</span>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 rounded-lg bg-gray-700/50 flex items-center justify-center mx-auto mb-2">
+                          <Cog className="w-6 h-6 text-gray-400" />
+                        </div>
+                        <span className="text-gray-500 text-xs">Automation</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
           {/* QA.Orchestrator Project */}
