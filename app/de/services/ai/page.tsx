@@ -390,29 +390,6 @@ export default function AIServicePage() {
             ))}
           </div>
 
-          {/* Studies CTA */}
-          <SlideIn delay={0.8}>
-            <div className="text-center mt-16">
-              <div className="max-w-4xl mx-auto bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 backdrop-blur-sm rounded-2xl p-8">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                  AI Use Case Erfolgsfaktoren (2025)
-                </h3>
-                <p className="text-white/80 text-lg mb-8 max-w-3xl mx-auto leading-relaxed">
-                  Analysen zeigen: Strukturierte Discovery-Prozesse sind entscheidend für den Business Impact von KI-Projekten und verhindern Ressourcenverschwendung durch unklare Anwendungsfälle.
-                </p>
-                <div className="flex justify-center">
-                  <a
-                    href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white font-semibold text-lg hover:text-purple-200 transition-colors duration-300 flex items-center gap-2"
-                  >
-                    Whitepaper lesen →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </SlideIn>
         </div>
       </section>
 
