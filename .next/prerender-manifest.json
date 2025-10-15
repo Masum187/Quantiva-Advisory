@@ -1,7 +1,7 @@
 {
   "version": 4,
   "routes": {
-    "/de/services/cyber-security": {
+    "/de/about": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -14,8 +14,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/de/services/cyber-security",
-      "dataRoute": "/de/services/cyber-security.rsc",
+      "srcRoute": "/de/about",
+      "dataRoute": "/de/about.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -40,30 +40,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/",
       "dataRoute": "/index.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/de/services/digital-strategy": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/de/services/digital-strategy",
-      "dataRoute": "/de/services/digital-strategy.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -98,7 +74,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/about": {
+    "/de/services/ai": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -111,8 +87,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/en/about",
-      "dataRoute": "/en/about.rsc",
+      "srcRoute": "/de/services/ai",
+      "dataRoute": "/de/services/ai.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -122,7 +98,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/career": {
+    "/de/services/digital-strategy": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -135,8 +111,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/en/career",
-      "dataRoute": "/en/career.rsc",
+      "srcRoute": "/de/services/digital-strategy",
+      "dataRoute": "/de/services/digital-strategy.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -146,7 +122,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/de/career": {
+    "/de": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -159,80 +135,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/de/career",
-      "dataRoute": "/de/career.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/de/cases": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/de/cases",
-      "dataRoute": "/de/cases.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/en/cases": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/en/cases",
-      "dataRoute": "/en/cases.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/en": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/en",
-      "dataRoute": "/en.rsc",
+      "srcRoute": "/de",
+      "dataRoute": "/de.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -266,7 +170,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/services/ai": {
+    "/en/services/cyber-security": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -279,8 +183,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/en/services/ai",
-      "dataRoute": "/en/services/ai.rsc",
+      "srcRoute": "/en/services/cyber-security",
+      "dataRoute": "/en/services/cyber-security.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -290,7 +194,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/services/cloud": {
+    "/de/career": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -303,8 +207,56 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/en/services/cloud",
-      "dataRoute": "/en/services/cloud.rsc",
+      "srcRoute": "/de/career",
+      "dataRoute": "/de/career.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/en/cases": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/en/cases",
+      "dataRoute": "/en/cases.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/de/services/cyber-security": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/de/services/cyber-security",
+      "dataRoute": "/de/services/cyber-security.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -338,7 +290,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/services/sap": {
+    "/en/services/ai": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -351,8 +303,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/en/services/sap",
-      "dataRoute": "/en/services/sap.rsc",
+      "srcRoute": "/en/services/ai",
+      "dataRoute": "/en/services/ai.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -362,7 +314,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/de/services/ai": {
+    "/en": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -375,8 +327,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/de/services/ai",
-      "dataRoute": "/de/services/ai.rsc",
+      "srcRoute": "/en",
+      "dataRoute": "/en.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -386,7 +338,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/en/services/cyber-security": {
+    "/en/services/cloud": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -399,80 +351,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/en/services/cyber-security",
-      "dataRoute": "/en/services/cyber-security.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/de/services/microservices": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/de/services/microservices",
-      "dataRoute": "/de/services/microservices.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/de/services/cloud": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/de/services/cloud",
-      "dataRoute": "/de/services/cloud.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/en/team": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/en/team",
-      "dataRoute": "/en/team.rsc",
+      "srcRoute": "/en/services/cloud",
+      "dataRoute": "/en/services/cloud.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -506,6 +386,54 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/en/services/sap": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/en/services/sap",
+      "dataRoute": "/en/services/sap.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/en/team": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/en/team",
+      "dataRoute": "/en/team.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/de/services/sap": {
       "experimentalBypassFor": [
         {
@@ -530,7 +458,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/de/about": {
+    "/de/services/cloud": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -543,8 +471,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/de/about",
-      "dataRoute": "/de/about.rsc",
+      "srcRoute": "/de/services/cloud",
+      "dataRoute": "/de/services/cloud.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -554,7 +482,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/de": {
+    "/en/career": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -567,8 +495,80 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/de",
-      "dataRoute": "/de.rsc",
+      "srcRoute": "/en/career",
+      "dataRoute": "/en/career.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/en/about": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/en/about",
+      "dataRoute": "/en/about.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/de/cases": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/de/cases",
+      "dataRoute": "/de/cases.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/de/services/microservices": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/de/services/microservices",
+      "dataRoute": "/de/services/microservices.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",

@@ -377,9 +377,14 @@ export default function AIServicePage() {
                     </p>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-purple-300 text-sm font-semibold">
+                      <a
+                        href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-300 text-sm font-semibold hover:text-purple-200 transition-colors duration-300"
+                      >
                         Whitepaper lesen →
-                      </span>
+                      </a>
                       <div className="flex items-center gap-2 text-gray-400 text-xs">
                         <span>{study.date}</span>
                       </div>
