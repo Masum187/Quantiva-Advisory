@@ -434,15 +434,9 @@ export default function CasesPage() {
                     Mehr erfahren
                     <ArrowRight className="w-4 h-4" />
                   </button>
-                  <a 
-                    href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium flex items-center gap-2"
-                  >
-                    Whitepaper lesen
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
+                  <button className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium">
+                    Demo ansehen
+                  </button>
                 </div>
               </div>
 
@@ -746,15 +740,9 @@ export default function CasesPage() {
                     Mehr erfahren
                     <ArrowRight className="w-4 h-4" />
                   </button>
-                  <a 
-                    href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium flex items-center gap-2"
-                  >
-                    Whitepaper lesen
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
+                  <button className="px-6 py-3 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium">
+                    Demo ansehen
+                  </button>
                 </div>
               </div>
             </div>

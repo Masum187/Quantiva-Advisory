@@ -393,17 +393,28 @@ export default function AIServicePage() {
           {/* Studies CTA */}
           <SlideIn delay={0.8}>
             <div className="text-center mt-16">
-              <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 backdrop-blur-sm">
+              <div className="inline-flex flex-col sm:flex-row items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 backdrop-blur-sm">
                 <span className="text-white/80">
                   Interesse an detaillierten Studienergebnissen?
                 </span>
-                <Link
-                  href="/de#contact"
-                  className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:scale-105"
-                >
-                  Kontakt aufnehmen
-                  <CheckCircle className="h-4 w-4" />
-                </Link>
+                <div className="flex gap-3">
+                  <Link
+                    href="/de#contact"
+                    className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:scale-105"
+                  >
+                    Kontakt aufnehmen
+                    <CheckCircle className="h-4 w-4" />
+                  </Link>
+                  <a
+                    href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-2 bg-white/10 text-white border border-white/20 rounded-xl hover:bg-white/20 transition-all duration-300 shadow-lg hover:scale-105"
+                  >
+                    Whitepaper lesen
+                    <CheckCircle className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </div>
           </SlideIn>
