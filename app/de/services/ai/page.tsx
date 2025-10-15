@@ -83,42 +83,48 @@ export default function AIServicePage() {
       description: 'Strategien zur Identifikation & Umsetzung von KI-Anwendungsfällen, inkl. Marktbeispiele und Self-Assessment für Unternehmen.',
       topic: 'Use Case Discovery',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop',
+      url: 'https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung'
     },
     {
       title: 'AI Compliance & Guardrails (2025)',
       description: 'Überblick zu regulatorischen Anforderungen (EU AI Act, ISO 42001, NIST RMF) und den aktuellen Trends in der AI-Governance.',
       topic: 'Compliance & Guardrails',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop',
+      url: 'https://www.sciencedirect.com/science/article/pii/S0007681325001387'
     },
     {
       title: 'MLOps & GenAI Summit Case Studies (2025)',
       description: 'Erfahrungsberichte & Best Practices zu GenAI, MLOps und Agentic AI in der Praxis. Lessons Learned aus erfolgreichen Implementierungen.',
       topic: 'MLOps & GenAI',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop',
+      url: 'https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung'
     },
     {
       title: 'AI Use Case Erfolgsfaktoren (2025)',
       description: 'Analysen zeigen: Strukturierte Discovery-Prozesse sind entscheidend für den Business Impact von KI-Projekten und verhindern Ressourcenverschwendung.',
       topic: 'Success Factors',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+      url: 'https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung'
     },
     {
       title: 'EU AI Act Implementation Guide (2025)',
       description: 'Praktische Anleitung zur Umsetzung der EU AI Act Anforderungen in Unternehmen. Compliance-Framework und Best Practices.',
       topic: 'EU AI Act',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
+      url: 'https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung'
     },
     {
       title: 'Generative AI Business Impact Study (2025)',
       description: 'Umfassende Studie zu den Geschäftsauswirkungen von Generative AI in verschiedenen Industrien und Anwendungsbereichen.',
       topic: 'GenAI Impact',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=1200&auto=format&fit=crop',
+      url: 'https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung'
     }
   ];
 
@@ -378,7 +384,7 @@ export default function AIServicePage() {
 
                     <div className="flex items-center justify-between">
                       <a
-                        href="https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung"
+                        href={study.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-purple-300 text-sm font-semibold hover:text-purple-200 transition-colors duration-300"
