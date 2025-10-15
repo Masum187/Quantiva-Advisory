@@ -100,7 +100,7 @@ export default function AIServicePage() {
       topic: 'MLOps & GenAI',
       date: '2025',
       image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop',
-      url: 'https://skopos-elements.de/wissen/whitepaper/ai-use-case-discovery-ki-marktforschung'
+      url: 'https://mlopsworld.com/'
     },
     {
       title: 'AI Use Case Erfolgsfaktoren (2025)',
