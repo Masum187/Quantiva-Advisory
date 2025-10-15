@@ -5,6 +5,8 @@ import casesData from '../../lib/data/cases.json';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Head from 'next/head';
+import CommandPalette from '../../components/CommandPalette';
 import { 
   Brain, 
   Cog, 
@@ -39,8 +41,118 @@ export default function CasesPage() {
     return () => clearInterval(interval);
   }, [videos]);
 
+  // Ambient gradient scroll effect
+  React.useEffect(() => {
+    const updateScrollProgress = () => {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = scrollTop / docHeight;
+      document.documentElement.style.setProperty('--scroll-progress', `${scrollPercent}`);
+    };
+
+    window.addEventListener('scroll', updateScrollProgress);
+    return () => window.removeEventListener('scroll', updateScrollProgress);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden dark">
+    <>
+      {/* SEO Meta Tags */}
+      <Head>
+        <title>Projekte & Innovation - Quantiva Advisory</title>
+        <meta name="description" content="Entdecken Sie unsere innovativen KI-Projekte: QA.Orchestrator, PromptSAP und RecruAI. Zukunftsweisende Technologien für die digitale Transformation." />
+        <meta name="keywords" content="KI-Projekte, SAP-Beratung, QA.Orchestrator, PromptSAP, RecruAI, Innovation, Quantiva Advisory" />
+        <meta property="og:title" content="Projekte & Innovation - Quantiva Advisory" />
+        <meta property="og:description" content="Entdecken Sie unsere innovativen KI-Projekte und zukunftsweisende Technologien für die digitale Transformation." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://quantivaadvisory-masum187s-projects.vercel.app/de/cases" />
+        <meta property="og:image" content="https://quantivaadvisory-masum187s-projects.vercel.app/assets/og/cases.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Projekte & Innovation - Quantiva Advisory" />
+        <meta name="twitter:description" content="Entdecken Sie unsere innovativen KI-Projekte und zukunftsweisende Technologien." />
+        <meta name="twitter:image" content="https://quantivaadvisory-masum187s-projects.vercel.app/assets/og/cases.jpg" />
+        <link rel="canonical" href="https://quantivaadvisory-masum187s-projects.vercel.app/de/cases" />
+        <link rel="alternate" hrefLang="de" href="https://quantivaadvisory-masum187s-projects.vercel.app/de/cases" />
+        <link rel="alternate" hrefLang="en" href="https://quantivaadvisory-masum187s-projects.vercel.app/en/cases" />
+        
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "name": "Projekte & Innovation - Quantiva Advisory",
+              "description": "Entdecken Sie unsere innovativen KI-Projekte und zukunftsweisende Technologien für die digitale Transformation.",
+              "url": "https://quantivaadvisory-masum187s-projects.vercel.app/de/cases",
+              "mainEntity": {
+                "@type": "ItemList",
+                "itemListElement": [
+                  {
+                    "@type": "CreativeWork",
+                    "position": 1,
+                    "name": "QA.Orchestrator",
+                    "description": "Agentisches Testsystem für SAP mit KI-gestützter Prozess-Orchestrierung",
+                    "creator": {
+                      "@type": "Organization",
+                      "name": "Quantiva Advisory"
+                    }
+                  },
+                  {
+                    "@type": "CreativeWork", 
+                    "position": 2,
+                    "name": "PromptSAP",
+                    "description": "KI-Agent für SAP mit natürlicher Sprachverarbeitung",
+                    "creator": {
+                      "@type": "Organization",
+                      "name": "Quantiva Advisory"
+                    }
+                  },
+                  {
+                    "@type": "CreativeWork",
+                    "position": 3,
+                    "name": "RecruAI",
+                    "description": "KI-gestütztes Recruiting-System für intelligente Personalauswahl",
+                    "creator": {
+                      "@type": "Organization",
+                      "name": "Quantiva Advisory"
+                    }
+                  }
+                ]
+              },
+              "breadcrumb": {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Startseite",
+                    "item": "https://quantivaadvisory-masum187s-projects.vercel.app/de"
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Projekte",
+                    "item": "https://quantivaadvisory-masum187s-projects.vercel.app/de/cases"
+                  }
+                ]
+              }
+            })
+          }}
+        />
+      </Head>
+
+      {/* Skip Link for Accessibility */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:shadow-lg"
+      >
+        Zum Hauptinhalt springen
+      </a>
+
+      {/* Command Palette */}
+      <CommandPalette />
+      
+      <div className="min-h-screen bg-background ambient-gradient relative overflow-hidden dark">
       {/* Full-Page Half-Circle Video */}
       <motion.div
         initial={{ x: "100%" }}
@@ -86,7 +198,7 @@ export default function CasesPage() {
       </motion.div>
 
       {/* Hero Section - Modern Dark */}
-      <section className="relative bg-background text-foreground py-24 z-10">
+      <section id="main-content" className="relative bg-background text-foreground py-24 z-10">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text Content */}
@@ -137,7 +249,8 @@ export default function CasesPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsVideoExpanded(!isVideoExpanded)}
-                className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto lg:mx-0"
+                className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto lg:mx-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                aria-label={isVideoExpanded ? "Video reduzieren" : "Video vergrößern"}
               >
                 {isVideoExpanded ? (
                   <>
@@ -257,7 +370,7 @@ export default function CasesPage() {
             className="mb-16"
           >
             <div className="bg-gray-900/50 backdrop-blur-lg rounded-2xl p-8 border border-gray-700/50">
-              <h3 className="text-2xl font-bold text-white mb-8 text-center">Innovation Roadmap</h3>
+              <h2 className="text-2xl font-bold text-white mb-8 text-center">Innovation Roadmap</h2>
               
               {/* Tree Structure */}
               <div className="relative">
@@ -278,7 +391,7 @@ export default function CasesPage() {
                   </motion.div>
                 </div>
                 <div className="text-center mb-12">
-                  <h4 className="text-xl font-bold text-white">Quantiva Advisory</h4>
+                  <h3 className="text-xl font-bold text-white">Quantiva Advisory</h3>
                   <p className="text-gray-400 text-sm">KI-Expertise & Innovation Hub</p>
                 </div>
 
@@ -309,7 +422,7 @@ export default function CasesPage() {
                       >
                         <Bot className="w-8 h-8 text-white" />
                       </motion.div>
-                      <h5 className="text-lg font-bold text-white mb-2">QA.Orchestrator</h5>
+                      <h4 className="text-lg font-bold text-white mb-2">QA.Orchestrator</h4>
                       <p className="text-gray-400 text-sm mb-3">Agentisches Testsystem</p>
                       <div className="text-xs text-blue-400">Phase 1</div>
                     </div>
@@ -337,7 +450,7 @@ export default function CasesPage() {
                       >
                         <Brain className="w-8 h-8 text-white" />
                       </motion.div>
-                      <h5 className="text-lg font-bold text-white mb-2">PromptSAP</h5>
+                      <h4 className="text-lg font-bold text-white mb-2">PromptSAP</h4>
                       <p className="text-gray-400 text-sm mb-3">KI-Agent für SAP</p>
                       <div className="text-xs text-emerald-400">Phase 2</div>
                     </div>
@@ -365,7 +478,7 @@ export default function CasesPage() {
                       >
                         <Users className="w-8 h-8 text-white" />
                       </motion.div>
-                      <h5 className="text-lg font-bold text-white mb-2">RecruAI</h5>
+                      <h4 className="text-lg font-bold text-white mb-2">RecruAI</h4>
                       <p className="text-gray-400 text-sm mb-3">KI-Recruiting</p>
                       <div className="text-xs text-purple-400">Phase 3</div>
                     </div>
@@ -1464,6 +1577,7 @@ export default function CasesPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }
 
