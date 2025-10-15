@@ -50,8 +50,8 @@ export default function CasesPage() {
       >
         <div className="relative w-full h-full">
           {/* Half-Circle Shape */}
-          <div className="absolute top-0 right-0 w-[120vw] h-[80vh] overflow-hidden">
-            <div className="w-full h-full bg-gradient-to-r from-teal-500/10 to-purple-500/10 rounded-full transform translate-x-1/3">
+          <div className="absolute top-0 right-0 w-[80vw] h-[60vh] overflow-hidden">
+            <div className="w-full h-full bg-gradient-to-r from-teal-500/10 to-purple-500/10 rounded-full transform translate-x-1/4">
               {videos.map((videoSrc, index) => (
                 <motion.video
                   key={videoSrc}
@@ -60,7 +60,7 @@ export default function CasesPage() {
                     opacity: isVideoExpanded ? (index === currentVideoIndex ? 1 : 0) : (index === currentVideoIndex ? 0.3 : 0)
                   }}
                   transition={{ duration: 0.8 }}
-                  className="absolute inset-0 w-full h-full object-cover rounded-full"
+                  className="absolute inset-0 w-full h-full object-contain rounded-full"
                   autoPlay
                   muted
                   loop
@@ -80,7 +80,7 @@ export default function CasesPage() {
               scale: isVideoExpanded ? 1.1 : 1
             }}
             transition={{ duration: 0.8 }}
-            className="absolute top-0 right-0 w-[120vw] h-[80vh] rounded-full bg-gradient-to-r from-teal-400/30 via-purple-400/30 to-pink-400/30 blur-3xl"
+            className="absolute top-0 right-0 w-[80vw] h-[60vh] rounded-full bg-gradient-to-r from-teal-400/30 via-purple-400/30 to-pink-400/30 blur-3xl"
           />
         </div>
       </motion.div>
