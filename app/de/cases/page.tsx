@@ -40,7 +40,7 @@ export default function CasesPage() {
   }, [videos]);
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden dark">
       {/* Full-Page Half-Circle Video */}
       <motion.div
         initial={{ x: "100%" }}
@@ -86,7 +86,7 @@ export default function CasesPage() {
       </motion.div>
 
       {/* Hero Section - Modern Dark */}
-      <section className="relative bg-black text-white py-24 z-10">
+      <section className="relative bg-background text-foreground py-24 z-10">
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text Content */}
@@ -103,7 +103,7 @@ export default function CasesPage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="w-20 h-20 mb-8 rounded-2xl bg-gradient-to-br from-teal-500 to-purple-600 flex items-center justify-center shadow-2xl"
               >
-                <span className="text-white font-bold text-3xl">Q</span>
+                <span className="text-foreground font-bold text-3xl">Q</span>
               </motion.div>
 
               {/* Main Title with Gradient */}
@@ -123,7 +123,7 @@ export default function CasesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-xl text-gray-300 leading-relaxed mb-8"
+                className="text-xl text-muted-foreground leading-relaxed mb-8"
               >
                 Erfolgsgeschichten aus verschiedenen Branchen und Technologien.
                 Erfahren Sie, wie wir unseren Kunden zu digitalem Erfolg verhelfen.
@@ -414,12 +414,12 @@ export default function CasesPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="group"
           >
-            <div className="bg-gradient-to-br from-blue-50/90 to-purple-50/90 backdrop-blur-lg rounded-3xl overflow-hidden hover:from-blue-100/90 hover:to-purple-100/90 transition-all duration-700 hover:-translate-y-3 border border-blue-200/50 hover:border-blue-400/50 shadow-2xl hover:shadow-blue-500/20">
+            <div className="card-modern card-gradient-border spotlight-hover bg-gradient-to-br from-blue-50/90 to-purple-50/90 dark:from-blue-950/90 dark:to-purple-950/90 hover:from-blue-100/90 hover:to-purple-100/90 dark:hover:from-blue-900/90 dark:hover:to-purple-900/90 transition-all duration-700 hover:-translate-y-3 border border-blue-200/50 hover:border-blue-400/50 dark:border-blue-800/50 dark:hover:border-blue-600/50 shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20">
               <div className="grid lg:grid-cols-2 gap-12 items-center p-8 lg:p-12">
               {/* Left: Content */}
               <div className="space-y-6">
                 {/* Project Tag */}
-                <div className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">
+                <div className="inline-flex items-center px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-sm font-medium rounded-full">
                   PHASE 1
                 </div>
                 
@@ -429,45 +429,45 @@ export default function CasesPage() {
                     <Bot className="w-8 h-8 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-3xl font-bold text-gray-900">QA.Orchestrator</h4>
-                    <p className="text-gray-600 text-lg">Agentisches Testsystem für SAP</p>
+                  <h4 className="text-3xl font-bold text-foreground">QA.Orchestrator</h4>
+                  <p className="text-muted-foreground text-lg">Agentisches Testsystem für SAP</p>
                   </div>
                 </div>
                 
                 {/* Description */}
-                <p className="text-gray-700 text-lg leading-relaxed">
+                <p className="text-foreground text-lg leading-relaxed">
                   Ein agentisches Testsystem, das Anforderungen → Tests → Ausführung → Analyse durchgängig automatisiert – mit tiefem SAP-Prozessverständnis und Change-Impact-Intelligenz.
                 </p>
 
                 {/* Key Features */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                  <div className="bg-white/60 dark:bg-white/10 rounded-xl p-4 border border-blue-200/50 dark:border-blue-800/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Prozess-Orchestrierung</h5>
+                      <h5 className="text-foreground font-semibold">Prozess-Orchestrierung</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">Knowledge Graph-basiert</p>
+                    <p className="text-muted-foreground text-sm">Knowledge Graph-basiert</p>
                   </div>
-                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                  <div className="bg-white/60 dark:bg-white/10 rounded-xl p-4 border border-blue-200/50 dark:border-blue-800/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Change-Impact-AI</h5>
+                      <h5 className="text-foreground font-semibold">Change-Impact-AI</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">Risikoanalyse für SAP</p>
+                    <p className="text-muted-foreground text-sm">Risikoanalyse für SAP</p>
                   </div>
-                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                  <div className="bg-white/60 dark:bg-white/10 rounded-xl p-4 border border-blue-200/50 dark:border-blue-800/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Testdatengenerierung</h5>
+                      <h5 className="text-foreground font-semibold">Testdatengenerierung</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">DDIC & Customizing-aware</p>
+                    <p className="text-muted-foreground text-sm">DDIC & Customizing-aware</p>
                   </div>
-                  <div className="bg-white/60 rounded-xl p-4 border border-blue-200/50">
+                  <div className="bg-white/60 dark:bg-white/10 rounded-xl p-4 border border-blue-200/50 dark:border-blue-800/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Multi-Layer Tests</h5>
+                      <h5 className="text-foreground font-semibold">Multi-Layer Tests</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">UI + API + Belegfluss</p>
+                    <p className="text-muted-foreground text-sm">UI + API + Belegfluss</p>
                   </div>
                 </div>
 
@@ -489,22 +489,22 @@ export default function CasesPage() {
                   <div className="grid grid-cols-2 gap-6">
                     <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
                       <Brain className="w-8 h-8 text-blue-600 mb-4" />
-                      <h6 className="text-gray-900 font-semibold text-sm mb-2">KI-Layer</h6>
+                      <h6 className="text-foreground font-semibold text-sm mb-2">KI-Layer</h6>
                       <p className="text-gray-600 text-xs">LLM-Services, CV-Models, Graph-Reasoner</p>
                     </div>
                     <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
                       <Database className="w-8 h-8 text-purple-600 mb-4" />
-                      <h6 className="text-gray-900 font-semibold text-sm mb-2">Knowledge Layer</h6>
+                      <h6 className="text-foreground font-semibold text-sm mb-2">Knowledge Layer</h6>
                       <p className="text-gray-600 text-xs">Prozess-Graph + Metadaten</p>
                     </div>
                     <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
                       <Cog className="w-8 h-8 text-green-600 mb-4" />
-                      <h6 className="text-gray-900 font-semibold text-sm mb-2">Execution Layer</h6>
+                      <h6 className="text-foreground font-semibold text-sm mb-2">Execution Layer</h6>
                       <p className="text-gray-600 text-xs">Verteilte Runner, Test-Agents</p>
                     </div>
                     <div className="bg-white/80 rounded-xl p-6 border border-blue-200/50 shadow-sm">
                       <Shield className="w-8 h-8 text-orange-600 mb-4" />
-                      <h6 className="text-gray-900 font-semibold text-sm mb-2">Governance</h6>
+                      <h6 className="text-foreground font-semibold text-sm mb-2">Governance</h6>
                       <p className="text-gray-600 text-xs">Audit, eSign, Traceability</p>
                     </div>
                   </div>
@@ -750,30 +750,30 @@ export default function CasesPage() {
                   <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Prompt-to-Change</h5>
+                      <h5 className="text-foreground font-semibold">Prompt-to-Change</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">Natürliche Sprache zu SAP-Änderungen</p>
+                    <p className="text-muted-foreground text-sm">Natürliche Sprache zu SAP-Änderungen</p>
                   </div>
                   <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Impact-Analyse</h5>
+                      <h5 className="text-foreground font-semibold">Impact-Analyse</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">Automatische Abhängigkeitsanalyse</p>
+                    <p className="text-muted-foreground text-sm">Automatische Abhängigkeitsanalyse</p>
                   </div>
                   <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Testgenerierung</h5>
+                      <h5 className="text-foreground font-semibold">Testgenerierung</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">Unit-, API- und E2E-Tests</p>
+                    <p className="text-muted-foreground text-sm">Unit-, API- und E2E-Tests</p>
                   </div>
                   <div className="bg-white/60 rounded-xl p-4 border border-emerald-200/50">
                     <div className="flex items-center gap-3 mb-2">
                       <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                      <h5 className="text-gray-900 font-semibold">Transport-Simulation</h5>
+                      <h5 className="text-foreground font-semibold">Transport-Simulation</h5>
                     </div>
-                    <p className="text-gray-600 text-sm">Dry-Run mit Validierung</p>
+                    <p className="text-muted-foreground text-sm">Dry-Run mit Validierung</p>
                   </div>
                 </div>
 
