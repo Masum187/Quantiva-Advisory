@@ -263,7 +263,7 @@ export default function CasesPage() {
         </section>
 
         {/* Case Studies Grid - Solana Style */}
-        <section className="bg-black py-24 relative">
+        <section className="bg-black pt-0 pb-24 relative">
           <div className="max-w-7xl mx-auto px-6">
             {/* Section Header */}
             <motion.div
