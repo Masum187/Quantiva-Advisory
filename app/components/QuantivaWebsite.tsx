@@ -482,8 +482,50 @@ export default function QuantivaWebsite() {
       {/* Navbar */}
       <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80 border-b border-white/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
-          <div className="text-xl font-bold tracking-tight">
-            Quantiva <span className="text-teal-400">Advisory</span>
+          <div className="flex items-center gap-3">
+            {/* Quantiva Logo */}
+            <div className="w-8 h-8 relative">
+              <svg viewBox="0 0 100 100" className="w-full h-full text-teal-400">
+                {/* Outer Hexagon */}
+                <polygon 
+                  points="50,5 85,25 85,75 50,95 15,75 15,25" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                />
+                {/* Inner Hexagon */}
+                <polygon 
+                  points="50,20 70,30 70,70 50,80 30,70 30,30" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="1.5"
+                />
+                {/* Network Lines */}
+                <line x1="50" y1="20" x2="50" y2="5" stroke="currentColor" strokeWidth="1"/>
+                <line x1="70" y1="30" x2="85" y2="25" stroke="currentColor" strokeWidth="1"/>
+                <line x1="70" y1="70" x2="85" y2="75" stroke="currentColor" strokeWidth="1"/>
+                <line x1="50" y1="80" x2="50" y2="95" stroke="currentColor" strokeWidth="1"/>
+                <line x1="30" y1="70" x2="15" y2="75" stroke="currentColor" strokeWidth="1"/>
+                <line x1="30" y1="30" x2="15" y2="25" stroke="currentColor" strokeWidth="1"/>
+                {/* Network Nodes */}
+                <circle cx="50" cy="5" r="2" fill="currentColor"/>
+                <circle cx="85" cy="25" r="2" fill="currentColor"/>
+                <circle cx="85" cy="75" r="2" fill="currentColor"/>
+                <circle cx="50" cy="95" r="2" fill="currentColor"/>
+                <circle cx="15" cy="75" r="2" fill="currentColor"/>
+                <circle cx="15" cy="25" r="2" fill="currentColor"/>
+                {/* Additional connecting lines */}
+                <line x1="50" y1="50" x2="70" y2="30" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                <line x1="50" y1="50" x2="30" y2="30" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                <line x1="50" y1="50" x2="70" y2="70" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                <line x1="50" y1="50" x2="30" y2="70" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+              </svg>
+            </div>
+            
+            {/* Company Name */}
+            <div className="text-xl font-bold tracking-tight">
+              Quantiva <span className="text-teal-400">Advisory</span>
+            </div>
           </div>
 
           {/* Desktop Nav */}
