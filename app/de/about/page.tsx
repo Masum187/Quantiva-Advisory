@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import Navigation from '../../components/Navigation';
 import { 
   ChevronDown, 
   Target, 
@@ -122,8 +123,20 @@ export default function AboutPage() {
     },
   ];
 
+  // Navigation items for German
+  const navigationItems = [
+    { id: 'home', label: 'Home', href: '/de' },
+    { id: 'about', label: 'Über uns', href: '/de/about' },
+    { id: 'services', label: 'Services', href: '/de#services' },
+    { id: 'cases', label: 'Projekte', href: '/de/cases' },
+    { id: 'team', label: 'Team', href: '/de/team' },
+    { id: 'career', label: 'Karriere', href: '/de#career' },
+  ];
+
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation lang="de" items={navigationItems} />
       {/* Synthesia-Style CEO Avatar Modal */}
       {showCEOAvatar && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">

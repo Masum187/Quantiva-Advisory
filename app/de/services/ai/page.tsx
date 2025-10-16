@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import Navigation from '../../../components/Navigation';
 import { Brain, ArrowLeft, CheckCircle, Cpu, Zap, Shield, Target } from 'lucide-react';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
@@ -42,6 +43,15 @@ function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { ch
 }
 
 export default function AIServicePage() {
+  // Navigation items for German
+  const navigationItems = [
+    { id: 'home', label: 'Home', href: '/de' },
+    { id: 'about', label: 'Über uns', href: '/de/about' },
+    { id: 'services', label: 'Services', href: '/de#services' },
+    { id: 'cases', label: 'Projekte', href: '/de/cases' },
+    { id: 'team', label: 'Team', href: '/de/team' },
+    { id: 'career', label: 'Karriere', href: '/de#career' },
+  ];
   const offerings = [
     {
       icon: Brain,
@@ -130,6 +140,8 @@ export default function AIServicePage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Navigation */}
+      <Navigation lang="de" items={navigationItems} />
       {/* Fixed Background Video */}
       <div className="fixed inset-0 z-0">
         <video

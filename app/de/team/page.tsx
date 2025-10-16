@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Navigation from '../../components/Navigation';
 import { Linkedin, Mail, Award, Users, Target, TrendingUp, Volume2, VolumeX, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
@@ -38,6 +39,16 @@ export default function TeamPage() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Navigation items for German
+  const navigationItems = [
+    { id: 'home', label: 'Home', href: '/de' },
+    { id: 'about', label: 'Über uns', href: '/de/about' },
+    { id: 'services', label: 'Services', href: '/de#services' },
+    { id: 'cases', label: 'Projekte', href: '/de/cases' },
+    { id: 'team', label: 'Team', href: '/de/team' },
+    { id: 'career', label: 'Karriere', href: '/de#career' },
+  ];
 
   // ☁️ Cloudinary Configuration
   const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'dbrisux8i';
@@ -171,6 +182,8 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen bg-black relative">
+      {/* Navigation */}
+      <Navigation lang="de" items={navigationItems} />
       {/* Background Music - Suno Playlist */}
       <audio
         ref={audioRef}
