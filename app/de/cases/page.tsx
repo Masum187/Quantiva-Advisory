@@ -203,14 +203,82 @@ export default function CasesPage() {
                   Designed for real world use
                 </div>
                 
+                {/* Logo + Company Name */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  className="flex items-center justify-center gap-4 mb-8"
+                >
+                  {/* Quantiva Logo */}
+                  <motion.div 
+                    className="w-16 h-16 relative"
+                    animate={{ 
+                      rotate: [0, 5, -5, 0],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <svg viewBox="0 0 100 100" className="w-full h-full text-teal-400">
+                      {/* Outer Hexagon */}
+                      <polygon 
+                        points="50,5 85,25 85,75 50,95 15,75 15,25" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="2"
+                      />
+                      {/* Inner Hexagon */}
+                      <polygon 
+                        points="50,20 70,30 70,70 50,80 30,70 30,30" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        strokeWidth="1.5"
+                      />
+                      {/* Network Lines */}
+                      <line x1="50" y1="20" x2="50" y2="5" stroke="currentColor" strokeWidth="1"/>
+                      <line x1="70" y1="30" x2="85" y2="25" stroke="currentColor" strokeWidth="1"/>
+                      <line x1="70" y1="70" x2="85" y2="75" stroke="currentColor" strokeWidth="1"/>
+                      <line x1="50" y1="80" x2="50" y2="95" stroke="currentColor" strokeWidth="1"/>
+                      <line x1="30" y1="70" x2="15" y2="75" stroke="currentColor" strokeWidth="1"/>
+                      <line x1="30" y1="30" x2="15" y2="25" stroke="currentColor" strokeWidth="1"/>
+                      {/* Network Nodes */}
+                      <circle cx="50" cy="5" r="2" fill="currentColor"/>
+                      <circle cx="85" cy="25" r="2" fill="currentColor"/>
+                      <circle cx="85" cy="75" r="2" fill="currentColor"/>
+                      <circle cx="50" cy="95" r="2" fill="currentColor"/>
+                      <circle cx="15" cy="75" r="2" fill="currentColor"/>
+                      <circle cx="15" cy="25" r="2" fill="currentColor"/>
+                      {/* Additional connecting lines */}
+                      <line x1="50" y1="50" x2="70" y2="30" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                      <line x1="50" y1="50" x2="30" y2="30" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                      <line x1="50" y1="50" x2="70" y2="70" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                      <line x1="50" y1="50" x2="30" y2="70" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                    </svg>
+                  </motion.div>
+                  
+                  {/* Company Name */}
+                  <div className="text-center">
+                    <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                      Quantiva Advisory
+                    </h1>
+                    <p className="text-teal-300 text-sm font-medium mt-1">
+                      KI-Expertise & Innovation Hub
+                    </p>
+                  </div>
+                </motion.div>
+
                 {/* Main Headline */}
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
                   KI-Projekte für die
                   <br />
                   <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                     Enterprise-Welt
                   </span>
-                </h1>
+                </h2>
                 
                 {/* Subtitle */}
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
