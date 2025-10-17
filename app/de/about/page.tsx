@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,7 +17,11 @@ import {
   Zap,
   Shield,
   Play,
-  X
+  X,
+  Quote,
+  Star,
+  ArrowRight,
+  CheckCircle
 } from 'lucide-react';
 
 // Animation Component
@@ -53,39 +57,9 @@ function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.Re
 }
 
 export default function AboutPage() {
-  const [showCEOAvatar, setShowCEOAvatar] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [activeSection, setActiveSection] = useState('mission'); // 'mission' or 'values'
-
-  const stats = [
-    { value: '10+', label: 'Jahre Erfahrung', icon: TrendingUp },
-    { value: '50+', label: 'Erfolgreiche Projekte', icon: Award },
-    { value: '95%', label: 'Kundenzufriedenheit', icon: Heart },
-    { value: '100%', label: 'Engagement', icon: Zap },
-  ];
-
-  const values = [
-    {
-      icon: Target,
-      title: 'Excellence',
-      description: 'Wir streben nach höchster Qualität in allem, was wir tun. Von der ersten Beratung bis zur finalen Implementierung - Excellence ist unser Standard.',
-    },
-    {
-      icon: Users,
-      title: 'Partnerschaft',
-      description: 'Wir verstehen uns als Partner unserer Kunden, nicht nur als Dienstleister. Gemeinsam entwickeln wir Lösungen, die nachhaltigen Mehrwert schaffen.',
-    },
-    {
-      icon: Sparkles,
-      title: 'Innovation',
-      description: 'Technologie entwickelt sich rasant. Wir bleiben am Puls der Zeit und bringen die neuesten Innovationen in Ihre Organisation - praktisch und umsetzbar.',
-    },
-    {
-      icon: Shield,
-      title: 'Vertrauen',
-      description: 'Ihre Daten, Ihre Prozesse, Ihre Zukunft - wir behandeln alles mit höchster Vertraulichkeit und Professionalität. Vertrauen ist die Basis unserer Zusammenarbeit.',
-    },
-  ];
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [showAvatar, setShowAvatar] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Navigation items for German
   const navigationItems = [
@@ -97,359 +71,517 @@ export default function AboutPage() {
     { id: 'career', label: 'Karriere', href: '/de#career' },
   ];
 
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
+
+  const values = [
+    {
+      title: 'Innovation',
+      description: 'Wir treiben digitale Transformation durch innovative Technologien und zukunftsorientierte Lösungen voran.',
+      icon: Sparkles,
+      color: 'from-purple-500 to-pink-500',
+      details: [
+        'KI und Machine Learning Integration',
+        'Cloud-native Architekturen',
+        'Agile Entwicklungsmethoden',
+        'Continuous Innovation Culture'
+      ]
+    },
+    {
+      title: 'Excellence',
+      description: 'Höchste Qualitätsstandards in allem, was wir tun - von der Beratung bis zur Implementierung.',
+      icon: Award,
+      color: 'from-blue-500 to-cyan-500',
+      details: [
+        'ISO 27001 zertifizierte Prozesse',
+        'Best Practice Implementierung',
+        'Qualitätssicherung auf allen Ebenen',
+        'Kontinuierliche Verbesserung'
+      ]
+    },
+    {
+      title: 'Partnerschaft',
+      description: 'Wir verstehen uns als langfristige Partner, die gemeinsam mit Ihnen nachhaltigen Erfolg schaffen.',
+      icon: Heart,
+      color: 'from-green-500 to-emerald-500',
+      details: [
+        'Langfristige Kundenbeziehungen',
+        'Transparente Kommunikation',
+        'Gemeinsame Zielsetzung',
+        'Vertrauensvolle Zusammenarbeit'
+      ]
+    },
+    {
+      title: 'Nachhaltigkeit',
+      description: 'Verantwortungsvolle Technologie-Entscheidungen für eine nachhaltige digitale Zukunft.',
+      icon: Shield,
+      color: 'from-orange-500 to-red-500',
+      details: [
+        'Green IT Lösungen',
+        'CO2-neutrale Cloud-Strategien',
+        'Ethische KI-Entwicklung',
+        'Nachhaltige Geschäftsmodelle'
+      ]
+    }
+  ];
+
+  const stats = [
+    { value: '15+', label: 'Jahre Erfahrung', icon: TrendingUp },
+    { value: '200+', label: 'Erfolgreiche Projekte', icon: Target },
+    { value: '50+', label: 'Zufriedene Kunden', icon: Users },
+    { value: '99%', label: 'Projekt-Erfolgsrate', icon: Award },
+  ];
+
+  const industries = [
+    {
+      title: 'Finanzdienstleistungen',
+      description: 'Banking, Insurance, FinTech',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop',
+      projects: 45
+    },
+    {
+      title: 'Automotive',
+      description: 'OEM, Zulieferer, Mobility',
+      image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=400&auto=format&fit=crop',
+      projects: 32
+    },
+    {
+      title: 'Healthcare',
+      description: 'Pharma, MedTech, Kliniken',
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=400&auto=format&fit=crop',
+      projects: 28
+    },
+    {
+      title: 'Retail & E-Commerce',
+      description: 'Omnichannel, Digital Commerce',
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400&auto=format&fit=crop',
+      projects: 38
+    }
+  ];
+
+  const leadershipQuote = {
+    text: "Bei Quantiva Advisory verbinden wir technologische Expertise mit strategischer Weitsicht. Unser Ziel ist es, Unternehmen dabei zu unterstützen, ihre digitale Zukunft erfolgreich zu gestalten.",
+    author: "Gülnur Patan",
+    role: "CEO & Gründerin"
+  };
+
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div className="min-h-screen bg-black relative">
       {/* Navigation */}
       <Navigation lang="de" items={navigationItems} />
-      
-      {/* Synthesia-Style CEO Avatar Modal */}
-      {showCEOAvatar && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            className="relative w-full max-w-4xl bg-black rounded-3xl border border-white/20 overflow-hidden"
-          >
-            <button
-              onClick={() => setShowCEOAvatar(false)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
-            >
-              <X className="w-6 h-6 text-white" />
-            </button>
-            <video
-              src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346462/kling_20251012_Video_to_Audio__1718_0_ti4mch.mp4"
-              autoPlay
-              controls
-              className="w-full h-auto"
-            />
-          </motion.div>
+
+      {/* Hero Section */}
+      <div className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-black to-slate-900 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(20, 184, 166, 0.3) 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }}></div>
         </div>
-      )}
 
-      {/* Main Content - Seamless Flow */}
-      <div className="relative bg-black min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          
-          {/* Hero Section */}
-          <div className="relative w-full max-w-4xl bg-black rounded-3xl border border-white/20 overflow-hidden mb-24">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 to-teal-900/30"></div>
-            
-            <div className="relative z-10 p-12">
-              <SlideIn direction="up">
-                <div className="text-center mb-12">
-                  <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                    Das sind <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">Wir</span>
-                  </h1>
-                  <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                    Quantiva Advisory steht für Innovation, Excellence und nachhaltige digitale Transformation. 
-                    Unsere Mission ist es, Unternehmen dabei zu helfen, ihre Ziele durch intelligente Technologielösungen zu erreichen.
-                  </p>
-                </div>
-              </SlideIn>
+        {/* Floating Particles */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-teal-400 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.2, 1, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
 
-              <SlideIn direction="up" delay={0.2}>
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative group cursor-pointer" onClick={() => setShowCEOAvatar(true)}>
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-3xl blur-3xl"></div>
-                    <div className="relative bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-teal-500 flex items-center justify-center">
-                          <Play className="w-8 h-8 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold text-white">Gülnur Patan</h3>
-                          <p className="text-sm text-gray-300">CEO & Gründerin</p>
-                        </div>
-                      </div>
-                      <p className="text-gray-300 text-sm">
-                        &ldquo;Innovation entsteht dort, wo Vision auf Leidenschaft trifft. 
-                        Bei Quantiva Advisory verwandeln wir komplexe Herausforderungen in elegante Lösungen.&rdquo;
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                      <h3 className="text-2xl font-bold text-white mb-4">Unsere Mission</h3>
-                      <p className="text-gray-300 leading-relaxed">
-                        Wir befähigen Unternehmen, ihre digitale Transformation erfolgreich zu meistern. 
-                        Durch strategische Beratung, innovative Technologien und 15+ Jahre Expertise haben wir uns zu einem vertrauenswürdigen Partner im DACH-Raum gemacht.
-                      </p>
-                      <div className="mt-4">
-                        <span className="text-purple-400 font-semibold">🎯 Ziele:</span> Wir streben danach, der führende Partner für 
-                        digitale Transformation zu werden und dabei nachhaltige, messbare Ergebnisse zu liefern.
-                      </div>
-                    </div>
-
-                    <div className="flex gap-4">
-                      <Link
-                        href="/de#contact"
-                        className="px-6 py-3 bg-gradient-to-r from-purple-500 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
-                      >
-                        Kontakt aufnehmen
-                      </Link>
-                      <Link
-                        href="/de/cases"
-                        className="px-6 py-3 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white rounded-xl font-semibold hover:bg-teal-500/10 transition-all duration-300"
-                      >
-                        Unsere Projekte
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </SlideIn>
-            </div>
-          </div>
-
-          {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <SlideIn key={stat.label} direction="up" delay={index * 0.1}>
-                  <div className="text-center group">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-teal-500/20 border border-purple-500/30 flex items-center justify-center group-hover:border-purple-400/60 transition-all">
-                      <Icon className="w-8 h-8 text-purple-400" />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                    <div className="text-gray-400 text-sm">{stat.label}</div>
-                  </div>
-                </SlideIn>
-              );
-            })}
-          </div>
-
-          {/* Mission & Vision Section */}
-          <div className="mb-24">
-            <SlideIn direction="up">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Content */}
+            <SlideIn direction="left">
+              <div>
+                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
                   <Sparkles className="w-6 h-6 text-teal-400" />
-                  <span className="text-white font-semibold">Mission & Vision</span>
+                  <span className="text-white font-semibold">Das sind Wir</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Vision</span> für die Zukunft
-                </h2>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                  Wir gestalten die digitale Zukunft mit innovativen Lösungen, die Unternehmen nachhaltig voranbringen.
+                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+                  Die Zukunft der <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">digitalen Transformation</span>
+                </h1>
+                <p className="text-xl text-gray-300 leading-relaxed mb-8">
+                  Quantiva Advisory ist Ihr strategischer Partner für digitale Innovation. 
+                  Wir verbinden technologische Expertise mit unternehmerischer Weitsicht, 
+                  um nachhaltigen Erfolg zu schaffen.
                 </p>
+                <div className="flex gap-4">
+                  <Link
+                    href="/de#services"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+                  >
+                    Unsere Services
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  <button
+                    onClick={() => setShowAvatar(true)}
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
+                  >
+                    <Play className="w-5 h-5" />
+                    CEO Video
+                  </button>
+                </div>
               </div>
             </SlideIn>
 
-            <div className="grid lg:grid-cols-2 gap-12">
-              <SlideIn direction="left">
-                <div className="relative h-full p-12 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-3xl"></div>
-                  <div className="relative z-10">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Target className="w-10 h-10 text-purple-400" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-6 mt-6">Unsere Mission</h3>
-                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                      Wir befähigen Unternehmen, ihre digitale Transformation erfolgreich zu meistern. 
-                      Durch strategische Beratung und innovative Technologien schaffen wir nachhaltigen Mehrwert.
-                    </p>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                        <span className="text-gray-300">Strategische Beratung</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                        <span className="text-gray-300">Innovative Technologien</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                        <span className="text-gray-300">Nachhaltiger Mehrwert</span>
-                      </div>
-                    </div>
+            {/* Right: Illustration */}
+            <SlideIn direction="right" delay={0.2}>
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+                <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
+                  <div className="grid grid-cols-2 gap-4">
+                    {stats.map((stat, index) => (
+                      <motion.div
+                        key={index}
+                        className="text-center p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <stat.icon className="w-8 h-8 text-teal-400 mx-auto mb-2" />
+                        <div className="text-2xl font-bold text-white">{stat.value}</div>
+                        <div className="text-sm text-gray-300">{stat.label}</div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
-              </SlideIn>
-
-              <SlideIn direction="right">
-                <div className="relative h-full p-12 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
-                  <div className="relative z-10">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <Globe className="w-10 h-10 text-teal-400" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-6 mt-6">Unsere Vision</h3>
-                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                      Wir streben danach, der führende Partner für digitale Transformation im DACH-Raum zu werden. 
-                      Unsere Vision ist eine Welt, in der Technologie und Innovation nahtlos zusammenarbeiten.
-                    </p>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                        <span className="text-gray-300">Führender Partner</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                        <span className="text-gray-300">DACH-Raum</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                        <span className="text-gray-300">Nahtlose Integration</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SlideIn>
-            </div>
-          </div>
-
-          {/* Values Section */}
-          <div className="mb-24">
-            <SlideIn direction="up">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
-                  <Heart className="w-6 h-6 text-teal-400" />
-                  <span className="text-white font-semibold">Werte & Prinzipien</span>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Was uns <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">antreibt</span>
-                </h2>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                  Unsere Werte bilden das Fundament unserer Arbeit und prägen jeden Aspekt unserer Zusammenarbeit.
-                </p>
               </div>
-            </SlideIn>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((value, index) => {
-                const Icon = value.icon;
-                return (
-                  <SlideIn key={value.title} direction="up" delay={index * 0.1}>
-                    <div className="group">
-                      <div className="relative h-full p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent rounded-3xl"></div>
-                        <div className="relative z-10">
-                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <Icon className="w-8 h-8 text-purple-400" />
-                          </div>
-                          <h3 className="text-xl font-bold text-white mb-4 mt-6">{value.title}</h3>
-                          <p className="text-gray-300 text-sm leading-relaxed">{value.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </SlideIn>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Leadership Quote */}
-          <div className="mb-24">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <SlideIn direction="left">
-                <div className="relative group cursor-pointer" onClick={() => setShowCEOAvatar(true)}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-3xl blur-3xl"></div>
-                  <div className="relative rounded-3xl overflow-hidden border border-purple-500/20">
-                    <Image
-                      src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
-                      alt="Gülnur Patan - CEO"
-                      width={600}
-                      height={400}
-                      className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-8 left-8 right-8">
-                      <div className="bg-black/80 backdrop-blur-md border border-purple-500/30 rounded-2xl p-6">
-                        <h3 className="text-2xl font-bold text-white mb-2">Gülnur Patan</h3>
-                        <p className="text-sm text-gray-300 mt-1">CEO & Gründerin</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SlideIn>
-
-              <SlideIn direction="right">
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                      Leadership <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">Quote</span>
-                    </h2>
-                    <blockquote className="text-2xl md:text-3xl font-light text-gray-300 leading-relaxed italic">
-                      &ldquo;Digitale Transformation ist mehr als Technologie – es ist die Kunst, Menschen, 
-                      Prozesse und Innovation in Einklang zu bringen, um nachhaltigen Mehrwert zu schaffen.&rdquo;
-                    </blockquote>
-                    <div className="mt-8 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-teal-500 flex items-center justify-center">
-                        <span className="text-white font-bold text-lg">GP</span>
-                      </div>
-                      <div>
-                        <div className="text-white font-semibold">Gülnur Patan</div>
-                        <div className="text-gray-400 text-sm">CEO & Gründerin</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                      <span className="text-gray-300">15+ Jahre Branchenerfahrung</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                      <span className="text-gray-300">Tiefes Verständnis für Ihre Industrie</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                      <span className="text-gray-300">Visionäre Führung</span>
-                    </div>
-                  </div>
-                </div>
-              </SlideIn>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="text-center">
-            <SlideIn>
-              <motion.h2
-                className="text-4xl md:text-6xl font-bold text-white mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                Ihre Zukunft <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">gestalten</span>
-              </motion.h2>
-              <motion.p
-                className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Bereit für Ihre digitale Transformation? Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch.
-              </motion.p>
-              <motion.div
-                className="flex flex-col sm:flex-row gap-6 justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <Link
-                  href="/de#contact"
-                  className="px-10 py-5 bg-gradient-to-r from-purple-500 to-teal-500 text-white text-lg font-semibold rounded-xl hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
-                >
-                  Jetzt Kontakt aufnehmen
-                </Link>
-                <Link
-                  href="/de/cases"
-                  className="px-10 py-5 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white text-lg font-semibold rounded-xl hover:bg-teal-500/10 transition-all duration-300"
-                >
-                  Unsere Projekte entdecken
-                </Link>
-              </motion.div>
             </SlideIn>
           </div>
         </div>
       </div>
+
+      {/* Mission & Vision Section */}
+      <div className="py-20 bg-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SlideIn direction="up">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Mission & Vision
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Unsere Mission ist es, Unternehmen dabei zu unterstützen, ihre digitale Zukunft erfolgreich zu gestalten.
+              </p>
+            </div>
+          </SlideIn>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <SlideIn direction="left" delay={0.2}>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-500 to-purple-500 flex items-center justify-center">
+                      <Target className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">Unsere Mission</h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed mb-6">
+                    Wir schaffen nachhaltige digitale Lösungen, die Unternehmen dabei unterstützen, 
+                    ihre Geschäftsziele zu erreichen und sich erfolgreich in der digitalen Wirtschaft zu positionieren.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-teal-400" />
+                      <span className="text-gray-300">Strategische Beratung</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-teal-400" />
+                      <span className="text-gray-300">Technische Umsetzung</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-teal-400" />
+                      <span className="text-gray-300">Nachhaltige Transformation</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SlideIn>
+
+            <SlideIn direction="right" delay={0.4}>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                      <Sparkles className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">Unsere Vision</h3>
+                  </div>
+                  <p className="text-gray-300 leading-relaxed mb-6">
+                    Eine Welt, in der jedes Unternehmen die Kraft der digitalen Transformation nutzen kann, 
+                    um nachhaltigen Erfolg zu schaffen und positive Veränderungen zu bewirken.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-purple-400" />
+                      <span className="text-gray-300">Digitale Inklusion</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-purple-400" />
+                      <span className="text-gray-300">Nachhaltige Innovation</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-purple-400" />
+                      <span className="text-gray-300">Globale Zusammenarbeit</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SlideIn>
+          </div>
+        </div>
+      </div>
+
+      {/* Values Section */}
+      <div className="py-20 bg-gradient-to-br from-slate-900/50 to-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SlideIn direction="up">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Werte & Prinzipien
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Unsere Werte bilden das Fundament unserer Arbeit und prägen jeden Aspekt unserer Zusammenarbeit.
+              </p>
+            </div>
+          </SlideIn>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, index) => (
+              <SlideIn key={index} direction="up" delay={index * 0.1}>
+                <motion.div
+                  className="group relative h-80 cursor-pointer"
+                  onClick={() => toggleSection(value.title)}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${value.color} rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                  <div className="relative h-full bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm rounded-3xl p-6 border border-white/10 flex flex-col">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center`}>
+                        <value.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white">{value.title}</h3>
+                    </div>
+                    <p className="text-gray-300 text-sm leading-relaxed mb-4 flex-grow">
+                      {value.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400">
+                        {expandedSection === value.title ? 'Weniger anzeigen' : 'Mehr erfahren'}
+                      </span>
+                      <ChevronDown 
+                        className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
+                          expandedSection === value.title ? 'rotate-180' : ''
+                        }`} 
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              </SlideIn>
+            ))}
+          </div>
+
+          {/* Expanded Content */}
+          {expandedSection && (
+            <SlideIn direction="up" delay={0.2}>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-8 bg-gradient-to-r from-slate-900/50 to-slate-800/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10"
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${
+                    values.find(v => v.title === expandedSection)?.color
+                  } flex items-center justify-center`}>
+                    {React.createElement(values.find(v => v.title === expandedSection)?.icon || Sparkles, { className: "w-6 h-6 text-white" })}
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">{expandedSection}</h3>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {values.find(v => v.title === expandedSection)?.details.map((detail, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <CheckCircle className="w-5 h-5 text-teal-400" />
+                      <span className="text-gray-300">{detail}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </SlideIn>
+          )}
+        </div>
+      </div>
+
+      {/* Industries Section */}
+      <div className="py-20 bg-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SlideIn direction="up">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Branchen-Expertise
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Wir arbeiten mit Unternehmen aus verschiedenen Branchen zusammen und verstehen deren spezifische Herausforderungen.
+              </p>
+            </div>
+          </SlideIn>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {industries.map((industry, index) => (
+              <SlideIn key={index} direction="up" delay={index * 0.1}>
+                <motion.div
+                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border border-white/10"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={industry.image}
+                      alt={industry.title}
+                      width={400}
+                      height={256}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <h3 className="text-lg font-bold text-white mb-1">{industry.title}</h3>
+                      <p className="text-sm text-gray-300">{industry.description}</p>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-400">Projekte</span>
+                      <span className="text-2xl font-bold text-teal-400">{industry.projects}+</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </SlideIn>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Leadership Quote Section */}
+      <div className="py-20 bg-gradient-to-br from-teal-900/20 via-black to-purple-900/20 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <SlideIn direction="up">
+            <div className="relative">
+              <Quote className="w-16 h-16 text-teal-400/30 mx-auto mb-8" />
+              <blockquote className="text-2xl md:text-3xl font-medium text-white leading-relaxed mb-8">
+                &ldquo;{leadershipQuote.text}&rdquo;
+              </blockquote>
+              <div className="flex items-center justify-center gap-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-teal-400/30">
+                  <Image
+                    src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
+                    alt={leadershipQuote.author}
+                    width={64}
+                    height={64}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="text-left">
+                  <div className="text-lg font-semibold text-white">{leadershipQuote.author}</div>
+                  <div className="text-teal-400">{leadershipQuote.role}</div>
+                </div>
+              </div>
+            </div>
+          </SlideIn>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div className="py-20 bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <SlideIn direction="up">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Bereit für die digitale Zukunft?
+            </h2>
+            <p className="text-xl text-teal-100 mb-8">
+              Lassen Sie uns gemeinsam Ihre digitale Transformation gestalten.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/de#contact"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-teal-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              >
+                Jetzt Kontakt aufnehmen
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/de/cases"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
+              >
+                Unsere Projekte
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </SlideIn>
+        </div>
+      </div>
+
+      {/* CEO Avatar Modal */}
+      {showAvatar && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setShowAvatar(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 max-w-2xl w-full border border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowAvatar(false)}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+            <div className="text-center">
+              <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-teal-400/30 mb-6">
+                <Image
+                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
+                  alt="Gülnur Patan"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-2">Gülnur Patan</h3>
+              <p className="text-teal-400 font-semibold mb-6">CEO & Gründerin</p>
+              <div className="bg-white/5 rounded-2xl p-6">
+                <p className="text-gray-300 leading-relaxed">
+                  &ldquo;Willkommen bei Quantiva Advisory! Ich freue mich, Ihnen unsere Vision der digitalen Transformation 
+                  zu präsentieren. Gemeinsam schaffen wir nachhaltige Lösungen für Ihre Zukunft.&rdquo;
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
