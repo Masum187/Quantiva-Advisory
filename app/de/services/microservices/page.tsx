@@ -296,9 +296,11 @@ export default function MicroservicesServicePage() {
                 >
                   {/* Study Image */}
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={study.image}
                       alt={study.title}
+                      width={400}
+                      height={192}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

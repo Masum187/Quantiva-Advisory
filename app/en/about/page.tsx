@@ -483,9 +483,11 @@ export default function AboutPage() {
                   className="group relative overflow-hidden rounded-2xl border border-purple-500/20 hover:border-purple-500/60 transition-all duration-300"
                 >
                   <div className="relative h-64 overflow-hidden">
-                    <img
+                    <Image
                       src={industry.image}
                       alt={industry.title}
+                      width={400}
+                      height={256}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>

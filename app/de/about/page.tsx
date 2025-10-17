@@ -163,8 +163,8 @@ export default function AboutPage() {
                         </div>
                       </div>
                       <p className="text-gray-300 text-sm">
-                        "Innovation entsteht dort, wo Vision auf Leidenschaft trifft. 
-                        Bei Quantiva Advisory verwandeln wir komplexe Herausforderungen in elegante Lösungen."
+                        &ldquo;Innovation entsteht dort, wo Vision auf Leidenschaft trifft. 
+                        Bei Quantiva Advisory verwandeln wir komplexe Herausforderungen in elegante Lösungen.&rdquo;
                       </p>
                     </div>
                   </div>
@@ -372,8 +372,8 @@ export default function AboutPage() {
                       Leadership <span className="bg-gradient-to-r from-purple-400 to-teal-400 bg-clip-text text-transparent">Quote</span>
                     </h2>
                     <blockquote className="text-2xl md:text-3xl font-light text-gray-300 leading-relaxed italic">
-                      "Digitale Transformation ist mehr als Technologie – es ist die Kunst, Menschen, 
-                      Prozesse und Innovation in Einklang zu bringen, um nachhaltigen Mehrwert zu schaffen."
+                      &ldquo;Digitale Transformation ist mehr als Technologie – es ist die Kunst, Menschen, 
+                      Prozesse und Innovation in Einklang zu bringen, um nachhaltigen Mehrwert zu schaffen.&rdquo;
                     </blockquote>
                     <div className="mt-8 flex items-center gap-4">
                       <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-teal-500 flex items-center justify-center">

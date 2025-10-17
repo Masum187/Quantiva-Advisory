@@ -43,9 +43,11 @@ export default function CasesPage() {
               {/* Image */}
               {caseItem.heroImage && (
                 <div className="relative h-48 bg-gradient-to-br from-teal-500 to-teal-600 overflow-hidden">
-                  <img
+                  <Image
                     src={caseItem.heroImage}
                     alt={caseItem.titleEn}
+                    width={400}
+                    height={192}
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
                   />
                 </div>
