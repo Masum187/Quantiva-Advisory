@@ -32,11 +32,6 @@ function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.Re
       opacity: 1,
       x: 0,
       y: 0,
-      transition: {
-        delay,
-        duration: 0.6,
-        ease: "easeOut",
-      },
     },
   };
 
@@ -46,6 +41,11 @@ function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.Re
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       variants={variants}
+      transition={{
+        delay,
+        duration: 0.6,
+        ease: "easeOut",
+      }}
     >
       {children}
     </motion.div>
