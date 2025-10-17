@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Navigation from '../Navigation';
 import {
   ChevronRight, ArrowRight, Users, Heart, TrendingUp,
   GraduationCap, Lightbulb, Target, Award, Shield, Sparkles,
@@ -327,6 +328,16 @@ const ELEVENLABS_VOICES = {
 export default function CareerPage() {
   const { lang, localePath } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Navigation items
+  const navigationItems = [
+    { id: 'home', label: 'Home', href: localePath('/') },
+    { id: 'about', label: lang === 'de' ? 'Über uns' : 'About', href: localePath('/about') },
+    { id: 'services', label: 'Services', href: localePath('/#services') },
+    { id: 'cases', label: lang === 'de' ? 'Projekte' : 'Cases', href: localePath('/cases') },
+    { id: 'team', label: 'Team', href: localePath('/team') },
+    { id: 'career', label: lang === 'de' ? 'Karriere' : 'Career', href: localePath('/career') },
+  ];
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const [showVoiceButton, setShowVoiceButton] = useState(true);
   const [showVoiceSettings, setShowVoiceSettings] = useState(false);
@@ -742,81 +753,7 @@ export default function CareerPage() {
       
       <div className="min-h-screen bg-black">
         {/* Navigation */}
-        <nav className="fixed top-0 w-full bg-black/95 backdrop-blur-md border-b border-white/10 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-20">
-              {/* Logo */}
-              <a href={localePath('/')} className="flex items-center space-x-3 group">
-                <div className="relative w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-white font-bold text-xl">Q</span>
-                </div>
-                <div>
-                  <div className="text-xl font-bold text-white">QUANTIVA ADVISORY</div>
-                  <div className="text-xs text-gray-400 tracking-wider">CREATOR AND BUILDER</div>
-                </div>
-              </a>
-
-              {/* Desktop Navigation */}
-              <div className="hidden md:flex items-center space-x-8">
-                <a href={localePath('/')} className="text-gray-300 hover:text-teal-400 transition font-medium">
-                  {lang === 'de' ? 'Home' : 'Home'}
-                </a>
-                <a href={localePath('/#services')} className="text-gray-300 hover:text-teal-400 transition font-medium">
-                  {lang === 'de' ? 'Services' : 'Services'}
-                </a>
-                <a href={localePath('/cases')} className="text-gray-300 hover:text-teal-400 transition font-medium">
-                  {lang === 'de' ? 'Cases' : 'Cases'}
-                </a>
-                <a href={localePath('/karriere')} className="text-teal-400 font-semibold">
-                  {lang === 'de' ? 'Karriere' : 'Career'}
-                </a>
-                <a 
-                  href={localePath('/#contact')} 
-                  className="px-6 py-2 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 hover:scale-105 transition-all duration-300"
-                >
-                  {lang === 'de' ? 'Kontakt' : 'Contact'}
-                </a>
-              </div>
-
-              {/* Mobile Menu Button */}
-              <button
-                className="md:hidden p-2 text-white hover:text-teal-400 transition"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-black border-t border-white/10"
-            >
-              <div className="px-4 py-4 space-y-3">
-                <a href={localePath('/')} className="block text-gray-300 hover:text-teal-400 transition py-2">
-                  Home
-                </a>
-                <a href={localePath('/#services')} className="block text-gray-300 hover:text-teal-400 transition py-2">
-                  Services
-                </a>
-                <a href={localePath('/cases')} className="block text-gray-300 hover:text-teal-400 transition py-2">
-                  Cases
-                </a>
-                <a href={localePath('/karriere')} className="block text-teal-400 font-semibold py-2">
-                  {lang === 'de' ? 'Karriere' : 'Career'}
-                </a>
-                <a href={localePath('/#contact')} className="block text-gray-300 hover:text-teal-400 transition py-2">
-                  {lang === 'de' ? 'Kontakt' : 'Contact'}
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </nav>
-
+        <Navigation lang={lang} items={navigationItems} />
         {/* Hero Section with Digital AI Head */}
         <motion.section 
           style={{ opacity: heroOpacity, scale: heroScale }}

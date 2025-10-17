@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Head from 'next/head';
 import CommandPalette from '../../components/CommandPalette';
+import Navigation from '../../components/Navigation';
 import { 
   Brain, 
   Cog, 
@@ -26,6 +27,16 @@ import {
 export default function CasesPage() {
   const [isVideoExpanded, setIsVideoExpanded] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  // Navigation items for German
+  const navigationItems = [
+    { id: 'home', label: 'Home', href: '/de' },
+    { id: 'about', label: 'Über uns', href: '/de/about' },
+    { id: 'services', label: 'Services', href: '/de#services' },
+    { id: 'cases', label: 'Projekte', href: '/de/cases' },
+    { id: 'team', label: 'Team', href: '/de/team' },
+    { id: 'career', label: 'Karriere', href: '/de#career' },
+  ];
 
   const videos = useMemo(() => [
     'https://res.cloudinary.com/dbrisux8i/video/upload/v1760470890/Eyes_Zoom_in_seed1137337382_jeox5c.mp4',
@@ -140,6 +151,9 @@ export default function CasesPage() {
       <CommandPalette />
       
       <div className="min-h-screen bg-black relative overflow-hidden">
+        {/* Navigation */}
+        <Navigation lang="de" items={navigationItems} />
+        
         {/* Full-Page Half-Circle Video */}
         <motion.div
           initial={{ x: "100%" }}
