@@ -45,7 +45,11 @@
     "resultsDe": ["Audit bestanden", "Weniger Reworks", "Höhere Datenqualität"],
     "resultsEn": ["Audit passed", "Less rework", "Higher data quality"],
     "tech": ["SAP MDG", "Python", "Airflow"],
-    "quote": null
+    "quote": {
+      "textDe": "Durch Quantiva haben wir endlich Transparenz in unseren Datenprozessen erreicht.",
+      "textEn": "Through Quantiva, we finally achieved transparency in our data processes.",
+      "author": "CDO, Healthcare"
+    }
   },
   {
     "slug": "api-first",

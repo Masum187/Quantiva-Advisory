@@ -113,10 +113,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const localePath: LangCtx['localePath'] = useCallback((p) => {
-    if (typeof window === 'undefined') return `/${lang}${p}`;
-    const seg = firstSeg(window.location.pathname);
-    const current = VALID_LOCALES.includes(seg as Locale) ? seg : lang;
-    return `/${current}${p.startsWith('/') ? p : `/${p}`}`;
+    // Konsistente Logik für Server und Client
+    const normalizedPath = p.startsWith('/') ? p : `/${p}`;
+    return `/${lang}${normalizedPath}`;
   }, [lang]);
 
   const value = useMemo(() => ({ lang, setLang, localePath }), [lang, setLang, localePath]);
