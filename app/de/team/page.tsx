@@ -38,6 +38,7 @@ export default function TeamPage() {
   const lang = 'de';
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [selectedMember, setSelectedMember] = useState(0); // 0 = CEO, 1 = CTO
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Navigation items for German
@@ -98,6 +99,29 @@ export default function TeamPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackIndex]);
+
+  const leadershipTeam = [
+    {
+      id: 1,
+      name: 'Gülnur Patan',
+      role: 'CEO & Gründerin',
+      image: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg',
+      bio: 'Visionäre Führungskraft mit 15+ Jahren Erfahrung in der digitalen Transformation. Expertin für strategische Beratung und innovative Technologielösungen.',
+      expertise: ['Strategische Beratung', 'Digitale Transformation', 'Leadership'],
+      linkedin: 'https://linkedin.com/in/gulnur-patan',
+      email: 'gulnur@quantiva-advisory.com'
+    },
+    {
+      id: 2,
+      name: 'Dr. Michael Weber',
+      role: 'CTO & Technischer Leiter',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop',
+      bio: 'Technologie-Visionär mit Expertise in KI, Cloud-Architekturen und modernen Entwicklungsmethoden. Treibt Innovation voran.',
+      expertise: ['KI & Machine Learning', 'Cloud Architecture', 'DevOps'],
+      linkedin: 'https://linkedin.com/in/michael-weber',
+      email: 'michael@quantiva-advisory.com'
+    }
+  ];
 
   const t = {
     hero: {
@@ -247,7 +271,7 @@ export default function TeamPage() {
         </div>
       </div>
 
-      {/* Hero Section - Leadership */}
+      {/* Hero Section - Leadership Cards */}
       <section className="relative min-h-[80vh] flex items-center bg-gradient-to-br from-slate-900 via-black to-slate-900">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -258,58 +282,128 @@ export default function TeamPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Text Content */}
-            <SlideIn direction="left">
-              <div>
-                <div className="inline-block px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 mb-6">
-                  <span className="text-teal-400 text-sm font-semibold tracking-wider">{t.hero.subtitle}</span>
-                </div>
-                <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                  {t.hero.title}
-                </h1>
-                <div className="mb-6">
-                  <h2 className="text-3xl font-bold text-teal-400 mb-2">{t.hero.name}</h2>
-                  <p className="text-xl text-gray-300">{t.hero.role}</p>
-                </div>
-                <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                  {t.hero.description}
-                </p>
-                <div className="flex gap-4">
-                  <a
-                    href="mailto:elena.richter@quantiva.com"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600 transition-colors"
-                  >
-                    <Mail className="h-5 w-5" />
-                    {t.cta}
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/company/quantiva-advisory"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                    LinkedIn
-                  </a>
-                </div>
+          {/* Header */}
+          <SlideIn direction="up">
+            <div className="text-center mb-16">
+              <div className="inline-block px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 mb-6">
+                <span className="text-teal-400 text-sm font-semibold tracking-wider">MEET OUR LEADERSHIP</span>
               </div>
-            </SlideIn>
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Führungskräfte</span>
+              </h1>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Lernen Sie die visionären Köpfe kennen, die Quantiva Advisory zu dem machen, was es ist.
+              </p>
+            </div>
+          </SlideIn>
 
-            {/* Right: Leadership Image */}
-            <SlideIn direction="right" delay={0.2}>
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-2xl blur-3xl"></div>
-                <Image
-      src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg"
-      alt="Dr. Elena Richter"
-      width={800}
-      height={600}
-      className="relative rounded-2xl w-full h-[600px] object-cover shadow-2xl"
-    />
-              </div>
-            </SlideIn>
+          {/* Leadership Cards */}
+          <div className="grid lg:grid-cols-2 gap-8 mb-12">
+            {leadershipTeam.map((member, index) => (
+              <SlideIn key={member.id} direction="up" delay={index * 0.2}>
+                <motion.div
+                  className={`relative group cursor-pointer ${
+                    selectedMember === index ? 'ring-2 ring-teal-400' : ''
+                  }`}
+                  onClick={() => setSelectedMember(index)}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Card Background */}
+                  <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border border-white/10 p-8">
+                    {/* Glow Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div className="relative z-10">
+                      {/* Member Image */}
+                      <div className="relative mb-6">
+                        <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-teal-500/30 group-hover:border-teal-400/60 transition-all duration-300">
+                          <Image
+                            src={member.image}
+                            alt={member.name}
+                            width={128}
+                            height={128}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        {/* Selection Indicator */}
+                        {selectedMember === index && (
+                          <div className="absolute -top-2 -right-2 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
+                            <div className="w-3 h-3 bg-white rounded-full"></div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Member Info */}
+                      <div className="text-center">
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">
+                          {member.name}
+                        </h3>
+                        <p className="text-lg text-teal-400 font-semibold mb-4">
+                          {member.role}
+                        </p>
+                        <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                          {member.bio}
+                        </p>
+
+                        {/* Expertise Tags */}
+                        <div className="flex flex-wrap gap-2 justify-center mb-6">
+                          {member.expertise.map((skill, skillIndex) => (
+                            <span
+                              key={skillIndex}
+                              className="px-3 py-1 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs rounded-full font-medium hover:bg-white/20 transition-colors"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-3 justify-center">
+                          <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors text-sm"
+                          >
+                            <Linkedin className="w-4 h-4" />
+                            LinkedIn
+                          </a>
+                          <a
+                            href={`mailto:${member.email}`}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300 text-sm"
+                          >
+                            <Mail className="w-4 h-4" />
+                            Kontakt
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </SlideIn>
+            ))}
           </div>
+
+          {/* Selection Indicator */}
+          <SlideIn direction="up" delay={0.6}>
+            <div className="text-center">
+              <p className="text-gray-400 text-sm mb-4">
+                Klicken Sie auf eine Karte, um mehr Details zu sehen
+              </p>
+              <div className="flex justify-center gap-2">
+                {leadershipTeam.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedMember(index)}
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      selectedMember === index ? 'bg-teal-400' : 'bg-white/30'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </SlideIn>
         </div>
       </section>
 
