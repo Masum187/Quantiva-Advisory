@@ -351,7 +351,7 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-purple-900/10 border-y border-purple-500/20">
+      <section className="py-20 bg-gradient-to-b from-black to-purple-900/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => {
@@ -934,7 +934,7 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Quote */}
-      <section className="py-24 bg-gradient-to-br from-purple-900/20 via-black to-teal-900/20 border-y border-purple-500/20">
+      <section className="py-24 bg-gradient-to-br from-purple-900/20 via-black to-teal-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <SlideIn direction="left">
@@ -1052,7 +1052,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-purple-900/30 via-black to-teal-900/30 border-t border-purple-500/20">
+      <section className="py-24 bg-gradient-to-br from-purple-900/30 via-black to-teal-900/30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SlideIn>
             <motion.h2

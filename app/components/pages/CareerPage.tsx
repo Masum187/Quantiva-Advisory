@@ -1097,7 +1097,7 @@ export default function CareerPage() {
         </motion.section>
 
         {/* Career Areas Section - Accenture Style with Images */}
-        <section className="py-20 bg-black border-t border-white/10">
+        <section className="py-20 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
               <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">
@@ -1224,7 +1224,7 @@ export default function CareerPage() {
         </section>
 
         {/* Career Levels Section - Rotating Carousel */}
-        <section className="py-20 bg-black border-t border-white/10">
+        <section className="py-20 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
               <div className="text-center mb-16">
@@ -1245,7 +1245,7 @@ export default function CareerPage() {
         </section>
 
         {/* Wellbeing Section - Accenture Style */}
-        <section className="py-20 bg-black border-t border-white/10">
+        <section className="py-20 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
               <div className="text-center mb-16">
@@ -1422,7 +1422,7 @@ export default function CareerPage() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-20 bg-black border-t border-white/10">
+        <section className="py-20 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SlideIn direction="up" delay={0.1}>
               <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">
@@ -1447,7 +1447,7 @@ export default function CareerPage() {
         </section>
 
         {/* CTA Section */}
-        <section id="openpositions" className="py-20 bg-gradient-to-br from-teal-900/20 to-black border-t border-white/10">
+        <section id="openpositions" className="py-20 bg-gradient-to-br from-teal-900/20 to-black">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <SlideIn direction="up" delay={0.1}>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -1468,7 +1468,7 @@ export default function CareerPage() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-black border-t border-white/10 py-12">
+        <footer className="bg-black py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center text-gray-400">
               <p>© 2025 Quantiva Advisory. {lang === 'de' ? 'Alle Rechte vorbehalten.' : 'All rights reserved.'}</p>

@@ -314,7 +314,7 @@ export default function TeamPage() {
       </section>
 
       {/* Values Section - Interactive 3D Flip Cards */}
-      <section className="py-20 bg-black border-t border-white/10 relative overflow-hidden">
+      <section className="py-20 bg-black relative overflow-hidden">
         {/* Animated Background Particles */}
         <div className="absolute inset-0 opacity-30">
           {[...Array(20)].map((_, i) => (
@@ -546,7 +546,7 @@ export default function TeamPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-teal-900/20 via-black to-purple-900/20 border-t border-white/10">
+      <section className="py-20 bg-gradient-to-br from-teal-900/20 via-black to-purple-900/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SlideIn direction="up">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
