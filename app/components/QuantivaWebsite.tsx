@@ -223,7 +223,7 @@ function StaggerSlideIn({ children, className = "" }: {
 function AboutTeaser() {
   const { lang } = useLanguage();
   return (
-    <section id="about" className="bg-black py-20 border-t border-white/10">
+    <section id="about" className="bg-black py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <SlideIn direction="left" delay={0.2}>
@@ -291,7 +291,7 @@ function TeamSection() {
   const teamMembers = useTeam();
 
   return (
-    <section id="team" className="bg-black py-20 border-t border-white/10">
+    <section id="team" className="bg-black py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SlideIn direction="up" delay={0.1}>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
@@ -332,7 +332,7 @@ function ContactFormSection() {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 bg-black border-t border-white/10">
+    <section id="contact" className="py-20 px-6 bg-black">
       <div className="mx-auto max-w-6xl">
         <SlideIn direction="up" delay={0.1}>
           <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-8 shadow-2xl shadow-teal-500/20">
@@ -403,7 +403,7 @@ function MeetingCalendlySection() {
   }, []);
 
   return (
-    <section id="meeting" className="bg-black py-20 border-t border-white/10">
+    <section id="meeting" className="bg-black py-20">
       <div className="mx-auto max-w-6xl px-6">
         <SlideIn direction="up" delay={0.1}>
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
@@ -480,7 +480,7 @@ export default function QuantivaWebsite() {
       {/* Metadata is handled by Next.js page.tsx metadata export */}
       
       {/* Navbar */}
-      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80 border-b border-white/10">
+      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
           <div className="flex items-center gap-3">
             {/* Quantiva Logo */}
@@ -709,7 +709,7 @@ export default function QuantivaWebsite() {
       <TeamSection />
 
       {/* Services */}
-      <section id="services" className="bg-black py-24 border-t border-white/10">
+      <section id="services" className="bg-black py-24">
         <div className="mx-auto max-w-7xl px-6">
           <SlideIn direction="up" delay={0.1}>
             <h2 className="text-center text-3xl font-bold text-white md:text-4xl">
@@ -774,7 +774,7 @@ export default function QuantivaWebsite() {
       </Suspense>
 
       {/* CTA Band */}
-      <section className="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-16 text-white border-y border-teal-400/30 shadow-2xl shadow-teal-500/30">
+      <section className="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-16 text-white shadow-2xl shadow-teal-500/30">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <SlideIn direction="up" delay={0.1}>
             <h2 className="text-3xl font-bold drop-shadow-lg">
