@@ -115,7 +115,7 @@ export default function TeamPage() {
       id: 2,
       name: 'Dr. Michael Weber',
       role: 'CTO & Technischer Leiter',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop',
+      image: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1760221471/generated-image_30_r8cjtq.png',
       bio: 'Technologie-Visionär mit Expertise in KI, Cloud-Architekturen und modernen Entwicklungsmethoden. Treibt Innovation voran.',
       expertise: ['KI & Machine Learning', 'Cloud Architecture', 'DevOps'],
       linkedin: 'https://linkedin.com/in/michael-weber',
