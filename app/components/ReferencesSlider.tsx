@@ -102,7 +102,7 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
       rotateX: 0,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 300,
         damping: 30,
         duration: 0.8
@@ -123,7 +123,7 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
     visible: { 
       scale: 1, 
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.8, ease: "easeOut" as const }
     }
   };
 
@@ -302,9 +302,9 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
                     >
-                      <span className="text-6xl text-teal-400/30 font-serif absolute -top-4 -left-2">"</span>
+                      <span className="text-6xl text-teal-400/30 font-serif absolute -top-4 -left-2">&ldquo;</span>
                       <span className="relative z-10">{references[currentIndex].quote}</span>
-                      <span className="text-6xl text-teal-400/30 font-serif absolute -bottom-8 -right-2">"</span>
+                      <span className="text-6xl text-teal-400/30 font-serif absolute -bottom-8 -right-2">&rdquo;</span>
                     </motion.blockquote>
 
                     {/* Author Info with enhanced design */}
