@@ -297,113 +297,123 @@ export default function TeamPage() {
             </div>
           </SlideIn>
 
-          {/* Leadership Cards */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
-            {leadershipTeam.map((member, index) => (
-              <SlideIn key={member.id} direction="up" delay={index * 0.2}>
-                <motion.div
-                  className={`relative group cursor-pointer ${
-                    selectedMember === index ? 'ring-2 ring-teal-400' : ''
-                  }`}
-                  onClick={() => setSelectedMember(index)}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Card Background */}
-                  <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border border-white/10 p-8">
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
-                    <div className="relative z-10">
-                      {/* Member Image */}
-                      <div className="relative mb-6">
-                        <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-teal-500/30 group-hover:border-teal-400/60 transition-all duration-300">
-                          <Image
-                            src={member.image}
-                            alt={member.name}
-                            width={128}
-                            height={128}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                        {/* Selection Indicator */}
-                        {selectedMember === index && (
-                          <div className="absolute -top-2 -right-2 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
-                            <div className="w-3 h-3 bg-white rounded-full"></div>
+          {/* Leadership Carousel */}
+          <div className="relative">
+            {/* Carousel Container */}
+            <div className="relative overflow-hidden rounded-3xl">
+              <motion.div
+                className="flex transition-transform duration-500 ease-in-out"
+                animate={{ x: `-${selectedMember * 100}%` }}
+              >
+                {leadershipTeam.map((member, index) => (
+                  <div key={member.id} className="w-full flex-shrink-0">
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                      {/* Left: Member Image */}
+                      <SlideIn direction="left" delay={index * 0.2}>
+                        <div className="relative group">
+                          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+                          <div className="relative rounded-3xl overflow-hidden">
+                            <Image
+                              src={member.image}
+                              alt={member.name}
+                              width={600}
+                              height={400}
+                              className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div className="absolute bottom-8 left-8 right-8">
+                              <div className="bg-black/80 backdrop-blur-md border border-teal-500/30 rounded-2xl p-6">
+                                <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
+                                <p className="text-teal-400 font-semibold">{member.role}</p>
+                              </div>
+                            </div>
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      </SlideIn>
 
-                      {/* Member Info */}
-                      <div className="text-center">
-                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">
-                          {member.name}
-                        </h3>
-                        <p className="text-lg text-teal-400 font-semibold mb-4">
-                          {member.role}
-                        </p>
-                        <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                          {member.bio}
-                        </p>
+                      {/* Right: Member Details */}
+                      <SlideIn direction="right" delay={index * 0.2 + 0.1}>
+                        <div className="space-y-8">
+                          <div>
+                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                              {member.name}
+                            </h2>
+                            <p className="text-2xl text-teal-400 font-semibold mb-6">{member.role}</p>
+                            <p className="text-lg text-gray-300 leading-relaxed mb-8">
+                              {member.bio}
+                            </p>
+                          </div>
 
-                        {/* Expertise Tags */}
-                        <div className="flex flex-wrap gap-2 justify-center mb-6">
-                          {member.expertise.map((skill, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="px-3 py-1 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs rounded-full font-medium hover:bg-white/20 transition-colors"
+                          <div className="space-y-4">
+                            <h4 className="text-xl font-semibold text-white mb-4">Expertise</h4>
+                            <div className="flex flex-wrap gap-3">
+                              {member.expertise.map((skill, skillIndex) => (
+                                <span
+                                  key={skillIndex}
+                                  className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-medium hover:bg-white/20 transition-colors"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="flex gap-4">
+                            <a
+                              href={member.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
                             >
-                              {skill}
-                            </span>
-                          ))}
+                              <Linkedin className="w-5 h-5" />
+                              LinkedIn
+                            </a>
+                            <a
+                              href={`mailto:${member.email}`}
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+                            >
+                              <Mail className="w-5 h-5" />
+                              Kontakt
+                            </a>
+                          </div>
                         </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex gap-3 justify-center">
-                          <a
-                            href={member.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors text-sm"
-                          >
-                            <Linkedin className="w-4 h-4" />
-                            LinkedIn
-                          </a>
-                          <a
-                            href={`mailto:${member.email}`}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300 text-sm"
-                          >
-                            <Mail className="w-4 h-4" />
-                            Kontakt
-                          </a>
-                        </div>
-                      </div>
+                      </SlideIn>
                     </div>
                   </div>
-                </motion.div>
-              </SlideIn>
-            ))}
-          </div>
-
-          {/* Selection Indicator */}
-          <SlideIn direction="up" delay={0.6}>
-            <div className="text-center">
-              <p className="text-gray-400 text-sm mb-4">
-                Klicken Sie auf eine Karte, um mehr Details zu sehen
-              </p>
-              <div className="flex justify-center gap-2">
-                {leadershipTeam.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedMember(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
-                      selectedMember === index ? 'bg-teal-400' : 'bg-white/30'
-                    }`}
-                  />
                 ))}
-              </div>
+              </motion.div>
             </div>
-          </SlideIn>
+
+            {/* Carousel Controls */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={() => setSelectedMember((prev) => (prev - 1 + leadershipTeam.length) % leadershipTeam.length)}
+                className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-colors flex items-center justify-center"
+              >
+                <ChevronRight className="w-6 h-6 rotate-180" />
+              </button>
+              
+              <button
+                onClick={() => setSelectedMember((prev) => (prev + 1) % leadershipTeam.length)}
+                className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-colors flex items-center justify-center"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Slide Indicators */}
+            <div className="flex justify-center gap-2 mt-6">
+              {leadershipTeam.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedMember(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    selectedMember === index ? 'bg-teal-400' : 'bg-white/30'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
