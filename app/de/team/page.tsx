@@ -317,8 +317,9 @@ export default function TeamPage() {
                               src={member.image}
                               alt={member.name}
                               width={600}
-                              height={400}
-                              className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
+                              height={600}
+                              className="w-full h-[600px] object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                              style={{ objectPosition: 'center 20%' }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                             <div className="absolute bottom-8 left-8 right-8">
