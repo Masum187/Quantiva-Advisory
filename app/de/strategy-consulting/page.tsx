@@ -199,7 +199,7 @@ export default function StrategyConsultingPage() {
             </SlideIn>
 
             {/* Hero Claims with 3D Animation */}
-            <div className="space-y-8 mb-12">
+            <div className="space-y-6 mb-8">
               {heroClaims.map((claim, index) => (
                 <FloatingText key={index} delay={index * 0.2}>
                   <motion.h1 
@@ -227,7 +227,7 @@ export default function StrategyConsultingPage() {
 
             {/* Value Punchlines - 3D Bubbles */}
             <SlideIn direction="up" delay={0.6}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                 {valuePunchlines.map((punchline, index) => (
                   <motion.div
                     key={index}
@@ -350,9 +350,9 @@ export default function StrategyConsultingPage() {
           </div>
 
           {/* Combined Section: Pillars, Process & Impact */}
-          <div className="mb-24">
+          <div className="mb-16">
             <SlideIn direction="up">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">
                 Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kernbereiche</span>
               </h2>
             </SlideIn>
