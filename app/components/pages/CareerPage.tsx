@@ -1044,20 +1044,34 @@ export default function CareerPage() {
             })}
           </div>
 
-          {/* Benefits Section */}
+          {/* Benefits Section - Modern 3D Design */}
           <div className="mb-24">
             <SlideIn direction="up">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
+              <div className="text-center mb-20">
+                <motion.div 
+                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm"
+                  whileHover={{ scale: 1.05, rotateY: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <Heart className="w-6 h-6 text-teal-400" />
                   <span className="text-white font-semibold">Unsere Benefits</span>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Warum <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Quantiva</span>?
-                </h2>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                </motion.div>
+                <motion.h2 
+                  className="text-4xl md:text-6xl font-bold text-white mb-6"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                  Warum <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Quantiva</span>?
+                </motion.h2>
+                <motion.p 
+                  className="text-xl text-gray-300 max-w-3xl mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
                   Wir bieten mehr als nur einen Job - wir bieten eine Karriere mit Zukunft.
-                </p>
+                </motion.p>
               </div>
             </SlideIn>
 
@@ -1065,20 +1079,104 @@ export default function CareerPage() {
               {benefits.map((benefit, index) => {
                 const Icon = benefit.icon;
                 return (
-                  <SlideIn key={benefit.title} direction="up" delay={index * 0.1}>
-                    <div className="group">
-                      <div className="relative h-full p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
-                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
-                        <div className="relative z-10">
-                          <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${benefit.color}/30 border border-teal-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                            <Icon className="w-8 h-8 text-teal-400" />
-                          </div>
-                          <h3 className="text-xl font-bold text-white mb-4 mt-6">{benefit.title}</h3>
-                          <p className="text-gray-300 text-sm leading-relaxed">{benefit.description}</p>
-                        </div>
+                  <motion.div
+                    key={benefit.title}
+                    initial={{ opacity: 0, y: 50, rotateX: -15 }}
+                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ 
+                      duration: 0.6, 
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    whileHover={{ 
+                      y: -10, 
+                      rotateY: 5, 
+                      rotateX: 5,
+                      scale: 1.02,
+                      transition: { duration: 0.3 }
+                    }}
+                    className="group perspective-1000"
+                  >
+                    <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20 group-hover:border-teal-400/30">
+                      {/* 3D Background Effects */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                      
+                      {/* Floating Particles Effect */}
+                      <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                        <motion.div
+                          className="absolute w-2 h-2 bg-teal-400/30 rounded-full"
+                          animate={{
+                            x: [0, 100, 0],
+                            y: [0, -50, 0],
+                            opacity: [0, 1, 0],
+                            scale: [0, 1, 0]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            delay: index * 0.5
+                          }}
+                          style={{ top: '20%', left: '10%' }}
+                        />
+                        <motion.div
+                          className="absolute w-1 h-1 bg-purple-400/40 rounded-full"
+                          animate={{
+                            x: [0, -80, 0],
+                            y: [0, 60, 0],
+                            opacity: [0, 1, 0],
+                            scale: [0, 1, 0]
+                          }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            delay: index * 0.7
+                          }}
+                          style={{ top: '60%', right: '15%' }}
+                        />
+                      </div>
+
+                      <div className="relative z-10">
+                        {/* 3D Icon Container */}
+                        <motion.div 
+                          className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${benefit.color}/20 border border-white/20 flex items-center justify-center group-hover:border-teal-400/50 backdrop-blur-sm relative overflow-hidden`}
+                          whileHover={{ 
+                            rotateY: 360,
+                            scale: 1.1,
+                            transition: { duration: 0.6 }
+                          }}
+                        >
+                          {/* Icon Glow Effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color}/30 rounded-3xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                          <Icon className="w-10 h-10 text-white relative z-10 group-hover:text-teal-300 transition-colors duration-300" />
+                        </motion.div>
+
+                        {/* Content */}
+                        <motion.h3 
+                          className="text-xl font-bold text-white mb-4 mt-6 group-hover:text-teal-300 transition-colors duration-300"
+                          whileHover={{ x: 5 }}
+                        >
+                          {benefit.title}
+                        </motion.h3>
+                        <motion.p 
+                          className="text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                          whileHover={{ x: 5 }}
+                        >
+                          {benefit.description}
+                        </motion.p>
+
+                        {/* Hover Arrow */}
+                        <motion.div
+                          className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <ArrowRight className="w-5 h-5 text-teal-400" />
+                        </motion.div>
                       </div>
                     </div>
-                  </SlideIn>
+                  </motion.div>
                 );
               })}
             </div>
