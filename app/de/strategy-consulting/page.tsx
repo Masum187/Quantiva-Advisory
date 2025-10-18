@@ -53,9 +53,9 @@ function FloatingText({ children, delay = 0 }: { children: React.ReactNode; dela
       whileHover={{ 
         y: -5, 
         rotateY: 5,
-        scale: 1.05,
-        transition: { duration: 0.3 }
+        scale: 1.05
       }}
+      transition={{ duration: 0.3 }}
       className="perspective-1000"
     >
       {children}
@@ -239,8 +239,7 @@ export default function StrategyConsultingPage() {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     whileHover={{ 
                       rotateY: 10,
-                      scale: 1.05,
-                      transition: { duration: 0.3 }
+                      scale: 1.05
                     }}
                   >
                     <div className="p-6 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500">
@@ -371,8 +370,7 @@ export default function StrategyConsultingPage() {
                   }}
                   whileHover={{ 
                     scale: 1.1,
-                    rotateY: 10,
-                    transition: { duration: 0.3 }
+                    rotateY: 10
                   }}
                 >
                   <div className="p-8 rounded-3xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500">
@@ -411,8 +409,7 @@ export default function StrategyConsultingPage() {
                   }}
                   whileHover={{ 
                     rotateY: 5,
-                    scale: 1.02,
-                    transition: { duration: 0.3 }
+                    scale: 1.02
                   }}
                   style={{ transformStyle: "preserve-3d" }}
                 >
@@ -566,8 +563,7 @@ export default function StrategyConsultingPage() {
                 className="inline-block"
                 whileHover={{ 
                   scale: 1.05,
-                  rotateY: 5,
-                  transition: { duration: 0.3 }
+                  rotateY: 5
                 }}
               >
                 <div className="p-8 rounded-3xl bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-400/30 backdrop-blur-xl">
