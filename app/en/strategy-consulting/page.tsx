@@ -55,7 +55,6 @@ function FloatingText({ children, delay = 0 }: { children: React.ReactNode; dela
         rotateY: 5,
         scale: 1.05
       }}
-      transition={{ duration: 0.3 }}
       className="perspective-1000"
     >
       {children}

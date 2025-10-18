@@ -55,7 +55,6 @@ function FloatingText({ children, delay = 0 }: { children: React.ReactNode; dela
         rotateY: 5,
         scale: 1.05
       }}
-      transition={{ duration: 0.3 }}
       className="perspective-1000"
     >
       {children}
@@ -282,7 +281,6 @@ export default function StrategyConsultingPage() {
                       y: -10,
                       scale: 1.05
                     }}
-                    transition={{ duration: 0.3 }}
                     className="perspective-1000"
                   >
                     <div className="relative h-32 p-6 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
