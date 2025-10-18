@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navigation from '../../components/Navigation';
@@ -62,60 +62,8 @@ function FloatingText({ children, delay = 0 }: { children: React.ReactNode; dela
   );
 }
 
-// Laser Cursor Component
-function LaserCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
-    };
-
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-
-    window.addEventListener('mousemove', updateMousePosition);
-    document.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
-  if (!isVisible) return null;
-
-  return (
-    <div 
-      className="laser-cursor"
-      style={{
-        transform: `translate(${mousePosition.x - 10}px, ${mousePosition.y - 10}px)`,
-      }}
-    >
-      <div className="laser-dot"></div>
-      <div 
-        className="laser-trail"
-        style={{
-          transform: `rotate(${Math.atan2(mousePosition.y, mousePosition.x)}rad)`,
-        }}
-      ></div>
-    </div>
-  );
-}
-
 export default function StrategyConsultingPage() {
   const { lang, localePath } = useLanguage();
-
-  // Add laser cursor class to body
-  useEffect(() => {
-    document.body.classList.add('laser-cursor-page');
-    return () => {
-      document.body.classList.remove('laser-cursor-page');
-    };
-  }, []);
 
   // Navigation items
   const navigationItems = [
@@ -183,9 +131,6 @@ export default function StrategyConsultingPage() {
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Navigation */}
       <Navigation lang={lang} items={navigationItems} />
-
-      {/* Laser Cursor */}
-      <LaserCursor />
 
       {/* Back Button */}
       <div className="absolute top-24 left-8 z-10">
