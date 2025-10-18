@@ -350,7 +350,7 @@ export default function StrategyConsultingPage() {
           </div>
 
           {/* Strategy & Consulting Description - Optimized Card */}
-          <div className="mb-16">
+          <div className="mb-8">
             <SlideIn direction="up" delay={0.8}>
               <motion.div
                 className="group perspective-1000"
@@ -501,9 +501,9 @@ export default function StrategyConsultingPage() {
           </div>
 
           {/* Combined Section: Pillars, Process & Impact */}
-          <div className="mb-16">
+          <div className="mb-12">
             <SlideIn direction="up">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-12 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
                 Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kernbereiche</span>
               </h2>
             </SlideIn>
