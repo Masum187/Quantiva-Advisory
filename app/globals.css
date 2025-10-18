@@ -185,4 +185,69 @@ html {
   animation: float-particle 3s ease-in-out infinite;
 }
 
+/* Laser Pointer Cursor - Only on Strategy Consulting pages */
+.laser-cursor-page * {
+  cursor: none !important;
+}
+
+.laser-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.laser-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #14b8a6 0%, #0d9488 70%, transparent 100%);
+  box-shadow: 
+    0 0 10px #14b8a6,
+    0 0 20px #14b8a6,
+    0 0 30px #14b8a6,
+    0 0 40px #14b8a6;
+  animation: laser-pulse 2s ease-in-out infinite alternate;
+}
+
+.laser-trail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #14b8a6 50%, transparent 100%);
+  transform-origin: left center;
+  opacity: 0.6;
+  filter: blur(1px);
+}
+
+@keyframes laser-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Alternative laser beam effect */
+.laser-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 100vh;
+  background: linear-gradient(180deg, #14b8a6 0%, transparent 100%);
+  transform-origin: center top;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
 
