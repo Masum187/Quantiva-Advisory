@@ -42,15 +42,4 @@
       "static/chunks/app/de/career/page.js"
     ]
   }
-}age": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
-    ],
-    "/de/career/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/de/career/page.js"
-    ]
-  }
 }
