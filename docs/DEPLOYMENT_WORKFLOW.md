@@ -263,3 +263,4 @@ Status Badges in `README.md`:
 **Nächster Schritt:** Vercel Dashboard konfigurieren (siehe Checkliste oben)
 
 
+

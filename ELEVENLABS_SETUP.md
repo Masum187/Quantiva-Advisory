@@ -270,3 +270,4 @@ export default async function handler(req, res) {
 **Next Step:** API-Key in Vercel hinzufügen (siehe Production Setup oben)
 
 
+

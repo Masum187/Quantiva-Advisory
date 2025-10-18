@@ -137,3 +137,4 @@ A: Theoretisch ja, aber es ist primär für Next.js optimiert.
 **Nächste Review:** Bei Bedarf oder nach 6 Monaten
 
 
+
