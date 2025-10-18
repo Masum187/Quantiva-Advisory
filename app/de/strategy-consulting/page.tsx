@@ -265,7 +265,7 @@ export default function StrategyConsultingPage() {
                 return (
                   <motion.div
                     key={pillar.name}
-                    className="group"
+                    className="group perspective-1000"
                     initial={{ opacity: 0, rotateX: -90, y: 50 }}
                     whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
                     transition={{ 
@@ -280,7 +280,6 @@ export default function StrategyConsultingPage() {
                       y: -10,
                       scale: 1.05
                     }}
-                    className="perspective-1000"
                   >
                     <div className="relative h-32 p-6 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
                       <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
