@@ -187,7 +187,7 @@ export default function StrategyConsultingPage() {
 
             {/* Value Punchlines - 3D Bubbles */}
             <SlideIn direction="up" delay={0.6}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
                 {valuePunchlines.map((punchline, index) => (
                   <motion.div
                     key={index}
@@ -310,7 +310,7 @@ export default function StrategyConsultingPage() {
           </div>
 
           {/* Strategy & Consulting Description - Optimized Card */}
-          <div className="mb-8">
+          <div className="mt-4 mb-8">
             <SlideIn direction="up" delay={0.8}>
               <motion.div
                 className="group perspective-1000"
