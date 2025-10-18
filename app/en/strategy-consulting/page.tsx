@@ -438,48 +438,239 @@ export default function StrategyConsultingPage() {
           </div>
 
 
-          {/* Growth Areas - Flip Cards */}
+          {/* Development Journey - Modern 3D Experience */}
           <div className="mb-24">
             <SlideIn direction="up">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
-                Your <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Development</span>
-              </h2>
+              <div className="text-center mb-16">
+                <motion.h2 
+                  className="text-5xl md:text-6xl font-bold text-white mb-6"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  Your <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">Development</span>
+                </motion.h2>
+                <motion.p 
+                  className="text-xl text-gray-300 max-w-3xl mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  A structured path from Consultant to Principal – with mentoring, innovation, and clear career paths
+                </motion.p>
+              </div>
             </SlideIn>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {growthAreas.map((area, index) => (
-                <motion.div
-                  key={area.title}
-                  className="group h-64"
-                  initial={{ opacity: 0, rotateX: -90 }}
-                  whileInView={{ opacity: 1, rotateX: 0 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  whileHover={{ 
-                    rotateY: 5,
-                    scale: 1.02,
-                    transition: { duration: 0.3 }
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  <div className="relative h-full w-full transition-transform duration-500 group-hover:rotateY-180">
-                    <div className="absolute inset-0 p-6 rounded-3xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500">
-                      <div className="h-full flex flex-col justify-center text-center">
-                        <h3 className="text-white font-bold text-lg mb-3 group-hover:text-teal-300 transition-colors">
-                          {area.title}
-                        </h3>
-                        <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors">
-                          {area.description}
-                        </p>
+            {/* Interactive Development Timeline */}
+            <div className="relative">
+              {/* Background Connection Line */}
+              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-teal-500/30 to-transparent transform -translate-y-1/2 hidden lg:block"></div>
+              
+              {/* Development Cards */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+                {growthAreas.map((area, index) => (
+                  <motion.div
+                    key={area.title}
+                    className="group perspective-1000"
+                    initial={{ opacity: 0, y: 100, rotateX: -45 }}
+                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: index * 0.15,
+                      type: "spring",
+                      stiffness: 80
+                    }}
+                    whileHover={{ 
+                      y: -20,
+                      rotateY: 10,
+                      rotateX: 5,
+                      scale: 1.05,
+                      transition: { duration: 0.4 }
+                    }}
+                  >
+                    {/* Card Container */}
+                    <div className="relative h-80 w-full">
+                      
+                      {/* Floating Background Elements */}
+                      <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                        <motion.div
+                          className="absolute w-20 h-20 bg-gradient-to-br from-teal-500/10 to-purple-500/10 rounded-full blur-xl"
+                          animate={{
+                            x: [0, 30, 0],
+                            y: [0, -20, 0],
+                            scale: [1, 1.2, 1],
+                            opacity: [0.3, 0.6, 0.3]
+                          }}
+                          transition={{
+                            duration: 4 + index,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                          style={{ top: '10%', left: '10%' }}
+                        />
+                        <motion.div
+                          className="absolute w-16 h-16 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-lg"
+                          animate={{
+                            x: [0, -25, 0],
+                            y: [0, 25, 0],
+                            scale: [1, 0.8, 1],
+                            opacity: [0.2, 0.5, 0.2]
+                          }}
+                          transition={{
+                            duration: 5 + index * 0.5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                          style={{ bottom: '15%', right: '15%' }}
+                        />
                       </div>
+
+                      {/* Main Card */}
+                      <div className="relative h-full w-full rounded-3xl bg-gradient-to-br from-black/60 via-black/40 to-black/60 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30 transform-gpu overflow-hidden">
+                        
+                        {/* Card Glow Effect */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-pink-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        {/* Progress Indicator */}
+                        <div className="absolute top-6 left-6">
+                          <motion.div
+                            className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-400/40 flex items-center justify-center backdrop-blur-sm"
+                            whileHover={{ rotate: 360 }}
+                            transition={{ duration: 0.6 }}
+                          >
+                            <span className="text-teal-400 font-bold text-lg">{index + 1}</span>
+                          </motion.div>
+                        </div>
+
+                        {/* Floating Particles */}
+                        <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                          {[...Array(3)].map((_, particleIndex) => (
+                            <motion.div
+                              key={particleIndex}
+                              className="absolute w-1 h-1 bg-teal-400/40 rounded-full"
+                              animate={{
+                                x: [0, Math.random() * 100 - 50],
+                                y: [0, Math.random() * 100 - 50],
+                                opacity: [0, 1, 0],
+                                scale: [0, 1, 0]
+                              }}
+                              transition={{
+                                duration: 3 + particleIndex,
+                                repeat: Infinity,
+                                delay: particleIndex * 0.5
+                              }}
+                              style={{ 
+                                top: `${20 + particleIndex * 30}%`, 
+                                left: `${20 + particleIndex * 20}%` 
+                              }}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Content */}
+                        <div className="relative z-10 h-full flex flex-col justify-between p-8">
+                          
+                          {/* Top Section */}
+                          <div className="space-y-4">
+                            <motion.h3 
+                              className="text-2xl font-bold text-white group-hover:text-teal-300 transition-colors duration-300"
+                              whileHover={{ x: 5 }}
+                            >
+                              {area.title}
+                            </motion.h3>
+                            <motion.p 
+                              className="text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                              whileHover={{ x: 5 }}
+                            >
+                              {area.description}
+                            </motion.p>
+                          </div>
+
+                          {/* Bottom Section - Interactive Elements */}
+                          <div className="space-y-4">
+                            
+                            {/* Skill Progress Bar */}
+                            <div className="space-y-2">
+                              <div className="flex justify-between text-xs text-gray-400">
+                                <span>Progress</span>
+                                <span>{Math.min(100, (index + 1) * 25)}%</span>
+                              </div>
+                              <div className="w-full h-2 bg-black/30 rounded-full overflow-hidden">
+                                <motion.div
+                                  className="h-full bg-gradient-to-r from-teal-500 to-purple-500 rounded-full"
+                                  initial={{ width: 0 }}
+                                  whileInView={{ width: `${Math.min(100, (index + 1) * 25)}%` }}
+                                  transition={{ duration: 1, delay: index * 0.2 }}
+                                />
+                              </div>
+                            </div>
+
+                            {/* Action Button */}
+                            <motion.div
+                              className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <div className="w-full py-3 px-4 bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-400/30 rounded-xl text-center">
+                                <span className="text-teal-400 font-semibold text-sm">Learn more</span>
+                              </div>
+                            </motion.div>
+                          </div>
+                        </div>
+
+                        {/* Hover Arrow */}
+                        <motion.div
+                          className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <ArrowRight className="w-5 h-5 text-teal-400" />
+                        </motion.div>
+                      </div>
+
+                      {/* Connection Line to Next Card */}
+                      {index < growthAreas.length - 1 && (
+                        <div className="absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-teal-500/50 to-transparent transform -translate-y-1/2 hidden lg:block"></div>
+                      )}
                     </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Bottom CTA Section */}
+              <motion.div
+                className="mt-16 text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <div className="inline-block p-8 rounded-3xl bg-gradient-to-r from-teal-500/10 via-purple-500/10 to-pink-500/10 border border-teal-400/20 backdrop-blur-xl">
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    Ready for your <span className="text-teal-400">Development?</span>
+                  </h3>
+                  <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                    Start your career at Quantiva Advisory and become part of a team that promotes innovation and growth.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <motion.a
+                      href={localePath('/#contact')}
+                      className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Apply Now
+                    </motion.a>
+                    <motion.a
+                      href="mailto:careers@quantiva-advisory.com"
+                      className="px-8 py-4 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white font-semibold rounded-xl hover:bg-teal-500/10 transition-all duration-300"
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Get in Touch
+                    </motion.a>
                   </div>
-                </motion.div>
-              ))}
+                </div>
+              </motion.div>
             </div>
           </div>
 
