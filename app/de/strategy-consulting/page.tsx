@@ -764,9 +764,9 @@ export default function StrategyConsultingPage() {
                             
                             {/* Skill Progress Bar */}
                             <div className="space-y-2">
-                              <div className="flex justify-between text-xs text-gray-400">
+                              <div className="flex items-center justify-start text-xs text-gray-400 relative">
+                                <span className="mr-4">{Math.min(100, (index + 1) * 25)}%</span>
                                 <span>Fortschritt</span>
-                                <span>{Math.min(100, (index + 1) * 25)}%</span>
                               </div>
                               <div className="w-full h-2 bg-black/30 rounded-full overflow-hidden">
                                 <motion.div
