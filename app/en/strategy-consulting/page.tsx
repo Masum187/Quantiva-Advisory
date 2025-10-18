@@ -525,7 +525,7 @@ export default function StrategyConsultingPage() {
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
                   <div className="relative rounded-3xl overflow-hidden">
                     <Image
-                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
+                      src="https://res.cloudinary.com/dbrisux8i/image/upload/v1760221491/generated-image_12_zvzgif.jpg"
                       alt="Strategy & Consulting Team"
                       width={600}
                       height={500}
