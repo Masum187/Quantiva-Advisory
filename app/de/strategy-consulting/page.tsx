@@ -349,12 +349,16 @@ export default function StrategyConsultingPage() {
           </div>
 
           {/* Combined Section: Pillars, Process & Impact */}
-          <div className="mt-1 mb-12">
-            <SlideIn direction="up">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
-                Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kernbereiche</span>
-              </h2>
-            </SlideIn>
+          <motion.div 
+            className="-mt-8 mb-12"
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
+              Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kernbereiche</span>
+            </h2>
 
             {/* Three Column Layout */}
             <div className="grid lg:grid-cols-3 gap-8">
@@ -474,7 +478,7 @@ export default function StrategyConsultingPage() {
               </SlideIn>
 
             </div>
-          </div>
+          </motion.div>
 
 
           {/* Development Journey - Modern 3D Experience */}
