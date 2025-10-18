@@ -234,26 +234,22 @@ export default function StrategyConsultingPage() {
                     className="group perspective-1000"
                     initial={{ opacity: 0, scale: 0, rotateX: -90 }}
                     whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: index * 0.15,
-                      type: "spring",
-                      stiffness: 100
-                    }}
                     whileHover={{ 
                       scale: 1.1,
                       rotateY: 15,
                       rotateX: 10,
-                      y: -10,
-                      transition: { duration: 0.3 }
+                      y: -10
                     }}
                     animate={{
                       y: [0, -5, 0],
                       rotateY: [0, 2, 0],
                       rotateX: [0, 1, 0]
                     }}
-                    transition={{
-                      duration: 4 + index * 0.5,
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: index * 0.15,
+                      type: "spring",
+                      stiffness: 100,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
