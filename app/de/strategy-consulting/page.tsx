@@ -349,136 +349,134 @@ export default function StrategyConsultingPage() {
             </SlideIn>
           </div>
 
-          {/* Pillars Section - 3D Cubes */}
+          {/* Combined Section: Pillars, Process & Impact */}
           <div className="mb-24">
             <SlideIn direction="up">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
-                Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Säulen</span>
+                Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kernbereiche</span>
               </h2>
             </SlideIn>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {pillars.map((pillar, index) => {
-                const Icon = pillar.icon;
-                return (
-                  <motion.div
-                    key={pillar.name}
-                    className="group perspective-1000"
-                    initial={{ opacity: 0, rotateX: -90, y: 50 }}
-                    whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    whileHover={{ 
-                      rotateY: 15,
-                      rotateX: 5,
-                      y: -10,
-                      scale: 1.05
-                    }}
-                  >
-                    <div className="relative h-32 p-6 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
-                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      
-                      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-400/40 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="w-6 h-6 text-teal-400" />
+            {/* Three Column Layout */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              
+              {/* Säulen Column */}
+              <SlideIn direction="left">
+                <div className="space-y-6">
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">
+                    Unsere <span className="text-teal-400">Säulen</span>
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {pillars.map((pillar, index) => {
+                      const Icon = pillar.icon;
+                      return (
+                        <motion.div
+                          key={pillar.name}
+                          className="group perspective-1000"
+                          initial={{ opacity: 0, rotateX: -90, y: 50 }}
+                          whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+                          transition={{ 
+                            duration: 0.6, 
+                            delay: index * 0.1,
+                            type: "spring",
+                            stiffness: 100
+                          }}
+                          whileHover={{ 
+                            rotateY: 15,
+                            rotateX: 5,
+                            y: -10,
+                            scale: 1.05
+                          }}
+                        >
+                          <div className="relative h-24 p-4 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20">
+                            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            
+                            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center">
+                              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-400/40 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                                <Icon className="w-4 h-4 text-teal-400" />
+                              </div>
+                              <h4 className="text-white font-semibold text-xs group-hover:text-teal-300 transition-colors">
+                                {pillar.name}
+                              </h4>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Prozess Column */}
+              <SlideIn direction="up">
+                <div className="space-y-6">
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">
+                    Unser <span className="text-purple-400">Prozess</span>
+                  </h3>
+                  <div className="space-y-4">
+                    {processSteps.map((step, index) => (
+                      <motion.div
+                        key={index}
+                        className="relative"
+                        initial={{ opacity: 0, x: -100 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: index * 0.2 }}
+                      >
+                        <div className="p-4 rounded-2xl bg-gradient-to-r from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl">
+                          <div className="flex items-center space-x-3 text-white text-sm font-semibold">
+                            <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500/20 to-teal-500/20 border border-purple-400/30 flex items-center justify-center text-xs font-bold">
+                              {index + 1}
+                            </div>
+                            <span>{step}</span>
+                          </div>
                         </div>
-                        <h3 className="text-white font-semibold text-sm group-hover:text-teal-300 transition-colors">
-                          {pillar.name}
-                        </h3>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Process Timeline */}
-          <div className="mb-24">
-            <SlideIn direction="up">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
-                Unser <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Prozess</span>
-              </h2>
-            </SlideIn>
-
-            <div className="space-y-8">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  className="relative"
-                  initial={{ opacity: 0, x: -100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                >
-                  <div className="p-8 rounded-3xl bg-gradient-to-r from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl">
-                    <div className="flex items-center justify-center">
-                      <div className="flex items-center space-x-4 text-white text-xl font-semibold">
-                        {step.split(' → ').map((item, itemIndex) => (
-                          <React.Fragment key={itemIndex}>
-                            <motion.span
-                              className="px-4 py-2 rounded-lg bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-400/30"
-                              whileHover={{ 
-                                scale: 1.1,
-                                backgroundColor: "rgba(20, 184, 166, 0.2)"
-                              }}
-                            >
-                              {item}
-                            </motion.span>
-                            {itemIndex < step.split(' → ').length - 1 && (
-                              <ArrowRight className="w-5 h-5 text-teal-400" />
-                            )}
-                          </React.Fragment>
-                        ))}
-                      </div>
-                    </div>
+                      </motion.div>
+                    ))}
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                </div>
+              </SlideIn>
 
-          {/* Impact Metrics */}
-          <div className="mb-24">
-            <SlideIn direction="up">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
-                Messbarer <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Impact</span>
-              </h2>
-            </SlideIn>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {impactMetrics.map((metric, index) => (
-                <motion.div
-                  key={metric.label}
-                  className="group text-center"
-                  initial={{ opacity: 0, scale: 0, rotateY: -90 }}
-                  whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  whileHover={{ 
-                    scale: 1.1,
-                    rotateY: 10
-                  }}
-                >
-                  <div className="p-8 rounded-3xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500">
-                    <div className={`text-6xl font-bold mb-4 ${metric.color}`}>
-                      {metric.value}
-                    </div>
-                    <h3 className="text-white font-semibold text-lg group-hover:text-teal-300 transition-colors">
-                      {metric.label}
-                    </h3>
+              {/* Impact Column */}
+              <SlideIn direction="right">
+                <div className="space-y-6">
+                  <h3 className="text-2xl font-bold text-white text-center mb-6">
+                    Messbarer <span className="text-pink-400">Impact</span>
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {impactMetrics.map((metric, index) => (
+                      <motion.div
+                        key={index}
+                        className="group text-center"
+                        initial={{ opacity: 0, scale: 0, rotateY: -90 }}
+                        whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+                        transition={{ 
+                          duration: 0.6, 
+                          delay: index * 0.1,
+                          type: "spring",
+                          stiffness: 100
+                        }}
+                        whileHover={{ 
+                          scale: 1.1,
+                          rotateY: 10
+                        }}
+                      >
+                        <div className="p-4 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500">
+                          <div className={`text-3xl font-bold mb-2 ${metric.color}`}>
+                            {metric.value}
+                          </div>
+                          <h4 className="text-white font-semibold text-sm group-hover:text-teal-300 transition-colors">
+                            {metric.label}
+                          </h4>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-                </motion.div>
-              ))}
+                </div>
+              </SlideIn>
+
             </div>
           </div>
+
 
           {/* Growth Areas - Flip Cards */}
           <div className="mb-24">
