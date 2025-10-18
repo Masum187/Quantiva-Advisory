@@ -36,10 +36,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/de/not-found.js"
     ],
-    "/de/strategy-consulting/page": [
+    "/de/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/de/strategy-consulting/page.js"
+      "static/chunks/app/de/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ],
+    "/de/career/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/de/career/page.js"
     ]
   }
 }

@@ -427,6 +427,97 @@ export default function StrategyConsultingPage() {
             </div>
           </div>
 
+          {/* Detailed Description Section */}
+          <div className="mb-24">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <SlideIn direction="left">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+                  <div className="relative rounded-3xl overflow-hidden">
+                    <Image
+                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
+                      alt="Strategy & Consulting Team"
+                      width={600}
+                      height={500}
+                      className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                  </div>
+                </div>
+              </SlideIn>
+
+              <SlideIn direction="right">
+                <div className="space-y-8">
+                  <div>
+                    <motion.h2 
+                      className="text-4xl md:text-5xl font-bold text-white mb-6"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8 }}
+                    >
+                      Strategy & <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Consulting</span>
+                    </motion.h2>
+                    <motion.p 
+                      className="text-xl text-gray-300 leading-relaxed mb-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                      Success is based on the right strategy. Shape digital transformation with your knowledge and strategic thinking.
+                    </motion.p>
+                  </div>
+
+                  <motion.div 
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    <div className="p-6 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl">
+                      <p className="text-gray-200 leading-relaxed">
+                        At Quantiva Advisory, you accompany companies end-to-end – from vision to measurable implementation. As a Strategy Consultant, you develop market and technology roadmaps, translate business goals into sustainable target images, and steer transformation programs. In IT Consulting, you realize modern solutions in Cloud, Data & AI, and ERP – close to the customer, close to the result.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-2xl bg-gradient-to-br from-teal-500/10 via-purple-500/10 to-transparent border border-teal-400/20 backdrop-blur-xl">
+                      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                        <TrendingUp className="w-6 h-6 text-teal-400" />
+                        Your Development
+                      </h3>
+                      <p className="text-gray-200 leading-relaxed">
+                        Steep learning curve, mentoring by seniors, certifications, lab time for innovations, and clear career paths (Consultant → Senior → Lead → Principal). You take responsibility early, present to customers, set standards – and actively shape the Quantiva story.
+                      </p>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="flex flex-col sm:flex-row gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                  >
+                    <motion.a
+                      href={localePath('/#contact')}
+                      className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300 text-center"
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Apply Now
+                    </motion.a>
+                    <motion.a
+                      href="mailto:careers@quantiva-advisory.com"
+                      className="px-8 py-4 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white font-semibold rounded-xl hover:bg-teal-500/10 transition-all duration-300 text-center"
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Get in Touch
+                    </motion.a>
+                  </motion.div>
+                </div>
+              </SlideIn>
+            </div>
+          </div>
+
           {/* CTA Section */}
           <div className="text-center">
             <SlideIn direction="up">
