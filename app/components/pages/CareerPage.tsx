@@ -905,7 +905,13 @@ export default function CareerPage() {
                     <div className="relative h-full flex flex-col justify-end p-8">
                       <h3 className="text-2xl font-bold text-white mb-3">{t.areas[0].title}</h3>
                       <p className="text-gray-200 text-sm leading-relaxed">{t.areas[0].description}</p>
-                      <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
+                      <a 
+                        href={localePath('/strategy-consulting')}
+                        className="mt-4 inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors duration-300"
+                      >
+                        <span className="text-sm font-semibold">{lang === 'de' ? 'Mehr erfahren' : 'Learn more'}</span>
+                        <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-300" />
+                      </a>
                     </div>
                   </div>
                 </SlideIn>
