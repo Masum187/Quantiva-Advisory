@@ -348,9 +348,8 @@ export default function StrategyConsultingPage() {
             </SlideIn>
           </div>
 
-
           {/* Combined Section: Pillars, Process & Impact */}
-          <div className="mb-12">
+          <div className="mt-1 mb-12">
             <SlideIn direction="up">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center">
                 Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kernbereiche</span>
