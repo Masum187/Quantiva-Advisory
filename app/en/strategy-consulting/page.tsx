@@ -185,25 +185,127 @@ export default function StrategyConsultingPage() {
               ))}
             </div>
 
-            {/* Value Punchlines - Rotating */}
+            {/* Value Punchlines - 3D Bubbles */}
             <SlideIn direction="up" delay={0.6}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                 {valuePunchlines.map((punchline, index) => (
                   <motion.div
                     key={index}
-                    className="group"
-                    initial={{ opacity: 0, rotateY: -90 }}
-                    whileInView={{ opacity: 1, rotateY: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="group perspective-1000"
+                    initial={{ opacity: 0, scale: 0, rotateX: -90 }}
+                    whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: index * 0.15,
+                      type: "spring",
+                      stiffness: 100
+                    }}
                     whileHover={{ 
-                      rotateY: 10,
-                      scale: 1.05
+                      scale: 1.1,
+                      rotateY: 15,
+                      rotateX: 10,
+                      y: -10,
+                      transition: { duration: 0.3 }
+                    }}
+                    animate={{
+                      y: [0, -5, 0],
+                      rotateY: [0, 2, 0],
+                      rotateX: [0, 1, 0]
+                    }}
+                    transition={{
+                      duration: 4 + index * 0.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
                     }}
                   >
-                    <div className="p-6 rounded-2xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500">
-                      <p className="text-white font-semibold text-lg group-hover:text-teal-300 transition-colors">
-                        {punchline}
-                      </p>
+                    {/* 3D Bubble Container */}
+                    <div className="relative h-32 perspective-1000">
+                      {/* Bubble Glow Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      
+                      {/* Main Bubble */}
+                      <div className="relative h-full w-full rounded-full bg-gradient-to-br from-black/60 via-black/40 to-black/60 border border-white/20 backdrop-blur-xl group-hover:border-teal-400/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/30 transform-gpu">
+                        
+                        {/* Inner Bubble Reflection */}
+                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-gradient-to-br from-white/20 to-transparent opacity-60"></div>
+                        
+                        {/* Floating Particles Inside Bubble */}
+                        <div className="absolute inset-0 overflow-hidden rounded-full">
+                          <motion.div
+                            className="absolute w-1 h-1 bg-teal-400/40 rounded-full"
+                            animate={{
+                              x: [0, 60, 0],
+                              y: [0, -30, 0],
+                              opacity: [0, 1, 0],
+                              scale: [0, 1, 0]
+                            }}
+                            transition={{
+                              duration: 3,
+                              repeat: Infinity,
+                              delay: index * 0.3
+                            }}
+                            style={{ top: '30%', left: '20%' }}
+                          />
+                          <motion.div
+                            className="absolute w-1 h-1 bg-purple-400/40 rounded-full"
+                            animate={{
+                              x: [0, -40, 0],
+                              y: [0, 40, 0],
+                              opacity: [0, 1, 0],
+                              scale: [0, 1, 0]
+                            }}
+                            transition={{
+                              duration: 4,
+                              repeat: Infinity,
+                              delay: index * 0.5
+                            }}
+                            style={{ top: '60%', right: '25%' }}
+                          />
+                          <motion.div
+                            className="absolute w-1 h-1 bg-pink-400/40 rounded-full"
+                            animate={{
+                              x: [0, 30, 0],
+                              y: [0, -20, 0],
+                              opacity: [0, 1, 0],
+                              scale: [0, 1, 0]
+                            }}
+                            transition={{
+                              duration: 2.5,
+                              repeat: Infinity,
+                              delay: index * 0.7
+                            }}
+                            style={{ top: '20%', right: '30%' }}
+                          />
+                        </div>
+
+                        {/* Text Content */}
+                        <div className="relative z-10 h-full flex items-center justify-center p-6">
+                          <motion.p 
+                            className="text-white font-bold text-sm md:text-base text-center leading-tight group-hover:text-teal-300 transition-colors duration-300"
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            {punchline}
+                          </motion.p>
+                        </div>
+
+                        {/* Bubble Surface Highlights */}
+                        <div className="absolute top-2 left-1/4 w-2 h-2 rounded-full bg-white/10 opacity-40"></div>
+                        <div className="absolute bottom-3 right-1/3 w-1 h-1 rounded-full bg-white/20 opacity-60"></div>
+                      </div>
+
+                      {/* Outer Bubble Ring */}
+                      <motion.div
+                        className="absolute inset-0 rounded-full border border-teal-400/20 opacity-0 group-hover:opacity-100"
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          opacity: [0, 0.3, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: index * 0.2
+                        }}
+                      />
                     </div>
                   </motion.div>
                 ))}
