@@ -1,4 +1,4 @@
-import { xai } from "@ai-sdk/xai";
+import { xai, createXai } from "@ai-sdk/xai";
 import { streamText } from "ai";
 
 export async function POST(req: Request) {
@@ -9,8 +9,18 @@ export async function POST(req: Request) {
       return Response.json({ error: "Prompt is required" }, { status: 400 });
     }
 
+    // Check if API key is available
+    if (!process.env.XAI_API_KEY) {
+      return Response.json({ error: "XAI_API_KEY not configured" }, { status: 500 });
+    }
+
+    // Create xAI client with API key
+    const client = createXai({
+      apiKey: process.env.XAI_API_KEY!,
+    });
+
     const result = streamText({
-      model: xai("grok-2-1212"),
+      model: client("grok-2-1212"),
       prompt: prompt,
     });
 
