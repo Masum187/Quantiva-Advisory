@@ -348,6 +348,136 @@ export default function StrategyConsultingPage() {
             </SlideIn>
           </div>
 
+          {/* Community & Impact Statistics */}
+          <div className="mb-16">
+            <SlideIn direction="up" delay={0.8}>
+              <motion.div
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                  Werde Teil einer <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">erfolgreichen Community</span>
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Gemeinsam gestalten wir die Zukunft der digitalen Transformation
+                </p>
+              </motion.div>
+            </SlideIn>
+
+            {/* Statistics Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  number: "150+",
+                  label: "Erfolgreiche Projekte",
+                  description: "In den letzten 2 Jahren realisiert",
+                  color: "from-teal-400 to-cyan-400"
+                },
+                {
+                  number: "50+",
+                  label: "Glückliche Kunden",
+                  description: "Von Startups bis Enterprise",
+                  color: "from-purple-400 to-pink-400"
+                },
+                {
+                  number: "98%",
+                  label: "Projekt-Erfolgsquote",
+                  description: "Pünktlich und im Budget",
+                  color: "from-green-400 to-emerald-400"
+                },
+                {
+                  number: "24/7",
+                  label: "Support & Mentoring",
+                  description: "Für deine persönliche Entwicklung",
+                  color: "from-orange-400 to-yellow-400"
+                }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  whileHover={{ 
+                    y: -10,
+                    scale: 1.05,
+                    transition: { duration: 0.3 }
+                  }}
+                >
+                  {/* Card Background */}
+                  <div className="relative h-48 rounded-2xl bg-gradient-to-br from-black/60 via-black/40 to-black/60 border border-white/10 backdrop-blur-xl group-hover:border-teal-400/30 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20 overflow-hidden">
+                    
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                    
+                    {/* Floating Particles */}
+                    <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                      <motion.div
+                        className="absolute w-1 h-1 bg-teal-400/40 rounded-full"
+                        animate={{
+                          x: [0, 100, 0],
+                          y: [0, -50, 0],
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          delay: index * 0.5
+                        }}
+                        style={{ top: '20%', left: '10%' }}
+                      />
+                      <motion.div
+                        className="absolute w-1 h-1 bg-purple-400/40 rounded-full"
+                        animate={{
+                          x: [0, -80, 0],
+                          y: [0, 60, 0],
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 3.5,
+                          repeat: Infinity,
+                          delay: index * 0.7
+                        }}
+                        style={{ top: '60%', right: '15%' }}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 p-6 h-full flex flex-col justify-center text-center">
+                      <motion.div 
+                        className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {stat.number}
+                      </motion.div>
+                      <h3 className="text-white font-semibold text-lg mb-1 group-hover:text-teal-300 transition-colors">
+                        {stat.label}
+                      </h3>
+                      <p className="text-gray-400 text-sm leading-relaxed">
+                        {stat.description}
+                      </p>
+                    </div>
+
+                    {/* Hover Glow Effect */}
+                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-teal-500/10 via-purple-500/10 to-pink-500/10 blur-xl"></div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
           {/* Combined Section: Pillars, Process & Impact */}
           <motion.div 
             className="-mt-8 mb-12"
