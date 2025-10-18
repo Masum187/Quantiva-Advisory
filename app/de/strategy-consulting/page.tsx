@@ -67,11 +67,10 @@ function OrbitText({ children, radius = 100, delay = 0 }: { children: React.Reac
     <motion.div
       initial={{ opacity: 0, scale: 0 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay }}
       animate={{ 
-        rotate: 360,
-        transition: { duration: 20, repeat: Infinity, ease: "linear" }
+        rotate: 360
       }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       className="relative"
       style={{ width: radius * 2, height: radius * 2 }}
     >

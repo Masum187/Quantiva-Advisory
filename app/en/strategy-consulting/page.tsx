@@ -412,8 +412,7 @@ export default function StrategyConsultingPage() {
                   }}
                   whileHover={{ 
                     scale: 1.2,
-                    rotateZ: 5,
-                    transition: { duration: 0.2 }
+                    rotateZ: 5
                   }}
                 >
                   <div className="px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-400/30 text-white font-semibold group-hover:border-teal-400/60 group-hover:bg-teal-500/30 transition-all duration-300">
