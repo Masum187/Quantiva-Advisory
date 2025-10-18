@@ -82,8 +82,7 @@ export default function StrategyConsultingPage() {
   // 3D Text Blocks
   const heroClaims = [
     "Strategy & Consulting",
-    "Success is based on the right strategy.",
-    "Shape digital transformation with your knowledge."
+    "Success is based on the right strategy."
   ];
 
   const valuePunchlines = [
