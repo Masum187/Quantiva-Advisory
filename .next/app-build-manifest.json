@@ -40,6 +40,26 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/de/video-generation/page.js"
+    ],
+    "/de/cms/mcp-dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/de/cms/mcp-dashboard/page.js"
+    ],
+    "/de/ai-test/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/de/ai-test/page.js"
+    ],
+    "/api/video-generation/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/video-generation/route.js"
+    ],
+    "/de/cms/video-management/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/de/cms/video-management/page.js"
     ]
   }
 }

@@ -53,40 +53,40 @@ export default function VideoManagement() {
     const mockVideos: VideoAsset[] = [
       {
         id: '1',
-        publicId: 'generated-videos/hero-background-1234567890',
-        url: 'https://res.cloudinary.com/dbrisux8i/video/upload/v1234567890/generated-videos/hero-background-1234567890.mp4',
+        publicId: 'hero-videos/hero-background-demo',
+        url: 'https://res.cloudinary.com/dbrisux8i/video/upload/v1761079894/demo-videos/hero-background-demo.mp4',
         duration: 10,
         width: 1920,
         height: 1080,
         format: 'mp4',
         size: 15728640, // 15MB
-        folder: 'generated-videos',
-        tags: ['hero', 'background', 'generated'],
+        folder: 'demo-videos',
+        tags: ['hero', 'background', 'demo'],
         createdAt: '2024-01-15T10:30:00Z',
         metadata: {
-          title: 'Hero Background Video',
-          description: 'Modern corporate office with digital transformation elements',
-          prompt: 'Modern corporate office with digital transformation elements, professional lighting',
-          usage: 'hero-section'
+          title: 'Hero Background Demo Video',
+          description: 'Demo video for hero section',
+          prompt: 'Modern corporate office with digital transformation elements',
+          usage: 'hero-section-demo'
         }
       },
       {
         id: '2',
-        publicId: 'service-videos/sap-service-1234567891',
-        url: 'https://res.cloudinary.com/dbrisux8i/video/upload/v1234567891/service-videos/sap-service-1234567891.mp4',
+        publicId: 'service-videos/sap-service-demo',
+        url: 'https://res.cloudinary.com/dbrisux8i/video/upload/v1761079895/demo-videos/sap-service-demo.mp4',
         duration: 8,
         width: 1280,
         height: 720,
         format: 'mp4',
         size: 8388608, // 8MB
-        folder: 'service-videos',
-        tags: ['sap', 'service', 'generated'],
+        folder: 'demo-videos',
+        tags: ['sap', 'service', 'demo'],
         createdAt: '2024-01-15T11:15:00Z',
         metadata: {
-          title: 'SAP Service Video',
-          description: 'SAP S/4HANA system interface visualization',
-          prompt: 'SAP S/4HANA system interface with data flowing, modern dashboard',
-          usage: 'sap-service-page'
+          title: 'SAP Service Demo Video',
+          description: 'Demo video for SAP service page',
+          prompt: 'SAP S/4HANA system interface with data flowing',
+          usage: 'sap-service-demo'
         }
       }
     ];
