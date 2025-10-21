@@ -1,0 +1,32 @@
+{
+  "name": "quantiva-advisory-mcp",
+  "version": "1.0.0",
+  "description": "MCP Server for Quantiva Advisory Website",
+  "main": "mcp-server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node mcp-server.js",
+    "dev": "node --watch mcp-server.js",
+    "build": "echo 'No build step required'",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "quantiva",
+    "advisory",
+    "website",
+    "cms"
+  ],
+  "author": "Quantiva Advisory",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

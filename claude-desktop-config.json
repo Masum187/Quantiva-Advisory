@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "quantiva-advisory": {
+      "command": "node",
+      "args": ["/Users/herijeanmasum/Developer/quantiva-website/mcp-server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

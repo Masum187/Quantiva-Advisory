@@ -83,6 +83,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/de/cms/mcp-dashboard/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/de/cms/mcp-dashboard">> = Specific
+  const handler = {} as typeof import("../../app/de/cms/mcp-dashboard/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/de/cms/video-generator/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/de/cms/video-generator">> = Specific
