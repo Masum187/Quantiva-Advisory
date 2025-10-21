@@ -148,3 +148,4 @@ The OG generation system is fully integrated and production-ready:
 
 Your website now generates beautiful, professional OG images automatically! 🚀
 
+

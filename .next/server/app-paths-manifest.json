@@ -1,4 +1,3 @@
 {
-  "/api/ai-test/route": "app/api/ai-test/route.js",
-  "/_not-found/page": "app/_not-found/page.js"
+  "/de/ai-test/page": "app/de/ai-test/page.js"
 }
