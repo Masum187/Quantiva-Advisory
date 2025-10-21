@@ -16,7 +16,8 @@ import {
   Tag,
   Play,
   Pause,
-  RotateCcw
+  RotateCcw,
+  Upload
 } from 'lucide-react';
 
 interface VideoAsset {
