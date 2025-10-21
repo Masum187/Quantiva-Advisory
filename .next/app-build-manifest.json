@@ -1,10 +1,5 @@
 {
   "pages": {
-    "/api/ai-test/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/ai-test/route.js"
-    ],
     "/global-error": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -41,10 +36,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/de/not-found.js"
     ],
-    "/de/ai-test/page": [
+    "/de/video-generation/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/de/ai-test/page.js"
+      "static/chunks/app/de/video-generation/page.js"
     ]
   }
 }

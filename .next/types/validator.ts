@@ -83,6 +83,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/de/cms/video-generator/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/de/cms/video-generator">> = Specific
+  const handler = {} as typeof import("../../app/de/cms/video-generator/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/de/cms/video-management/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/de/cms/video-management">> = Specific
+  const handler = {} as typeof import("../../app/de/cms/video-management/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/de/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/de">> = Specific
@@ -159,6 +177,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends AppPageConfig<"/de/team">> = Specific
   const handler = {} as typeof import("../../app/de/team/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/de/video-generation/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/de/video-generation">> = Specific
+  const handler = {} as typeof import("../../app/de/video-generation/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -272,6 +299,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/en/video-generation/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/en/video-generation">> = Specific
+  const handler = {} as typeof import("../../app/en/video-generation/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/">> = Specific
@@ -290,10 +326,37 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/api/cms/upload-video/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/cms/upload-video">> = Specific
+  const handler = {} as typeof import("../../app/api/cms/upload-video/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/cms/video-generator/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/cms/video-generator">> = Specific
+  const handler = {} as typeof import("../../app/api/cms/video-generator/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/api/contact/route.ts
 {
   type __IsExpected<Specific extends RouteHandlerConfig<"/api/contact">> = Specific
   const handler = {} as typeof import("../../app/api/contact/route.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/api/video-generation/route.ts
+{
+  type __IsExpected<Specific extends RouteHandlerConfig<"/api/video-generation">> = Specific
+  const handler = {} as typeof import("../../app/api/video-generation/route.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
