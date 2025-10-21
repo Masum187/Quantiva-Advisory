@@ -5,16 +5,12 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
-  Tool,
 } from '@modelcontextprotocol/sdk/types.js';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
 // Quantiva Advisory MCP Server
 class QuantivaMCPServer {
-  private server: Server;
-  private contentPath: string;
-
   constructor() {
     this.server = new Server(
       {
@@ -32,7 +28,7 @@ class QuantivaMCPServer {
     this.setupHandlers();
   }
 
-  private setupHandlers() {
+  setupHandlers() {
     // List available tools
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       return {
@@ -152,7 +148,7 @@ class QuantivaMCPServer {
               }
             }
           }
-        ] as Tool[]
+        ]
       };
     });
 
@@ -194,7 +190,7 @@ class QuantivaMCPServer {
     });
   }
 
-  private async getContent(section: string, language: string) {
+  async getContent(section, language) {
     if (!existsSync(this.contentPath)) {
       throw new Error('Content file not found');
     }
@@ -216,7 +212,7 @@ class QuantivaMCPServer {
     };
   }
 
-  private async updateContent(section: string, language: string, data: any) {
+  async updateContent(section, language, data) {
     if (!existsSync(this.contentPath)) {
       throw new Error('Content file not found');
     }
@@ -241,7 +237,7 @@ class QuantivaMCPServer {
     };
   }
 
-  private async generateVideo(args: any) {
+  async generateVideo(args) {
     const response = await fetch('http://localhost:3000/api/cms/video-generator', {
       method: 'POST',
       headers: {
@@ -266,7 +262,7 @@ class QuantivaMCPServer {
     };
   }
 
-  private async getVideos(args: any) {
+  async getVideos(args) {
     // In real implementation, this would query Cloudinary API
     const mockVideos = [
       {
@@ -311,7 +307,7 @@ class QuantivaMCPServer {
     };
   }
 
-  private async analyzePerformance(page: string) {
+  async analyzePerformance(page) {
     // Mock performance analysis
     const analysis = {
       page,
