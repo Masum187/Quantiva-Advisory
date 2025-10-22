@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"app/components/QuantivaWebsite.tsx -> ./ReferencesSlider\":{\"id\":\"app/components/QuantivaWebsite.tsx -> ./ReferencesSlider\",\"files\":[\"static/chunks/_app-pages-browser_app_components_ReferencesSlider_tsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST='{"app/components/QuantivaWebsite.tsx -> ./ReferencesSlider":{"id":9235,"files":["static/chunks/9235.2224d819f4d90534.js"]}}';

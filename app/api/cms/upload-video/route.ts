@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
         eager_async: true,
         tags: ["uploaded", "cms", ...tags]
       }
-    );
+    ) as any;
 
     return Response.json({
       success: true,

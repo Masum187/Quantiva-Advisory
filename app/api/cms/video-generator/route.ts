@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
         eager_async: true,
         tags: ["generated", "sora", "ai-video", quality, `${duration}s`]
       }
-    );
+    ) as any;
 
     return Response.json({
       success: true,
