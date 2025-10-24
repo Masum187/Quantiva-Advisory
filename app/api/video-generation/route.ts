@@ -128,3 +128,5 @@ export async function GET() {
     apiKeyConfigured: !!process.env.COMETAPI_KEY
   });
 }
+
+

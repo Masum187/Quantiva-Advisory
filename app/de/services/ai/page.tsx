@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import Navigation from '../../../components/Navigation';
+import ServiceNavigation from '@/components/ServiceNavigation';
 import { Brain, ArrowLeft, CheckCircle, Cpu, Zap, Shield, Target } from 'lucide-react';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
@@ -140,8 +140,8 @@ export default function AIServicePage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Navigation */}
-      <Navigation lang="de" items={navigationItems} />
+      {/* Service Navigation */}
+      <ServiceNavigation lang="de" serviceTitle="AI & Machine Learning" serviceId="ai" />
       {/* Fixed Background Video */}
       <div className="fixed inset-0 z-0">
         <video

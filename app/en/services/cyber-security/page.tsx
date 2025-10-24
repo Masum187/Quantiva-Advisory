@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Shield, ArrowLeft, CheckCircle, Lock, Eye, AlertTriangle, Search } from 'lucide-react';
+import ServiceNavigation from '@/components/ServiceNavigation';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
   const variants = {
@@ -70,6 +71,9 @@ export default function CyberSecurityServicePage() {
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Service Navigation */}
+      <ServiceNavigation lang="en" serviceTitle="Cyber Security" serviceId="security" />
+      
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-red-900/20 via-black to-orange-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Database, ArrowLeft, CheckCircle, Users, Target, Zap } from 'lucide-react';
+import ServiceNavigation from '@/components/ServiceNavigation';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
   const variants = {
@@ -70,6 +71,9 @@ export default function SAPServicePage() {
 
   return (
     <div className="min-h-screen bg-black">
+      {/* Service Navigation */}
+      <ServiceNavigation lang="en" serviceTitle="SAP Services" serviceId="sap" />
+      
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-blue-900/20 via-black to-cyan-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

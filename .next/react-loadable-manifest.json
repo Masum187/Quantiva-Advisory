@@ -1,8 +1,8 @@
 {
   "app/components/QuantivaWebsite.tsx -> ./ReferencesSlider": {
-    "id": 9235,
+    "id": "app/components/QuantivaWebsite.tsx -> ./ReferencesSlider",
     "files": [
-      "static/chunks/9235.2224d819f4d90534.js"
+      "static/chunks/_app-pages-browser_app_components_ReferencesSlider_tsx.js"
     ]
   }
 }

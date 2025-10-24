@@ -190,3 +190,5 @@ npm run dev
 ## 🎉 **Fertig!**
 
 Die Video-Generierung ist jetzt vollständig integriert und einsatzbereit. Besuchen Sie `/de/video-generation` oder `/en/video-generation` um Videos zu generieren!
+
+

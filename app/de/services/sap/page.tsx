@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Database, ArrowLeft, CheckCircle, Users, Target, Zap } from 'lucide-react';
+import ServiceNavigation from '@/components/ServiceNavigation';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
   const variants = {
@@ -186,6 +187,9 @@ export default function SAPServicePage() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Service Navigation */}
+      <ServiceNavigation lang="de" serviceTitle="SAP Services" serviceId="sap" />
+      
       {/* Rotating Background Videos */}
       <div className="fixed inset-0 z-0">
         {videos.map((video, index) => (
