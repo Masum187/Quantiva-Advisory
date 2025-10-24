@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowLeft } from 'lucide-react';
-import { useNavigationContent } from '@/lib/contexts/ContentContext';
+import { useNavigationContent } from '../lib/contexts/ContentContext';
 
 interface ServiceNavigationProps {
   lang: 'de' | 'en';

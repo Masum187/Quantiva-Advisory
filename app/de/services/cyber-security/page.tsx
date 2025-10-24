@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Shield, ArrowLeft, CheckCircle, Lock, Eye, AlertTriangle, Search } from 'lucide-react';
-import ServiceNavigation from '@/components/ServiceNavigation';
+import ServiceNavigation from '../../../components/ServiceNavigation';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
   const variants = {
