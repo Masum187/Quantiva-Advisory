@@ -38,7 +38,6 @@ export default function TeamPage() {
   const lang = 'de';
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [selectedMember, setSelectedMember] = useState(0); // 0 = CEO, 1 = CTO
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Navigation items for German
@@ -297,125 +296,85 @@ export default function TeamPage() {
             </div>
           </SlideIn>
 
-          {/* Leadership Carousel */}
-          <div className="relative">
-            {/* Carousel Container */}
-            <div className="relative overflow-hidden rounded-3xl">
-              <motion.div
-                className="flex transition-transform duration-500 ease-in-out"
-                animate={{ x: `-${selectedMember * 100}%` }}
-              >
-                {leadershipTeam.map((member, index) => (
-                  <div key={member.id} className="w-full flex-shrink-0">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                      {/* Left: Member Image */}
-                      <SlideIn direction="left" delay={index * 0.2}>
-                        <div className="relative group">
-                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-3xl blur-3xl"></div>
-                          <div className="relative rounded-3xl overflow-hidden">
-                            <Image
-                              src={member.image}
-                              alt={member.name}
-                              width={600}
-                              height={600}
-                              className="w-full h-[600px] object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                              style={{ 
-                                objectPosition: member.id === 1 ? 'center 30%' : 'center 25%'
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                            <div className="absolute bottom-8 left-8 right-8">
-                              <div className="bg-black/80 backdrop-blur-md border border-orange-500/30 rounded-2xl p-6">
-                                <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
-                                <p className="text-orange-400 font-semibold">{member.role}</p>
-                              </div>
-                            </div>
-                          </div>
+          {/* Leadership Cards - Static Version */}
+          <div className="space-y-16">
+            {leadershipTeam.map((member, index) => (
+              <div key={member.id} className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Left: Member Image */}
+                <SlideIn direction="left" delay={index * 0.2}>
+                  <div className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-3xl blur-3xl"></div>
+                    <div className="relative rounded-3xl overflow-hidden">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        width={600}
+                        height={600}
+                        className="w-full h-[600px] object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                        style={{ 
+                          objectPosition: member.id === 1 ? 'center 30%' : 'center 25%'
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                      <div className="absolute bottom-8 left-8 right-8">
+                        <div className="bg-black/80 backdrop-blur-md border border-orange-500/30 rounded-2xl p-6">
+                          <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
+                          <p className="text-orange-400 font-semibold">{member.role}</p>
                         </div>
-                      </SlideIn>
-
-                      {/* Right: Member Details */}
-                      <SlideIn direction="right" delay={index * 0.2 + 0.1}>
-                        <div className="space-y-8">
-                          <div>
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                              {member.name}
-                            </h2>
-                            <p className="text-2xl text-orange-400 font-semibold mb-6">{member.role}</p>
-                            <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                              {member.bio}
-                            </p>
-                          </div>
-
-                          <div className="space-y-4">
-                            <h4 className="text-xl font-semibold text-white mb-4">Expertise</h4>
-                            <div className="flex flex-wrap gap-3">
-                              {member.expertise.map((skill, skillIndex) => (
-                                <span
-                                  key={skillIndex}
-                                  className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-medium hover:bg-white/20 transition-colors"
-                                >
-                                  {skill}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className="flex gap-4">
-                            <a
-                              href={member.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
-                            >
-                              <Linkedin className="w-5 h-5" />
-                              LinkedIn
-                            </a>
-                            <a
-                              href={`mailto:${member.email}`}
-                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300"
-                            >
-                              <Mail className="w-5 h-5" />
-                              Kontakt
-                            </a>
-                          </div>
-                        </div>
-                      </SlideIn>
+                      </div>
                     </div>
                   </div>
-                ))}
-              </motion.div>
-            </div>
+                </SlideIn>
 
-            {/* Carousel Controls */}
-            <div className="flex items-center justify-center gap-4 mt-8">
-              <button
-                onClick={() => setSelectedMember((prev) => (prev - 1 + leadershipTeam.length) % leadershipTeam.length)}
-                className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-colors flex items-center justify-center"
-              >
-                <ChevronRight className="w-6 h-6 rotate-180" />
-              </button>
-              
-              <button
-                onClick={() => setSelectedMember((prev) => (prev + 1) % leadershipTeam.length)}
-                className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-colors flex items-center justify-center"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
+                {/* Right: Member Details */}
+                <SlideIn direction="right" delay={index * 0.2 + 0.1}>
+                  <div className="space-y-8">
+                    <div>
+                      <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                        {member.name}
+                      </h2>
+                      <p className="text-2xl text-orange-400 font-semibold mb-6">{member.role}</p>
+                      <p className="text-lg text-gray-300 leading-relaxed mb-8">
+                        {member.bio}
+                      </p>
+                    </div>
 
-            {/* Slide Indicators */}
-            <div className="flex justify-center gap-2 mt-6">
-              {leadershipTeam.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedMember(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    selectedMember === index ? 'bg-orange-400' : 'bg-white/30'
-                  }`}
-                />
-              ))}
-            </div>
+                    <div className="space-y-4">
+                      <h4 className="text-xl font-semibold text-white mb-4">Expertise</h4>
+                      <div className="flex flex-wrap gap-3">
+                        {member.expertise.map((skill, skillIndex) => (
+                          <span
+                            key={skillIndex}
+                            className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-medium hover:bg-white/20 transition-colors"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4">
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-colors"
+                      >
+                        <Linkedin className="w-5 h-5" />
+                        LinkedIn
+                      </a>
+                      <a
+                        href={`mailto:${member.email}`}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300"
+                      >
+                        <Mail className="w-5 h-5" />
+                        Kontakt
+                      </a>
+                    </div>
+                  </div>
+                </SlideIn>
+              </div>
+            ))}
           </div>
         </div>
       </section>

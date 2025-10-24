@@ -1,7 +1,1 @@
-{
-  "/de/video-generation/page": "app/de/video-generation/page.js",
-  "/de/cms/video-management/page": "app/de/cms/video-management/page.js",
-  "/de/page": "app/de/page.js",
-  "/de/ai-test/page": "app/de/ai-test/page.js",
-  "/de/cms/mcp-dashboard/page": "app/de/cms/mcp-dashboard/page.js"
-}
+{}
