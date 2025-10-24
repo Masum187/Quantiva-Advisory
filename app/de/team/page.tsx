@@ -285,11 +285,11 @@ export default function TeamPage() {
           {/* Header */}
           <SlideIn direction="up">
             <div className="text-center mb-16">
-              <div className="inline-block px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 mb-6">
-                <span className="text-teal-400 text-sm font-semibold tracking-wider">MEET OUR LEADERSHIP</span>
+              <div className="inline-block px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/30 mb-6">
+                <span className="text-orange-400 text-sm font-semibold tracking-wider">MEET OUR LEADERSHIP</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-                Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Führungskräfte</span>
+                Unsere <span className="bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">Führungskräfte</span>
               </h1>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Lernen Sie die visionären Köpfe kennen, die Quantiva Advisory zu dem machen, was es ist.
@@ -311,7 +311,7 @@ export default function TeamPage() {
                       {/* Left: Member Image */}
                       <SlideIn direction="left" delay={index * 0.2}>
                         <div className="relative group">
-                          <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 rounded-3xl blur-3xl"></div>
                           <div className="relative rounded-3xl overflow-hidden">
                             <Image
                               src={member.image}
@@ -325,9 +325,9 @@ export default function TeamPage() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                             <div className="absolute bottom-8 left-8 right-8">
-                              <div className="bg-black/80 backdrop-blur-md border border-teal-500/30 rounded-2xl p-6">
+                              <div className="bg-black/80 backdrop-blur-md border border-orange-500/30 rounded-2xl p-6">
                                 <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
-                                <p className="text-teal-400 font-semibold">{member.role}</p>
+                                <p className="text-orange-400 font-semibold">{member.role}</p>
                               </div>
                             </div>
                           </div>
@@ -341,7 +341,7 @@ export default function TeamPage() {
                             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                               {member.name}
                             </h2>
-                            <p className="text-2xl text-teal-400 font-semibold mb-6">{member.role}</p>
+                            <p className="text-2xl text-orange-400 font-semibold mb-6">{member.role}</p>
                             <p className="text-lg text-gray-300 leading-relaxed mb-8">
                               {member.bio}
                             </p>
@@ -373,7 +373,7 @@ export default function TeamPage() {
                             </a>
                             <a
                               href={`mailto:${member.email}`}
-                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300"
                             >
                               <Mail className="w-5 h-5" />
                               Kontakt
@@ -411,7 +411,7 @@ export default function TeamPage() {
                   key={index}
                   onClick={() => setSelectedMember(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
-                    selectedMember === index ? 'bg-teal-400' : 'bg-white/30'
+                    selectedMember === index ? 'bg-orange-400' : 'bg-white/30'
                   }`}
                 />
               ))}
@@ -607,7 +607,7 @@ export default function TeamPage() {
                     {/* Profile Image */}
                     <div className="relative mb-4">
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-teal-500/30 to-purple-500/30 rounded-full blur-xl group-hover:blur-2xl"
+                        className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-yellow-500/30 rounded-full blur-xl group-hover:blur-2xl"
                         animate={{
                           scale: [1, 1.1, 1],
                           opacity: [0.3, 0.5, 0.3],
@@ -618,7 +618,7 @@ export default function TeamPage() {
                           ease: "easeInOut",
                         }}
                       />
-                      <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-teal-500/30 group-hover:border-teal-400/60 transition-all duration-300">
+                      <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-orange-500/30 group-hover:border-orange-400/60 transition-all duration-300">
                         <img
                           src={member.image}
                           alt={member.name}
@@ -628,17 +628,17 @@ export default function TeamPage() {
                       {/* LinkedIn Icon */}
                       <a
                         href={member.linkedin}
-                        className="absolute bottom-2 right-1/2 translate-x-1/2 w-10 h-10 rounded-full bg-teal-500 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-teal-600 transition-all duration-300 transform group-hover:translate-y-0 translate-y-2"
+                        className="absolute bottom-2 right-1/2 translate-x-1/2 w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center opacity-0 group-hover:opacity-100 hover:bg-orange-600 transition-all duration-300 transform group-hover:translate-y-0 translate-y-2"
                       >
                         <Linkedin className="h-5 w-5 text-white" />
                       </a>
                     </div>
 
                     {/* Member Info */}
-                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-teal-400 transition-colors">
+                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-orange-400 transition-colors">
                       {member.name}
                     </h3>
-                    <p className="text-sm text-teal-400 font-semibold mb-1">
+                    <p className="text-sm text-orange-400 font-semibold mb-1">
                       {member.role}
                     </p>
                     <p className="text-xs text-gray-400">
@@ -653,7 +653,7 @@ export default function TeamPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-teal-900/20 via-black to-purple-900/20">
+      <section className="py-20 bg-gradient-to-br from-orange-900/20 via-black to-yellow-900/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <SlideIn direction="up">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -664,7 +664,7 @@ export default function TeamPage() {
             </p>
             <a
               href="/de/career"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600 transition-colors text-lg"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-colors text-lg"
             >
               Offene Stellen ansehen
             </a>
