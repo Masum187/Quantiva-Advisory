@@ -493,27 +493,101 @@ export default function TeamPage() {
                       {/* Front Side */}
                       <div className="absolute inset-0 [backface-visibility:hidden]">
                         <div className="h-full p-8 rounded-3xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border border-white/10 flex flex-col items-center justify-center text-center">
-                          {/* Animated Icon */}
+                          {/* Animated Icon with Unique 3D Animations */}
                           <motion.div
-                            className={`w-20 h-20 rounded-full bg-gradient-to-br ${color.from} ${color.to} flex items-center justify-center mb-6`}
-                            animate={{
-                              rotate: [0, 360],
-                              scale: [1, 1.1, 1],
-                            }}
+                            className={`w-20 h-20 rounded-full bg-gradient-to-br ${color.from} ${color.to} flex items-center justify-center mb-6 relative overflow-hidden`}
+                            animate={
+                              index === 0 ? {
+                                // Innovation First - Pulsing Lightbulb
+                                rotateY: [0, 180, 360],
+                                scale: [1, 1.2, 1],
+                                boxShadow: [
+                                  '0 0 20px rgba(20, 184, 166, 0.5)',
+                                  '0 0 40px rgba(20, 184, 166, 0.8)',
+                                  '0 0 20px rgba(20, 184, 166, 0.5)'
+                                ]
+                              } : index === 1 ? {
+                                // Teamwork - Floating People
+                                y: [-5, 5, -5],
+                                rotateZ: [-5, 5, -5],
+                                scale: [1, 1.1, 1],
+                                boxShadow: [
+                                  '0 0 20px rgba(168, 85, 247, 0.5)',
+                                  '0 0 40px rgba(168, 85, 247, 0.8)',
+                                  '0 0 20px rgba(168, 85, 247, 0.5)'
+                                ]
+                              } : index === 2 ? {
+                                // Learning Culture - Spinning Graduation Cap
+                                rotate: [0, 360],
+                                scaleX: [1, -1, 1],
+                                y: [0, -10, 0],
+                                boxShadow: [
+                                  '0 0 20px rgba(249, 115, 22, 0.5)',
+                                  '0 0 40px rgba(249, 115, 22, 0.8)',
+                                  '0 0 20px rgba(249, 115, 22, 0.5)'
+                                ]
+                              } : {
+                                // Growth - Expanding Circle
+                                scale: [1, 1.3, 1],
+                                rotate: [0, 180, 360],
+                                borderRadius: ['50%', '30%', '50%'],
+                                boxShadow: [
+                                  '0 0 20px rgba(59, 130, 246, 0.5)',
+                                  '0 0 40px rgba(59, 130, 246, 0.8)',
+                                  '0 0 20px rgba(59, 130, 246, 0.5)'
+                                ]
+                              }
+                            }
                             transition={{
-                              rotate: {
-                                duration: 20,
-                                repeat: Infinity,
-                                ease: "linear",
-                              },
-                              scale: {
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                              },
+                              duration: 3,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: index * 0.5
                             }}
                           >
-                            <Icon className="h-10 w-10 text-white" />
+                            {/* Inner Glow Effect */}
+                            <motion.div
+                              className="absolute inset-2 rounded-full bg-white/20"
+                              animate={{
+                                scale: [0.8, 1.2, 0.8],
+                                opacity: [0.3, 0.7, 0.3]
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }}
+                            />
+                            
+                            {/* Icon with Individual Animation */}
+                            <motion.div
+                              animate={
+                                index === 0 ? {
+                                  // Lightbulb - Flickering Effect
+                                  scale: [1, 1.1, 1],
+                                  rotate: [0, 5, -5, 0]
+                                } : index === 1 ? {
+                                  // People - Bouncing Effect
+                                  y: [-2, 2, -2],
+                                  rotate: [-2, 2, -2]
+                                } : index === 2 ? {
+                                  // Graduation Cap - Tassel Swing
+                                  rotate: [0, 10, -10, 0],
+                                  scale: [1, 1.05, 1]
+                                } : {
+                                  // Growth - Pulsing Effect
+                                  scale: [1, 1.2, 1],
+                                  rotate: [0, 180, 360]
+                                }
+                              }
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }}
+                            >
+                              <Icon className="h-10 w-10 text-white relative z-10" />
+                            </motion.div>
                           </motion.div>
                           <h3 className="text-2xl font-bold text-white mb-3">{value.title}</h3>
                           <p className="text-gray-300 text-sm">{value.description}</p>
@@ -528,7 +602,45 @@ export default function TeamPage() {
                       {/* Back Side */}
                       <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
                         <div className={`h-full p-8 rounded-3xl bg-gradient-to-br ${color.from} ${color.to} flex flex-col items-center justify-center text-center`}>
-                          <Icon className="h-12 w-12 text-white mb-4 opacity-80" />
+                          {/* Back Side Animated Icon */}
+                          <motion.div
+                            className="relative mb-4"
+                            animate={
+                              index === 0 ? {
+                                // Innovation - Glowing Pulse
+                                scale: [1, 1.3, 1],
+                                rotate: [0, 180, 360],
+                                filter: [
+                                  'brightness(1) drop-shadow(0 0 10px rgba(255,255,255,0.5))',
+                                  'brightness(1.5) drop-shadow(0 0 20px rgba(255,255,255,0.8))',
+                                  'brightness(1) drop-shadow(0 0 10px rgba(255,255,255,0.5))'
+                                ]
+                              } : index === 1 ? {
+                                // Teamwork - Floating Motion
+                                y: [-8, 8, -8],
+                                rotate: [-10, 10, -10],
+                                scale: [1, 1.2, 1]
+                              } : index === 2 ? {
+                                // Learning - Spinning with Scale
+                                rotate: [0, 360],
+                                scale: [1, 1.4, 1],
+                                y: [0, -15, 0]
+                              } : {
+                                // Growth - Expanding Spiral
+                                scale: [1, 1.5, 1],
+                                rotate: [0, 360],
+                                borderRadius: ['50%', '20%', '50%']
+                              }
+                            }
+                            transition={{
+                              duration: 4,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: index * 0.3
+                            }}
+                          >
+                            <Icon className="h-12 w-12 text-white opacity-90" />
+                          </motion.div>
                           <h3 className="text-2xl font-bold text-white mb-4">{value.title}</h3>
                           <div className="space-y-2 text-white/90">
                             <p className="text-sm font-semibold">
