@@ -725,12 +725,12 @@ export default function QuantivaWebsite() {
             {services.items.slice(0, 6).map((service, index) => {
               // Reihenfolge entspricht content.json: sap, cloud, ai, integration, security, enablement
               const serviceUrls = [
-                'sap',              // SAP Beratung
+                'sap',              // SAP Services
                 'cloud',            // Cloud Solutions
                 'ai',               // AI & Machine Learning
                 'microservices',    // System Integration
                 'cyber-security',   // Cyber Security
-                'digital-strategy'  // Enablement & Training
+                'new-work'          // New Work
               ];
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               
