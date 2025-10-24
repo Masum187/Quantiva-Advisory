@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from '../../components/Navigation';
-import { Linkedin, Mail, Award, Users, Target, TrendingUp, Volume2, VolumeX, ChevronRight } from 'lucide-react';
+import { Linkedin, Mail, Award, Users, Target, TrendingUp, Volume2, VolumeX, ChevronRight, Lightbulb, GraduationCap } from 'lucide-react';
 import Image from 'next/image';
 
 // Animation Components

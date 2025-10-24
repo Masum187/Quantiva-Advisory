@@ -137,6 +137,58 @@
       ]
     }
   },
+  "values": {
+    "de": {
+      "title": "Unsere Werte",
+      "items": [
+        {
+          "title": "Innovation First",
+          "description": "Wir setzen auf neueste Technologien und innovative Lösungsansätze",
+          "icon": "Lightbulb"
+        },
+        {
+          "title": "Teamwork",
+          "description": "Gemeinsam erreichen wir mehr - Zusammenarbeit ist unser Erfolgsrezept",
+          "icon": "Users"
+        },
+        {
+          "title": "Lernkultur",
+          "description": "Kontinuierliches Lernen und persönliche Entwicklung stehen im Fokus",
+          "icon": "GraduationCap"
+        },
+        {
+          "title": "Wachstum",
+          "description": "Wir fördern das Wachstum unserer Kunden und unseres Teams",
+          "icon": "TrendingUp"
+        }
+      ]
+    },
+    "en": {
+      "title": "Our Values",
+      "items": [
+        {
+          "title": "Innovation First",
+          "description": "We rely on latest technologies and innovative solution approaches",
+          "icon": "Lightbulb"
+        },
+        {
+          "title": "Teamwork",
+          "description": "Together we achieve more - collaboration is our recipe for success",
+          "icon": "Users"
+        },
+        {
+          "title": "Learning Culture",
+          "description": "Continuous learning and personal development are our focus",
+          "icon": "GraduationCap"
+        },
+        {
+          "title": "Growth",
+          "description": "We promote the growth of our customers and our team",
+          "icon": "TrendingUp"
+        }
+      ]
+    }
+  },
   "contact": {
     "de": {
       "title": "Kontakt aufnehmen",
