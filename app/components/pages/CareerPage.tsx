@@ -1300,30 +1300,170 @@ export default function CareerPage() {
                   </div>
 
                   <div className="space-y-6">
+                    {/* Innovation First - Pulsing Lightbulb */}
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center flex-shrink-0">
-                        <Lightbulb className="w-6 h-6 text-teal-400" />
-                      </div>
+                      <motion.div 
+                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+                        animate={{
+                          rotateY: [0, 180, 360],
+                          scale: [1, 1.2, 1],
+                          boxShadow: [
+                            '0 0 20px rgba(20, 184, 166, 0.5)',
+                            '0 0 40px rgba(20, 184, 166, 0.8)',
+                            '0 0 20px rgba(20, 184, 166, 0.5)'
+                          ]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {/* Inner Glow Effect */}
+                        <motion.div
+                          className="absolute inset-1 rounded-xl bg-white/20"
+                          animate={{
+                            scale: [0.8, 1.2, 0.8],
+                            opacity: [0.3, 0.7, 0.3]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        
+                        {/* Icon with Flickering Effect */}
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.1, 1],
+                            rotate: [0, 5, -5, 0]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <Lightbulb className="w-6 h-6 text-teal-400 relative z-10" />
+                        </motion.div>
+                      </motion.div>
                       <div>
                         <h3 className="text-xl font-semibold text-white mb-2">Innovation First</h3>
                         <p className="text-gray-300">Wir fördern kreatives Denken und experimentieren mit neuen Technologien.</p>
                       </div>
                     </div>
 
+                    {/* Teamwork - Floating People */}
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center flex-shrink-0">
-                        <Users className="w-6 h-6 text-purple-400" />
-                      </div>
+                      <motion.div 
+                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+                        animate={{
+                          y: [-5, 5, -5],
+                          rotateZ: [-5, 5, -5],
+                          scale: [1, 1.1, 1],
+                          boxShadow: [
+                            '0 0 20px rgba(168, 85, 247, 0.5)',
+                            '0 0 40px rgba(168, 85, 247, 0.8)',
+                            '0 0 20px rgba(168, 85, 247, 0.5)'
+                          ]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.5
+                        }}
+                      >
+                        {/* Inner Glow Effect */}
+                        <motion.div
+                          className="absolute inset-1 rounded-xl bg-white/20"
+                          animate={{
+                            scale: [0.8, 1.2, 0.8],
+                            opacity: [0.3, 0.7, 0.3]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.3
+                          }}
+                        />
+                        
+                        {/* Icon with Bouncing Effect */}
+                        <motion.div
+                          animate={{
+                            y: [-2, 2, -2],
+                            rotate: [-2, 2, -2]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.2
+                          }}
+                        >
+                          <Users className="w-6 h-6 text-purple-400 relative z-10" />
+                        </motion.div>
+                      </motion.div>
                       <div>
                         <h3 className="text-xl font-semibold text-white mb-2">Teamwork</h3>
                         <p className="text-gray-300">Zusammenarbeit und gegenseitige Unterstützung stehen im Mittelpunkt.</p>
                       </div>
                     </div>
 
+                    {/* Lernkultur - Spinning Graduation Cap */}
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center flex-shrink-0">
-                        <GraduationCap className="w-6 h-6 text-blue-400" />
-                      </div>
+                      <motion.div 
+                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+                        animate={{
+                          rotate: [0, 360],
+                          scaleX: [1, -1, 1],
+                          y: [0, -10, 0],
+                          boxShadow: [
+                            '0 0 20px rgba(59, 130, 246, 0.5)',
+                            '0 0 40px rgba(59, 130, 246, 0.8)',
+                            '0 0 20px rgba(59, 130, 246, 0.5)'
+                          ]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      >
+                        {/* Inner Glow Effect */}
+                        <motion.div
+                          className="absolute inset-1 rounded-xl bg-white/20"
+                          animate={{
+                            scale: [0.8, 1.2, 0.8],
+                            opacity: [0.3, 0.7, 0.3]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.6
+                          }}
+                        />
+                        
+                        {/* Icon with Tassel Swing */}
+                        <motion.div
+                          animate={{
+                            rotate: [0, 10, -10, 0],
+                            scale: [1, 1.05, 1]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.4
+                          }}
+                        >
+                          <GraduationCap className="w-6 h-6 text-blue-400 relative z-10" />
+                        </motion.div>
+                      </motion.div>
                       <div>
                         <h3 className="text-xl font-semibold text-white mb-2">Lernkultur</h3>
                         <p className="text-gray-300">Kontinuierliche Weiterbildung und persönliche Entwicklung werden gefördert.</p>
