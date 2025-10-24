@@ -314,13 +314,13 @@ function CareerLevelsCarousel({ levels, lang }: { levels: any[]; lang: string })
 // ElevenLabs Premium Voices Configuration
 const ELEVENLABS_VOICES = {
   de: [
-    { id: 'nsFsExJHz4xV1sOX6Kdn', name: 'Career Voice (Deutsch)', gender: 'female', description: 'Professionell, motivierend' },
+    { id: 'jccKWdITZiywXGZfLmCo', name: 'Career Voice (Deutsch)', gender: 'female', description: 'Professionell, motivierend' },
     { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Sarah (Deutsch)', gender: 'female', description: 'Warm, professionell' },
     { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (Deutsch)', gender: 'male', description: 'Tief, autoritativ' },
     { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (Deutsch)', gender: 'male', description: 'Klar, freundlich' },
   ],
   en: [
-    { id: 'nsFsExJHz4xV1sOX6Kdn', name: 'Career Voice (English)', gender: 'female', description: 'Professional, motivating' },
+    { id: 'jccKWdITZiywXGZfLmCo', name: 'Career Voice (English)', gender: 'female', description: 'Professional, motivating' },
     { id: 'EXAVITQu4vr4xnSDxMaL', name: 'Sarah (English)', gender: 'female', description: 'Warm, professional' },
     { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (English)', gender: 'male', description: 'Deep, authoritative' },
     { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (English)', gender: 'male', description: 'Clear, friendly' },
@@ -351,7 +351,7 @@ export default function CareerPage() {
   const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [useElevenLabs, setUseElevenLabs] = useState(true);
   const [elevenLabsKey, setElevenLabsKey] = useState('');
-  const [selectedElevenLabsVoice, setSelectedElevenLabsVoice] = useState('nsFsExJHz4xV1sOX6Kdn');
+  const [selectedElevenLabsVoice, setSelectedElevenLabsVoice] = useState('jccKWdITZiywXGZfLmCo');
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
