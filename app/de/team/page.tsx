@@ -731,9 +731,11 @@ export default function TeamPage() {
                         }}
                       />
                       <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-orange-500/30 group-hover:border-orange-400/60 transition-all duration-300">
-                        <img
+                        <Image
                           src={member.image}
                           alt={member.name}
+                          width={160}
+                          height={160}
                           className="w-full h-full object-cover"
                         />
                       </div>

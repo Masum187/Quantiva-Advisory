@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Brain, 
@@ -38,7 +38,7 @@ export default function MCPDashboard() {
   const [isConnected, setIsConnected] = useState(false);
 
   // Available MCP tools
-  const availableTools: MCPTool[] = [
+  const availableTools: MCPTool[] = useMemo(() => [
     {
       name: 'get_content',
       description: 'Get content from Quantiva Advisory website',
@@ -141,12 +141,12 @@ export default function MCPDashboard() {
         }
       }
     }
-  ];
+  ], []);
 
   useEffect(() => {
     setTools(availableTools);
     setIsConnected(true);
-  }, []);
+  }, [availableTools]);
 
   const executeTool = async () => {
     if (!selectedTool) return;

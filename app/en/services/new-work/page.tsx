@@ -116,7 +116,7 @@ export default function NewWorkPage() {
                     The New <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Workplace</span>
                   </h2>
                   <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                    New Work is more than just home office or flexible working hours. It's about a fundamental transformation of work methods that enables collaboration across departmental and company boundaries and makes every employee more productive.
+                    New Work is more than just home office or flexible working hours. It&apos;s about a fundamental transformation of work methods that enables collaboration across departmental and company boundaries and makes every employee more productive.
                   </p>
                 </div>
 
@@ -338,7 +338,7 @@ export default function NewWorkPage() {
               Ready for <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">New Work</span>?
             </h2>
             <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Let's transform your workplace together and unlock the full potential of your teams.
+              Let&apos;s transform your workplace together and unlock the full potential of your teams.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a
