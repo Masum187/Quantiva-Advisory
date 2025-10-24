@@ -202,26 +202,26 @@ export default function CyberSecurityServicePage() {
               return (
                 <SlideIn key={index} delay={index * 0.2}>
                   <motion.div
-                    className="p-12 rounded-3xl bg-white/5 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-300"
+                    className="p-12 rounded-3xl bg-slate-900/90 backdrop-blur-xl border border-white/30 hover:border-white/50 transition-all duration-300 shadow-2xl"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
                   >
                     <div className="flex items-center gap-6 mb-8">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-500/30 to-orange-500/30 border border-red-400/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-10 h-10 text-red-400" />
+                      <div className="w-20 h-20 rounded-2xl bg-red-600/80 border border-red-400/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <Icon className="w-10 h-10 text-white" />
                       </div>
                       <h3 className="text-3xl font-bold text-white">{offering.title}</h3>
                     </div>
 
-                    <p className="text-gray-300 mb-8 leading-relaxed text-lg">
+                    <p className="text-gray-100 mb-8 leading-relaxed text-lg font-medium">
                       {offering.description}
                     </p>
 
                     <div className="mb-8">
                       <h4 className="text-xl font-semibold text-white mb-4">Was ist {offering.title.split(' ')[0]}?</h4>
-                      <p className="text-gray-300 text-lg leading-relaxed">
+                      <p className="text-gray-100 text-lg leading-relaxed font-medium">
                         {offering.details}
                       </p>
                     </div>
@@ -239,7 +239,7 @@ export default function CyberSecurityServicePage() {
                               transition={{ delay: index * 0.2 + idx * 0.1 + 0.8 }}
                             >
                               <CheckCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
-                              <span className="text-gray-300">{feature}</span>
+                              <span className="text-gray-100 font-medium">{feature}</span>
                             </motion.div>
                           ))}
                         </div>
@@ -257,7 +257,7 @@ export default function CyberSecurityServicePage() {
                               transition={{ delay: index * 0.2 + idx * 0.1 + 1.0 }}
                             >
                               <div className="w-2 h-2 rounded-full bg-orange-400 flex-shrink-0"></div>
-                              <span className="text-gray-300">{benefit}</span>
+                              <span className="text-gray-100 font-medium">{benefit}</span>
                             </motion.div>
                           ))}
                         </div>

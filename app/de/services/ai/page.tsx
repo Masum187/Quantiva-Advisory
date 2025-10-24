@@ -188,11 +188,11 @@ export default function AIServicePage() {
                 End-to-End Beratung für moderne KI-Use Cases entlang des gesamten Lebenszyklus – von der Use Case Discovery, über Guardrails & Compliance, bis hin zu MLOps, GenAI, Model Training & Evaluation.
               </p>
 
-              <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-                <p className="text-lg text-gray-200 leading-relaxed mb-6">
+              <div className="max-w-4xl mx-auto bg-slate-900/90 backdrop-blur-xl rounded-2xl p-8 border border-white/30 shadow-2xl">
+                <p className="text-lg text-gray-100 leading-relaxed mb-6 font-medium">
                   Als innovatives Beratungsunternehmen begleiten wir Organisationen bei der erfolgreichen Realisierung von KI-Projekten. Unser strukturierter Ansatz sorgt für Klarheit, vermeidet Pilot-Fatigue und hilft Ihnen, Chancen effizient zu nutzen.
                 </p>
-                <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-300">
+                <div className="grid md:grid-cols-2 gap-6 text-sm text-gray-100">
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-purple-400 mt-2 flex-shrink-0"></div>
                     <div>
@@ -247,26 +247,26 @@ export default function AIServicePage() {
               return (
                 <SlideIn key={index} delay={index * 0.2}>
                   <motion.div
-                    className="p-12 rounded-3xl bg-white/5 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-300"
+                    className="p-12 rounded-3xl bg-slate-900/90 backdrop-blur-xl border border-white/30 hover:border-white/50 transition-all duration-300 shadow-2xl"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
                   >
                     <div className="flex items-center gap-6 mb-8">
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500/30 to-pink-500/30 border border-purple-400/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
-                        <Icon className="w-10 h-10 text-purple-400" />
+                      <div className="w-20 h-20 rounded-2xl bg-purple-600/80 border border-purple-400/50 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <Icon className="w-10 h-10 text-white" />
                       </div>
                       <h3 className="text-3xl font-bold text-white">{offering.title}</h3>
                     </div>
 
-                    <p className="text-gray-300 mb-8 leading-relaxed text-lg">
+                    <p className="text-gray-100 mb-8 leading-relaxed text-lg font-medium">
                       {offering.description}
                     </p>
 
                     <div className="mb-8">
                       <h4 className="text-xl font-semibold text-white mb-4">Was ist {offering.title.split(' ')[0]}?</h4>
-                      <p className="text-gray-300 text-lg leading-relaxed">
+                      <p className="text-gray-100 text-lg leading-relaxed font-medium">
                         {offering.details}
                       </p>
                     </div>
@@ -284,7 +284,7 @@ export default function AIServicePage() {
                               transition={{ delay: index * 0.2 + idx * 0.1 + 0.8 }}
                             >
                               <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0" />
-                              <span className="text-gray-300">{feature}</span>
+                              <span className="text-gray-100 font-medium">{feature}</span>
                             </motion.div>
                           ))}
                         </div>
@@ -302,7 +302,7 @@ export default function AIServicePage() {
                               transition={{ delay: index * 0.2 + idx * 0.1 + 1.0 }}
                             >
                               <div className="w-2 h-2 rounded-full bg-pink-400 flex-shrink-0"></div>
-                              <span className="text-gray-300">{benefit}</span>
+                              <span className="text-gray-100 font-medium">{benefit}</span>
                             </motion.div>
                           ))}
                         </div>

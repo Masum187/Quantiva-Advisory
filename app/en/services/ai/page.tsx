@@ -131,17 +131,17 @@ export default function AIServicePage() {
               return (
                 <SlideIn key={index} delay={index * 0.1}>
                   <motion.div
-                    className="p-8 rounded-3xl bg-gradient-to-br from-purple-900/10 to-pink-900/10 border border-purple-500/20 backdrop-blur-sm hover:border-purple-400/40 transition-all duration-300"
+                    className="p-8 rounded-3xl bg-slate-900/90 backdrop-blur-xl border border-white/30 hover:border-white/50 transition-all duration-300 shadow-2xl"
                     whileHover={{ scale: 1.02 }}
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-400/40 flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-purple-400" />
+                      <div className="w-16 h-16 rounded-2xl bg-purple-600/80 backdrop-blur-sm border border-purple-400/50 flex items-center justify-center shadow-lg">
+                        <Icon className="w-8 h-8 text-white" />
                       </div>
                       <h3 className="text-2xl font-bold text-white">{offering.title}</h3>
                     </div>
 
-                    <p className="text-gray-300 mb-6 leading-relaxed">
+                    <p className="text-gray-100 mb-6 leading-relaxed font-medium">
                       {offering.description}
                     </p>
 
@@ -149,7 +149,7 @@ export default function AIServicePage() {
                       {offering.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-3">
                           <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0" />
-                          <span className="text-gray-300">{feature}</span>
+                          <span className="text-gray-100 font-medium">{feature}</span>
                         </div>
                       ))}
                     </div>
