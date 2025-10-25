@@ -140,16 +140,16 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
         >
           {/* Left side - Title and Description */}
           <div className="flex-1">
-            <h3 className="text-lg font-bold text-white mb-1">
+            <h3 className="text-base font-bold text-white mb-0.5">
               {lang === 'de' ? currentImage.title : currentImage.titleEn}
             </h3>
-            <p className="text-sm text-gray-200">
+            <p className="text-xs text-gray-200 leading-tight">
               {lang === 'de' ? currentImage.description : currentImage.descriptionEn}
             </p>
           </div>
 
           {/* Right side - KPIs */}
-          <div className="flex gap-4 ml-6">
+          <div className="flex gap-3 ml-4">
             {currentImage.kpis.map((kpi, index) => (
               <motion.div
                 key={index}
@@ -158,10 +158,10 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
                 transition={{ delay: index * 0.1, duration: 0.2 }}
                 className="text-center"
               >
-                <div className={`text-lg font-bold ${kpi.color} mb-1`}>
+                <div className={`text-sm font-bold ${kpi.color} mb-0.5`}>
                   {kpi.value}
                 </div>
-                <div className="text-xs text-gray-300 uppercase tracking-wider">
+                <div className="text-[10px] text-gray-300 uppercase tracking-wider leading-tight">
                   {lang === 'de' ? kpi.label : kpi.labelEn}
                 </div>
               </motion.div>
@@ -171,12 +171,12 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
           {/* CTA Button */}
           <motion.a
             href="/cases"
-            className="ml-6 inline-flex items-center gap-2 px-4 py-2 bg-teal-600 text-white font-semibold rounded-sm hover:bg-teal-500 transition-colors"
+            className="ml-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 text-white text-sm font-semibold rounded-sm hover:bg-teal-500 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-3 w-3" />
           </motion.a>
         </motion.div>
       </div>
