@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, TrendingUp, Users, Zap, Shield } from 'lucide-react';
+import { TrendingUp, Users, Zap, Shield } from 'lucide-react';
 
 interface AIImageData {
   id: string;
@@ -71,11 +71,8 @@ interface AIImageSliderProps {
 
 const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
-
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
         prevIndex === aiImages.length - 1 ? 0 : prevIndex + 1
@@ -83,31 +80,14 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === aiImages.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? aiImages.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
 
   const currentImage = aiImages[currentIndex];
 
   return (
     <div 
       className="relative w-full h-[70px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50"
-      onMouseEnter={() => setIsAutoPlaying(false)}
-      onMouseLeave={() => setIsAutoPlaying(true)}
     >
       {/* Background with Pattern */}
       <div 
@@ -164,38 +144,7 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
         </motion.div>
       </div>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-200 hover:scale-110"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="h-5 w-5 text-white" />
-      </button>
-      
-      <button
-        onClick={nextSlide}
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-200 hover:scale-110"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="h-5 w-5 text-white" />
-      </button>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {aiImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
-              index === currentIndex 
-                ? 'bg-white scale-125' 
-                : 'bg-white/40 hover:bg-white/60 hover:scale-110'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
 
       {/* Progress Bar */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10">
