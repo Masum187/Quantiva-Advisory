@@ -4,7 +4,7 @@
 
 ### 🎯 **What's Been Implemented:**
 
-1. **Admin Dashboard** (`src/AdminDashboard.tsx`):
+1. **Admin Dashboard** (`app/components/AdminDashboard.tsx`):
    - ✅ **Visual case management** with data grid
    - ✅ **Real-time validation** with error highlighting
    - ✅ **Import/Export** JSON functionality
@@ -30,12 +30,14 @@
 ### 📁 **File Structure**
 
 ```
-/src/
-├─ AdminDashboard.tsx        // Main admin dashboard component ✅
-├─ App.tsx                   // Updated with admin route ✅
-└─ QuantivaWebsite.tsx       // Updated with type fixes ✅
+/app/
+├─ components/
+│  └─ AdminDashboard.tsx    // Main admin dashboard component ✅
+├─ page.tsx                 // Homepage ✅
+├─ layout.tsx               // Root layout ✅
+└─ globals.css              // Global styles ✅
 
-/package.json                // Updated with new dependencies ✅
+/package.json               // Updated with new dependencies ✅
 ```
 
 ### 🎨 **Admin Dashboard Features**
@@ -72,6 +74,7 @@
 - **Features**: Full CRUD operations for case studies
 - **Validation**: Real-time validation with detailed error messages
 - **Data persistence**: Local storage for demo data
+- **Next.js Integration**: Uses App Router and API routes
 
 #### **Navigation**
 ```bash
@@ -186,7 +189,7 @@ http://localhost:3000/admin
 #### **Local Testing**
 ```bash
 # Start development server
-npm start
+npm run dev
 
 # Access admin dashboard
 http://localhost:3000/admin

@@ -6,14 +6,16 @@ on:
   workflow_dispatch:  # Manual trigger only
   # push:
   #   paths:
-  #     - "src/data/cases.json"
+  #     - "app/lib/data/cases.json"
+  #     - "app/lib/data/taxonomy.json"
   #     - "scripts/validate-cases.mjs"
   #     - "scripts/generate-og.mjs"
   #     - "scripts/migrate-cases.mjs"
   #     - "sitemap.mjs"
   # pull_request:
   #   paths:
-  #     - "src/data/cases.json"
+  #     - "app/lib/data/cases.json"
+  #     - "app/lib/data/taxonomy.json"
   #     - "scripts/validate-cases.mjs"
   #     - "scripts/generate-og.mjs"
   #     - "scripts/migrate-cases.mjs"

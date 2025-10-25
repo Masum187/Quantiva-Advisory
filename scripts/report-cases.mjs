@@ -4,8 +4,8 @@ import pc from "picocolors";
 import { table } from "table";
 
 const ROOT = process.cwd();
-const DATA = path.join(ROOT, "src", "data", "cases.json");
-const TAXO = path.join(ROOT, "src", "data", "taxonomy.json");
+const DATA = path.join(ROOT, "app", "lib", "data", "cases.json");
+const TAXO = path.join(ROOT, "app", "lib", "data", "taxonomy.json");
 
 const cases = JSON.parse(fs.readFileSync(DATA, "utf-8"));
 const taxo  = JSON.parse(fs.readFileSync(TAXO, "utf-8"));

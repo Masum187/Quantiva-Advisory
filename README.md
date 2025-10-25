@@ -5,7 +5,7 @@ Visit our website: [Quantiva Advisory](https://quantivaadvisory.com)
 ## Quick Start
 ```bash
 npm install
-npm start
+npm run dev
 ```
 
 See full documentation below.
@@ -37,7 +37,7 @@ A modern, responsive website for Quantiva Advisory with internationalization (Ge
 
 ### Prerequisites
 
-- Node.js (v20 or higher)
+- Node.js (v18 or higher)
 - npm or yarn
 
 ### Installation
@@ -56,7 +56,7 @@ A modern, responsive website for Quantiva Advisory with internationalization (Ge
 
 1. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 
 2. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -65,15 +65,15 @@ A modern, responsive website for Quantiva Advisory with internationalization (Ge
 
 This project deploys as a **Next.js application on Vercel** with serverless API routes.
 
-Run both in development:
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
 This starts:
-- React dev server on port 3000
-- Local dev server on port 3001 (optional)
+- Next.js dev server on port 3000
+- Hot reloading and fast refresh enabled
 
 ### Building for Production
 
@@ -94,19 +94,18 @@ This starts:
 
 4. Start the production server:
    ```bash
-   npm run server
+   npm start
    ```
 
-The production build will be served on port 3001 (or the PORT environment variable).
+The production build will be served on port 3000 (or the PORT environment variable).
 
 ## Project Structure
 
 ```
-quantiva-website/
+quantiva-Advisory/
 ├── app/                      # Next.js App Router
-│   ├── (routes)/            # Route groups
-│   │   ├── de/              # German pages
-│   │   └── en/              # English pages
+│   ├── de/                  # German pages
+│   ├── en/                  # English pages
 │   ├── api/                 # API routes (serverless functions)
 │   │   ├── contact/         # Contact form endpoint
 │   │   ├── ai-test/         # AI testing endpoint
@@ -116,10 +115,15 @@ quantiva-website/
 │   │   └── ui/              # Reusable UI components
 │   ├── lib/                 # Utilities and data
 │   │   └── data/            # JSON data files
-│   │       └── cases.json   # Case studies data
+│   │       ├── cases.json   # Case studies data
+│   │       ├── taxonomy.json # Categories and industries
 │   │       └── content.json # Website content
 │   ├── globals.css          # Global styles
-│   └── layout.tsx           # Root layout
+│   ├── layout.tsx           # Root layout
+│   ├── page.tsx             # Homepage
+│   ├── error.tsx            # Error page
+│   ├── not-found.tsx        # 404 page
+│   └── global-error.tsx     # Global error boundary
 ├── public/                  # Static files
 │   ├── sitemap.xml         # Generated sitemap
 │   ├── robots.txt          # SEO robots file
@@ -212,7 +216,7 @@ The `site.webmanifest` includes:
 
 The website uses a centralized JSON data source for all case studies:
 
-1. **Data Source**: `src/data/cases.json` (✅ created)
+1. **Data Source**: `app/lib/data/cases.json` (✅ created)
 2. **Features**:
    - Single source of truth for all case data
    - Bilingual content (German/English)
@@ -299,7 +303,7 @@ The website includes a comprehensive reporting system with taxonomy validation:
 
 The website includes a centralized taxonomy system for consistent categorization:
 
-1. **Taxonomy Configuration**: `src/data/taxonomy.json` (✅ created)
+1. **Taxonomy Configuration**: `app/lib/data/taxonomy.json` (✅ created)
 2. **Features**:
    - **Whitelist validation** for categories and industries
    - **Case-sensitive** validation for consistency
@@ -328,7 +332,7 @@ The website includes a centralized taxonomy system for consistent categorization
 
 The website includes a comprehensive admin dashboard for case management:
 
-1. **Admin Dashboard**: `src/AdminDashboard.tsx` (✅ created)
+1. **Admin Dashboard**: `app/components/AdminDashboard.tsx` (✅ created)
 2. **Features**:
    - **Visual case management** with data grid
    - **Real-time validation** with error highlighting
@@ -343,6 +347,7 @@ The website includes a comprehensive admin dashboard for case management:
    - **Features**: Full CRUD operations for case studies
    - **Validation**: Real-time validation with detailed error messages
    - **Data persistence**: Local storage for demo data
+   - **Next.js Integration**: Uses App Router and API routes
 
 4. **UI Components**:
    - **Data Grid**: Sortable, filterable table with case information
@@ -437,15 +442,15 @@ npm run sitemap
 
 When adding new case studies:
 
-1. Add the case slug to the `caseSlugs` array in `sitemap.mjs`
-2. Add the case details to the `CASE_DETAILS` array in `QuantivaWebsite.tsx`
-3. Regenerate the sitemap: `npm run sitemap`
+1. Add the case data to `app/lib/data/cases.json`
+2. The sitemap generator automatically reads from the JSON file
+3. Regenerate the sitemap: `npm run generate:sitemap`
 
 ### SEO Configuration
 
 - **IMPORTANT**: Update `BASE_URL` in `sitemap.mjs` to your production domain:
   ```javascript
-  const BASE_URL = "https://your-domain.com"; // Replace with your actual domain
+  const BASE_URL = "https://quantivaadvisory.com"; // Replace with your actual domain
   ```
 - Modify meta tags in the Helmet components
 - Update structured data (JSON-LD) as needed
@@ -491,29 +496,26 @@ The project includes GitHub Actions workflows for automated building and deploym
 
 ### Manual Deployment
 
-Use the included deployment script:
-```bash
-./deploy.sh
-```
-
-Or build manually:
+Build manually:
 ```bash
 npm run build
-# Upload build/ directory to your web server
+# Deploy to your preferred platform (Vercel, Netlify, etc.)
 ```
 
 ### Deployment Platforms
 
 #### Vercel
 1. Connect your GitHub repository to Vercel
-2. Vercel will automatically detect the React app and deploy it
+2. Vercel will automatically detect the Next.js app and deploy it
 3. The sitemap will be automatically generated on each deployment
+4. API routes work as serverless functions
 
 #### Netlify
 1. Connect your GitHub repository to Netlify
 2. Set build command: `npm run build`
-3. Set publish directory: `build`
+3. Set publish directory: `.next`
 4. The sitemap will be automatically generated on each build
+5. Configure redirects for Next.js routing
 
 #### GitHub Pages
 1. Uncomment the GitHub Pages section in `.github/workflows/deploy.yml`
@@ -530,7 +532,9 @@ npm run build
 
 ## Environment Variables
 
-- `PORT`: Server port (default: 3001)
+- `PORT`: Server port (default: 3000)
+- `NEXT_PUBLIC_BASE_URL`: Base URL for the application
+- `NEXT_PUBLIC_ANALYTICS_ID`: Google Analytics ID (optional)
 
 ## Browser Support
 
