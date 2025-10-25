@@ -1,12 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, TrendingUp, Users, Zap, Shield } from 'lucide-react';
 
 interface AIImageData {
   id: string;
-  image: string;
+  backgroundColor: string;
   title: string;
   titleEn: string;
   kpis: {
@@ -23,7 +23,7 @@ interface AIImageData {
 const aiImages: AIImageData[] = [
   {
     id: 'ai-transformation',
-    image: '#667eea',
+    backgroundColor: '#667eea',
     title: 'KI-Transformation',
     titleEn: 'AI Transformation',
     kpis: [
@@ -36,7 +36,7 @@ const aiImages: AIImageData[] = [
   },
   {
     id: 'cloud-migration',
-    image: '#f093fb',
+    backgroundColor: '#f093fb',
     title: 'Cloud-Migration',
     titleEn: 'Cloud Migration',
     kpis: [
@@ -49,7 +49,7 @@ const aiImages: AIImageData[] = [
   },
   {
     id: 'data-analytics',
-    image: '#4facfe',
+    backgroundColor: '#4facfe',
     title: 'Daten-Analytics',
     titleEn: 'Data Analytics',
     kpis: [
@@ -62,7 +62,7 @@ const aiImages: AIImageData[] = [
   },
   {
     id: 'automation',
-    image: '#43e97b',
+    backgroundColor: '#43e97b',
     title: 'Prozess-Automatisierung',
     titleEn: 'Process Automation',
     kpis: [
@@ -79,14 +79,13 @@ interface AIImageSliderProps {
   lang: 'de' | 'en';
 }
 
-export default function AIImageSlider({ lang }: AIImageSliderProps) {
+const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => 
         prevIndex === aiImages.length - 1 ? 0 : prevIndex + 1
@@ -120,10 +119,10 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      {/* Background Image */}
+      {/* Background */}
       <div 
         className="absolute inset-0"
-        style={{ backgroundColor: currentImage.image }}
+        style={{ backgroundColor: currentImage.backgroundColor }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
       </div>
@@ -215,4 +214,6 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
       </div>
     </div>
   );
-}
+};
+
+export default AIImageSlider;
