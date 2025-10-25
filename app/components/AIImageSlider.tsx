@@ -115,7 +115,7 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
 
   return (
     <div 
-      className="relative w-full h-[80px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50"
+      className="relative w-full h-[70px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
@@ -133,7 +133,7 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-8 py-5">
+      <div className="relative z-10 h-full flex items-center px-6 py-4">
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, x: 20 }}
@@ -144,31 +144,31 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
         >
           {/* Left side - Title and Description */}
           <div className="flex-1 pr-6">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-2 h-2 rounded-full bg-white/60"></div>
-              <h3 className="text-lg font-bold text-white tracking-tight">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
+              <h3 className="text-base font-bold text-white tracking-tight">
                 {lang === 'de' ? currentImage.title : currentImage.titleEn}
               </h3>
             </div>
-            <p className="text-sm text-gray-200 leading-relaxed max-w-md">
+            <p className="text-xs text-gray-200 leading-tight max-w-sm">
               {lang === 'de' ? currentImage.description : currentImage.descriptionEn}
             </p>
           </div>
 
           {/* Right side - KPIs */}
-          <div className="flex gap-6">
+          <div className="flex gap-4">
             {currentImage.kpis.map((kpi, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.8, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: index * 0.15, duration: 0.3, ease: "easeOut" }}
-                className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 min-w-[80px]"
+                className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 min-w-[70px]"
               >
-                <div className={`text-xl font-bold ${kpi.color} mb-1`}>
+                <div className={`text-lg font-bold ${kpi.color} mb-0.5`}>
                   {kpi.value}
                 </div>
-                <div className="text-xs text-gray-300 uppercase tracking-wider leading-tight">
+                <div className="text-[10px] text-gray-300 uppercase tracking-wider leading-tight">
                   {lang === 'de' ? kpi.label : kpi.labelEn}
                 </div>
               </motion.div>
