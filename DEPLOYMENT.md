@@ -80,7 +80,7 @@ Current configuration uses language-less URLs as x-default:
 
 **Alternative**: If you prefer `/de` as canonical:
 ```javascript
-// In sitemap.js, change xDefault logic:
+// In sitemap.mjs, change xDefault logic:
 const xDefault = `${BASE_URL}/de${basePath}`;
 ```
 

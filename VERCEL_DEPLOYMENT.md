@@ -1,21 +1,9 @@
-# 🚀 Vercel Deployment - Anleitung
+# 🚀 Vercel Deployment - Next.js Anleitung
 
-## ✅ **Problem behoben!**
+## ✅ **Next.js Deployment auf Vercel**
 
-**Fehler:**
-```
-Cannot find module '@vercel/node'
-builder.build is not a function
-```
-
-**Ursache:**
-- `vercel.json` wollte API-Routes bauen (`api/create-pr.ts`, `api/upload.ts`)
-- Dependencies `@vercel/node` und `@vercel/edge` fehlten
-
-**Lösung:**
-- API-Routes aus Build-Konfiguration entfernt
-- Nur static React-App wird gebaut
-- API-Routes können später hinzugefügt werden
+**Framework:** Next.js 15 mit App Router  
+**Status:** Production Ready ✅
 
 ---
 
@@ -34,10 +22,11 @@ builder.build is not a function
 ### **Schritt 3: Projekt konfigurieren**
 
 **Vercel erkennt automatisch:**
-- ✅ Framework: `Create React App`
+- ✅ Framework: `Next.js`
 - ✅ Build Command: `npm run build`
-- ✅ Output Directory: `build`
+- ✅ Output Directory: `.next`
 - ✅ Install Command: `npm ci`
+- ✅ Node.js Version: `20`
 
 **Keine Änderungen nötig!** Einfach auf **"Deploy"** klicken.
 
@@ -46,9 +35,9 @@ builder.build is not a function
 **Vercel baut jetzt:**
 ```
 ✓ Installing dependencies (npm ci)
-✓ Building (npm run build)
+✓ Building Next.js app (npm run build)
 ✓ Generating sitemap
-✓ Optimizing
+✓ Optimizing images
 ✓ Deploying to CDN
 ```
 
@@ -71,17 +60,24 @@ Oder custom domain später hinzufügen.
 ```json
 {
   "version": 2,
-  "framework": "create-react-app",
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" }
-  ],
-  "installCommand": "npm ci",
+  "framework": "nextjs",
   "buildCommand": "npm run build",
-  "outputDirectory": "build",
+  "outputDirectory": ".next",
+  "installCommand": "npm ci",
   "rewrites": [
-    { "source": "/(de|en)(/.*)?", "destination": "/index.html" },
-    { "source": "/cases", "destination": "/index.html" },
-    { "source": "/cases/(.*)", "destination": "/index.html" }
+    { "source": "/(de|en)(/.*)?", "destination": "/$1$2" },
+    { "source": "/cases", "destination": "/cases" },
+    { "source": "/cases/(.*)", "destination": "/cases/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
   ],
   "cleanUrls": true,
   "trailingSlash": false
@@ -89,44 +85,31 @@ Oder custom domain später hinzufügen.
 ```
 
 **Features:**
-- ✅ Static Build für React
-- ✅ SPA Routing (rewrites zu index.html)
+- ✅ Next.js App Router
+- ✅ Serverless API Routes
 - ✅ i18n URLs (`/de/`, `/en/`)
 - ✅ Clean URLs
 - ✅ Security Headers
-- ✅ Cache-Control für Assets
+- ✅ Image Optimization
+- ✅ Automatic Sitemap Generation
 
 ---
 
-## 🔧 **Optional: API-Routes später hinzufügen**
+## 🔧 **API-Routes bereits verfügbar**
 
-Wenn Sie später API-Funktionen benötigen:
+Next.js API-Routes funktionieren automatisch:
 
-### **1. Dependencies installieren**
+### **Verfügbare Endpoints:**
+- `POST /api/contact` - Contact form
+- `POST /api/ai-test` - AI testing
+- `POST /api/video-generation` - Video generation
 
-```bash
-npm install @vercel/node @octokit/rest
-```
-
-### **2. vercel.json erweitern**
-
-```json
-{
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" },
-    { "src": "api/*.ts", "use": "@vercel/node" }
-  ]
-}
-```
-
-### **3. Environment Variables setzen**
+### **Environment Variables:**
 
 In Vercel Dashboard → Settings → Environment Variables:
 ```
-GITHUB_TOKEN=ghp_...
-GITHUB_OWNER=Masum187
-GITHUB_REPO=Quantiva-Advisory
-GITHUB_BASE_BRANCH=main
+NEXT_PUBLIC_BASE_URL=https://quantivaadvisory.com
+CONTACT_EMAIL=info@quantivaadvisory.com
 ```
 
 ---
@@ -152,7 +135,8 @@ Vercel deployt automatisch bei:
 Für Production:
 ```
 NODE_ENV=production
-REACT_APP_API_URL=https://api.quantivaadvisory.com
+NEXT_PUBLIC_BASE_URL=https://quantivaadvisory.com
+CONTACT_EMAIL=info@quantivaadvisory.com
 ```
 
 ### **Analytics aktivieren**
@@ -173,7 +157,7 @@ Sehen Sie:
 | **HTTPS/SSL** | ✅ Automatisch |
 | **Global CDN** | ✅ Aktiviert |
 | **Gzip/Brotli** | ✅ Komprimierung |
-| **Image Optimization** | ✅ (für Next.js Images) |
+| **Image Optimization** | ✅ Next.js Images |
 | **Analytics** | ✅ Verfügbar |
 | **Build Caching** | ✅ Schnellere Builds |
 | **Preview Deployments** | ✅ Für jeden PR |
@@ -202,16 +186,18 @@ Stellen Sie sicher, dass alle benötigten Variablen gesetzt sind.
 **Problem:** 404 bei `/de/` oder `/cases/slug`
 
 **Lösung:**
-- ✅ `rewrites` in `vercel.json` konfiguriert (bereits erledigt)
-- Alle SPA-Routes werden zu `index.html` geroutet
+- ✅ Next.js App Router handled routing automatisch
+- ✅ `rewrites` in `vercel.json` für Fallback
+- ✅ Alle Routes funktionieren out-of-the-box
 
 ### **Assets werden nicht geladen**
 
 **Problem:** CSS/JS 404
 
 **Lösung:**
-- Prüfen Sie `outputDirectory` in `vercel.json` → `build`
+- Prüfen Sie `outputDirectory` in `vercel.json` → `.next`
 - Stellen Sie sicher, dass `npm run build` lokal funktioniert
+- Next.js optimiert Assets automatisch
 
 ---
 
@@ -219,7 +205,7 @@ Stellen Sie sicher, dass alle benötigten Variablen gesetzt sind.
 
 **Vor dem Deployment:**
 - [x] Git Email korrekt gesetzt (`Masum187@users.noreply.github.com`)
-- [x] `vercel.json` vereinfacht (nur static build)
+- [x] `vercel.json` für Next.js konfiguriert
 - [x] Code zu GitHub gepusht
 - [x] Lokaler Build funktioniert (`npm run build`)
 
@@ -257,14 +243,10 @@ Stellen Sie sicher, dass alle benötigten Variablen gesetzt sind.
 4. **Warten:** ~2-3 Minuten
 5. **Live!** 🚀
 
-**Der Build-Fehler ist behoben. Deployment sollte jetzt funktionieren!** ✅
+**Next.js Deployment ist bereit!** ✅
 
 ---
 
-**Status:** ✅ Ready for Deployment  
-**Commit:** `45a577e` - Fix Vercel build configuration  
+**Status:** ✅ Ready for Next.js Deployment  
+**Framework:** Next.js 15 App Router  
 **Erstellt:** Oktober 2025
-
-
-
-
