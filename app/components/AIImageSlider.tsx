@@ -142,17 +142,14 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="flex items-center justify-between w-full"
         >
-          {/* Left side - Title and Description */}
+          {/* Left side - Title only */}
           <div className="flex-1 pr-6">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
               <h3 className="text-base font-bold text-white tracking-tight">
                 {lang === 'de' ? currentImage.title : currentImage.titleEn}
               </h3>
             </div>
-            <p className="text-xs text-gray-200 leading-tight max-w-sm">
-              {lang === 'de' ? currentImage.description : currentImage.descriptionEn}
-            </p>
           </div>
 
           {/* Right side - KPIs */}
