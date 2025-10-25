@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
+import AIImageSlider from "./AIImageSlider";
 import {
   useTeam,
   useHero,
@@ -670,14 +671,8 @@ export default function QuantivaWebsite() {
                 )}
               </p>
 
-              {/* CTA Button */}
-              <a
-                href={localePath('/cases')}
-                className="inline-flex items-center gap-3 px-6 py-4 bg-teal-600 text-white text-base font-bold rounded-sm hover:bg-teal-500 transition-all group"
-              >
-                {lang === 'de' ? 'Was wir machen' : 'What we do'}
-                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              {/* AI Image Slider */}
+              <AIImageSlider lang={lang} />
 
               {/* Stats - Minimalist */}
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800">
