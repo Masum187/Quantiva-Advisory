@@ -28,19 +28,22 @@ export default function VideoCard({
   className = ''
 }: VideoCardProps) {
   return (
-    <section className={`py-16 bg-gray-900 ${className}`}>
+    <section className={`py-16 bg-transparent ${className}`}>
       <div className="mx-auto max-w-7xl px-6">
         <motion.div 
           initial={{ opacity: 1, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-900/20 to-purple-900/20 border border-teal-500/30 shadow-2xl"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-900/10 to-purple-900/10 border border-teal-500/20 shadow-2xl backdrop-blur-sm"
         >
+          {/* Background Image Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-900/20 to-purple-900/20" />
+          
           {/* Video Container */}
           <div className="relative aspect-video w-full">
             <video
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover opacity-80"
               src={videoUrl}
               autoPlay
               muted

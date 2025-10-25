@@ -10,14 +10,14 @@ on:
   #     - "scripts/validate-cases.mjs"
   #     - "scripts/generate-og.mjs"
   #     - "scripts/migrate-cases.mjs"
-  #     - "sitemap.js"
+  #     - "sitemap.mjs"
   # pull_request:
   #   paths:
   #     - "src/data/cases.json"
   #     - "scripts/validate-cases.mjs"
   #     - "scripts/generate-og.mjs"
   #     - "scripts/migrate-cases.mjs"
-  #     - "sitemap.js"
+  #     - "sitemap.mjs"
 
 jobs:
   validate-build-strict:

@@ -10,6 +10,7 @@ import {
   Brain, Cloud, Code, Database, Globe, Zap, Menu, X
 } from 'lucide-react';
 import { useLanguage } from '../QuantivaWebsite';
+import VideoCard from '../VideoCard';
 
 // Animation Components
 function SlideIn({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; className?: string }) {
@@ -855,22 +856,44 @@ export default function CareerPage() {
         </div>
       )}
 
-      <div className="min-h-screen bg-black relative overflow-hidden">
-        {/* Navigation */}
-        <Navigation lang={lang} items={navigationItems} />
+      <div 
+        className="min-h-screen bg-black relative overflow-hidden"
+        style={{
+          backgroundImage: 'url(https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_mcsx7imcsx7imcsx_cun0ts.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+        
+        {/* Navigation - Above the VideoCard */}
+        <div className="relative z-10">
+          <Navigation lang={lang} items={navigationItems} />
+        </div>
 
-        {/* Hero Section - Simple Video Background */}
-        <div className="relative h-screen w-full overflow-hidden">
-          {/* Background Image - Fallback */}
-          <div className="absolute inset-0 w-full h-full">
-            <Image
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop"
-              alt="Career Hero Background"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
+        {/* Video Card Section - Below Navigation */}
+        <div className="relative z-10 mt-8">
+          <VideoCard
+          videoUrl="https://res.cloudinary.com/dbrisux8i/video/upload/f_auto,q_auto/v1761380432/Quantiva_Advisory_azahhg.mp4"
+          subtitleUrl="https://res.cloudinary.com/dbrisux8i/raw/upload/v1761382530/Quantiva_Advisory_i4syti.vtt"
+          title={lang === 'de' ? 'Willkommen bei Quantiva Advisory!' : 'Welcome to Quantiva Advisory!'}
+          description={lang === 'de' 
+            ? 'Du bist derjenige, der dabei helfen kann, dieses Unternehmen zu gestalten. Zögere nicht so lange — bewirb dich jetzt!'
+            : 'You are the one who can help shape this company. Don\'t hesitate so long — please apply now!'
+          }
+          primaryButtonText={lang === 'de' ? 'Jetzt bewerben' : 'Apply now'}
+          primaryButtonLink={localePath('/#contact')}
+          secondaryButtonText={lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
+          secondaryButtonLink={localePath('/about')}
+            className="py-8"
+          />
+        </div>
+
+        {/* Hero Section - Simple Background */}
+        <div className="relative z-10 h-screen w-full overflow-hidden">
           
           
           {/* Video Overlay */}
@@ -880,11 +903,7 @@ export default function CareerPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end z-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 w-full">
               <SlideIn direction="up">
-                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm">
-                  <Users className="w-6 h-6 text-teal-400" />
-                  <span className="text-white font-semibold">Karriere bei Quantiva</span>
-                </div>
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 text-center">
                   {t.heroTitle}
                 </h1>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
@@ -905,7 +924,7 @@ export default function CareerPage() {
         </div>
 
         {/* Main Content - Seamless Flow */}
-        <div className="relative bg-black min-h-screen">
+        <div className="relative z-10 bg-black min-h-screen">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             
             {/* Areas of Expertise Section */}

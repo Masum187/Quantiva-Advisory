@@ -14,5 +14,5 @@ jobs:
           cache: 'npm'
       - run: npm ci --legacy-peer-deps
       - run: npm run build   # erzeugt automatisch sitemap.xml via postbuild
-      - run: ls -la public   # Debug: sitemap.xml prüfen
+      - run: ls -la .next && head -10 .next/server/app/sitemap.xml || echo "Sitemap not found in .next"
 

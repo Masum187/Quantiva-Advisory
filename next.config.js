@@ -12,6 +12,9 @@ const nextConfig = {
   // Explicitly set output directory for Vercel
   distDir: '.next',
   
+  // Turbopack configuration for Next.js 16
+  turbopack: {},
+  
   // Experimental features disabled for now
   // experimental: {
   //   optimizeCss: true,

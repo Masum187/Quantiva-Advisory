@@ -26,26 +26,25 @@ A modern, responsive website for Quantiva Advisory with internationalization (Ge
 
 ## Tech Stack
 
-- **Frontend**: React 19, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
 - **Animations**: Framer Motion
-- **Routing**: React Router DOM
 - **Icons**: Lucide React
-- **SEO**: React Helmet
-- **Backend**: Express.js (for contact form API)
-- **Build Tool**: Create React App
+- **SEO**: Next.js built-in SEO features
+- **Backend**: Next.js API Routes
+- **Build Tool**: Next.js (Turbopack)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v20 or higher)
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository or navigate to the project directory:
    ```bash
-   cd quantiva-website
+   cd Quantiva-Advisory
    ```
 
 2. Install dependencies:
@@ -64,7 +63,7 @@ A modern, responsive website for Quantiva Advisory with internationalization (Ge
 
 ### Local API Server (optional)
 
-This project deploys as a **static SPA on Vercel**. The included Express server is only for local experiments and lives under `scripts/local-dev/server.js`.
+This project deploys as a **Next.js application on Vercel** with serverless API routes.
 
 Run both in development:
 
@@ -104,29 +103,37 @@ The production build will be served on port 3001 (or the PORT environment variab
 
 ```
 quantiva-website/
-├── .github/
-│   └── workflows/         # GitHub Actions CI/CD
-│       ├── build.yml      # Basic build workflow
-│       └── deploy.yml     # Production deployment workflow
-├── public/                # Static files
-│   ├── _redirects        # Netlify SPA routing
-│   ├── sitemap.xml       # Generated sitemap
-│   └── robots.txt        # SEO robots file
-├── src/
-│   ├── data/
-│   │   └── cases.js      # Centralized case studies data
-│   ├── QuantivaWebsite.tsx # Main website component with all pages
-│   ├── App.tsx           # App wrapper with routing
-│   └── index.css         # Tailwind CSS imports
-├── sitemap.mjs           # Dynamic sitemap generation script
-├── scripts/
-│   └── local-dev/server.js  # Local-only Express server (not deployed)
-├── vercel.json           # Vercel deployment configuration
-├── nginx.conf            # Nginx server configuration
-├── deploy.sh             # Deployment script
-├── DEPLOYMENT.md         # Comprehensive deployment guide
-├── package.json          # Dependencies and scripts
-└── tailwind.config.js    # Tailwind configuration
+├── app/                      # Next.js App Router
+│   ├── (routes)/            # Route groups
+│   │   ├── de/              # German pages
+│   │   └── en/              # English pages
+│   ├── api/                 # API routes (serverless functions)
+│   │   ├── contact/         # Contact form endpoint
+│   │   ├── ai-test/         # AI testing endpoint
+│   │   └── video-generation/ # Video generation API
+│   ├── components/          # React components
+│   │   ├── pages/           # Page-specific components
+│   │   └── ui/              # Reusable UI components
+│   ├── lib/                 # Utilities and data
+│   │   └── data/            # JSON data files
+│   │       └── cases.json   # Case studies data
+│   │       └── content.json # Website content
+│   ├── globals.css          # Global styles
+│   └── layout.tsx           # Root layout
+├── public/                  # Static files
+│   ├── sitemap.xml         # Generated sitemap
+│   ├── robots.txt          # SEO robots file
+│   └── assets/             # Images and media
+├── scripts/                # Build and utility scripts
+│   ├── generate-og.mjs     # OG image generation
+│   ├── validate-cases.mjs  # Case studies validation
+│   └── report-cases.mjs    # Case studies reporting
+├── sitemap.mjs             # Dynamic sitemap generation
+├── vercel.json             # Vercel deployment configuration
+├── next.config.js          # Next.js configuration
+├── package.json            # Dependencies and scripts
+├── tailwind.config.js      # Tailwind CSS configuration
+└── tsconfig.json           # TypeScript configuration
 ```
 
 ## Pages & Routes
@@ -136,6 +143,8 @@ quantiva-website/
 - `/cases/:slug` or `/de/cases/:slug` or `/en/cases/:slug` - Individual case study details
 
 ## API Endpoints
+
+> **Note**: This is a Next.js project deployed on Vercel. API routes are serverless functions that work in production.
 
 ### POST /api/contact
 
@@ -428,13 +437,13 @@ npm run sitemap
 
 When adding new case studies:
 
-1. Add the case slug to the `caseSlugs` array in `sitemap.js`
+1. Add the case slug to the `caseSlugs` array in `sitemap.mjs`
 2. Add the case details to the `CASE_DETAILS` array in `QuantivaWebsite.tsx`
 3. Regenerate the sitemap: `npm run sitemap`
 
 ### SEO Configuration
 
-- **IMPORTANT**: Update `BASE_URL` in `sitemap.js` to your production domain:
+- **IMPORTANT**: Update `BASE_URL` in `sitemap.mjs` to your production domain:
   ```javascript
   const BASE_URL = "https://your-domain.com"; // Replace with your actual domain
   ```

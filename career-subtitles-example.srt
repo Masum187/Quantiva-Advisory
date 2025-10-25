@@ -1,0 +1,31 @@
+1
+00:00:00,000 --> 00:00:03,000
+Willkommen bei Quantiva Advisory
+
+2
+00:00:03,000 --> 00:00:06,000
+Gestalte die digitale Zukunft mit uns
+
+3
+00:00:06,000 --> 00:00:09,000
+Wir suchen talentierte Menschen
+
+4
+00:00:09,000 --> 00:00:12,000
+die mit uns die Welt verändern wollen
+
+5
+00:00:12,000 --> 00:00:15,000
+Entdecke spannende Karrieremöglichkeiten
+
+6
+00:00:15,000 --> 00:00:18,000
+in SAP, Cloud, AI und Cyber Security
+
+7
+00:00:18,000 --> 00:00:21,000
+Bewirb dich jetzt und werde Teil unseres Teams
+
+8
+00:00:21,000 --> 00:00:24,000
+Deine Zukunft beginnt hier bei Quantiva
