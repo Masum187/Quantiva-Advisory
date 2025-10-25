@@ -298,10 +298,10 @@ function TeamSection() {
     <section id="team" className="bg-black py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SlideIn direction="up" delay={0.1}>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
+          <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-teal-400 via-teal-300 to-teal-500 bg-clip-text text-transparent mb-8">
             {lang === 'de' ? 'Erfahren Sie wer hinter Quantiva Advisory steht' : 'Learn who stands behind Quantiva Advisory'}
           </h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-teal-100 mb-12 max-w-2xl mx-auto">
             {lang === 'de' 
               ? 'Lernen Sie unser erfahrenes Team kennen, das Ihre digitale Transformation mit Expertise und Leidenschaft vorantreibt.'
               : 'Get to know our experienced team that drives your digital transformation with expertise and passion.'}
