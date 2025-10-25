@@ -160,13 +160,10 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
                 initial={{ opacity: 0, scale: 0.8, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: index * 0.15, duration: 0.3, ease: "easeOut" }}
-                className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 min-w-[70px]"
+                className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 min-w-[70px] flex items-center justify-center"
               >
-                <div className={`text-lg font-bold ${kpi.color} mb-0.5`}>
+                <div className={`text-lg font-bold ${kpi.color}`}>
                   {kpi.value}
-                </div>
-                <div className="text-[10px] text-gray-300 uppercase tracking-wider leading-tight">
-                  {lang === 'de' ? kpi.label : kpi.labelEn}
                 </div>
               </motion.div>
             ))}
