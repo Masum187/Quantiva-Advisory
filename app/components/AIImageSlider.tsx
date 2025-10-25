@@ -115,52 +115,60 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
 
   return (
     <div 
-      className="relative w-full h-[60px] rounded-sm overflow-hidden"
+      className="relative w-full h-[80px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
-      {/* Background */}
+      {/* Background with Pattern */}
       <div 
         className="absolute inset-0"
         style={{ backgroundColor: currentImage.backgroundColor }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, white 1px, transparent 1px)`,
+          backgroundSize: '20px 20px'
+        }} />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-6 py-4">
+      <div className="relative z-10 h-full flex items-center px-8 py-5">
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="flex items-center justify-between w-full"
         >
           {/* Left side - Title and Description */}
-          <div className="flex-1">
-            <h3 className="text-base font-bold text-white mb-0.5">
-              {lang === 'de' ? currentImage.title : currentImage.titleEn}
-            </h3>
-            <p className="text-xs text-gray-200 leading-tight">
+          <div className="flex-1 pr-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-2 h-2 rounded-full bg-white/60"></div>
+              <h3 className="text-lg font-bold text-white tracking-tight">
+                {lang === 'de' ? currentImage.title : currentImage.titleEn}
+              </h3>
+            </div>
+            <p className="text-sm text-gray-200 leading-relaxed max-w-md">
               {lang === 'de' ? currentImage.description : currentImage.descriptionEn}
             </p>
           </div>
 
           {/* Right side - KPIs */}
-          <div className="flex gap-3 ml-4">
+          <div className="flex gap-6">
             {currentImage.kpis.map((kpi, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.2 }}
-                className="text-center"
+                initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: index * 0.15, duration: 0.3, ease: "easeOut" }}
+                className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 min-w-[80px]"
               >
-                <div className={`text-sm font-bold ${kpi.color} mb-0.5`}>
+                <div className={`text-xl font-bold ${kpi.color} mb-1`}>
                   {kpi.value}
                 </div>
-                <div className="text-[10px] text-gray-300 uppercase tracking-wider leading-tight">
+                <div className="text-xs text-gray-300 uppercase tracking-wider leading-tight">
                   {lang === 'de' ? kpi.label : kpi.labelEn}
                 </div>
               </motion.div>
@@ -172,30 +180,30 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-200 hover:scale-110"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="h-4 w-4 text-white" />
+        <ChevronLeft className="h-5 w-5 text-white" />
       </button>
       
       <button
         onClick={nextSlide}
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-all duration-200 hover:scale-110"
         aria-label="Next slide"
       >
-        <ChevronRight className="h-4 w-4 text-white" />
+        <ChevronRight className="h-5 w-5 text-white" />
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex gap-1">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {aiImages.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
+            className={`w-3 h-3 rounded-full transition-all duration-200 ${
               index === currentIndex 
-                ? 'bg-teal-500' 
-                : 'bg-white/30 hover:bg-white/50'
+                ? 'bg-white scale-125' 
+                : 'bg-white/40 hover:bg-white/60 hover:scale-110'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -203,9 +211,9 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
       </div>
 
       {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white/20">
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10">
         <motion.div
-          className="h-full bg-teal-500"
+          className="h-full bg-gradient-to-r from-white/60 to-white/40"
           initial={{ width: '0%' }}
           animate={{ width: '100%' }}
           transition={{ duration: 5, ease: 'linear' }}
