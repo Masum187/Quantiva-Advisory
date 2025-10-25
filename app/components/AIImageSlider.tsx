@@ -16,8 +16,6 @@ interface AIImageData {
     icon: React.ComponentType<any>;
     color: string;
   }[];
-  description: string;
-  descriptionEn: string;
 }
 
 const aiImages: AIImageData[] = [
@@ -30,9 +28,7 @@ const aiImages: AIImageData[] = [
       { value: '85%', label: 'Effizienzsteigerung', labelEn: 'Efficiency Gain', icon: TrendingUp, color: 'text-green-400' },
       { value: '50+', label: 'KI-Projekte', labelEn: 'AI Projects', icon: Zap, color: 'text-blue-400' },
       { value: '99%', label: 'Genauigkeit', labelEn: 'Accuracy', icon: Shield, color: 'text-purple-400' }
-    ],
-    description: 'Revolutionäre KI-Lösungen für Ihr Unternehmen',
-    descriptionEn: 'Revolutionary AI solutions for your business'
+    ]
   },
   {
     id: 'cloud-migration',
@@ -43,9 +39,7 @@ const aiImages: AIImageData[] = [
       { value: '60%', label: 'Kosteneinsparung', labelEn: 'Cost Savings', icon: TrendingUp, color: 'text-green-400' },
       { value: '200+', label: 'Migrationen', labelEn: 'Migrations', icon: Users, color: 'text-blue-400' },
       { value: '24/7', label: 'Verfügbarkeit', labelEn: 'Availability', icon: Shield, color: 'text-purple-400' }
-    ],
-    description: 'Nahtlose Übergang in die Cloud-Ära',
-    descriptionEn: 'Seamless transition to the cloud era'
+    ]
   },
   {
     id: 'data-analytics',
@@ -56,9 +50,7 @@ const aiImages: AIImageData[] = [
       { value: '95%', label: 'Datenqualität', labelEn: 'Data Quality', icon: Shield, color: 'text-purple-400' },
       { value: '10x', label: 'Schnellere Insights', labelEn: 'Faster Insights', icon: Zap, color: 'text-blue-400' },
       { value: '100+', label: 'Dashboards', labelEn: 'Dashboards', icon: TrendingUp, color: 'text-green-400' }
-    ],
-    description: 'Intelligente Datenanalyse für bessere Entscheidungen',
-    descriptionEn: 'Intelligent data analysis for better decisions'
+    ]
   },
   {
     id: 'automation',
@@ -69,9 +61,7 @@ const aiImages: AIImageData[] = [
       { value: '70%', label: 'Zeitersparnis', labelEn: 'Time Savings', icon: TrendingUp, color: 'text-green-400' },
       { value: '500+', label: 'Automatisierte Prozesse', labelEn: 'Automated Processes', icon: Zap, color: 'text-blue-400' },
       { value: '0', label: 'Manuelle Fehler', labelEn: 'Manual Errors', icon: Shield, color: 'text-purple-400' }
-    ],
-    description: 'Intelligente Automatisierung für optimale Effizienz',
-    descriptionEn: 'Intelligent automation for optimal efficiency'
+    ]
   }
 ];
 
