@@ -12,7 +12,11 @@ import {
 } from "lucide-react";
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
-import AIImageSlider from "./AIImageSlider";
+
+const AIImageSlider = dynamic(() => import("./AIImageSlider"), {
+  ssr: false,
+  loading: () => <div className="h-[100px] bg-gray-800 rounded-lg animate-pulse" />
+});
 import {
   useTeam,
   useHero,
