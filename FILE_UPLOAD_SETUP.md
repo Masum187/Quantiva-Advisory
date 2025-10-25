@@ -4,7 +4,7 @@
 
 ### **Step 1: Install Dependencies**
 ```bash
-cd /Users/herijeanmasum/Developer/quantiva-website
+cd /Users/herijeanmasum/Developer/quantiva-Advisory
 npm install -D @vercel/blob @ffmpeg/ffmpeg @ffmpeg/util
 ```
 
@@ -61,10 +61,10 @@ vercel --prod
 
 #### **A) Local Testing**
 ```bash
-# Start development server
-npm start
+# Start development server (Next.js)
+npm run dev
 
-# In another terminal, start Vercel dev server
+# Optional: Vercel dev server (emulates cloud)
 vercel dev
 ```
 
@@ -93,34 +93,19 @@ vercel dev
 ```json
 {
   "version": 2,
-  "framework": "create-react-app",
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" },
-    { "src": "api/create-pr.ts", "use": "@vercel/node" },
-    { "src": "api/upload.ts", "use": "@vercel/edge" }
-  ],
-  "installCommand": "npm ci",
+  "framework": "nextjs",
+  "installCommand": "npm ci --legacy-peer-deps",
   "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "rewrites": [
-    { "source": "/(de|en)(/.*)?", "destination": "/index.html" },
-    { "source": "/cases", "destination": "/index.html" },
-    { "source": "/cases/(.*)", "destination": "/index.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
 ```
 
@@ -131,7 +116,7 @@ The API function handles:
 - Vercel Blob integration
 - Error handling and responses
 
-### **C) Uploader Component (`src/admin/components/Uploader.tsx`)**
+### **C) Uploader Component (`app/components/Uploader.tsx`)**
 The component provides:
 - File selection and validation
 - Preview functionality
