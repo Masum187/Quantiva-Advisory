@@ -116,7 +116,7 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
 
   return (
     <div 
-      className="relative w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden"
+      className="relative w-full h-[60px] rounded-sm overflow-hidden"
       onMouseEnter={() => setIsAutoPlaying(false)}
       onMouseLeave={() => setIsAutoPlaying(true)}
     >
@@ -129,37 +129,36 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center p-8 md:p-12">
+      <div className="relative z-10 h-full flex items-center px-6 py-4">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center justify-between w-full"
         >
-          {/* Title */}
-          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            {lang === 'de' ? currentImage.title : currentImage.titleEn}
-          </h3>
+          {/* Left side - Title and Description */}
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-white mb-1">
+              {lang === 'de' ? currentImage.title : currentImage.titleEn}
+            </h3>
+            <p className="text-sm text-gray-200">
+              {lang === 'de' ? currentImage.description : currentImage.descriptionEn}
+            </p>
+          </div>
 
-          {/* Description */}
-          <p className="text-lg text-gray-200 mb-8">
-            {lang === 'de' ? currentImage.description : currentImage.descriptionEn}
-          </p>
-
-          {/* KPIs Grid */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          {/* Right side - KPIs */}
+          <div className="flex gap-4 ml-6">
             {currentImage.kpis.map((kpi, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.3 }}
-                className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center"
+                transition={{ delay: index * 0.1, duration: 0.2 }}
+                className="text-center"
               >
-                <kpi.icon className={`h-6 w-6 mx-auto mb-2 ${kpi.color}`} />
-                <div className="text-2xl font-bold text-white mb-1">
+                <div className={`text-lg font-bold ${kpi.color} mb-1`}>
                   {kpi.value}
                 </div>
                 <div className="text-xs text-gray-300 uppercase tracking-wider">
@@ -172,7 +171,7 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
           {/* CTA Button */}
           <motion.a
             href="/cases"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-500 transition-colors"
+            className="ml-6 inline-flex items-center gap-2 px-4 py-2 bg-teal-600 text-white font-semibold rounded-sm hover:bg-teal-500 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -185,27 +184,27 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="h-6 w-6 text-white" />
+        <ChevronLeft className="h-4 w-4 text-white" />
       </button>
       
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
         aria-label="Next slide"
       >
-        <ChevronRight className="h-6 w-6 text-white" />
+        <ChevronRight className="h-4 w-4 text-white" />
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex gap-1">
         {aiImages.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
+            className={`w-2 h-2 rounded-full transition-colors ${
               index === currentIndex 
                 ? 'bg-teal-500' 
                 : 'bg-white/30 hover:bg-white/50'
@@ -216,7 +215,7 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
       </div>
 
       {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20">
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white/20">
         <motion.div
           className="h-full bg-teal-500"
           initial={{ width: '0%' }}
