@@ -167,17 +167,6 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
               </motion.div>
             ))}
           </div>
-
-          {/* CTA Button */}
-          <motion.a
-            href="/cases"
-            className="ml-4 inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 text-white text-sm font-semibold rounded-sm hover:bg-teal-500 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-            <ChevronRight className="h-3 w-3" />
-          </motion.a>
         </motion.div>
       </div>
 
