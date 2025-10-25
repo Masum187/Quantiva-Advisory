@@ -43,7 +43,7 @@ https://www.pexels.com/video/digital-projection-of-abstract-geometrical-lines-31
 ```
 
 #### Schritt 3: Code anpassen
-Öffnen Sie `src/QuantivaWebsite.tsx` (Zeile ~678) und **ersetzen Sie die Zeilen 679-716** mit:
+Öffnen Sie `app/page.tsx` (oder die entsprechende Komponente) und **ersetzen Sie die entsprechenden Zeilen** mit:
 
 ```tsx
       {/* Hero - Ultra Modern with Video Background */}
@@ -122,7 +122,7 @@ Der aktuelle **animierte Gradient-Background** ist:
 
 Wenn Sie die Farben des Gradient-Backgrounds anpassen möchten:
 
-Öffnen Sie `src/QuantivaWebsite.tsx` (Zeile ~683-709):
+Öffnen Sie `app/page.tsx` (oder die entsprechende Komponente):
 
 ```tsx
 {/* Teal-Akzent ändern: */}

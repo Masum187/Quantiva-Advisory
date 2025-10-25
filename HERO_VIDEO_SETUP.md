@@ -105,7 +105,7 @@ REACT_APP_CLOUDINARY_CLOUD_NAME=ihr_cloud_name
 
 ### Option B: Direkt im Code (für Quick Start)
 
-Öffnen Sie `src/QuantivaWebsite.tsx` (Zeile ~681) und ersetzen Sie `demo`:
+Öffnen Sie `app/page.tsx` (oder die entsprechende Komponente) und ersetzen Sie `demo`:
 ```typescript
 src={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME || 'IHR_CLOUD_NAME'}/video/upload/q_auto:good,w_1920/v1/quantiva-assets/videos/hero-corporate-tech.mp4`}
 ```
@@ -220,7 +220,7 @@ Vercel wird automatisch deployen. Nach ~2 Minuten ist Ihr Video live!
 
 ## 📚 **Weitere Anpassungen**
 
-### Video-URL ändern (in `src/QuantivaWebsite.tsx`):
+### Video-URL ändern (in `app/page.tsx`):
 ```typescript
 // Zeile ~681
 src={`https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto:good,w_1920/v1/quantiva-assets/videos/IHR_VIDEO_NAME.mp4`}
