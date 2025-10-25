@@ -23,7 +23,7 @@ interface AIImageData {
 const aiImages: AIImageData[] = [
   {
     id: 'ai-transformation',
-    image: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    image: '#667eea',
     title: 'KI-Transformation',
     titleEn: 'AI Transformation',
     kpis: [
@@ -36,7 +36,7 @@ const aiImages: AIImageData[] = [
   },
   {
     id: 'cloud-migration',
-    image: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    image: '#f093fb',
     title: 'Cloud-Migration',
     titleEn: 'Cloud Migration',
     kpis: [
@@ -49,7 +49,7 @@ const aiImages: AIImageData[] = [
   },
   {
     id: 'data-analytics',
-    image: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    image: '#4facfe',
     title: 'Daten-Analytics',
     titleEn: 'Data Analytics',
     kpis: [
@@ -62,7 +62,7 @@ const aiImages: AIImageData[] = [
   },
   {
     id: 'automation',
-    image: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    image: '#43e97b',
     title: 'Prozess-Automatisierung',
     titleEn: 'Process Automation',
     kpis: [
@@ -123,9 +123,9 @@ export default function AIImageSlider({ lang }: AIImageSliderProps) {
       {/* Background Image */}
       <div 
         className="absolute inset-0"
-        style={{ background: currentImage.image }}
+        style={{ backgroundColor: currentImage.image }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
       </div>
 
       {/* Content */}
