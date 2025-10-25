@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navigation from '../Navigation';
@@ -379,7 +379,14 @@ export default function CareerPage() {
       setIsVoicePlaying(true);
       
       // Use environment variable (production), user's key, or fallback to browser TTS
-      const apiKey = process.env.REACT_APP_ELEVENLABS_KEY || elevenLabsKey;
+      const apiKey = process.env.ELEVENLABS_KEY || elevenLabsKey;
+      
+      console.log('ElevenLabs Debug:', {
+        hasEnvKey: !!process.env.ELEVENLABS_KEY,
+        hasUserKey: !!elevenLabsKey,
+        voiceId: selectedElevenLabsVoice,
+        apiKey: apiKey ? `${apiKey.substring(0, 8)}...` : 'none'
+      });
       
       // Check if API key is available
       if (!apiKey) {
@@ -412,8 +419,14 @@ export default function CareerPage() {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('ElevenLabs API error:', errorText);
-        throw new Error('ElevenLabs API error');
+        console.error('ElevenLabs API error:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText,
+          voiceId: selectedElevenLabsVoice,
+          apiKey: apiKey ? `${apiKey.substring(0, 8)}...` : 'none'
+        });
+        throw new Error(`ElevenLabs API error: ${response.status} ${response.statusText}`);
       }
 
       const audioBlob = await response.blob();
@@ -509,13 +522,14 @@ export default function CareerPage() {
     }
   };
 
-  // Auto-play voice after 3 seconds on component mount
+  // Auto-play voice after 3 seconds on component mount - DISABLED
   React.useEffect(() => {
-    const timer = setTimeout(() => {
-      speakMessage();
-    }, 3000);
-    
-    return () => clearTimeout(timer);
+    // Disabled ElevenLabs voice auto-play
+    // const timer = setTimeout(() => {
+    //   speakMessage();
+    // }, 3000);
+
+    // return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
@@ -810,8 +824,8 @@ export default function CareerPage() {
 
   return (
     <>
-      {/* Voice Button */}
-      {showVoiceButton && (
+      {/* Voice Button - DISABLED */}
+      {false && showVoiceButton && (
         <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={speakMessage}
@@ -832,8 +846,8 @@ export default function CareerPage() {
         </div>
       )}
 
-      {/* Current Word Display */}
-      {currentWord && (
+      {/* Current Word Display - DISABLED */}
+      {false && currentWord && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           <div className="px-6 py-3 bg-black/80 backdrop-blur-sm border border-teal-400/40 rounded-full text-teal-400 font-semibold text-lg">
             {currentWord}
@@ -845,24 +859,38 @@ export default function CareerPage() {
         {/* Navigation */}
         <Navigation lang={lang} items={navigationItems} />
 
-        {/* Main Content - Seamless Flow */}
-        <div className="relative bg-black min-h-screen">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            
-            {/* Hero Section */}
-            <div className="text-center mb-24">
+        {/* Hero Section - Simple Video Background */}
+        <div className="relative h-screen w-full overflow-hidden">
+          {/* Background Image - Fallback */}
+          <div className="absolute inset-0 w-full h-full">
+            <Image
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop"
+              alt="Career Hero Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          
+          
+          {/* Video Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-900/80 via-purple-900/60 to-black/80"></div>
+          
+          {/* Hero Content Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end z-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 w-full">
               <SlideIn direction="up">
-                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
+                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm">
                   <Users className="w-6 h-6 text-teal-400" />
                   <span className="text-white font-semibold">Karriere bei Quantiva</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
                   {t.heroTitle}
                 </h1>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
                   {t.heroSubtitle}
                 </p>
-                <div className="mt-8">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
                     href={localePath('/#contact')}
                     className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-500 text-white text-lg font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
@@ -873,7 +901,13 @@ export default function CareerPage() {
                 </div>
               </SlideIn>
             </div>
+          </div>
+        </div>
 
+        {/* Main Content - Seamless Flow */}
+        <div className="relative bg-black min-h-screen">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            
             {/* Areas of Expertise Section */}
             <div className="mb-24">
               <SlideIn direction="up" delay={0.1}>

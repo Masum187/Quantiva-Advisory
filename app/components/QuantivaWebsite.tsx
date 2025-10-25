@@ -10,6 +10,7 @@ import {
   Shield, Mail, Phone, ArrowRight,
   Brain, Boxes, Cog, Briefcase, Send, Users
 } from "lucide-react";
+import VideoCard from './VideoCard';
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
 import {
@@ -700,6 +701,21 @@ export default function QuantivaWebsite() {
           </div>
         </div>
       </section>
+
+      {/* Video Card Section */}
+      <VideoCard
+        videoUrl="https://res.cloudinary.com/dbrisux8i/video/upload/f_auto,q_auto/v1761380432/Quantiva_Advisory_azahhg.mp4"
+        subtitleUrl="https://res.cloudinary.com/dbrisux8i/raw/upload/v1761382530/Quantiva_Advisory_i4syti.vtt"
+        title={lang === 'de' ? 'Willkommen bei Quantiva Advisory!' : 'Welcome to Quantiva Advisory!'}
+        description={lang === 'de' 
+          ? 'Du bist derjenige, der dabei helfen kann, dieses Unternehmen zu gestalten. Zögere nicht so lange — bewirb dich jetzt!'
+          : 'You are the one who can help shape this company. Don\'t hesitate so long — please apply now!'
+        }
+        primaryButtonText={lang === 'de' ? 'Karriere starten' : 'Start your career'}
+        primaryButtonLink={localePath('/career')}
+        secondaryButtonText={lang === 'de' ? 'Kontakt aufnehmen' : 'Get in touch'}
+        secondaryButtonLink={localePath('/#contact')}
+      />
 
       {/* About Teaser */}
       <AboutTeaser />
