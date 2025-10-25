@@ -71,24 +71,73 @@ interface AIImageSliderProps {
 
 const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+    
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex === aiImages.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isClient]);
 
 
   const currentImage = aiImages[currentIndex];
 
+  // Prevent hydration mismatch by showing a static version initially
+  if (!isClient) {
+    return (
+      <div className="relative w-full h-[100px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50">
+        <div
+          className="absolute inset-0"
+          style={{ backgroundColor: aiImages[0].backgroundColor }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+          <div className="absolute inset-0 opacity-10" style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, white 1px, transparent 1px)`,
+            backgroundSize: '20px 20px'
+          }} />
+        </div>
+        <div className="relative z-10 h-full flex items-center px-8 py-6">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex-1 pr-8">
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                {lang === 'de' ? aiImages[0].title : aiImages[0].titleEn}
+              </h3>
+            </div>
+            <div className="flex gap-6">
+              {aiImages[0].kpis.map((kpi, index) => (
+                <div
+                  key={index}
+                  className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 min-w-[90px]"
+                >
+                  <div className={`text-2xl font-bold ${kpi.color} mb-1`}>
+                    {kpi.value}
+                  </div>
+                  <div className="text-xs text-gray-300 uppercase tracking-wider leading-tight">
+                    {lang === 'de' ? kpi.label : kpi.labelEn}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div 
-      className="relative w-full h-[70px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50"
-    >
+        <div
+          className="relative w-full h-[100px] rounded-lg overflow-hidden shadow-lg border border-gray-700/50"
+        >
       {/* Background with Pattern */}
       <div 
         className="absolute inset-0"
@@ -102,8 +151,8 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
         }} />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-6 py-4">
+          {/* Content */}
+          <div className="relative z-10 h-full flex items-center px-8 py-6">
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, x: 20 }}
@@ -112,32 +161,32 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="flex items-center justify-between w-full"
         >
-          {/* Left side - Title only */}
-          <div className="flex-1 pr-6">
-            <h3 className="text-base font-bold text-white tracking-tight">
-              {lang === 'de' ? currentImage.title : currentImage.titleEn}
-            </h3>
-          </div>
+              {/* Left side - Title only */}
+              <div className="flex-1 pr-8">
+                <h3 className="text-xl font-bold text-white tracking-tight">
+                  {lang === 'de' ? currentImage.title : currentImage.titleEn}
+                </h3>
+              </div>
 
-          {/* Right side - KPIs */}
-          <div className="flex gap-4">
-            {currentImage.kpis.map((kpi, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: index * 0.15, duration: 0.3, ease: "easeOut" }}
-                className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 min-w-[70px]"
-              >
-                <div className={`text-lg font-bold ${kpi.color} mb-0.5`}>
-                  {kpi.value}
-                </div>
-                <div className="text-[10px] text-gray-300 uppercase tracking-wider leading-tight">
-                  {lang === 'de' ? kpi.label : kpi.labelEn}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              {/* Right side - KPIs */}
+              <div className="flex gap-6">
+                {currentImage.kpis.map((kpi, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ delay: index * 0.15, duration: 0.3, ease: "easeOut" }}
+                    className="text-center bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 min-w-[90px]"
+                  >
+                    <div className={`text-2xl font-bold ${kpi.color} mb-1`}>
+                      {kpi.value}
+                    </div>
+                    <div className="text-xs text-gray-300 uppercase tracking-wider leading-tight">
+                      {lang === 'de' ? kpi.label : kpi.labelEn}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
         </motion.div>
       </div>
 
