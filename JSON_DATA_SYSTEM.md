@@ -4,7 +4,7 @@
 
 ### 🎯 **What's Been Implemented:**
 
-1. **Centralized Data Source** (`src/data/cases.json`):
+1. **Centralized Data Source** (`app/lib/data/cases.json`):
    - ✅ Single source of truth for all case studies
    - ✅ Complete bilingual content (German/English)
    - ✅ Full case details (goals, solutions, results, tech stack)
@@ -24,8 +24,9 @@
 ### 📁 **File Structure**
 
 ```
-/src/data/
+/app/lib/data/
 └─ cases.json                    // Centralized case data ✅
+└─ taxonomy.json                 // Categories and industries ✅
 
 /scripts/
 └─ generate-og.mjs               // OG generation from JSON ✅
@@ -75,7 +76,7 @@
 
 #### **CasesPage**
 ```typescript
-import casesData from "./data/cases.json";
+import casesData from "../lib/data/cases.json";
 
 const CASES = casesData.map(c => ({
   id: c.slug,
@@ -90,7 +91,7 @@ const CASES = casesData.map(c => ({
 
 #### **CaseDetailPage**
 ```typescript
-import casesData from "./data/cases.json";
+import casesData from "../lib/data/cases.json";
 
 const slug = /* from URL */;
 const caseData = casesData.find(c => c.slug === slug);
@@ -100,8 +101,8 @@ const caseData = casesData.find(c => c.slug === slug);
 
 #### **Sitemap Generation**
 ```javascript
-// sitemap.js
-const casesData = JSON.parse(fs.readFileSync(path.join(process.cwd(), "src", "data", "cases.json"), "utf-8"));
+// sitemap.mjs
+const casesData = JSON.parse(fs.readFileSync(path.join(process.cwd(), "app", "lib", "data", "cases.json"), "utf-8"));
 const CASE_SLUGS = casesData.map(c => c.slug);
 ```
 
@@ -148,7 +149,7 @@ for (const c of cases) {
 
 1. **Check JSON Loading**:
    ```bash
-   node -e "console.log(JSON.parse(require('fs').readFileSync('src/data/cases.json', 'utf-8')).length)"
+   node -e "console.log(JSON.parse(require('fs').readFileSync('app/lib/data/cases.json', 'utf-8')).length)"
    ```
 
 2. **Test Build Process**:

@@ -87,11 +87,11 @@ flowchart TD
 ## 🔧 Source Code
 
 ### Haupt-Komponenten
-- Website: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/QuantivaWebsite.tsx
-- Admin Dashboard: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/AdminDashboard.tsx
-- Workflow Diagram: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/admin/components/WorkflowDiagram.tsx
-- Mermaid Component: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/components/Mermaid.tsx
-- Docs Page: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/pages/DocsWorkflow.tsx
+- Website: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/page.tsx
+- Admin Dashboard: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/components/AdminDashboard.tsx
+- Workflow Diagram: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/components/WorkflowDiagram.tsx
+- Mermaid Component: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/components/Mermaid.tsx
+- Docs Page: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/docs/page.tsx
 
 ### Scripts & Tools
 - Validate Cases: https://github.com/Masum187/Quantiva-Advisory/blob/main/scripts/validate-cases.mjs
@@ -99,8 +99,8 @@ flowchart TD
 - Generate OG Images: https://github.com/Masum187/Quantiva-Advisory/blob/main/scripts/generate-og.mjs
 
 ### Data Files
-- Cases: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/data/cases.json
-- Taxonomy: https://github.com/Masum187/Quantiva-Advisory/blob/main/src/data/taxonomy.json
+- Cases: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/lib/data/cases.json
+- Taxonomy: https://github.com/Masum187/Quantiva-Advisory/blob/main/app/lib/data/taxonomy.json
 
 ---
 
@@ -109,7 +109,7 @@ flowchart TD
 ### Trigger Workflows manually
 Machen Sie einen kleinen Commit und pushen Sie:
 ```bash
-cd /Users/herijeanmasum/Developer/quantiva-website
+cd /Users/herijeanmasum/Developer/quantiva-Advisory
 git commit --allow-empty -m "trigger: Test workflows"
 git push origin main
 ```

@@ -379,17 +379,15 @@ const sortOptions = [
 ### 📚 **File Structure:**
 
 ```
-src/
-├── AdminDashboard.tsx           # Main admin component (enhanced)
-├── admin/
-│   └── components/
-│       ├── Uploader.tsx        # File upload component
-│       └── PosterPicker.tsx    # Poster comparison component
+app/
+├── components/
+│   └── AdminDashboard.tsx           # Main admin component (enhanced)
+├── lib/
+│   └── data/
+│       ├── cases.json               # Case studies data
+│       └── taxonomy.json            # Categories and industries
 └── admin/
-    └── utils/
-        ├── samplePosterFrames.ts # Frame sampling utility
-        ├── autoPosterFromVideo.ts # Intelligent selection
-        └── capturePoster.ts     # Manual frame capture
+    └── page.tsx                     # Admin route page
 ```
 
 ### 🎉 **Ready for Production!**
