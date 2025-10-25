@@ -114,12 +114,9 @@ const AIImageSlider: React.FC<AIImageSliderProps> = ({ lang }) => {
         >
           {/* Left side - Title only */}
           <div className="flex-1 pr-6">
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
-              <h3 className="text-base font-bold text-white tracking-tight">
-                {lang === 'de' ? currentImage.title : currentImage.titleEn}
-              </h3>
-            </div>
+            <h3 className="text-base font-bold text-white tracking-tight">
+              {lang === 'de' ? currentImage.title : currentImage.titleEn}
+            </h3>
           </div>
 
           {/* Right side - KPIs */}
