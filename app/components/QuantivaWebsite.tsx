@@ -741,15 +741,16 @@ export default function QuantivaWebsite() {
                 >
                   {/* Hintergrundbild mit Zoom beim Hover - Bild aus CMS */}
                   <div
-                    className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-105"
+                    className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-[1.03]"
                     style={{ 
                       backgroundImage: `url(${(service as any).image})`,
                       backgroundPosition: 'center',
-                      backgroundSize: 'cover'
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat'
                     }}
                   />
                   {/* Gradient-Overlay (wird dunkler beim Hover) */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/98 via-black/85 to-black/40 transition group-hover:bg-black/90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/98 via-black/88 to-black/50 transition group-hover:bg-black/92" />
                   {/* Titel (immer sichtbar) */}
                   <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
                     <h3 className="text-xl font-semibold drop-shadow-2xl text-shadow-xl">{service.title}</h3>
