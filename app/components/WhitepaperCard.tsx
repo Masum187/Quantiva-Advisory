@@ -41,9 +41,13 @@ export default function WhitepaperCard({
     
     // Simuliere Download nach kurzer Verzögerung
     setTimeout(() => {
-      window.open(downloadUrl, '_blank');
+      // Öffne das Whitepaper als Embedded Viewer
       setShowForm(false);
       setIsDownloading(false);
+      
+      // Öffne embedded Canva viewer
+      window.open('https://www.canva.com/design/DAG2dA7rSLc/szCCyCPcHvj-hudg23snEw/view?utm_content=DAG2dA7rSLc&utm_campaign=designshare&utm_medium=embeds&utm_source=link', '_blank');
+      
       // Reset form
       setFormData({
         firstName: '',
@@ -99,7 +103,7 @@ export default function WhitepaperCard({
           className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:scale-105 font-semibold"
         >
           <Download className="w-5 h-5" />
-          Whitepaper herunterladen
+          Whitepaper anfordern
         </button>
       </div>
 
