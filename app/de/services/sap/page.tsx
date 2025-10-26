@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Database, ArrowLeft, CheckCircle, Users, Target, Zap } from 'lucide-react';
 import ServiceNavigation from '../../../components/ServiceNavigation';
+import WhitepaperCard from '../../../components/WhitepaperCard';
 
 function SlideIn({ children, direction = 'up', delay = 0, duration = 0.8 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; duration?: number }) {
   const variants = {
@@ -140,48 +141,54 @@ export default function SAPServicePage() {
     }
   ];
 
-  const studies = [
+  const whitepapers = [
     {
-      title: 'Studie SAP S/4HANA 2025 (COMPUTERWOCHE/Spirit21)',
-      description: 'Markttrends, Erfolgsfaktoren, Praxisbeispiele und Herausforderungen der S/4HANA-Transformation in der DACH-Region.',
+      title: 'SAP S/4HANA Transformation Guide 2025',
+      description: 'Umfassender Leitfaden für die S/4HANA-Transformation mit Best Practices, ROI-Berechnung und Migrationsstrategien.',
       topic: 'S/4HANA Transformation',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
+      downloadUrl: '#'
     },
     {
-      title: 'valantic SAP Studie 2025',
-      description: 'Trends zu S/4HANA-Migration, Cloud-Strategien, SAP BTP, Business Data Cloud, KI- und Joule-Integration mit Experteneinschätzungen.',
-      topic: 'SAP Trends & Migration',
-      date: '2025',
-      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop'
-    },
-    {
-      title: 'SAP Cloud ALM & Best Practices (rz10.de, FIS GmbH, Solutive AG)',
-      description: 'Überblick moderner ALM-Lösungen für die Cloud-Ära, Entscheidungshilfen und Praxisbeispiele für SAP Cloud ALM.',
-      topic: 'Cloud ALM',
-      date: '2025',
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop'
-    },
-    {
-      title: 'KI & SAP Joule Integration (SAP News Portal)',
-      description: 'Praxisberichte und Roadmap zur Integration von GenAI/Joule in SAP-Lösungen. Best Practices und Implementierungsstrategien.',
-      topic: 'KI & Joule Integration',
-      date: '2025',
-      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop'
-    },
-    {
-      title: 'SAP BTP Integration Patterns (SAP Community)',
-      description: 'Moderne Integrationsmuster und Best Practices für SAP Business Technology Platform. Architektur-Entscheidungen und Implementierungsstrategien.',
+      title: 'SAP BTP Integration Patterns Whitepaper',
+      description: 'Moderne Integrationsmuster und Best Practices für SAP Business Technology Platform mit Architektur-Entscheidungen.',
       topic: 'BTP Integration',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
+      downloadUrl: '#'
+    },
+    {
+      title: 'SAP Cloud ALM Best Practices',
+      description: 'Application Lifecycle Management für Cloud- und hybride SAP-Umgebungen mit praktischen Implementierungshilfen.',
+      topic: 'Cloud ALM',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop',
+      downloadUrl: '#'
+    },
+    {
+      title: 'KI & SAP Joule Integration Guide',
+      description: 'Roadmap zur Integration von GenAI/Joule in SAP-Lösungen mit Best Practices und Implementierungsstrategien.',
+      topic: 'KI & Joule Integration',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop',
+      downloadUrl: '#'
     },
     {
       title: 'SAP Fiori UX Design Guidelines 2025',
-      description: 'Neueste UX-Standards und Design-Prinzipien für SAP Fiori Anwendungen. User Experience Best Practices und Accessibility.',
+      description: 'Neueste UX-Standards und Design-Prinzipien für SAP Fiori Anwendungen mit User Experience Best Practices.',
       topic: 'Fiori UX Design',
       date: '2025',
-      image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=1200&auto=format&fit=crop'
+      image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=1200&auto=format&fit=crop',
+      downloadUrl: '#'
+    },
+    {
+      title: 'SAP Test Automation Framework',
+      description: 'Best Practices für automatisierte SAP-Tests von der Anforderungsaufnahme bis zum Monitoring in Cloud-Umgebungen.',
+      topic: 'Test Automation',
+      date: '2025',
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop',
+      downloadUrl: '#'
     }
   ];
 
@@ -357,9 +364,9 @@ export default function SAPServicePage() {
                 transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
               >
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-                  Aktuelle{' '}
+                  Downloadbare{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
-                    Studien & Whitepapers
+                    Whitepapers
                   </span>
                 </h2>
               </motion.div>
@@ -376,66 +383,16 @@ export default function SAPServicePage() {
           </SlideIn>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {studies.map((study, index) => (
+            {whitepapers.map((whitepaper, index) => (
               <SlideIn key={index} delay={index * 0.1 + 0.5}>
-                <motion.article
-                  className="group relative overflow-hidden rounded-2xl bg-slate-900/90 backdrop-blur-xl border border-white/30 hover:border-white/50 transition-all duration-500 shadow-2xl"
-                  whileHover={{
-                    scale: 1.02,
-                    y: -5,
-                    transition: { duration: 0.3 }
-                  }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  {/* Study Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={study.image}
-                      alt={study.title}
-                      width={400}
-                      height={192}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    {/* Topic Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-blue-500/80 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
-                        {study.topic}
-                      </span>
-                    </div>
-
-                    {/* Date Badge */}
-                    <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
-                        {study.date}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Study Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors line-clamp-2">
-                      {study.title}
-                    </h3>
-                    
-                    <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
-                      {study.description}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-blue-300 text-sm font-semibold">
-                        Whitepaper lesen →
-                      </span>
-                      <div className="flex items-center gap-2 text-gray-400 text-xs">
-                        <span>{study.date}</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
+                <WhitepaperCard
+                  title={whitepaper.title}
+                  description={whitepaper.description}
+                  topic={whitepaper.topic}
+                  date={whitepaper.date}
+                  image={whitepaper.image}
+                  downloadUrl={whitepaper.downloadUrl}
+                />
               </SlideIn>
             ))}
           </div>
