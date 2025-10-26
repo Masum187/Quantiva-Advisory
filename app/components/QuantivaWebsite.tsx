@@ -298,7 +298,7 @@ function TeamSection() {
     <section id="team" className="bg-black py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SlideIn direction="up" delay={0.1}>
-          <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-teal-400 via-teal-300 to-teal-500 bg-clip-text text-transparent mb-8">
+          <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-pink-600 bg-clip-text text-transparent mb-8">
             {lang === 'de' ? 'Erfahren Sie wer hinter Quantiva Advisory steht' : 'Learn who stands behind Quantiva Advisory'}
           </h2>
           <p className="text-xl text-teal-100 mb-12 max-w-2xl mx-auto">
@@ -616,13 +616,13 @@ export default function QuantivaWebsite() {
                 {lang === 'de' ? (
                   <>
                     DIGITALE<br />
-                    <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-pink-600 bg-clip-text text-transparent">TRANSFORMATION</span><br />
+                    TRANSFORMATION<br />
                     <span className="text-teal-400">NEU GEDACHT</span>
                   </>
                 ) : (
                   <>
                     DIGITAL<br />
-                    <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-pink-600 bg-clip-text text-transparent">TRANSFORMATION</span><br />
+                    TRANSFORMATION<br />
                     <span className="text-teal-400">REIMAGINED</span>
                   </>
                 )}
