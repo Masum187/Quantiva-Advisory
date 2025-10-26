@@ -1,6 +1,15 @@
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
+
+// Graceful Sharp import with fallback
+let sharp;
+try {
+  sharp = (await import("sharp")).default;
+} catch (error) {
+  console.warn("⚠️  Sharp not available, skipping OG image generation");
+  console.warn("   This is normal in some CI environments");
+  process.exit(0);
+}
 
 const ROOT   = process.cwd();
 const DATA   = path.join(ROOT, "app", "lib", "data", "cases.json");  // <- Updated for Next.js

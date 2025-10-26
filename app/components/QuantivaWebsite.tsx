@@ -12,6 +12,11 @@ import {
 } from "lucide-react";
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
+
+const AIImageSlider = dynamic(() => import("./AIImageSlider"), {
+  ssr: false,
+  loading: () => <div className="h-[100px] bg-gray-800 rounded-lg animate-pulse" />
+});
 import {
   useTeam,
   useHero,
@@ -293,10 +298,10 @@ function TeamSection() {
     <section id="team" className="bg-black py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SlideIn direction="up" delay={0.1}>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8">
+          <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-teal-400 via-teal-300 to-teal-500 bg-clip-text text-transparent mb-8">
             {lang === 'de' ? 'Erfahren Sie wer hinter Quantiva Advisory steht' : 'Learn who stands behind Quantiva Advisory'}
           </h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+          <p className="text-xl text-teal-100 mb-12 max-w-2xl mx-auto">
             {lang === 'de' 
               ? 'Lernen Sie unser erfahrenes Team kennen, das Ihre digitale Transformation mit Expertise und Leidenschaft vorantreibt.'
               : 'Get to know our experienced team that drives your digital transformation with expertise and passion.'}
@@ -670,14 +675,8 @@ export default function QuantivaWebsite() {
                 )}
               </p>
 
-              {/* CTA Button */}
-              <a
-                href={localePath('/cases')}
-                className="inline-flex items-center gap-3 px-6 py-4 bg-teal-600 text-white text-base font-bold rounded-sm hover:bg-teal-500 transition-all group"
-              >
-                {lang === 'de' ? 'Was wir machen' : 'What we do'}
-                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              {/* AI Image Slider */}
+              <AIImageSlider lang={lang} />
 
               {/* Stats - Minimalist */}
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800">
@@ -746,15 +745,15 @@ export default function QuantivaWebsite() {
                     style={{ backgroundImage: `url(${(service as any).image})` }}
                   />
                   {/* Gradient-Overlay (wird dunkler beim Hover) */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition group-hover:bg-black/70" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30 transition group-hover:bg-black/80" />
                   {/* Titel (immer sichtbar) */}
                   <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
-                    <h3 className="text-xl font-semibold drop-shadow-lg">{service.title}</h3>
+                    <h3 className="text-xl font-semibold drop-shadow-2xl text-shadow-xl">{service.title}</h3>
                   </div>
                   {/* Beschreibung (fährt beim Hover hoch) */}
-                  <div className="absolute inset-0 z-20 flex flex-col translate-y-full items-center justify-center bg-gradient-to-br from-black/95 via-slate-900/95 to-black/95 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
-                    <p className="max-w-sm text-base text-gray-200 mb-4">{service.description}</p>
-                    <span className="inline-flex items-center gap-2 text-teal-400 font-semibold">
+                  <div className="absolute inset-0 z-20 flex flex-col translate-y-full items-center justify-center bg-gradient-to-br from-black/98 via-slate-900/98 to-black/98 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
+                    <p className="max-w-sm text-base text-gray-100 mb-4 text-shadow-lg">{service.description}</p>
+                    <span className="inline-flex items-center gap-2 text-teal-400 font-semibold text-shadow-lg">
                       {lang === 'de' ? 'Mehr erfahren' : 'Learn more'} <ChevronRight className="w-5 h-5" />
                     </span>
                   </div>

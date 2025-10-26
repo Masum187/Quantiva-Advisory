@@ -4,7 +4,7 @@
 
 ### **Step 1: Install Dependencies**
 ```bash
-cd /Users/herijeanmasum/Developer/quantiva-website
+cd /Users/herijeanmasum/Developer/quantiva-Advisory
 npm install -D @octokit/rest
 ```
 
@@ -38,8 +38,8 @@ In your Vercel project dashboard:
 
 ```env
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
-GITHUB_OWNER=quantivaadvisory
-GITHUB_REPO=website
+GITHUB_OWNER=Masum187
+GITHUB_REPO=Quantiva-Advisory
 GITHUB_BASE_BRANCH=main
 ```
 
@@ -69,10 +69,10 @@ vercel --prod
 
 #### **A) Local Testing**
 ```bash
-# Start development server
-npm start
+# Start development server (Next.js)
+npm run dev
 
-# In another terminal, start Vercel dev server
+# Optional: Vercel dev server (emulates cloud)
 vercel dev
 ```
 
@@ -93,7 +93,7 @@ vercel dev
 
 #### **B) Check PR Content**
 1. Open the created PR
-2. Verify `src/data/cases.json` is updated
+2. Verify `app/lib/data/cases.json` is updated
 3. Check that sitemap and OG images are generated
 4. Confirm validation passes
 
@@ -103,33 +103,19 @@ vercel dev
 ```json
 {
   "version": 2,
-  "framework": "create-react-app",
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" },
-    { "src": "api/create-pr.ts", "use": "@vercel/node" }
-  ],
-  "installCommand": "npm ci",
+  "framework": "nextjs",
+  "installCommand": "npm ci --legacy-peer-deps",
   "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "rewrites": [
-    { "source": "/(de|en)(/.*)?", "destination": "/index.html" },
-    { "source": "/cases", "destination": "/index.html" },
-    { "source": "/cases/(.*)", "destination": "/index.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
       ]
     }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
 ```
 
