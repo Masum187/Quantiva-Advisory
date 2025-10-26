@@ -744,7 +744,7 @@ export default function QuantivaWebsite() {
                     className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
                     style={{ 
                       backgroundImage: `url(${(service as any).image})`,
-                      backgroundPosition: 'right center'
+                      backgroundPosition: 'left center'
                     }}
                   />
                   {/* Gradient-Overlay (wird dunkler beim Hover) */}
