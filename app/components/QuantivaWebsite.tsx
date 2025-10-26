@@ -616,13 +616,13 @@ export default function QuantivaWebsite() {
                 {lang === 'de' ? (
                   <>
                     DIGITALE<br />
-                    TRANSFORMATION<br />
+                    <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-pink-600 bg-clip-text text-transparent">TRANSFORMATION</span><br />
                     <span className="text-teal-400">NEU GEDACHT</span>
                   </>
                 ) : (
                   <>
                     DIGITAL<br />
-                    TRANSFORMATION<br />
+                    <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-pink-600 bg-clip-text text-transparent">TRANSFORMATION</span><br />
                     <span className="text-teal-400">REIMAGINED</span>
                   </>
                 )}
