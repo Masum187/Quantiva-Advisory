@@ -289,9 +289,25 @@ export default function NewWorkPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <SlideIn direction="up" delay={0.1}>
               <div className="text-center group">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-10 h-10 text-teal-400" />
-                </div>
+                <motion.div 
+                  className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-teal-500/40 to-teal-600/30 border-2 border-teal-400/60 flex items-center justify-center shadow-lg shadow-teal-500/20"
+                  whileHover={{ 
+                    scale: 1.15,
+                    boxShadow: "0 20px 40px rgba(20, 184, 166, 0.4)"
+                  }}
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }
+                  }}
+                >
+                  <TrendingUp className="w-10 h-10 text-teal-300 group-hover:text-teal-200 transition-colors duration-300" />
+                </motion.div>
                 <h3 className="text-xl font-bold text-white mb-3">Increased Productivity</h3>
                 <p className="text-gray-300">Flexible working hours and locations lead to higher motivation and efficiency of employees.</p>
               </div>
@@ -299,9 +315,26 @@ export default function NewWorkPage() {
 
             <SlideIn direction="up" delay={0.2}>
               <div className="text-center group">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Heart className="w-10 h-10 text-purple-400" />
-                </div>
+                <motion.div 
+                  className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500/40 to-purple-600/30 border-2 border-purple-400/60 flex items-center justify-center shadow-lg shadow-purple-500/20"
+                  whileHover={{ 
+                    scale: 1.15,
+                    boxShadow: "0 20px 40px rgba(192, 132, 252, 0.4)"
+                  }}
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5
+                    }
+                  }}
+                >
+                  <Heart className="w-10 h-10 text-purple-300 group-hover:text-purple-200 transition-colors duration-300" />
+                </motion.div>
                 <h3 className="text-xl font-bold text-white mb-3">Better Work-Life Balance</h3>
                 <p className="text-gray-300">Employees can better balance work and private life, leading to higher satisfaction.</p>
               </div>
@@ -309,9 +342,26 @@ export default function NewWorkPage() {
 
             <SlideIn direction="up" delay={0.3}>
               <div className="text-center group">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Globe className="w-10 h-10 text-blue-400" />
-                </div>
+                <motion.div 
+                  className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500/40 to-blue-600/30 border-2 border-blue-400/60 flex items-center justify-center shadow-lg shadow-blue-500/20"
+                  whileHover={{ 
+                    scale: 1.15,
+                    boxShadow: "0 20px 40px rgba(96, 165, 250, 0.4)"
+                  }}
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1
+                    }
+                  }}
+                >
+                  <Globe className="w-10 h-10 text-blue-300 group-hover:text-blue-200 transition-colors duration-300" />
+                </motion.div>
                 <h3 className="text-xl font-bold text-white mb-3">Global Talent Pool</h3>
                 <p className="text-gray-300">Access to international talents through remote-friendly work models.</p>
               </div>
@@ -319,9 +369,26 @@ export default function NewWorkPage() {
 
             <SlideIn direction="up" delay={0.4}>
               <div className="text-center group">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-green-500/30 to-green-600/20 border border-green-400/40 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="w-10 h-10 text-green-400" />
-                </div>
+                <motion.div 
+                  className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500/40 to-green-600/30 border-2 border-green-400/60 flex items-center justify-center shadow-lg shadow-green-500/20"
+                  whileHover={{ 
+                    scale: 1.15,
+                    boxShadow: "0 20px 40px rgba(74, 222, 128, 0.4)"
+                  }}
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1.5
+                    }
+                  }}
+                >
+                  <Shield className="w-10 h-10 text-green-300 group-hover:text-green-200 transition-colors duration-300" />
+                </motion.div>
                 <h3 className="text-xl font-bold text-white mb-3">Future-Proof</h3>
                 <p className="text-gray-300">Early adaptation to changing work environments makes your company future-ready.</p>
               </div>
