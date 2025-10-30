@@ -749,9 +749,13 @@ export default function QuantivaWebsite() {
                   />
                   {/* Gradient-Overlay (wird dunkler beim Hover) */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 transition group-hover:bg-black/85" />
-                  {/* Titel (immer sichtbar) */}
+                  {/* Titel (immer sichtbar, einzeilig und baseline-ausgerichtet) */}
                   <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
-                    <h3 className="text-xl font-semibold drop-shadow-2xl text-shadow-xl">{service.title}</h3>
+                    <div className="h-16 flex items-end">
+                      <h3 className="text-2xl md:text-3xl font-bold leading-none tracking-tight drop-shadow-2xl text-shadow-xl line-clamp-1 truncate">
+                        {service.title}
+                      </h3>
+                    </div>
                   </div>
                   {/* Beschreibung (fährt beim Hover hoch) */}
                   <div className="absolute inset-0 z-20 flex flex-col translate-y-full items-center justify-center bg-gradient-to-br from-black/98 via-slate-900/98 to-black/98 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
