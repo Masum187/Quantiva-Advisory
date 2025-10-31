@@ -69,6 +69,11 @@ async function ensureBadgePng() {
 }
 
 async function buildOg({ slug, heroImage, title }) {
+  // Skip Cloudinary URLs
+  if (heroImage && heroImage.startsWith('http')) {
+    console.warn(`⚠️ Skipping Cloudinary URL for ${slug}: ${heroImage}`);
+    return;
+  }
   const src = path.join(ROOT, "public", heroImage.replace(/^\//, ""));
   if (!fs.existsSync(src)) {
     console.warn(`⚠️ Hero nicht gefunden: ${src}`);

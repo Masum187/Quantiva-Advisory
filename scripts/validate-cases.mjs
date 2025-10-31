@@ -28,9 +28,9 @@ const schema = {
       subtitleEn: { type: ["string", "null"] },
       category: { type: ["string", "null"] },
       industry: { type: ["string", "null"] },
-          heroImage: { type: ["string", "null"], pattern: "^\\/[^?#]+\\.(jpg|jpeg|png|webp)$" },
-          heroMedia: { type: ["string", "null"], pattern: "^\\/[^?#]+\\.(mp4|webm)$" },
-          heroPoster: { type: ["string", "null"], pattern: "^\\/[^?#]+\\.(jpg|jpeg|png|webp)$" },
+          heroImage: { type: ["string", "null"], pattern: "^(\\/[^?#]+\\.(jpg|jpeg|png|webp)|https?:)" },
+          heroMedia: { type: ["string", "null"], pattern: "^(\\/[^?#]+\\.(mp4|webm)|https?:)" },
+          heroPoster: { type: ["string", "null"], pattern: "^(\\/[^?#]+\\.(jpg|jpeg|png|webp)|https?:)" },
       goalsDe: { type: "array", items: { type: "string", minLength: 1 } },
       goalsEn: { type: "array", items: { type: "string", minLength: 1 } },
       solutionDe: { type: "array", items: { type: "string", minLength: 1 } },
@@ -120,9 +120,9 @@ for (const c of data) {
 const missingAssetsErrors = []; // werden in STRICT zu harten Fehlern
 for (const c of data) {
       const files = [
-        c.heroImage && path.join(ROOT, "public", c.heroImage.replace(/^\//, "")),
-        c.heroMedia && path.join(ROOT, "public", c.heroMedia.replace(/^\//, "")),
-        c.heroPoster && path.join(ROOT, "public", c.heroPoster.replace(/^\//, "")), // <-- NEU
+        c.heroImage && !c.heroImage.startsWith('http') && path.join(ROOT, "public", c.heroImage.replace(/^\//, "")),
+        c.heroMedia && !c.heroMedia.startsWith('http') && path.join(ROOT, "public", c.heroMedia.replace(/^\//, "")),
+        c.heroPoster && !c.heroPoster.startsWith('http') && path.join(ROOT, "public", c.heroPoster.replace(/^\//, "")), // <-- NEU
       ].filter(Boolean);
 
   for (const f of files) {
@@ -132,11 +132,13 @@ for (const c of data) {
     }
   }
 
-  // OG-Datei muss NACH dem Build existieren (strict)
-  const og = path.join(ROOT, "public", "assets", "og", `${c.slug}.jpg`);
-  if (!fs.existsSync(og)) {
-    const msg = `${c.slug}: OG-Bild fehlt: ${path.relative(ROOT, og)} (wird i. d. R. im postbuild erzeugt)`;
-    (STRICT ? missingAssetsErrors : warnings).push(msg);
+  // OG-Datei muss NACH dem Build existieren (strict), außer bei Cloudinary URLs
+  if (!c.heroImage || !c.heroImage.startsWith('http')) {
+    const og = path.join(ROOT, "public", "assets", "og", `${c.slug}.jpg`);
+    if (!fs.existsSync(og)) {
+      const msg = `${c.slug}: OG-Bild fehlt: ${path.relative(ROOT, og)} (wird i. d. R. im postbuild erzeugt)`;
+      (STRICT ? missingAssetsErrors : warnings).push(msg);
+    }
   }
 }
 
