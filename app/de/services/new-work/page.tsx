@@ -121,35 +121,80 @@ export default function NewWorkPage() {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center flex-shrink-0">
-                      <Target className="w-6 h-6 text-teal-400" />
-                    </div>
+                  <motion.div 
+                    className="flex items-start gap-4 group/item cursor-pointer"
+                    whileHover={{ x: 8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div 
+                      className="relative flex items-center justify-center flex-shrink-0"
+                      whileHover={{ scale: 1.15, rotate: [0, -10, 10, -10, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {/* 3D Background Effect */}
+                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-gradient-to-br from-teal-500/40 to-teal-600/30 border-2 border-teal-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-teal-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+                      {/* Icon Container */}
+                      <div className="relative w-14 h-14 rounded-3xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover/item:shadow-[0_0_30px_rgba(20,184,166,0.4)] transition-shadow duration-300">
+                        <Target className="w-7 h-7 text-teal-300 group-hover/item:text-teal-100 transition-colors duration-300" />
+                      </div>
+                    </motion.div>
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-2">Strategie & Organisations-Transformation</h3>
-                      <p className="text-gray-300">Es gibt keine New Work Schablone, die auf jedes Unternehmen passt. Wir entwickeln mit Ihnen den für Sie passenden Ansatz für Mensch & Kultur, Organisation & Prozesse.</p>
+                      <h3 className="text-xl font-semibold text-white mb-2 group-hover/item:text-teal-300 transition-colors duration-300">Strategie & Organisations-Transformation</h3>
+                      <p className="text-gray-300 leading-relaxed">Es gibt keine New Work Schablone, die auf jedes Unternehmen passt. Wir entwickeln mit Ihnen den für Sie passenden Ansatz für Mensch & Kultur, Organisation & Prozesse.</p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center flex-shrink-0">
-                      <Zap className="w-6 h-6 text-purple-400" />
-                    </div>
+                  <motion.div 
+                    className="flex items-start gap-4 group/item cursor-pointer"
+                    whileHover={{ x: 8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div 
+                      className="relative flex items-center justify-center flex-shrink-0"
+                      whileHover={{ scale: 1.15, rotate: [0, 5, -5, 5, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {/* 3D Background Effect */}
+                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-gradient-to-br from-purple-500/40 to-purple-600/30 border-2 border-purple-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-purple-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+                      {/* Icon Container */}
+                      <div className="relative w-14 h-14 rounded-3xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover/item:shadow-[0_0_30px_rgba(192,132,252,0.4)] transition-shadow duration-300">
+                        <Zap className="w-7 h-7 text-purple-300 group-hover/item:text-purple-100 transition-colors duration-300" />
+                      </div>
+                    </motion.div>
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-2">Productivity & Collaboration</h3>
-                      <p className="text-gray-300">Die neue Arbeitswelt ist geprägt von Zusammenarbeit über Abteilungs- und Unternehmensgrenzen hinaus. Für eine produktive Kollaboration braucht es moderne Arbeitsmethoden und die richtigen digitalen Tools.</p>
+                      <h3 className="text-xl font-semibold text-white mb-2 group-hover/item:text-purple-300 transition-colors duration-300">Productivity & Collaboration</h3>
+                      <p className="text-gray-300 leading-relaxed">Die neue Arbeitswelt ist geprägt von Zusammenarbeit über Abteilungs- und Unternehmensgrenzen hinaus. Für eine produktive Kollaboration braucht es moderne Arbeitsmethoden und die richtigen digitalen Tools.</p>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center flex-shrink-0">
-                      <Laptop className="w-6 h-6 text-blue-400" />
-                    </div>
+                  <motion.div 
+                    className="flex items-start gap-4 group/item cursor-pointer"
+                    whileHover={{ x: 8 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div 
+                      className="relative flex items-center justify-center flex-shrink-0"
+                      whileHover={{ scale: 1.15, rotate: [0, -8, 8, -8, 0] }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      {/* 3D Background Effect */}
+                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-500/40 to-blue-600/30 border-2 border-blue-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
+                      {/* Glow Effect */}
+                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-blue-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+                      {/* Icon Container */}
+                      <div className="relative w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center group-hover/item:shadow-[0_0_30px_rgba(96,165,250,0.4)] transition-shadow duration-300">
+                        <Laptop className="w-7 h-7 text-blue-300 group-hover/item:text-blue-100 transition-colors duration-300" />
+                      </div>
+                    </motion.div>
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-2">Modern Workplace</h3>
-                      <p className="text-gray-300">Mit der Arbeitswelt ändern sich auch die Anforderungen an den digitalen Arbeitsplatz. Wie sieht ein Modern Workplace aus, der zu Ihrem Unternehmen und den Mitarbeitern passt?</p>
+                      <h3 className="text-xl font-semibold text-white mb-2 group-hover/item:text-blue-300 transition-colors duration-300">Modern Workplace</h3>
+                      <p className="text-gray-300 leading-relaxed">Mit der Arbeitswelt ändern sich auch die Anforderungen an den digitalen Arbeitsplatz. Wie sieht ein Modern Workplace aus, der zu Ihrem Unternehmen und den Mitarbeitern passt?</p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </SlideIn>
