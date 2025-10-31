@@ -67,7 +67,7 @@ export default function NewWorkPage() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="https://res.cloudinary.com/dbrisux8i/video/upload/v1234567890/generated-videos/video-1761079894386.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/dbrisux8i/video/upload/v1761924430/video_f85758c6_1761914591442_yszhud.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40"></div>
         </div>
