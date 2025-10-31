@@ -132,12 +132,18 @@ export default function NewWorkPage() {
                       transition={{ duration: 0.5 }}
                     >
                       {/* 3D Background Effect */}
-                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-gradient-to-br from-teal-500/40 to-teal-600/30 border-2 border-teal-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
+                      <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-br from-teal-500/40 to-teal-600/30 border-2 border-teal-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
                       {/* Glow Effect */}
-                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-teal-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
-                      {/* Icon Container */}
-                      <div className="relative w-14 h-14 rounded-3xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center group-hover/item:shadow-[0_0_30px_rgba(20,184,166,0.4)] transition-shadow duration-300">
-                        <Target className="w-7 h-7 text-teal-300 group-hover/item:text-teal-100 transition-colors duration-300" />
+                      <div className="absolute inset-0 w-20 h-20 rounded-full bg-teal-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+                      {/* Face Image Container */}
+                      <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-teal-400/40 group-hover/item:border-teal-400/80 group-hover/item:shadow-[0_0_30px_rgba(20,184,166,0.4)] transition-all duration-300">
+                        <Image
+                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200/v1760221494/generated-image_w8egwd.jpg"
+                          alt="Strategy Expert"
+                          width={80}
+                          height={80}
+                          className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-300"
+                        />
                       </div>
                     </motion.div>
                     <div>
@@ -157,12 +163,18 @@ export default function NewWorkPage() {
                       transition={{ duration: 0.5 }}
                     >
                       {/* 3D Background Effect */}
-                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-gradient-to-br from-purple-500/40 to-purple-600/30 border-2 border-purple-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
+                      <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-br from-purple-500/40 to-purple-600/30 border-2 border-purple-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
                       {/* Glow Effect */}
-                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-purple-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
-                      {/* Icon Container */}
-                      <div className="relative w-14 h-14 rounded-3xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center group-hover/item:shadow-[0_0_30px_rgba(192,132,252,0.4)] transition-shadow duration-300">
-                        <Zap className="w-7 h-7 text-purple-300 group-hover/item:text-purple-100 transition-colors duration-300" />
+                      <div className="absolute inset-0 w-20 h-20 rounded-full bg-purple-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+                      {/* Face Image Container */}
+                      <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-purple-400/40 group-hover/item:border-purple-400/80 group-hover/item:shadow-[0_0_30px_rgba(192,132,252,0.4)] transition-all duration-300">
+                        <Image
+                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200/v1760221494/generated-image_w8egwd.jpg"
+                          alt="Productivity Expert"
+                          width={80}
+                          height={80}
+                          className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-300"
+                        />
                       </div>
                     </motion.div>
                     <div>
@@ -182,12 +194,18 @@ export default function NewWorkPage() {
                       transition={{ duration: 0.5 }}
                     >
                       {/* 3D Background Effect */}
-                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-500/40 to-blue-600/30 border-2 border-blue-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
+                      <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/40 to-blue-600/30 border-2 border-blue-400/60 transform group-hover/item:translate-y-[-4px] group-hover/item:translate-x-[4px] transition-transform duration-300" />
                       {/* Glow Effect */}
-                      <div className="absolute inset-0 w-14 h-14 rounded-3xl bg-blue-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
-                      {/* Icon Container */}
-                      <div className="relative w-14 h-14 rounded-3xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center group-hover/item:shadow-[0_0_30px_rgba(96,165,250,0.4)] transition-shadow duration-300">
-                        <Laptop className="w-7 h-7 text-blue-300 group-hover/item:text-blue-100 transition-colors duration-300" />
+                      <div className="absolute inset-0 w-20 h-20 rounded-full bg-blue-400/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
+                      {/* Face Image Container */}
+                      <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-blue-400/40 group-hover/item:border-blue-400/80 group-hover/item:shadow-[0_0_30px_rgba(96,165,250,0.4)] transition-all duration-300">
+                        <Image
+                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200/v1760221494/generated-image_w8egwd.jpg"
+                          alt="Modern Workplace Expert"
+                          width={80}
+                          height={80}
+                          className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-300"
+                        />
                       </div>
                     </motion.div>
                     <div>
