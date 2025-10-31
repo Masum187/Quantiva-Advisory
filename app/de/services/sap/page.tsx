@@ -320,31 +320,63 @@ export default function SAPServicePage() {
           <div className="grid md:grid-cols-2 gap-8">
             {offerings.map((offering, index) => {
               const Icon = offering.icon;
+              const iconColors = [
+                    { bg: 'from-blue-500/30 to-cyan-500/30', border: 'border-blue-400/60', glow: 'shadow-blue-500/30', icon: 'text-blue-300', hover: 'text-blue-200' },
+                    { bg: 'from-purple-500/30 to-pink-500/30', border: 'border-purple-400/60', glow: 'shadow-purple-500/30', icon: 'text-purple-300', hover: 'text-purple-200' },
+                    { bg: 'from-teal-500/30 to-cyan-500/30', border: 'border-teal-400/60', glow: 'shadow-teal-500/30', icon: 'text-teal-300', hover: 'text-teal-200' },
+                    { bg: 'from-green-500/30 to-emerald-500/30', border: 'border-green-400/60', glow: 'shadow-green-500/30', icon: 'text-green-300', hover: 'text-green-200' }
+                  ];
+              const colors = iconColors[index % iconColors.length];
               return (
                 <SlideIn key={index} delay={index * 0.1}>
                   <motion.div
-                    className="p-8 rounded-3xl bg-slate-900/90 backdrop-blur-xl border border-white/30 hover:border-white/50 transition-all duration-300 shadow-2xl"
-                    whileHover={{ scale: 1.02 }}
+                    className="group relative overflow-hidden"
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-blue-600/80 backdrop-blur-sm border border-blue-400/50 flex items-center justify-center shadow-lg">
-                        <Icon className="w-8 h-8 text-white" />
+                    {/* Background with glassmorphism */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 to-slate-800/60 backdrop-blur-2xl border-2 border-white/20 rounded-3xl group-hover:border-white/40 transition-all duration-500" />
+                    
+                    {/* Animated gradient overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${colors.bg} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
+                    
+                    {/* Content */}
+                    <div className="relative p-8">
+                      <div className="flex items-start gap-4 mb-6">
+                        <motion.div 
+                          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${colors.bg} ${colors.border} border-2 flex items-center justify-center ${colors.glow} shadow-lg group-hover:shadow-2xl transition-all duration-500`}
+                          whileHover={{ 
+                            scale: 1.15,
+                            rotate: 360,
+                            transition: { duration: 0.6 }
+                          }}
+                        >
+                          <Icon className={`w-8 h-8 ${colors.icon} group-hover:${colors.hover} transition-colors duration-300`} />
+                        </motion.div>
+                        <h3 className="text-2xl font-bold text-white pt-2">{offering.title}</h3>
                       </div>
-                      <h3 className="text-2xl font-bold text-white">{offering.title}</h3>
-                    </div>
 
-                    <p className="text-gray-100 mb-6 leading-relaxed font-medium">
-                      {offering.description}
-                    </p>
+                      <p className="text-gray-100 mb-6 leading-relaxed font-medium">
+                        {offering.description}
+                      </p>
 
-                    <div className="space-y-3">
-                      {offering.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                          <span className="text-gray-100 font-medium">{feature}</span>
-                        </div>
-                      ))}
+                      <div className="space-y-3">
+                        {offering.features.map((feature, idx) => (
+                          <motion.div 
+                            key={idx} 
+                            className="flex items-center gap-3 group/item"
+                            whileHover={{ x: 5 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <CheckCircle className={`w-5 h-5 ${colors.icon} flex-shrink-0 group-hover/item:scale-125 transition-transform duration-300`} />
+                            <span className="text-gray-100 font-medium">{feature}</span>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
+                    
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-3xl" />
                   </motion.div>
                 </SlideIn>
               );
