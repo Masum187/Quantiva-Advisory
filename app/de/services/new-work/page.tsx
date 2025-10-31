@@ -138,7 +138,7 @@ export default function NewWorkPage() {
                       {/* Face Image Container */}
                       <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-teal-400/40 group-hover/item:border-teal-400/80 group-hover/item:shadow-[0_0_30px_rgba(20,184,166,0.4)] transition-all duration-300">
                         <Image
-                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200/v1760221494/generated-image_w8egwd.jpg"
+                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200,r_max/v1760221494/generated-image_w8egwd.jpg"
                           alt="Strategy Expert"
                           width={80}
                           height={80}
@@ -169,7 +169,7 @@ export default function NewWorkPage() {
                       {/* Face Image Container */}
                       <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-purple-400/40 group-hover/item:border-purple-400/80 group-hover/item:shadow-[0_0_30px_rgba(192,132,252,0.4)] transition-all duration-300">
                         <Image
-                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200/v1760221494/generated-image_w8egwd.jpg"
+                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200,r_max/v1760221494/generated-image_w8egwd.jpg"
                           alt="Productivity Expert"
                           width={80}
                           height={80}
@@ -200,7 +200,7 @@ export default function NewWorkPage() {
                       {/* Face Image Container */}
                       <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-blue-400/40 group-hover/item:border-blue-400/80 group-hover/item:shadow-[0_0_30px_rgba(96,165,250,0.4)] transition-all duration-300">
                         <Image
-                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200/v1760221494/generated-image_w8egwd.jpg"
+                          src="https://res.cloudinary.com/dbrisux8i/image/upload/c_thumb,g_face,w_200,h_200,r_max/v1760221494/generated-image_w8egwd.jpg"
                           alt="Modern Workplace Expert"
                           width={80}
                           height={80}
