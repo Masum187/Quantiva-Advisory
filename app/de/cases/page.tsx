@@ -297,13 +297,54 @@ export default function CasesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="lg:col-span-2 group"
+                className="lg:col-span-2 group cursor-pointer"
               >
-                <div className="relative h-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl p-8 border border-blue-500/30 overflow-hidden">
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-br from-pink-400 to-orange-500 rounded-full blur-2xl"></div>
+                <div className="relative h-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl p-8 border border-blue-500/30 overflow-hidden group-hover:border-blue-500/60 transition-all duration-500">
+                  {/* Animated Background Pattern - Tunnel Effect */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    {/* Pulsing glow orbs */}
+                    <motion.div 
+                      className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full blur-3xl"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.6, 0.3]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    <motion.div 
+                      className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-br from-pink-400 to-orange-500 rounded-full blur-2xl"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.2, 0.5, 0.2]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1
+                      }}
+                    />
+                    {/* Tunnel depth lines */}
+                    <motion.div
+                      className="absolute inset-0"
+                      animate={{
+                        background: [
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)",
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.08) 50%, transparent 100%)",
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 72, 153, 0.05) 50%, transparent 100%)",
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                    />
                   </div>
                   
                   <div className="relative z-10">
@@ -340,11 +381,18 @@ export default function CasesPage() {
                         <span className="font-medium">Mehr erfahren</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <motion.div 
+                        className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-blue-500/30 transition-colors duration-300"
+                        whileHover={{ scale: 1.1, rotate: 45 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <ArrowRight className="w-6 h-6 text-white" />
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
+                  
+                  {/* Shine effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-3xl" />
                 </div>
               </motion.div>
               
@@ -357,19 +405,47 @@ export default function CasesPage() {
                 className="space-y-8"
               >
                 {/* PromptSAP Case */}
-                <div className="group">
-                  <div className="relative h-full bg-gradient-to-br from-emerald-500/20 via-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-emerald-500/30 overflow-hidden">
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                      <div className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-emerald-400 to-blue-600 rounded-full blur-2xl"></div>
+                <div className="group cursor-pointer">
+                  <div className="relative h-full bg-gradient-to-br from-emerald-500/20 via-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-emerald-500/30 overflow-hidden group-hover:border-emerald-500/60 transition-all duration-500">
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <motion.div 
+                        className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-emerald-400 to-blue-600 rounded-full blur-2xl"
+                        animate={{
+                          scale: [1, 1.15, 1],
+                          opacity: [0.2, 0.4, 0.2]
+                        }}
+                        transition={{
+                          duration: 3.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      {/* Tunnel ripple effect */}
+                      <motion.div
+                        className="absolute inset-0"
+                        animate={{
+                          background: [
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(16, 185, 129, 0.04) 50%, transparent 100%)",
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(59, 130, 246, 0.06) 50%, transparent 100%)",
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%)",
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(16, 185, 129, 0.04) 50%, transparent 100%)"
+                          ]
+                        }}
+                        transition={{
+                          duration: 7,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      />
                     </div>
                     
                     <div className="relative z-10">
-                      <div className="inline-flex items-center px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-medium mb-4">
+                      <div className="inline-flex items-center px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-medium mb-4 group-hover:bg-emerald-500/30 transition-colors duration-300">
                         CASE STUDY PROMPTSAP
                       </div>
                       
-                      <h4 className="text-xl font-bold text-white mb-3">
+                      <h4 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors duration-300">
                         PromptSAP used AI agents to increase SAP efficiency by 67%.
                       </h4>
                       
@@ -382,28 +458,63 @@ export default function CasesPage() {
                           <span className="font-medium text-sm">Mehr erfahren</span>
                           <ArrowRight className="w-3 h-3" />
                         </button>
-                        <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                        <motion.div 
+                          className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors duration-300"
+                          whileHover={{ scale: 1.15, rotate: 45 }}
+                          transition={{ duration: 0.3 }}
+                        >
                           <ArrowRight className="w-4 h-4 text-white" />
-                        </div>
+                        </motion.div>
                       </div>
                     </div>
+                    
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
                   </div>
                 </div>
                 
                 {/* RecruAI Case */}
-                <div className="group">
-                  <div className="relative h-full bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-2xl p-6 border border-purple-500/30 overflow-hidden">
-                    {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                      <div className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full blur-2xl"></div>
+                <div className="group cursor-pointer">
+                  <div className="relative h-full bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-2xl p-6 border border-purple-500/30 overflow-hidden group-hover:border-purple-500/60 transition-all duration-500">
+                    {/* Animated Background Pattern */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <motion.div 
+                        className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full blur-2xl"
+                        animate={{
+                          scale: [1, 1.2, 1],
+                          opacity: [0.2, 0.5, 0.2]
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      {/* Tunnel ripple effect */}
+                      <motion.div
+                        className="absolute inset-0"
+                        animate={{
+                          background: [
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%)",
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 72, 153, 0.06) 50%, transparent 100%)",
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(249, 115, 22, 0.04) 50%, transparent 100%)",
+                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%)"
+                          ]
+                        }}
+                        transition={{
+                          duration: 6,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      />
                     </div>
                     
                     <div className="relative z-10">
-                      <div className="inline-flex items-center px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs font-medium mb-4">
+                      <div className="inline-flex items-center px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs font-medium mb-4 group-hover:bg-purple-500/30 transition-colors duration-300">
                         CASE STUDY RECRUAI
                       </div>
                       
-                      <h4 className="text-xl font-bold text-white mb-3">
+                      <h4 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
                         RecruAI decentralized hiring with better AI matching and community incentives.
                       </h4>
                       
@@ -416,11 +527,18 @@ export default function CasesPage() {
                           <span className="font-medium text-sm">Mehr erfahren</span>
                           <ArrowRight className="w-3 h-3" />
                         </button>
-                        <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                        <motion.div 
+                          className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-purple-500/30 transition-colors duration-300"
+                          whileHover={{ scale: 1.15, rotate: 45 }}
+                          transition={{ duration: 0.3 }}
+                        >
                           <ArrowRight className="w-4 h-4 text-white" />
-                        </div>
+                        </motion.div>
                       </div>
                     </div>
+                    
+                    {/* Shine effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
                   </div>
                 </div>
               </motion.div>
@@ -431,20 +549,48 @@ export default function CasesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="group"
+                className="group cursor-pointer"
               >
-                <div className="relative h-full bg-gradient-to-br from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl p-6 border border-teal-500/30 overflow-hidden">
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-teal-400 to-purple-600 rounded-full blur-2xl"></div>
+                <div className="relative h-full bg-gradient-to-br from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl p-6 border border-teal-500/30 overflow-hidden group-hover:border-teal-500/60 transition-all duration-500">
+                  {/* Animated Background Pattern */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    <motion.div 
+                      className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-teal-400 to-purple-600 rounded-full blur-2xl"
+                      animate={{
+                        scale: [1, 1.25, 1],
+                        opacity: [0.2, 0.5, 0.2]
+                      }}
+                      transition={{
+                        duration: 3.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                    {/* Tunnel ripple effect */}
+                    <motion.div
+                      className="absolute inset-0"
+                      animate={{
+                        background: [
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(20, 184, 166, 0.04) 50%, transparent 100%)",
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.06) 50%, transparent 100%)",
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 72, 153, 0.04) 50%, transparent 100%)",
+                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(20, 184, 166, 0.04) 50%, transparent 100%)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 7,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                    />
                   </div>
                   
                   <div className="relative z-10">
-                    <div className="inline-flex items-center px-2 py-1 bg-teal-500/20 text-teal-300 rounded-full text-xs font-medium mb-4">
+                    <div className="inline-flex items-center px-2 py-1 bg-teal-500/20 text-teal-300 rounded-full text-xs font-medium mb-4 group-hover:bg-teal-500/30 transition-colors duration-300">
                       VIDEO QUANTIVA
                     </div>
                     
-                    <h4 className="text-xl font-bold text-white mb-3">
+                    <h4 className="text-xl font-bold text-white mb-3 group-hover:text-teal-300 transition-colors duration-300">
                       Quantiva decentralizes innovation with better AI integration and enterprise solutions.
                     </h4>
                     
@@ -457,11 +603,18 @@ export default function CasesPage() {
                         <span className="font-medium text-sm">Video ansehen</span>
                         <ArrowRight className="w-3 h-3" />
                       </button>
-                      <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                      <motion.div 
+                        className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-teal-500/30 transition-colors duration-300"
+                        whileHover={{ scale: 1.15, rotate: 45 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <ArrowRight className="w-4 h-4 text-white" />
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
+                  
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
                 </div>
               </motion.div>
             </div>
