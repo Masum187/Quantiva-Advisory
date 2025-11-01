@@ -1,31 +1,641 @@
-.roadmap-container {
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
-  padding: 80px 40px;
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+.roadmap-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0e27 0%, #0f0f23 25%, #1a0f35 50%, #0f1535 75%, #0a0e27 100%);
+  position: relative;
+  overflow: hidden;
+  color: white;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Animated Background */
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+}
+
+.sphere-1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  top: -100px;
+  right: -100px;
+  animation: float 15s ease-in-out infinite;
+}
+
+.sphere-2 {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  bottom: 100px;
+  left: -50px;
+  animation: float 18s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.sphere-3 {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  top: 50%;
+  right: 10%;
+  animation: float 20s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(30px, -30px);
+  }
+  50% {
+    transform: translate(0, 20px);
+  }
+  75% {
+    transform: translate(-30px, -20px);
+  }
+}
+
+.roadmap-container {
+  position: relative;
+  z-index: 1;
+  padding: 60px 40px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header Section */
 .roadmap-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  animation: slideDown 0.8s ease-out;
 }
 
 .roadmap-header h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: -1px;
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  animation: slideDown 0.9s ease-out;
+  animation-delay: 0.1s;
 }
 
-.gradient-text {
+.gradient-text-main {
   background: linear-gradient(90deg, #a855f7 0%, #06b6d4 50%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
   animation: gradientShift 4s ease infinite;
+}
+
+.roadmap-header p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+  animation: slideDown 0.9s ease-out;
+  animation-delay: 0.2s;
+}
+
+.timeline-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+  animation: slideDown 1s ease-out;
+  animation-delay: 0.3s;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+/* Roadmap Track */
+.roadmap-track {
+  position: relative;
+  margin-bottom: 80px;
+  animation: fadeIn 1s ease-out;
+  animation-delay: 0.4s;
+}
+
+.roadmap-svg {
+  width: 100%;
+  height: auto;
+  min-height: 450px;
+  margin-bottom: -80px;
+  filter: drop-shadow(0 20px 40px rgba(168, 85, 247, 0.1));
+}
+
+.main-path {
+  filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.5));
+}
+
+.dashed-path {
+  animation: dashFlow 20s linear infinite;
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dashFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
+
+.path-particle {
+  animation: particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Milestones Grid */
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px;
+  padding: 80px 20px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.milestone-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.milestone-item.active {
+  z-index: 10;
+}
+
+.milestone-item.active .milestone-card {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Milestone Circle */
+.milestone-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 30px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.circle-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.circle-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.circle-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.milestone-item.active .circle-glow {
+  opacity: 1;
+}
+
+.milestone-icon {
+  position: relative;
+  z-index: 3;
+  color: white;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.milestone-item:hover .milestone-icon {
+  transform: scale(1.1);
+}
+
+.gradient-purple .circle-bg {
+  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.gradient-purple .circle-glow {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.4), transparent);
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.6);
+}
+
+.gradient-blue .circle-bg {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.gradient-blue .circle-glow {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent);
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.6);
+}
+
+.gradient-cyan .circle-bg {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.gradient-cyan .circle-glow {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent);
+  box-shadow: 0 0 60px rgba(6, 182, 212, 0.6);
+}
+
+/* Badge */
+.milestone-badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(15, 15, 30, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+  transition: all 0.3s ease;
+}
+
+.gradient-purple .milestone-badge {
+  color: #a855f7;
+  border-color: #a855f7;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.gradient-blue .milestone-badge {
+  color: #3b82f6;
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.gradient-cyan .milestone-badge {
+  color: #06b6d4;
+  border-color: #06b6d4;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.milestone-item:hover .milestone-badge {
+  transform: scale(1.1);
+}
+
+/* Status */
+.milestone-status {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.milestone-status.abgeschlossen {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.milestone-status.in-arbeit {
+  background: rgba(168, 85, 247, 0.15);
+  color: #a855f7;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.milestone-status.geplant {
+  background: rgba(107, 114, 128, 0.15);
+  color: #9ca3af;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Title */
+.milestone-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.milestone-item.active .milestone-title {
+  color: #06b6d4;
+}
+
+/* Milestone Card */
+.milestone-card {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 320px;
+  background: rgba(15, 15, 30, 0.95);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+  box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15);
+  pointer-events: none;
+}
+
+.milestone-card.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: all;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.card-header h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #06b6d4;
+  margin: 0;
+}
+
+.card-header svg {
+  color: #06b6d4;
+  opacity: 0.5;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-details h5 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.card-details ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.card-details li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+
+.detail-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #06b6d4;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.card-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
+}
+
+.timeline-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #06b6d4, #3b82f6);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.connector-line {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(6, 182, 212, 0.4), transparent);
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+/* Footer */
+.roadmap-footer {
+  text-align: center;
+  padding: 60px 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 1.2s ease-out;
+  animation-delay: 0.8s;
+}
+
+.footer-content h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.footer-content p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 32px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes gradientShift {
@@ -37,217 +647,105 @@
   }
 }
 
-.roadmap-header p {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.roadmap-track {
-  position: relative;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.roadmap-path {
-  width: 100%;
-  height: auto;
-  min-height: 400px;
-  margin-bottom: -100px;
-  z-index: 1;
-}
-
-.animated-path {
-  animation: pathFlow 3s ease-in-out infinite;
-  stroke-dashoffset: 0;
-  filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.4));
-}
-
-@keyframes pathFlow {
-  0% {
-    stroke-dashoffset: 0;
-    filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.6));
-  }
-  100% {
-    stroke-dashoffset: 0;
-    filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.4));
-  }
-}
-
-.path-accent {
-  animation: accentPulse 2s ease-in-out infinite;
-}
-
-.path-accent:nth-child(even) {
-  animation-delay: 0.3s;
-}
-
-@keyframes accentPulse {
-  0%, 100% {
-    opacity: 0.3;
-    r: 3;
-  }
-  50% {
-    opacity: 0.8;
-    r: 5;
-  }
-}
-
-.milestones-container {
-  position: relative;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 80px 20px 40px;
-  z-index: 2;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-.milestone {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.milestone:hover {
-  transform: scale(1.1);
-}
-
-.milestone:hover .milestone-info {
-  opacity: 1;
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.milestone-circle {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 40px rgba(168, 85, 247, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.milestone-circle::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
-  pointer-events: none;
-}
-
-.milestone:hover .milestone-circle {
-  box-shadow: 0 0 60px rgba(168, 85, 247, 0.8), inset 0 0 30px rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
-}
-
-.milestone-circle.bg-purple-500 {
-  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
-}
-
-.milestone-circle.bg-blue-500 {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-}
-
-.milestone-circle.bg-cyan-400 {
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-}
-
-.milestone-icon {
-  color: white;
-  position: relative;
-  z-index: 1;
-  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.3));
-}
-
-.milestone-badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: #1a1a2e;
-  border: 2px solid #06b6d4;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #06b6d4;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-}
-
-.milestone-info {
-  position: absolute;
-  bottom: 130px;
-  left: 50%;
-  transform: translate(-50%, 20px) scale(0.9);
-  background: rgba(15, 15, 30, 0.95);
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  border-radius: 12px;
-  padding: 16px 20px;
-  text-align: center;
-  width: 200px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  z-index: 10;
-}
-
-.milestone-info::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid rgba(15, 15, 30, 0.95);
-}
-
-.milestone-info h3 {
-  margin: 0 0 8px 0;
-  font-size: 1.1rem;
-  color: #06b6d4;
-  font-weight: 600;
-}
-
-.milestone-info p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 1024px) {
-  .roadmap-header h1 {
-    font-size: 2.5rem;
+  .roadmap-container {
+    padding: 40px 30px 60px;
   }
 
-  .milestones-container {
+  .roadmap-header h1 {
+    font-size: 3rem;
+  }
+
+  .milestones-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .milestone-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .milestone-card {
+    width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .roadmap-container {
+    padding: 30px 20px 40px;
+  }
+
+  .roadmap-header {
+    margin-bottom: 60px;
+  }
+
+  .roadmap-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .roadmap-header p {
+    font-size: 1rem;
+  }
+
+  .timeline-stats {
+    gap: 30px;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .milestones-grid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding: 60px 10px 20px;
+  }
+
+  .roadmap-svg {
+    min-height: 300px;
+    margin-bottom: -60px;
+  }
+
+  .milestone-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .milestone-card {
+    position: static;
+    transform: none;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    margin-top: 20px;
+    pointer-events: all;
+  }
+
+  .milestone-item {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .roadmap-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-badge {
+    font-size: 0.75rem;
+    padding: 8px 12px;
+  }
+
+  .timeline-stats {
+    flex-direction: column;
     gap: 20px;
+  }
+
+  .stat-divider {
+    width: 40px;
+    height: 1px;
   }
 
   .milestone-circle {
@@ -255,69 +753,15 @@
     height: 80px;
   }
 
-  .milestone-icon {
-    width: 28px;
-    height: 28px;
+  .milestone-title {
+    font-size: 1.1rem;
   }
-}
 
-@media (max-width: 768px) {
-  .roadmap-container {
+  .roadmap-footer {
     padding: 40px 20px;
   }
 
-  .roadmap-header h1 {
-    font-size: 2rem;
-  }
-
-  .roadmap-header p {
-    font-size: 1rem;
-  }
-
-  .milestones-container {
-    padding: 60px 10px 20px;
-    gap: 15px;
-  }
-
-  .milestone-circle {
-    width: 70px;
-    height: 70px;
-  }
-
-  .milestone-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .milestone-info {
-    display: none;
+  .footer-content h2 {
+    font-size: 1.6rem;
   }
 }
-
-@media (max-width: 480px) {
-  .roadmap-header h1 {
-    font-size: 1.5rem;
-  }
-
-  .milestones-container {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 40px 10px 20px;
-    gap: 20px;
-  }
-
-  .milestone-circle {
-    width: 60px;
-    height: 60px;
-  }
-
-  .milestone-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .roadmap-path {
-    min-height: 250px;
-  }
-}
-
