@@ -289,50 +289,58 @@ export default function CasesPage() {
               </p>
             </motion.div>
             
-            {/* Snake-Style Roadmap Container */}
-            <div className="relative min-h-[1200px] py-16">
-              {/* Tunnel Background with Perspective */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
-                <div className="relative w-full h-full" style={{ perspective: '1000px' }}>
-                  {/* Multiple tunnel layers for depth */}
-                  {[...Array(6)].map((_, i) => (
+            {/* Snake-Style Roadmap Container with 3D Tunnel */}
+            <div className="relative min-h-[1000px] py-16 overflow-hidden">
+              {/* Enhanced 3D Tunnel Background - Like the first image */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Multiple octagonal tunnel layers for depth - like neon tunnel */}
+                {[...Array(20)].map((_, i) => {
+                  const baseSize = 100 - (i * 4);
+                  const opacity = 0.15 - (i * 0.006);
+                  return (
                     <motion.div
                       key={i}
-                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                      className="absolute top-1/2 left-1/2"
                       style={{
-                        width: `${100 - i * 15}%`,
-                        height: `${100 - i * 15}%`,
-                        border: `2px solid rgba(236, 72, 153, ${0.2 - i * 0.03})`,
-                        borderRadius: '50%',
+                        width: `${baseSize}%`,
+                        height: `${baseSize}%`,
+                        transform: 'translate(-50%, -50%)',
+                        border: `3px solid rgba(168, 85, 247, ${opacity})`,
+                        clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                         filter: 'blur(1px)',
+                        perspective: '1000px',
+                        transformOrigin: 'center center',
+                        transformStyle: 'preserve-3d'
                       }}
                       animate={{
                         borderColor: [
-                          `rgba(236, 72, 153, ${0.2 - i * 0.03})`,
-                          `rgba(168, 85, 247, ${0.2 - i * 0.03})`,
-                          `rgba(59, 130, 246, ${0.2 - i * 0.03})`,
-                          `rgba(236, 72, 153, ${0.2 - i * 0.03})`
-                        ]
+                          `rgba(236, 72, 153, ${opacity})`,
+                          `rgba(168, 85, 247, ${opacity})`,
+                          `rgba(59, 130, 246, ${opacity})`,
+                          `rgba(6, 182, 212, ${opacity})`,
+                          `rgba(236, 72, 153, ${opacity})`
+                        ],
+                        scale: [1, 1.01, 1]
                       }}
                       transition={{
                         duration: 8,
                         repeat: Infinity,
                         ease: "linear",
-                        delay: i * 0.5
+                        delay: i * 0.2
                       }}
                     />
-                  ))}
-                </div>
+                  );
+                })}
               </div>
 
-              {/* Snake Road Path SVG */}
+              {/* Snake Road Path SVG - S-shaped like the second image */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ overflow: 'visible' }}>
                 <defs>
-                  <pattern id="dashPattern" x="0" y="0" width="20" height="10" patternUnits="userSpaceOnUse">
-                    <line x1="0" y1="5" x2="20" y2="5" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeDasharray="10,10" />
+                  <pattern id="dashPattern" x="0" y="0" width="30" height="10" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="5" x2="20" y2="5" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeDasharray="15,10" />
                   </pattern>
-                  <filter id="glow">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <filter id="glowStrong">
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
                     <feMerge>
                       <feMergeNode in="coloredBlur"/>
                       <feMergeNode in="SourceGraphic"/>
@@ -340,50 +348,77 @@ export default function CasesPage() {
                   </filter>
                 </defs>
                 
-                {/* Main winding path */}
+                {/* Main S-shaped winding path - H1 2021 (darker blue/purple) */}
                 <motion.path
-                  d="M 50 900 Q 150 700 300 650 Q 500 600 700 550 Q 850 500 1000 450 Q 1100 400 1200 350 L 1400 300"
+                  d="M 100 600 L 250 600 Q 400 600 400 500 Q 400 400 250 400 Q 100 400 100 300"
                   fill="none"
-                  stroke="rgba(168, 85, 247, 0.4)"
-                  strokeWidth="60"
+                  stroke="rgba(59, 130, 246, 0.5)"
+                  strokeWidth="40"
                   strokeLinecap="round"
-                  filter="url(#glow)"
+                  strokeLinejoin="round"
+                  filter="url(#glowStrong)"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
                   transition={{ duration: 2, ease: "easeInOut" }}
                 />
                 
-                {/* Dashed center line */}
+                {/* S-shaped winding path - H2 2021 (teal/cyan) */}
                 <motion.path
-                  d="M 50 900 Q 150 700 300 650 Q 500 600 700 550 Q 850 500 1000 450 Q 1100 400 1200 350 L 1400 300"
+                  d="M 100 300 Q 100 200 250 200 Q 400 200 400 100 Q 400 0 700 0 L 1200 0"
+                  fill="none"
+                  stroke="rgba(6, 182, 212, 0.5)"
+                  strokeWidth="40"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  filter="url(#glowStrong)"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 2, delay: 0.3, ease: "easeInOut" }}
+                />
+                
+                {/* Dashed center line for path 1 */}
+                <motion.path
+                  d="M 100 600 L 250 600 Q 400 600 400 500 Q 400 400 250 400 Q 100 400 100 300"
                   fill="none"
                   stroke="url(#dashPattern)"
                   strokeWidth="4"
-                  strokeDasharray="15,10"
+                  strokeLinecap="round"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 2.5, delay: 0.5, ease: "easeInOut" }}
+                />
+                
+                {/* Dashed center line for path 2 */}
+                <motion.path
+                  d="M 100 300 Q 100 200 250 200 Q 400 200 400 100 Q 400 0 700 0 L 1200 0"
+                  fill="none"
+                  stroke="url(#dashPattern)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 2.5, delay: 0.8, ease: "easeInOut" }}
                 />
                 
                 {/* Arrow at the end */}
                 <motion.polygon
-                  points="1380,280 1400,300 1380,320 1390,300"
-                  fill="rgba(236, 72, 153, 0.8)"
-                  filter="url(#glow)"
+                  points="1180,-10 1200,0 1180,10 1190,0"
+                  fill="rgba(6, 182, 212, 0.9)"
+                  filter="url(#glowStrong)"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 1, delay: 2 }}
+                  transition={{ duration: 1, delay: 2.5 }}
                 />
               </svg>
 
-              {/* Project Bubbles positioned along the path */}
+              {/* Project Bubbles positioned along the S-shaped path */}
               <div className="relative z-20">
                 {[
-                  { name: "FlowGrid OS", color: "#ec4899", gradient: "from-fuchsia-500 to-purple-500", icon: Brain, position: { left: "8%", top: "75%" }, step: "A" },
-                  { name: "OrchestIQ", color: "#a855f7", gradient: "from-purple-500 to-cyan-500", icon: Cog, position: { left: "25%", top: "60%" }, step: "B" },
-                  { name: "Proofroom", color: "#06b6d4", gradient: "from-cyan-500 to-blue-500", icon: Target, position: { left: "50%", top: "50%" }, step: "C" },
-                  { name: "SkillLedger", color: "#3b82f6", gradient: "from-blue-500 to-indigo-500", icon: Users, position: { left: "70%", top: "38%" }, step: "D" },
-                  { name: "Verisprint", color: "#8b5cf6", gradient: "from-indigo-500 to-purple-500", icon: Bot, position: { left: "90%", top: "28%" }, step: "E" }
+                  { name: "FlowGrid OS", color: "#ec4899", gradient: "from-fuchsia-500 to-purple-500", icon: Brain, position: { left: "8%", top: "50%" }, step: "01" },
+                  { name: "OrchestIQ", color: "#3b82f6", gradient: "from-blue-500 to-indigo-500", icon: Cog, position: { left: "20%", top: "40%" }, step: "02" },
+                  { name: "Proofroom", color: "#a855f7", gradient: "from-purple-500 to-pink-500", icon: Target, position: { left: "33%", top: "50%" }, step: "03" },
+                  { name: "SkillLedger", color: "#06b6d4", gradient: "from-cyan-500 to-blue-500", icon: Users, position: { left: "33%", top: "33%" }, step: "04" },
+                  { name: "Verisprint", color: "#8b5cf6", gradient: "from-indigo-500 to-purple-500", icon: Bot, position: { left: "50%", top: "25%" }, step: "05" }
                 ].map((project, idx) => (
                   <motion.div
                     key={idx}
