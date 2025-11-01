@@ -376,21 +376,21 @@ export default function CasesPage() {
                 />
               </svg>
 
-              {/* Project Signs positioned along the path */}
+              {/* Project Bubbles positioned along the path */}
               <div className="relative z-20">
                 {[
-                  { name: "FlowGrid OS", color: "#ec4899", gradient: "from-fuchsia-500 to-purple-500", icon: Brain, stats: "50%+", position: { left: "8%", top: "75%" }, step: "A" },
-                  { name: "OrchestIQ", color: "#a855f7", gradient: "from-purple-500 to-cyan-500", icon: Cog, stats: "70%", position: { left: "25%", top: "60%" }, step: "B" },
-                  { name: "Proofroom", color: "#06b6d4", gradient: "from-cyan-500 to-blue-500", icon: Target, stats: "40%", position: { left: "50%", top: "50%" }, step: "C" },
-                  { name: "SkillLedger", color: "#3b82f6", gradient: "from-blue-500 to-indigo-500", icon: Users, stats: "90%", position: { left: "70%", top: "38%" }, step: "D" },
-                  { name: "Verisprint", color: "#8b5cf6", gradient: "from-indigo-500 to-purple-500", icon: Bot, stats: "60%", position: { left: "90%", top: "28%" }, step: "E" }
+                  { name: "FlowGrid OS", color: "#ec4899", gradient: "from-fuchsia-500 to-purple-500", icon: Brain, position: { left: "8%", top: "75%" }, step: "A" },
+                  { name: "OrchestIQ", color: "#a855f7", gradient: "from-purple-500 to-cyan-500", icon: Cog, position: { left: "25%", top: "60%" }, step: "B" },
+                  { name: "Proofroom", color: "#06b6d4", gradient: "from-cyan-500 to-blue-500", icon: Target, position: { left: "50%", top: "50%" }, step: "C" },
+                  { name: "SkillLedger", color: "#3b82f6", gradient: "from-blue-500 to-indigo-500", icon: Users, position: { left: "70%", top: "38%" }, step: "D" },
+                  { name: "Verisprint", color: "#8b5cf6", gradient: "from-indigo-500 to-purple-500", icon: Bot, position: { left: "90%", top: "28%" }, step: "E" }
                 ].map((project, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, scale: 0, y: 50 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: idx * 0.2, type: "spring", stiffness: 100 }}
+                    transition={{ duration: 0.5, delay: idx * 0.15, type: "spring", stiffness: 150 }}
                     className="absolute group cursor-pointer"
                     style={{
                       left: project.position.left,
@@ -398,68 +398,77 @@ export default function CasesPage() {
                       transform: 'translate(-50%, -50%)'
                     }}
                   >
-                    {/* Pole */}
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-32 bg-gradient-to-t from-gray-600 to-gray-400 opacity-60" />
-                    
-                    {/* Sign Card */}
-                    <div className={`relative w-[280px] bg-gradient-to-br ${project.gradient} rounded-2xl p-6 shadow-2xl border-2 border-white/20 backdrop-blur-sm group-hover:border-white/40 transition-all duration-500 group-hover:scale-105`}>
+                    {/* Animated Bubble */}
+                    <motion.div
+                      className={`relative w-24 h-24 rounded-full bg-gradient-to-br ${project.gradient} shadow-2xl border-2 border-white/30 flex items-center justify-center z-10`}
+                      animate={{
+                        scale: [1, 1.1, 1],
+                        y: [0, -10, 0]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: idx * 0.2
+                      }}
+                      whileHover={{
+                        scale: 1.3,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
                       {/* Glow effect */}
                       <motion.div
-                        className="absolute -inset-1 bg-gradient-to-br from-fuchsia-500 via-purple-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-500"
+                        className="absolute -inset-4 bg-gradient-to-br from-fuchsia-500 via-purple-500 to-cyan-500 rounded-full opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-300"
                         animate={{
-                          opacity: [0, 0.3, 0],
+                          opacity: [0, 0.2, 0],
                         }}
                         transition={{
-                          duration: 3,
+                          duration: 2,
                           repeat: Infinity,
                           ease: "easeInOut",
                           delay: idx * 0.3
                         }}
                       />
                       
-                      {/* Step Letter Badge */}
-                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-fuchsia-400 to-purple-600 rounded-full flex items-center justify-center border-4 border-black shadow-lg z-10">
-                        <span className="text-white font-bold text-lg">{project.step}</span>
+                      {/* Icon inside bubble */}
+                      <project.icon className="w-12 h-12 text-white z-10 relative" />
+                      
+                      {/* Step badge */}
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-black/80 rounded-full flex items-center justify-center border-2 border-white/50 shadow-lg z-20">
+                        <span className="text-white font-bold text-xs">{project.step}</span>
                       </div>
-                      
-                      {/* Icon */}
-                      <div className="flex items-center justify-center mb-4 mt-2">
-                        <motion.div
-                          className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm group-hover:rotate-12 transition-transform duration-300"
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.6 }}
-                        >
-                          <project.icon className="w-8 h-8 text-white" />
-                        </motion.div>
+                    </motion.div>
+
+                    {/* Thought Bubble Tooltip - appears on hover */}
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-30 pointer-events-none opacity-0 scale-90 translate-y-2 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                      {/* Speech bubble card */}
+                      <div className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-xl rounded-2xl px-6 py-4 shadow-2xl border-2 border-white/20 min-w-[220px]">
+                        {/* Project name */}
+                        <h4 className="text-white font-bold text-lg mb-2 text-center">
+                          {project.name}
+                        </h4>
+                        
+                        {/* CTA text */}
+                        <p className="text-white/80 text-sm text-center mb-3">
+                          Klicken Sie hier um mehr zu erfahren
+                        </p>
+                        
+                        {/* Arrow indicator */}
+                        <div className="flex justify-center">
+                          <ArrowRight className="w-5 h-5 text-white/60" />
+                        </div>
+                        
+                        {/* Speech bubble tail pointing down */}
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-px">
+                          <div 
+                            className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-slate-900/95"
+                            style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }}
+                          />
+                        </div>
+                        
+                        {/* Glow effect */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/20 via-purple-500/20 to-cyan-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
-                      
-                      {/* Project Name */}
-                      <h3 className="text-2xl font-bold text-white mb-2 text-center">
-                        {project.name}
-                      </h3>
-                      
-                      {/* Stats */}
-                      <div className="flex items-center justify-center gap-2 mb-3">
-                        <div className="text-4xl font-bold text-white">{project.stats}</div>
-                        <div className="text-white/80 text-xs">Effizienz</div>
-                      </div>
-                      
-                      {/* Description */}
-                      <p className="text-white/90 text-xs leading-relaxed text-center mb-4">
-                        Innovative KI-Plattform für intelligente Automatisierung
-                      </p>
-                      
-                      {/* Arrow indicator */}
-                      <motion.div
-                        className="flex justify-center"
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight className="w-5 h-5 text-white/80" />
-                      </motion.div>
-                      
-                      {/* Shine effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
                     </div>
                   </motion.div>
                 ))}
