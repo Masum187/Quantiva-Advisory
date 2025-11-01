@@ -877,8 +877,7 @@ export default function CareerPage() {
         {/* Video Card Section - Below Navigation */}
         <div className="relative z-10 mt-8">
           <VideoCard
-          videoUrl="https://res.cloudinary.com/dbrisux8i/video/upload/f_auto,q_auto/v1761380432/Quantiva_Advisory_azahhg.mp4"
-          subtitleUrl="https://res.cloudinary.com/dbrisux8i/raw/upload/v1761382530/Quantiva_Advisory_i4syti.vtt"
+          videoUrl="https://res.cloudinary.com/dbrisux8i/video/upload/eo_0.345,du_0.345/v1762015286/openart-video_b6992003_1761933215657_wgjmwh.mp4"
           title={lang === 'de' ? 'Willkommen bei Quantiva Advisory!' : 'Welcome to Quantiva Advisory!'}
           description={lang === 'de' 
             ? 'Du bist derjenige, der dabei helfen kann, dieses Unternehmen zu gestalten. Zögere nicht so lange — bewirb dich jetzt!'
