@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Zap, Users, Rocket, ArrowRight } from 'lucide-react';
+import { Workflow, Cog, Target, Users, Bot, ArrowRight, Sparkles } from 'lucide-react';
 import './ProjectRoadmap.css';
 
 const ProjectRoadmap = () => {
@@ -16,59 +16,78 @@ const ProjectRoadmap = () => {
   const milestones = [
     {
       id: '01',
-      icon: Sparkles,
-      title: 'Ideation & Research',
-      shortTitle: 'Ideation',
-      description: 'Wir sammeln Ideen, analysieren Markttrends und definieren die KI-Strategie',
+      icon: Workflow,
+      title: 'FlowGrid OS',
+      shortTitle: 'FlowGrid',
+      description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration',
       details: [
-        'Konzeptentwicklung',
-        'Marktanalyse',
-        'Anforderungsdefinition'
+        'AI-Integration in Collaboration Tools',
+        'Intelligente Workflow-Automatisierung',
+        'Multi-Channel Collaboration Platform'
       ],
       color: 'gradient-purple',
-      status: 'Abgeschlossen'
+      status: 'Abgeschlossen',
+      results: '50%+ Produktivität'
     },
     {
       id: '02',
-      icon: Zap,
-      title: 'Design & Planning',
-      shortTitle: 'Planning',
-      description: 'Technische Architektur, UI/UX Design und Projektplanung',
+      icon: Cog,
+      title: 'OrchestIQ',
+      shortTitle: 'OrchestIQ',
+      description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse',
       details: [
-        'System Design',
-        'Prototyping',
-        'Timeline Planung'
+        'AI-powered Automation',
+        'Business Process Orchestration',
+        'RPA Integration'
       ],
       color: 'gradient-blue',
-      status: 'In Arbeit'
+      status: 'In Arbeit',
+      results: '70% Automatisierung'
+    },
+    {
+      id: '03',
+      icon: Target,
+      title: 'Proofroom',
+      shortTitle: 'Proofroom',
+      description: 'AI-gestützte Sales Enablement & Marketing Automation für höhere Conversion',
+      details: [
+        'AI-Sales-Assistenten',
+        'Marketing Automation Platform',
+        'Lead-Scoring & Qualification'
+      ],
+      color: 'gradient-cyan',
+      status: 'In Arbeit',
+      results: '40% Conversion'
     },
     {
       id: '04',
       icon: Users,
-      title: 'Development & Testing',
-      shortTitle: 'Development',
-      description: 'Agile Entwicklung mit kontinuierlichem Testing und Feedback',
+      title: 'SkillLedger',
+      shortTitle: 'SkillLedger',
+      description: 'Intelligentes Schulmanagement & Learning Analytics für personalisierte Bildung',
       details: [
-        'Feature Development',
-        'QA Testing',
-        'User Feedback'
+        'AI-Enhanced Learning Platform',
+        'Student Performance Analytics',
+        'Automated Administration'
       ],
-      color: 'gradient-cyan',
-      status: 'In Arbeit'
+      color: 'gradient-purple',
+      status: 'Geplant',
+      results: '90% Papierreduktion'
     },
     {
       id: '05',
-      icon: Rocket,
-      title: 'Launch & Optimization',
-      shortTitle: 'Launch',
-      description: 'Produktstart, Marketing und kontinuierliche Optimierung',
+      icon: Bot,
+      title: 'Verisprint',
+      shortTitle: 'Verisprint',
+      description: 'AI-native Recruiting Platform für intelligente Talent-Akquise und Matching',
       details: [
-        'Production Deployment',
-        'Go-to-Market',
-        'Performance Monitoring'
+        'AI-Talent Matching',
+        'Intelligent Candidate Screening',
+        'Recruiting Analytics'
       ],
-      color: 'gradient-purple',
-      status: 'Geplant'
+      color: 'gradient-blue',
+      status: 'Geplant',
+      results: '60% Efficiency'
     }
   ];
 
@@ -154,12 +173,62 @@ const ProjectRoadmap = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   {/* Milestone Circle */}
-                  <div className={`milestone-circle ${milestone.color}`}>
+                  <motion.div 
+                    className={`milestone-circle ${milestone.color}`}
+                    animate={{
+                      boxShadow: [
+                        '0 0 20px rgba(168, 85, 247, 0.3)',
+                        '0 0 40px rgba(168, 85, 247, 0.6)',
+                        '0 0 20px rgba(168, 85, 247, 0.3)'
+                      ]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    whileHover={{
+                      scale: 1.15,
+                      rotate: 5,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
                     <div className="circle-bg"></div>
                     <div className="circle-border"></div>
-                    <Icon className="milestone-icon" size={44} />
+                    <motion.div
+                      animate={{
+                        rotate: [0, 360]
+                      }}
+                      transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                    >
+                      <Icon className="milestone-icon" size={44} />
+                    </motion.div>
                     <div className="circle-glow"></div>
-                  </div>
+                    {/* Animated inner particles */}
+                    {[...Array(6)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="icon-particle"
+                        style={{
+                          '--angle': `${i * 60}deg`
+                        } as React.CSSProperties}
+                        animate={{
+                          scale: [0, 1, 0],
+                          opacity: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: i * 0.3
+                        }}
+                      />
+                    ))}
+                  </motion.div>
 
                   {/* Badge */}
                   <div className={`milestone-badge ${milestone.color}`}>
