@@ -289,11 +289,11 @@ export default function CasesPage() {
               </p>
             </motion.div>
             
-            {/* Roadmap Container */}
-            <div className="relative">
+            {/* Snake-Style Roadmap Container */}
+            <div className="relative min-h-[1200px] py-16">
               {/* Tunnel Background with Perspective */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="relative w-full h-[200px]" style={{ perspective: '1000px' }}>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
+                <div className="relative w-full h-full" style={{ perspective: '1000px' }}>
                   {/* Multiple tunnel layers for depth */}
                   {[...Array(6)].map((_, i) => (
                     <motion.div
@@ -302,16 +302,16 @@ export default function CasesPage() {
                       style={{
                         width: `${100 - i * 15}%`,
                         height: `${100 - i * 15}%`,
-                        border: `2px solid rgba(236, 72, 153, ${0.3 - i * 0.04})`,
+                        border: `2px solid rgba(236, 72, 153, ${0.2 - i * 0.03})`,
                         borderRadius: '50%',
                         filter: 'blur(1px)',
                       }}
                       animate={{
                         borderColor: [
-                          `rgba(236, 72, 153, ${0.3 - i * 0.04})`,
-                          `rgba(168, 85, 247, ${0.3 - i * 0.04})`,
-                          `rgba(59, 130, 246, ${0.3 - i * 0.04})`,
-                          `rgba(236, 72, 153, ${0.3 - i * 0.04})`
+                          `rgba(236, 72, 153, ${0.2 - i * 0.03})`,
+                          `rgba(168, 85, 247, ${0.2 - i * 0.03})`,
+                          `rgba(59, 130, 246, ${0.2 - i * 0.03})`,
+                          `rgba(236, 72, 153, ${0.2 - i * 0.03})`
                         ]
                       }}
                       transition={{
@@ -325,30 +325,89 @@ export default function CasesPage() {
                 </div>
               </div>
 
-              {/* Projects Roadmap */}
-              <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 z-10">
+              {/* Snake Road Path SVG */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ overflow: 'visible' }}>
+                <defs>
+                  <pattern id="dashPattern" x="0" y="0" width="20" height="10" patternUnits="userSpaceOnUse">
+                    <line x1="0" y1="5" x2="20" y2="5" stroke="rgba(255,255,255,0.3)" strokeWidth="2" strokeDasharray="10,10" />
+                  </pattern>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                {/* Main winding path */}
+                <motion.path
+                  d="M 50 900 Q 150 700 300 650 Q 500 600 700 550 Q 850 500 1000 450 Q 1100 400 1200 350 L 1400 300"
+                  fill="none"
+                  stroke="rgba(168, 85, 247, 0.4)"
+                  strokeWidth="60"
+                  strokeLinecap="round"
+                  filter="url(#glow)"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 2, ease: "easeInOut" }}
+                />
+                
+                {/* Dashed center line */}
+                <motion.path
+                  d="M 50 900 Q 150 700 300 650 Q 500 600 700 550 Q 850 500 1000 450 Q 1100 400 1200 350 L 1400 300"
+                  fill="none"
+                  stroke="url(#dashPattern)"
+                  strokeWidth="4"
+                  strokeDasharray="15,10"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
+                />
+                
+                {/* Arrow at the end */}
+                <motion.polygon
+                  points="1380,280 1400,300 1380,320 1390,300"
+                  fill="rgba(236, 72, 153, 0.8)"
+                  filter="url(#glow)"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 2 }}
+                />
+              </svg>
+
+              {/* Project Signs positioned along the path */}
+              <div className="relative z-20">
                 {[
-                  { name: "FlowGrid OS", color: "from-fuchsia-500 to-purple-500", icon: Brain, stats: "50%+" },
-                  { name: "OrchestIQ", color: "from-purple-500 to-cyan-500", icon: Cog, stats: "70%" },
-                  { name: "Proofroom", color: "from-cyan-500 to-blue-500", icon: Target, stats: "40%" },
-                  { name: "SkillLedger", color: "from-blue-500 to-indigo-500", icon: Users, stats: "90%" },
-                  { name: "Verisprint", color: "from-indigo-500 to-purple-500", icon: Bot, stats: "60%" }
+                  { name: "FlowGrid OS", color: "#ec4899", gradient: "from-fuchsia-500 to-purple-500", icon: Brain, stats: "50%+", position: { left: "8%", top: "75%" }, step: "A" },
+                  { name: "OrchestIQ", color: "#a855f7", gradient: "from-purple-500 to-cyan-500", icon: Cog, stats: "70%", position: { left: "25%", top: "60%" }, step: "B" },
+                  { name: "Proofroom", color: "#06b6d4", gradient: "from-cyan-500 to-blue-500", icon: Target, stats: "40%", position: { left: "50%", top: "50%" }, step: "C" },
+                  { name: "SkillLedger", color: "#3b82f6", gradient: "from-blue-500 to-indigo-500", icon: Users, stats: "90%", position: { left: "70%", top: "38%" }, step: "D" },
+                  { name: "Verisprint", color: "#8b5cf6", gradient: "from-indigo-500 to-purple-500", icon: Bot, stats: "60%", position: { left: "90%", top: "28%" }, step: "E" }
                 ].map((project, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0, y: 50 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: idx * 0.1 }}
-                    className="group cursor-pointer relative"
+                    transition={{ duration: 0.6, delay: idx * 0.2, type: "spring", stiffness: 100 }}
+                    className="absolute group cursor-pointer"
+                    style={{
+                      left: project.position.left,
+                      top: project.position.top,
+                      transform: 'translate(-50%, -50%)'
+                    }}
                   >
-                    {/* Glowing card */}
-                    <div className={`relative h-[400px] bg-gradient-to-br ${project.color} rounded-3xl p-8 overflow-hidden border-2 border-transparent hover:border-white/30 transition-all duration-500`}>
-                      {/* Animated glow */}
+                    {/* Pole */}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-32 bg-gradient-to-t from-gray-600 to-gray-400 opacity-60" />
+                    
+                    {/* Sign Card */}
+                    <div className={`relative w-[280px] bg-gradient-to-br ${project.gradient} rounded-2xl p-6 shadow-2xl border-2 border-white/20 backdrop-blur-sm group-hover:border-white/40 transition-all duration-500 group-hover:scale-105`}>
+                      {/* Glow effect */}
                       <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent"
+                        className="absolute -inset-1 bg-gradient-to-br from-fuchsia-500 via-purple-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-50 blur-xl transition-opacity duration-500"
                         animate={{
-                          opacity: [0, 1, 0]
+                          opacity: [0, 0.3, 0],
                         }}
                         transition={{
                           duration: 3,
@@ -358,62 +417,49 @@ export default function CasesPage() {
                         }}
                       />
                       
-                      {/* Pulsing orbs */}
-                      <motion.div
-                        className="absolute top-4 right-4 w-24 h-24 bg-white/20 rounded-full blur-2xl"
-                        animate={{
-                          scale: [1, 1.3, 1],
-                          opacity: [0.3, 0.6, 0.3]
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: idx * 0.5
-                        }}
-                      />
+                      {/* Step Letter Badge */}
+                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-fuchsia-400 to-purple-600 rounded-full flex items-center justify-center border-4 border-black shadow-lg z-10">
+                        <span className="text-white font-bold text-lg">{project.step}</span>
+                      </div>
                       
-                      {/* Content */}
-                      <div className="relative z-10 h-full flex flex-col justify-between">
-                        {/* Icon */}
+                      {/* Icon */}
+                      <div className="flex items-center justify-center mb-4 mt-2">
                         <motion.div
-                          className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300"
+                          className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm group-hover:rotate-12 transition-transform duration-300"
                           whileHover={{ rotate: 360 }}
                           transition={{ duration: 0.6 }}
                         >
                           <project.icon className="w-8 h-8 text-white" />
                         </motion.div>
-                        
-                        {/* Project Name */}
-                        <div>
-                          <h3 className="text-3xl font-bold text-white mb-3 group-hover:scale-105 transition-transform duration-300">
-                            {project.name}
-                          </h3>
-                          
-                          {/* Stats */}
-                          <div className="flex items-center gap-4 mb-4">
-                            <div className="text-5xl font-bold text-white">{project.stats}</div>
-                            <div className="text-white/80 text-sm">Produktivität</div>
-                          </div>
-                          
-                          {/* Description */}
-                          <p className="text-white/90 leading-relaxed text-sm">
-                            Innovative KI-Plattform für intelligente Automatisierung und Prozess-Optimierung.
-                          </p>
-                        </div>
-                        
-                        {/* CTA Arrow */}
-                        <motion.div
-                          className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300"
-                          whileHover={{ scale: 1.1, x: 5 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <ArrowRight className="w-6 h-6 text-white" />
-                        </motion.div>
                       </div>
                       
+                      {/* Project Name */}
+                      <h3 className="text-2xl font-bold text-white mb-2 text-center">
+                        {project.name}
+                      </h3>
+                      
+                      {/* Stats */}
+                      <div className="flex items-center justify-center gap-2 mb-3">
+                        <div className="text-4xl font-bold text-white">{project.stats}</div>
+                        <div className="text-white/80 text-xs">Effizienz</div>
+                      </div>
+                      
+                      {/* Description */}
+                      <p className="text-white/90 text-xs leading-relaxed text-center mb-4">
+                        Innovative KI-Plattform für intelligente Automatisierung
+                      </p>
+                      
+                      {/* Arrow indicator */}
+                      <motion.div
+                        className="flex justify-center"
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ArrowRight className="w-5 h-5 text-white/80" />
+                      </motion.div>
+                      
                       {/* Shine effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-3xl" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
                     </div>
                   </motion.div>
                 ))}
