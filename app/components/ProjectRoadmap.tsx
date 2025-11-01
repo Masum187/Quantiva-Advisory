@@ -129,105 +129,12 @@ const ProjectRoadmap = () => {
 
         {/* Main Timeline */}
         <div className={`roadmap-track ${isInView ? 'in-view' : ''}`}>
-          <svg className="roadmap-svg" viewBox="0 0 1400 500" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              {/* Gradient Definitionen */}
-              <linearGradient id="pathGradient" x1="0%" y1="50%" x2="100%" y2="50%">
-                <stop offset="0%" stopColor="#a855f7" stopOpacity="0.6" />
-                <stop offset="25%" stopColor="#3b82f6" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="#06b6d4" stopOpacity="1" />
-                <stop offset="75%" stopColor="#3b82f6" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#a855f7" stopOpacity="0.6" />
-              </linearGradient>
-
-              <filter id="glow-intense">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Background Path Layer */}
-            <path
-              d="M 80 250 Q 250 150, 380 200 T 680 180 T 1050 250"
-              stroke="url(#pathGradient)"
-              strokeWidth="50"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.3"
-            />
-
-            {/* Main Path with Animation */}
-            <motion.path
-              d="M 80 250 Q 250 150, 380 200 T 680 180 T 1050 250"
-              stroke="url(#pathGradient)"
-              strokeWidth="35"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="main-path"
-              filter="url(#glow-intense)"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 2, ease: "easeOut" }}
-            />
-
-            {/* Dashed Overlay */}
-            <motion.path
-              d="M 80 250 Q 250 150, 380 200 T 680 180 T 1050 250"
-              stroke="url(#pathGradient)"
-              strokeWidth="35"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="20,15"
-              opacity="0.4"
-              className="dashed-path"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 3, ease: "linear" }}
-            />
-
-            {/* Animated Particles along Path */}
-            {[...Array(12)].map((_, i) => (
-              <motion.circle
-                key={`particle-${i}`}
-                cx={80 + (i * 90)}
-                cy={250}
-                r="4"
-                fill="#06b6d4"
-                opacity="0.6"
-                className="path-particle"
-                animate={{
-                  opacity: [0.4, 1, 0.4],
-                  r: [3, 5, 3]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: i * 0.15
-                }}
-              />
-            ))}
-
-            {/* Connection Lines */}
+          {/* Timeline connection line */}
+          <div className="timeline-line">
             {[...Array(3)].map((_, i) => (
-              <line
-                key={`connector-${i}`}
-                x1={220 + i * 230}
-                y1={250}
-                x2={220 + i * 230}
-                y2={350}
-                stroke="url(#pathGradient)"
-                strokeWidth="2"
-                opacity="0.3"
-                strokeDasharray="5,5"
-              />
+              <div key={i} className="line-segment" style={{ animationDelay: `${i * 0.2}s` }}></div>
             ))}
-          </svg>
+          </div>
 
           {/* Milestone Cards */}
           <div className="milestones-grid">
