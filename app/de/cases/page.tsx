@@ -270,8 +270,8 @@ export default function CasesPage() {
           </div>
         </section>
 
-        {/* Case Studies Grid - Solana Style */}
-        <section className="bg-black pt-0 pb-24 relative">
+        {/* Roadmap Projects Section */}
+        <section className="bg-black pt-0 pb-32 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-6">
             {/* Section Header */}
             <motion.div
@@ -279,344 +279,145 @@ export default function CasesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-center mb-16"
+              className="text-center mb-24"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Designed for real world use
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                Unsere <span className="bg-gradient-to-r from-fuchsia-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">Projekt-Roadmap</span>
               </h2>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                Von der Idee zur Realität. Quantiva verwandelt komplexe KI-Konzepte in messbare Business-Ergebnisse.
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Von der Idee zur Realität. Entdecken Sie unsere innovativen KI-Projekte auf dem Weg zur Zukunft.
               </p>
             </motion.div>
             
-            {/* Asymmetric Grid Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Large Featured Case - QA.Orchestrator */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="lg:col-span-2 group cursor-pointer"
-              >
-                <div className="relative h-full bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl p-8 border border-blue-500/30 overflow-hidden group-hover:border-blue-500/60 transition-all duration-500">
-                  {/* Animated Background Pattern - Tunnel Effect */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    {/* Pulsing glow orbs */}
-                    <motion.div 
-                      className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full blur-3xl"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.6, 0.3]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    <motion.div 
-                      className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-br from-pink-400 to-orange-500 rounded-full blur-2xl"
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.2, 0.5, 0.2]
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1
-                      }}
-                    />
-                    {/* Tunnel depth lines */}
+            {/* Roadmap Container */}
+            <div className="relative">
+              {/* Tunnel Background with Perspective */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="relative w-full h-[200px]" style={{ perspective: '1000px' }}>
+                  {/* Multiple tunnel layers for depth */}
+                  {[...Array(6)].map((_, i) => (
                     <motion.div
-                      className="absolute inset-0"
+                      key={i}
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                      style={{
+                        width: `${100 - i * 15}%`,
+                        height: `${100 - i * 15}%`,
+                        border: `2px solid rgba(236, 72, 153, ${0.3 - i * 0.04})`,
+                        borderRadius: '50%',
+                        filter: 'blur(1px)',
+                      }}
                       animate={{
-                        background: [
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)",
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.08) 50%, transparent 100%)",
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 72, 153, 0.05) 50%, transparent 100%)",
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(59, 130, 246, 0.05) 50%, transparent 100%)"
+                        borderColor: [
+                          `rgba(236, 72, 153, ${0.3 - i * 0.04})`,
+                          `rgba(168, 85, 247, ${0.3 - i * 0.04})`,
+                          `rgba(59, 130, 246, ${0.3 - i * 0.04})`,
+                          `rgba(236, 72, 153, ${0.3 - i * 0.04})`
                         ]
                       }}
                       transition={{
                         duration: 8,
                         repeat: Infinity,
-                        ease: "linear"
+                        ease: "linear",
+                        delay: i * 0.5
                       }}
                     />
-                  </div>
-                  
-                  <div className="relative z-10">
-                    {/* Case Study Badge */}
-                    <div className="inline-flex items-center px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-medium mb-6">
-                      CASE STUDY QA.ORCHESTRATOR
-                    </div>
-                    
-                    {/* Title */}
-                    <h3 className="text-3xl font-bold text-white mb-4">
-                      QA.Orchestrator aims to revolutionize SAP testing using AI agents.
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-gray-300 text-lg mb-8 leading-relaxed">
-                      Ein agentisches Testsystem, das Anforderungen → Tests → Ausführung → Analyse durchgängig automatisiert – mit tiefem SAP-Prozessverständnis und Change-Impact-Intelligenz.
-                    </p>
-                    
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                      <div className="bg-white/10 rounded-xl p-4">
-                        <div className="text-2xl font-bold text-blue-400">85%</div>
-                        <div className="text-white text-sm">Test-Automatisierung</div>
-                      </div>
-                      <div className="bg-white/10 rounded-xl p-4">
-                        <div className="text-2xl font-bold text-purple-400">3x</div>
-                        <div className="text-white text-sm">Schnellere Tests</div>
-                      </div>
-                    </div>
-                    
-                    {/* CTA */}
-                    <div className="flex items-center justify-between">
-                      <button className="flex items-center gap-2 text-white hover:text-blue-300 transition-colors">
-                        <span className="font-medium">Mehr erfahren</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                      <motion.div 
-                        className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-blue-500/30 transition-colors duration-300"
-                        whileHover={{ scale: 1.1, rotate: 45 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight className="w-6 h-6 text-white" />
-                      </motion.div>
-                    </div>
-                  </div>
-                  
-                  {/* Shine effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-3xl" />
+                  ))}
                 </div>
-              </motion.div>
-              
-              {/* Smaller Cases */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="space-y-8"
-              >
-                {/* PromptSAP Case */}
-                <div className="group cursor-pointer">
-                  <div className="relative h-full bg-gradient-to-br from-emerald-500/20 via-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-emerald-500/30 overflow-hidden group-hover:border-emerald-500/60 transition-all duration-500">
-                    {/* Animated Background Pattern */}
-                    <div className="absolute inset-0 overflow-hidden">
-                      <motion.div 
-                        className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-emerald-400 to-blue-600 rounded-full blur-2xl"
-                        animate={{
-                          scale: [1, 1.15, 1],
-                          opacity: [0.2, 0.4, 0.2]
-                        }}
-                        transition={{
-                          duration: 3.5,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                      {/* Tunnel ripple effect */}
+              </div>
+
+              {/* Projects Roadmap */}
+              <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 z-10">
+                {[
+                  { name: "FlowGrid OS", color: "from-fuchsia-500 to-purple-500", icon: Brain, stats: "50%+" },
+                  { name: "OrchestIQ", color: "from-purple-500 to-cyan-500", icon: Cog, stats: "70%" },
+                  { name: "Proofroom", color: "from-cyan-500 to-blue-500", icon: Target, stats: "40%" },
+                  { name: "SkillLedger", color: "from-blue-500 to-indigo-500", icon: Users, stats: "90%" },
+                  { name: "Verisprint", color: "from-indigo-500 to-purple-500", icon: Bot, stats: "60%" }
+                ].map((project, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: idx * 0.1 }}
+                    className="group cursor-pointer relative"
+                  >
+                    {/* Glowing card */}
+                    <div className={`relative h-[400px] bg-gradient-to-br ${project.color} rounded-3xl p-8 overflow-hidden border-2 border-transparent hover:border-white/30 transition-all duration-500`}>
+                      {/* Animated glow */}
                       <motion.div
-                        className="absolute inset-0"
+                        className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent"
                         animate={{
-                          background: [
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(16, 185, 129, 0.04) 50%, transparent 100%)",
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(59, 130, 246, 0.06) 50%, transparent 100%)",
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%)",
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(16, 185, 129, 0.04) 50%, transparent 100%)"
-                          ]
+                          opacity: [0, 1, 0]
                         }}
                         transition={{
-                          duration: 7,
+                          duration: 3,
                           repeat: Infinity,
-                          ease: "linear"
+                          ease: "easeInOut",
+                          delay: idx * 0.3
                         }}
                       />
-                    </div>
-                    
-                    <div className="relative z-10">
-                      <div className="inline-flex items-center px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-medium mb-4 group-hover:bg-emerald-500/30 transition-colors duration-300">
-                        CASE STUDY PROMPTSAP
-                      </div>
                       
-                      <h4 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors duration-300">
-                        PromptSAP used AI agents to increase SAP efficiency by 67%.
-                      </h4>
-                      
-                      <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                        Ein intelligenter KI-Agent, der natürliche Sprache in SAP-Aktionen übersetzt, um Prozesse zu automatisieren.
-                      </p>
-                      
-                      <div className="flex items-center justify-between">
-                        <button className="flex items-center gap-2 text-white hover:text-emerald-300 transition-colors">
-                          <span className="font-medium text-sm">Mehr erfahren</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </button>
-                        <motion.div 
-                          className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-emerald-500/30 transition-colors duration-300"
-                          whileHover={{ scale: 1.15, rotate: 45 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <ArrowRight className="w-4 h-4 text-white" />
-                        </motion.div>
-                      </div>
-                    </div>
-                    
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
-                  </div>
-                </div>
-                
-                {/* RecruAI Case */}
-                <div className="group cursor-pointer">
-                  <div className="relative h-full bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-2xl p-6 border border-purple-500/30 overflow-hidden group-hover:border-purple-500/60 transition-all duration-500">
-                    {/* Animated Background Pattern */}
-                    <div className="absolute inset-0 overflow-hidden">
-                      <motion.div 
-                        className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full blur-2xl"
+                      {/* Pulsing orbs */}
+                      <motion.div
+                        className="absolute top-4 right-4 w-24 h-24 bg-white/20 rounded-full blur-2xl"
                         animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.2, 0.5, 0.2]
+                          scale: [1, 1.3, 1],
+                          opacity: [0.3, 0.6, 0.3]
                         }}
                         transition={{
                           duration: 4,
                           repeat: Infinity,
-                          ease: "easeInOut"
+                          ease: "easeInOut",
+                          delay: idx * 0.5
                         }}
                       />
-                      {/* Tunnel ripple effect */}
-                      <motion.div
-                        className="absolute inset-0"
-                        animate={{
-                          background: [
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%)",
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 72, 153, 0.06) 50%, transparent 100%)",
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(249, 115, 22, 0.04) 50%, transparent 100%)",
-                            "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.04) 50%, transparent 100%)"
-                          ]
-                        }}
-                        transition={{
-                          duration: 6,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      />
-                    </div>
-                    
-                    <div className="relative z-10">
-                      <div className="inline-flex items-center px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs font-medium mb-4 group-hover:bg-purple-500/30 transition-colors duration-300">
-                        CASE STUDY RECRUAI
-                      </div>
                       
-                      <h4 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
-                        RecruAI decentralized hiring with better AI matching and community incentives.
-                      </h4>
-                      
-                      <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                        Ein intelligentes Recruiting-System, das KI nutzt, um den gesamten Einstellungsprozess zu optimieren.
-                      </p>
-                      
-                      <div className="flex items-center justify-between">
-                        <button className="flex items-center gap-2 text-white hover:text-purple-300 transition-colors">
-                          <span className="font-medium text-sm">Mehr erfahren</span>
-                          <ArrowRight className="w-3 h-3" />
-                        </button>
-                        <motion.div 
-                          className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-purple-500/30 transition-colors duration-300"
-                          whileHover={{ scale: 1.15, rotate: 45 }}
+                      {/* Content */}
+                      <div className="relative z-10 h-full flex flex-col justify-between">
+                        {/* Icon */}
+                        <motion.div
+                          className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300"
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <project.icon className="w-8 h-8 text-white" />
+                        </motion.div>
+                        
+                        {/* Project Name */}
+                        <div>
+                          <h3 className="text-3xl font-bold text-white mb-3 group-hover:scale-105 transition-transform duration-300">
+                            {project.name}
+                          </h3>
+                          
+                          {/* Stats */}
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className="text-5xl font-bold text-white">{project.stats}</div>
+                            <div className="text-white/80 text-sm">Produktivität</div>
+                          </div>
+                          
+                          {/* Description */}
+                          <p className="text-white/90 leading-relaxed text-sm">
+                            Innovative KI-Plattform für intelligente Automatisierung und Prozess-Optimierung.
+                          </p>
+                        </div>
+                        
+                        {/* CTA Arrow */}
+                        <motion.div
+                          className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300"
+                          whileHover={{ scale: 1.1, x: 5 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <ArrowRight className="w-4 h-4 text-white" />
+                          <ArrowRight className="w-6 h-6 text-white" />
                         </motion.div>
                       </div>
+                      
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-3xl" />
                     </div>
-                    
-                    {/* Shine effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
-                  </div>
-                </div>
-              </motion.div>
-              
-              {/* Video Case */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="group cursor-pointer"
-              >
-                <div className="relative h-full bg-gradient-to-br from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl p-6 border border-teal-500/30 overflow-hidden group-hover:border-teal-500/60 transition-all duration-500">
-                  {/* Animated Background Pattern */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    <motion.div 
-                      className="absolute top-5 right-5 w-20 h-20 bg-gradient-to-br from-teal-400 to-purple-600 rounded-full blur-2xl"
-                      animate={{
-                        scale: [1, 1.25, 1],
-                        opacity: [0.2, 0.5, 0.2]
-                      }}
-                      transition={{
-                        duration: 3.5,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                    {/* Tunnel ripple effect */}
-                    <motion.div
-                      className="absolute inset-0"
-                      animate={{
-                        background: [
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(20, 184, 166, 0.04) 50%, transparent 100%)",
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(168, 85, 247, 0.06) 50%, transparent 100%)",
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(236, 72, 153, 0.04) 50%, transparent 100%)",
-                          "radial-gradient(circle at 50% 50%, transparent 0%, rgba(20, 184, 166, 0.04) 50%, transparent 100%)"
-                        ]
-                      }}
-                      transition={{
-                        duration: 7,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                    />
-                  </div>
-                  
-                  <div className="relative z-10">
-                    <div className="inline-flex items-center px-2 py-1 bg-teal-500/20 text-teal-300 rounded-full text-xs font-medium mb-4 group-hover:bg-teal-500/30 transition-colors duration-300">
-                      VIDEO QUANTIVA
-                    </div>
-                    
-                    <h4 className="text-xl font-bold text-white mb-3 group-hover:text-teal-300 transition-colors duration-300">
-                      Quantiva decentralizes innovation with better AI integration and enterprise solutions.
-                    </h4>
-                    
-                    <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                      Von der Idee zur Realität. Quantiva verwandelt komplexe KI-Konzepte in messbare Business-Ergebnisse.
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <button className="flex items-center gap-2 text-white hover:text-teal-300 transition-colors">
-                        <span className="font-medium text-sm">Video ansehen</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </button>
-                      <motion.div 
-                        className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-teal-500/30 transition-colors duration-300"
-                        whileHover={{ scale: 1.15, rotate: 45 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ArrowRight className="w-4 h-4 text-white" />
-                      </motion.div>
-                    </div>
-                  </div>
-                  
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-2xl" />
-                </div>
-              </motion.div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
