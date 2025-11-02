@@ -126,43 +126,9 @@ const ProjectRoadmap = () => {
 
         {/* Circular Roadmap */}
         <div className="circular-roadmap-container">
-          {/* Circular Track */}
-          <div className="circular-track">
-            <svg className="roadmap-circle" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="trackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#4b5563" />
-                  <stop offset="100%" stopColor="#6b7280" />
-                </linearGradient>
-              </defs>
-              {/* Main circular path */}
-              <circle
-                cx="300"
-                cy="300"
-                r="240"
-                fill="none"
-                stroke="url(#trackGradient)"
-                strokeWidth="30"
-                strokeDasharray="15 10"
-                className="road-path"
-              />
-              {/* Center dashed line */}
-              <circle
-                cx="300"
-                cy="300"
-                r="240"
-                fill="none"
-                stroke="rgba(255, 255, 255, 0.8)"
-                strokeWidth="3"
-                strokeDasharray="10 10"
-                className="center-line"
-              />
-            </svg>
-          </div>
-
-          {/* Rotating wrapper for all milestones */}
+          {/* Rotating wrapper that contains both circle and milestones */}
           <motion.div
-            className="rotating-milestones"
+            className="rotating-wrapper"
             animate={{
               rotate: [0, 360]
             }}
@@ -172,17 +138,47 @@ const ProjectRoadmap = () => {
               ease: "linear"
             }}
           >
+            {/* Circular Track */}
+            <div className="circular-track">
+              <svg className="roadmap-circle" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="trackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#4b5563" />
+                    <stop offset="100%" stopColor="#6b7280" />
+                  </linearGradient>
+                </defs>
+                {/* Main circular path */}
+                <circle
+                  cx="300"
+                  cy="300"
+                  r="240"
+                  fill="none"
+                  stroke="url(#trackGradient)"
+                  strokeWidth="30"
+                  strokeDasharray="15 10"
+                  className="road-path"
+                />
+                {/* Center dashed line */}
+                <circle
+                  cx="300"
+                  cy="300"
+                  r="240"
+                  fill="none"
+                  stroke="rgba(255, 255, 255, 0.8)"
+                  strokeWidth="3"
+                  strokeDasharray="10 10"
+                  className="center-line"
+                />
+              </svg>
+            </div>
+
             {/* Milestones positioned around the circle */}
             {milestones.slice(0, 7).map((milestone, index) => {
               const Icon = milestone.icon;
               const isActive = activeIndex === index;
               
-              // Calculate positions for evenly spaced items around the circle
-              const angle = (index * 360 / 7) - 90; // Start at top (-90 degrees)
-              const radius = 240;
-              const radian = (angle * Math.PI) / 180;
-              const x = 300 + radius * Math.cos(radian);
-              const y = 300 + radius * Math.sin(radian);
+              // Calculate angle for positioning
+              const angle = (index * 360 / 7);
               
               return (
                 <motion.div
@@ -190,16 +186,18 @@ const ProjectRoadmap = () => {
                   className={`milestone-wrapper ${isActive ? 'active' : ''}`}
                   style={{
                     position: 'absolute',
-                    left: `${x}px`,
-                    top: `${y}px`,
-                    transform: 'translate(-50%, -50%)'
+                    left: '50%',
+                    top: '50%',
+                    transform: `rotate(${angle}deg) translateY(-240px)`
                   }}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: 1,
-                    scale: 1
+                    scale: 1,
+                    rotate: [0, -360]
                   }}
                   transition={{
+                    rotate: { duration: 40, repeat: Infinity, ease: "linear" },
                     opacity: { duration: 0.6, delay: index * 0.1 },
                     scale: { duration: 0.6, delay: index * 0.1 }
                   }}
