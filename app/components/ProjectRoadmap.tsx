@@ -193,11 +193,9 @@ const ProjectRoadmap = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: 1,
-                    scale: 1,
-                    rotate: [0, -360]
+                    scale: 1
                   }}
                   transition={{
-                    rotate: { duration: 40, repeat: Infinity, ease: "linear" },
                     opacity: { duration: 0.6, delay: index * 0.1 },
                     scale: { duration: 0.6, delay: index * 0.1 }
                   }}
@@ -208,6 +206,12 @@ const ProjectRoadmap = () => {
                   <motion.div
                     className={`milestone-circle ${milestone.color}`}
                     whileHover={{ scale: 1.15 }}
+                    animate={{
+                      rotate: [0, -360]
+                    }}
+                    transition={{
+                      rotate: { duration: 40, repeat: Infinity, ease: "linear" }
+                    }}
                   >
                     <Icon className="milestone-icon" size={44} />
                   </motion.div>
