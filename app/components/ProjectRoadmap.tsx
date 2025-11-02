@@ -140,7 +140,7 @@ const ProjectRoadmap = () => {
           >
             {/* Circular Track */}
             <div className="circular-track">
-              <svg className="roadmap-circle" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+              <svg className="roadmap-circle" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="trackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#4b5563" />
@@ -149,24 +149,24 @@ const ProjectRoadmap = () => {
                 </defs>
                 {/* Main circular path */}
                 <circle
-                  cx="300"
-                  cy="300"
-                  r="240"
+                  cx="450"
+                  cy="450"
+                  r="360"
                   fill="none"
                   stroke="url(#trackGradient)"
-                  strokeWidth="30"
-                  strokeDasharray="15 10"
+                  strokeWidth="45"
+                  strokeDasharray="22 15"
                   className="road-path"
                 />
                 {/* Center dashed line */}
                 <circle
-                  cx="300"
-                  cy="300"
-                  r="240"
+                  cx="450"
+                  cy="450"
+                  r="360"
                   fill="none"
                   stroke="rgba(255, 255, 255, 0.8)"
-                  strokeWidth="3"
-                  strokeDasharray="10 10"
+                  strokeWidth="4"
+                  strokeDasharray="15 15"
                   className="center-line"
                 />
               </svg>
@@ -209,7 +209,7 @@ const ProjectRoadmap = () => {
                       rotate: { duration: 40, repeat: Infinity, ease: "linear" }
                     }}
                   >
-                    <Icon className="milestone-icon" size={44} />
+                    <Icon className="milestone-icon" size={66} />
                   </motion.div>
 
                   {/* Info Card */}
