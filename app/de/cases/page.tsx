@@ -135,25 +135,25 @@ export default function CasesPage() {
       {/* Command Palette */}
       <CommandPalette />
       
-      <div className="min-h-screen bg-black relative overflow-hidden">
+      <div className="min-h-screen relative overflow-hidden">
         {/* Navigation */}
         <Navigation lang="de" items={navigationItems} />
         
         {/* Background Video */}
-        <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none">
+        <div className="fixed inset-0 w-screen h-screen z-0 pointer-events-none">
           <video
-            className="w-full h-full object-cover opacity-30"
+            className="absolute inset-0 w-full h-full object-cover"
             src="https://res.cloudinary.com/dbrisux8i/video/upload/v1762103900/grok-video-dda3f51a-7efb-453a-a311-9467a101e4a0_rteefh.mp4"
             autoPlay
             muted
             loop
             playsInline
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
         </div>
 
         {/* Hero Section - Solana Style */}
-        <section id="main-content" className="relative bg-black text-white py-24 z-10">
+        <section id="main-content" className="relative text-white py-24 z-10 bg-transparent">
           <div className="max-w-7xl mx-auto px-6">
             {/* Main Hero Content */}
             <div className="text-center mb-16">
