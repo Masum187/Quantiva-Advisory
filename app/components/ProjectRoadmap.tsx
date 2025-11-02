@@ -196,12 +196,10 @@ const ProjectRoadmap = () => {
                   }}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
-                    rotate: [0, -360],
                     opacity: 1,
                     scale: 1
                   }}
                   transition={{
-                    rotate: { duration: 40, repeat: Infinity, ease: "linear" },
                     opacity: { duration: 0.6, delay: index * 0.1 },
                     scale: { duration: 0.6, delay: index * 0.1 }
                   }}
