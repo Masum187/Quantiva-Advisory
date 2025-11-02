@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import casesData from '../../lib/data/cases.json';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -27,9 +27,6 @@ import {
 } from 'lucide-react';
 
 export default function CasesPage() {
-  const [isVideoExpanded, setIsVideoExpanded] = useState(false);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
   // Navigation items for German
   const navigationItems = [
     { id: 'home', label: 'Home', href: '/de' },
@@ -39,20 +36,6 @@ export default function CasesPage() {
     { id: 'team', label: 'Team', href: '/de/team' },
     { id: 'career', label: 'Karriere', href: '/de#career' },
   ];
-
-  const videos = useMemo(() => [
-    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760470890/Eyes_Zoom_in_seed1137337382_jeox5c.mp4',
-    'https://res.cloudinary.com/dbrisux8i/video/upload/v1760470890/90s_Me_seed3095152270_jjxpfg.mp4'
-  ], []);
-
-  // Rotate videos every 8 seconds
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [videos]);
 
   return (
     <>
@@ -156,51 +139,18 @@ export default function CasesPage() {
         {/* Navigation */}
         <Navigation lang="de" items={navigationItems} />
         
-        {/* Full-Page Half-Circle Video */}
-        <motion.div
-          initial={{ x: "100%" }}
-          animate={{ x: isVideoExpanded ? "0%" : "50%" }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-          className="fixed top-0 right-0 w-[100vw] h-[100vh] z-40 pointer-events-none"
-        >
-          <div className="relative w-full h-full">
-            {/* Half-circle container */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: isVideoExpanded ? "0%" : "25%" }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-              className="absolute top-1/2 right-0 transform -translate-y-1/2 w-[80vw] h-[60vh] bg-gray-900 rounded-l-full overflow-hidden shadow-2xl"
-            >
-              {videos.map((videoSrc, index) => (
-                <motion.video
-                  key={videoSrc}
-                  initial={{ opacity: 0 }}
-                  animate={{ 
-                    opacity: isVideoExpanded ? (index === currentVideoIndex ? 1 : 0) : (index === currentVideoIndex ? 0.3 : 0)
-                  }}
-                  transition={{ duration: 0.8 }}
-                  className="absolute inset-0 w-full h-full object-contain rounded-full"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{ zIndex: index === currentVideoIndex ? 1 : 0 }}
-                >
-                  <source src={videoSrc} type="video/mp4" />
-                </motion.video>
-              ))}
-            </motion.div>
-            {/* Glow effect */}
-            <motion.div
-              initial={{ scale: 1 }}
-              animate={{ 
-                scale: isVideoExpanded ? 1.1 : 1
-              }}
-              transition={{ duration: 0.8 }}
-              className="absolute top-0 right-0 w-[80vw] h-[60vh] rounded-full bg-gradient-to-r from-teal-400/30 via-purple-400/30 to-pink-400/30 blur-3xl"
-            />
-          </div>
-        </motion.div>
+        {/* Background Video */}
+        <div className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none">
+          <video
+            className="w-full h-full object-cover opacity-30"
+            src="https://res.cloudinary.com/dbrisux8i/video/upload/v1762103900/grok-video-dda3f51a-7efb-453a-a311-9467a101e4a0_rteefh.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80" />
+        </div>
 
         {/* Hero Section - Solana Style */}
         <section id="main-content" className="relative bg-black text-white py-24 z-10">
@@ -234,9 +184,7 @@ export default function CasesPage() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsVideoExpanded(!isVideoExpanded)}
                   className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
-                  aria-label={isVideoExpanded ? "Video reduzieren" : "Video ansehen"}
                 >
                   GO TO CASE STUDIES
                   <ArrowRight className="w-5 h-5" />
