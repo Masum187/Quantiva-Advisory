@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Workflow, Cog, Target, Users, Bot, ArrowRight, Sparkles } from 'lucide-react';
+import { Workflow, Cog, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, Zap, Brain } from 'lucide-react';
 import './ProjectRoadmap.css';
 
 const ProjectRoadmap = () => {
@@ -16,7 +16,7 @@ const ProjectRoadmap = () => {
   const milestones = [
     {
       id: '01',
-      icon: Workflow,
+      icon: Zap,
       title: 'FlowGrid OS',
       shortTitle: 'FlowGrid',
       description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration',
@@ -31,7 +31,7 @@ const ProjectRoadmap = () => {
     },
     {
       id: '02',
-      icon: Cog,
+      icon: Brain,
       title: 'OrchestIQ',
       shortTitle: 'OrchestIQ',
       description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse',
@@ -88,6 +88,36 @@ const ProjectRoadmap = () => {
       color: 'gradient-blue',
       status: 'Geplant',
       results: '60% Efficiency'
+    },
+    {
+      id: '06',
+      icon: Lock,
+      title: 'ShiftGate AI',
+      shortTitle: 'ShiftGate',
+      description: 'AI-powered Security Gateway für intelligente Bedrohungserkennung und Zugriffskontrolle',
+      details: [
+        'AI-Driven Threat Detection',
+        'Intelligent Access Control',
+        'Real-time Security Monitoring'
+      ],
+      color: 'gradient-purple',
+      status: 'Geplant',
+      results: '99.9% Security'
+    },
+    {
+      id: '07',
+      icon: CheckCircle2,
+      title: 'SoftCheck',
+      shortTitle: 'SoftCheck',
+      description: 'AI-gestütztes Quality Assurance & Testing System für automatisierte Qualitätskontrolle',
+      details: [
+        'Automated Quality Assurance',
+        'AI-Powered Test Generation',
+        'Intelligent Bug Detection'
+      ],
+      color: 'gradient-cyan',
+      status: 'Geplant',
+      results: '80% Faster Testing'
     }
   ];
 
@@ -130,8 +160,8 @@ const ProjectRoadmap = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="stat-item">
-              <span className="stat-number">4</span>
-              <span className="stat-label">Phasen</span>
+              <span className="stat-number">7</span>
+              <span className="stat-label">Projekte</span>
             </div>
             <div className="stat-divider"></div>
             <div className="stat-item">
@@ -150,7 +180,7 @@ const ProjectRoadmap = () => {
         <div className={`roadmap-track ${isInView ? 'in-view' : ''}`}>
           {/* Timeline connection line */}
           <div className="timeline-line">
-            {[...Array(3)].map((_, i) => (
+            {[...Array(6)].map((_, i) => (
               <div key={i} className="line-segment" style={{ animationDelay: `${i * 0.2}s` }}></div>
             ))}
           </div>
