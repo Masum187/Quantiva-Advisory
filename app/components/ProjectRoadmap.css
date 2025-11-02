@@ -1,9 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ProjectRoadmap.css - Framer Motion Compatible Version */
 
+/* Roadmap Wrapper */
 .roadmap-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -179,13 +176,28 @@
   margin: 0 auto;
   aspect-ratio: 1;
   padding: 40px;
+  display: grid;
+  place-items: center;
 }
 
-.circular-track {
+/* Rotating wrapper - Nutzt CSS Variablen statt inline transforms */
+.rotating-wrapper {
+  --rotation-angle: 0deg;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  margin-left: -300px; /* Half of width instead of transform */
+  margin-top: -300px; /* Half of height instead of transform */
+  transform-origin: center center;
+  /* Will be animated by Framer Motion */
+}
+
+/* Circular Track */
+.circular-track {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -213,39 +225,51 @@
   }
 }
 
-/* Rotating Container */
-.rotating-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  transform-origin: center center;
-}
-
-/* Milestone Wrapper */
+/* Milestone Wrapper - Nutzt CSS Custom Properties für Position */
 .milestone-wrapper {
+  --icon-angle: 0deg;
+  --icon-distance: 240px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  height: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+  transform-origin: center;
+  transform: 
+    rotate(var(--icon-angle)) 
+    translateY(calc(var(--icon-distance) * -1)) !important;
   z-index: 2;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: z-index 0.3s ease;
 }
 
 .milestone-wrapper.active {
   z-index: 10;
 }
 
+/* Specific icon positions */
+.milestone-wrapper:nth-child(1) { --icon-angle: 0deg; }
+.milestone-wrapper:nth-child(2) { --icon-angle: 51.43deg; }
+.milestone-wrapper:nth-child(3) { --icon-angle: 102.86deg; }
+.milestone-wrapper:nth-child(4) { --icon-angle: 154.29deg; }
+.milestone-wrapper:nth-child(5) { --icon-angle: 205.71deg; }
+.milestone-wrapper:nth-child(6) { --icon-angle: 257.14deg; }
+.milestone-wrapper:nth-child(7) { --icon-angle: 308.57deg; }
+
 /* Milestone Circle */
 .milestone-circle {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: scale 0.3s ease;
   border: 8px solid white;
+  /* Rotation will be animated by Framer Motion */
 }
 
 .milestone-circle.red {
@@ -283,13 +307,19 @@
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
+/* Icon hover ohne Transform-Konflikte */
+.milestone-wrapper:hover .milestone-circle {
+  scale: 1.15;
+}
+
 /* Info Card */
 .milestone-info {
   position: absolute;
   top: calc(100% + 20px);
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   width: 280px;
+  margin-left: -140px;
   background: rgba(15, 15, 30, 0.95);
   border: 1px solid rgba(6, 182, 212, 0.3);
   border-radius: 12px;
@@ -305,7 +335,7 @@
 .milestone-info.show {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(10px);
+  transform: translateY(10px);
   pointer-events: all;
 }
 
@@ -400,6 +430,25 @@
   }
 }
 
+/* Utility classes für Framer Motion Integration */
+.no-transform {
+  transform: none !important;
+}
+
+.force-gpu {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Fix für Safari/iOS */
+@supports (-webkit-touch-callout: none) {
+  .rotating-wrapper,
+  .milestone-circle {
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .roadmap-container {
@@ -410,18 +459,24 @@
     max-width: 700px;
   }
 
-  .milestone-circle {
-    width: 80px;
-    height: 80px;
+  .rotating-wrapper {
+    width: 500px;
+    height: 500px;
+    margin-left: -250px;
+    margin-top: -250px;
   }
 
-  .milestone-icon {
-    width: 36px;
-    height: 36px;
+  .milestone-wrapper {
+    --icon-distance: 200px;
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    margin-top: -40px;
   }
 
   .milestone-info {
     width: 240px;
+    margin-left: -120px;
   }
 }
 
@@ -447,9 +502,19 @@
     padding: 20px;
   }
 
-  .milestone-circle {
+  .rotating-wrapper {
+    width: 400px;
+    height: 400px;
+    margin-left: -200px;
+    margin-top: -200px;
+  }
+
+  .milestone-wrapper {
+    --icon-distance: 150px;
     width: 70px;
     height: 70px;
+    margin-left: -35px;
+    margin-top: -35px;
   }
 
   .milestone-icon {
@@ -459,6 +524,7 @@
 
   .milestone-info {
     width: 200px;
+    margin-left: -100px;
     font-size: 0.85rem;
   }
 
@@ -482,9 +548,19 @@
     height: 1px;
   }
 
-  .milestone-circle {
+  .rotating-wrapper {
+    width: 300px;
+    height: 300px;
+    margin-left: -150px;
+    margin-top: -150px;
+  }
+
+  .milestone-wrapper {
+    --icon-distance: 115px;
     width: 60px;
     height: 60px;
+    margin-left: -30px;
+    margin-top: -30px;
   }
 
   .milestone-icon {
@@ -494,6 +570,7 @@
 
   .milestone-info {
     width: 180px;
+    margin-left: -90px;
     padding: 12px;
   }
 
@@ -513,4 +590,3 @@
     font-size: 1.6rem;
   }
 }
-    

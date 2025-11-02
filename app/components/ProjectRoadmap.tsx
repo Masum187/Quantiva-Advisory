@@ -185,11 +185,8 @@ const ProjectRoadmap = () => {
                   key={milestone.id}
                   className={`milestone-wrapper ${isActive ? 'active' : ''}`}
                   style={{
-                    position: 'absolute',
-                    left: '50%',
-                    top: '50%',
-                    transform: `rotate(${angle}deg) translateY(-240px)`
-                  }}
+                    '--icon-angle': `${angle}deg`
+                  } as React.CSSProperties}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{
                     opacity: 1,
@@ -205,7 +202,6 @@ const ProjectRoadmap = () => {
                   {/* Milestone Circle */}
                   <motion.div
                     className={`milestone-circle ${milestone.color}`}
-                    whileHover={{ scale: 1.15 }}
                     animate={{
                       rotate: [0, -360]
                     }}
