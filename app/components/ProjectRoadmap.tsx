@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Zap, Brain, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, ClipboardList } from 'lucide-react';
 import './ProjectRoadmap.css';
 
@@ -66,7 +67,8 @@ const ProjectRoadmap = () => {
       description: 'AI-powered Security Gateway für intelligente Bedrohungserkennung und Zugriffskontrolle',
       color: 'pink',
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '120px' },
-      angle: 45
+      angle: 45,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762114669/58c4aae7-e7e2-40e2-a084-3f2dbf2abdb5_hse9pv.jpg'
     },
     {
       id: '07',
@@ -209,7 +211,17 @@ const ProjectRoadmap = () => {
                       rotate: { duration: 40, repeat: Infinity, ease: "linear" }
                     }}
                   >
-                    <Icon className="milestone-icon" size={66} />
+                    {milestone.imageUrl ? (
+                      <Image 
+                        src={milestone.imageUrl} 
+                        alt={milestone.title}
+                        width={66}
+                        height={66}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <Icon className="milestone-icon" size={66} />
+                    )}
                   </motion.div>
 
                   {/* Info Card */}
