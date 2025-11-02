@@ -7,23 +7,11 @@
 .roadmap-wrapper {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e293b 0%, #1e293b 50%, #334155 100%);
+  background: white;
   position: relative;
   overflow: hidden;
-  color: white;
+  color: #1f2937;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-.roadmap-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  opacity: 0.5;
 }
 
 /* Animated Background */
@@ -35,6 +23,7 @@
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  opacity: 0;
 }
 
 .bg-sphere {
@@ -47,7 +36,7 @@
 .sphere-1 {
   width: 400px;
   height: 400px;
-  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
   top: -100px;
   right: -100px;
   animation: float 15s ease-in-out infinite;
@@ -56,7 +45,7 @@
 .sphere-2 {
   width: 350px;
   height: 350px;
-  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6);
   bottom: 100px;
   left: -50px;
   animation: float 18s ease-in-out infinite;
@@ -66,7 +55,7 @@
 .sphere-3 {
   width: 300px;
   height: 300px;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(135deg, #ffffff, #f9fafb);
   top: 50%;
   right: 10%;
   animation: float 20s ease-in-out infinite;
@@ -99,53 +88,35 @@
 /* Header Section */
 .roadmap-header {
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   animation: fadeInDown 0.8s ease-out;
 }
 
-.header-badge {
+.header-icon {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(168, 85, 247, 0.1);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  padding: 10px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-  backdrop-filter: blur(10px);
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: #1f2937;
+  border-radius: 12px;
+  margin-bottom: 24px;
   animation: slideDown 0.8s ease-out;
 }
 
+.header-icon svg {
+  color: white;
+}
+
 .roadmap-header h1 {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 800;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
   letter-spacing: -2px;
   line-height: 1.1;
+  color: #1f2937;
   animation: slideDown 0.9s ease-out;
   animation-delay: 0.1s;
-}
-
-.gradient-text-main {
-  background: linear-gradient(90deg, #a855f7 0%, #06b6d4 50%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: gradientShift 4s ease infinite;
-}
-
-.roadmap-header p {
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.65);
-  max-width: 700px;
-  margin: 0 auto 40px;
-  line-height: 1.8;
-  animation: slideDown 0.9s ease-out;
-  animation-delay: 0.2s;
 }
 
 .timeline-stats {
@@ -153,7 +124,7 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
-  margin-top: 40px;
+  margin-top: 20px;
   animation: slideDown 1s ease-out;
   animation-delay: 0.3s;
 }
@@ -168,436 +139,170 @@
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #a855f7, #06b6d4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1f2937;
 }
 
 .stat-label {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  color: #6b7280;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .stat-divider {
   width: 1px;
   height: 40px;
-  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(180deg, transparent, #e5e7eb, transparent);
 }
 
-/* Roadmap Track */
-.roadmap-track {
+/* Circular Roadmap Container */
+.circular-roadmap-container {
   position: relative;
-  margin-bottom: 80px;
-  animation: fadeIn 1s ease-out;
-  animation-delay: 0.4s;
-  padding: 0 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 1;
+  padding: 40px;
 }
 
-.timeline-line {
+.circular-track {
   position: absolute;
-  top: 140px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 200px);
-  max-width: 1200px;
-  height: 2px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 0;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-.line-segment {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #06b6d4, transparent);
-  animation: lineFlow 3s ease-in-out infinite;
-  animation-delay: var(--delay, 0s);
-  opacity: 0.4;
+.roadmap-circle {
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes lineFlow {
-  0%, 100% {
-    opacity: 0.3;
-    filter: drop-shadow(0 0 5px rgba(6, 182, 212, 0.3));
+.road-path {
+  animation: dashFlow 20s linear infinite;
+}
+
+.center-line {
+  opacity: 0.6;
+}
+
+@keyframes dashFlow {
+  from {
+    stroke-dashoffset: 0;
   }
-  50% {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.6));
+  to {
+    stroke-dashoffset: 1000;
   }
 }
 
-/* Milestones Grid */
-.milestones-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 50px;
-  padding: 80px 20px 40px;
-  position: relative;
+/* Milestone Wrapper */
+.milestone-wrapper {
   z-index: 2;
-}
-
-.milestone-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 8px;
-  border-radius: 12px;
 }
 
-.milestone-item.active {
+.milestone-wrapper.active {
   z-index: 10;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
-  border: 2px solid rgba(239, 68, 68, 0.5);
-}
-
-.milestone-item.active .milestone-card {
-  visibility: visible;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
 /* Milestone Circle */
 .milestone-circle {
-  width: 120px;
-  height: 120px;
-  border-radius: 8px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-bottom: 30px;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  overflow: hidden;
+  border: 8px solid white;
 }
 
-.circle-bg {
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  z-index: 1;
+.milestone-circle.red {
+  background: #ef4444;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
 }
 
-.circle-border {
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  border: 3px solid rgba(255, 255, 255, 0.2);
-  z-index: 2;
-  transition: border-color 0.3s ease;
+.milestone-circle.blue {
+  background: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
-.circle-glow {
-  position: absolute;
-  inset: -20px;
-  border-radius: 8px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 0;
+.milestone-circle.cyan {
+  background: #06b6d4;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
 }
 
-.milestone-item.active .circle-glow {
-  opacity: 1;
+.milestone-circle.purple {
+  background: #a855f7;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.milestone-circle.yellow {
+  background: #eab308;
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.3);
+}
+
+.milestone-circle.green {
+  background: #22c55e;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
 }
 
 .milestone-icon {
-  position: relative;
-  z-index: 3;
   color: white;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-  transition: filter 0.3s ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
-.milestone-item:hover .milestone-icon {
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-}
-
-.icon-particle {
+/* Info Card */
+.milestone-info {
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
-  border-radius: 50%;
-  top: 50%;
+  top: calc(100% + 20px);
   left: 50%;
-  transform: translate(-50%, -50%) rotate(var(--angle)) translateX(50px);
-  z-index: 2;
-}
-
-.gradient-purple .circle-bg {
-  background: linear-gradient(135deg, #6b21a8 0%, #581c87 100%);
-  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
-}
-
-.gradient-purple .circle-glow {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.4), transparent);
-  box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
-}
-
-.gradient-blue .circle-bg {
-  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-  box-shadow: 0 0 40px rgba(59, 130, 246, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
-}
-
-.gradient-blue .circle-glow {
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.4), transparent);
-  box-shadow: 0 0 60px rgba(59, 130, 246, 0.5);
-}
-
-.gradient-cyan .circle-bg {
-  background: linear-gradient(135deg, #155e75 0%, #164e63 100%);
-  box-shadow: 0 0 40px rgba(6, 182, 212, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
-}
-
-.gradient-cyan .circle-glow {
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.4), transparent);
-  box-shadow: 0 0 60px rgba(6, 182, 212, 0.5);
-}
-
-/* Active state with red border like Cardano */
-.milestone-item.active .circle-border {
-  border: 4px solid #ef4444;
-  box-shadow: 0 0 40px rgba(239, 68, 68, 0.8);
-}
-
-/* Badge */
-.milestone-badge {
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(15, 15, 30, 0.8);
-  backdrop-filter: blur(10px);
-  z-index: 5;
-  transition: all 0.3s ease;
-}
-
-.gradient-purple .milestone-badge {
-  color: #a855f7;
-  border-color: #a855f7;
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-}
-
-.gradient-blue .milestone-badge {
-  color: #3b82f6;
-  border-color: #3b82f6;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-}
-
-.gradient-cyan .milestone-badge {
-  color: #06b6d4;
-  border-color: #06b6d4;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
-}
-
-.milestone-item:hover .milestone-badge {
-  transform: scale(1.1);
-}
-
-/* Status */
-.milestone-status {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 16px;
-  transition: all 0.3s ease;
-}
-
-.milestone-status.abgeschlossen {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.milestone-status.in-arbeit {
-  background: rgba(168, 85, 247, 0.15);
-  color: #a855f7;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.milestone-status.geplant {
-  background: rgba(107, 114, 128, 0.15);
-  color: #9ca3af;
-  border: 1px solid rgba(107, 114, 128, 0.3);
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-
-/* Title */
-.milestone-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 20px;
-  color: white;
-  transition: all 0.3s ease;
-}
-
-.milestone-item.active .milestone-title {
-  color: #06b6d4;
-}
-
-/* Milestone Card */
-.milestone-card {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  width: 320px;
-  background: rgba(15, 15, 30, 0.95);
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  border-radius: 16px;
-  padding: 24px;
-  margin-top: 20px;
-  backdrop-filter: blur(20px);
+  transform: translateX(-50%);
+  width: 280px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 100;
-  box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15);
   pointer-events: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
-.milestone-card.show {
+.milestone-info.show {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(10px);
   pointer-events: all;
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-}
-
-.card-header h4 {
+.milestone-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #06b6d4;
-  margin: 0;
-}
-
-.card-header svg {
-  color: #06b6d4;
-  opacity: 0.5;
-}
-
-.card-description {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.card-details h5 {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 12px;
-}
-
-.card-details ul {
-  list-style: none;
-  margin-bottom: 20px;
-}
-
-.card-details li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #1f2937;
   margin-bottom: 8px;
+  text-align: center;
 }
 
-.detail-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #06b6d4;
-  opacity: 0.6;
-  flex-shrink: 0;
-}
-
-.card-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 16px;
-}
-
-.timeline-progress {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.progress-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #06b6d4, #3b82f6);
-  border-radius: 2px;
-  transition: width 0.6s ease;
-}
-
-.connector-line {
-  position: absolute;
-  bottom: -60px;
-  left: 50%;
-  width: 2px;
-  height: 60px;
-  background: linear-gradient(180deg, rgba(6, 182, 212, 0.4), transparent);
-  transform: translateX(-50%);
-  opacity: 0.3;
+.milestone-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.5;
+  text-align: center;
 }
 
 /* Footer */
 .roadmap-footer {
   text-align: center;
   padding: 60px 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 80px;
+  border-top: 2px solid #e5e7eb;
   animation: fadeIn 1.2s ease-out;
   animation-delay: 0.8s;
 }
@@ -606,11 +311,12 @@
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 16px;
+  color: #1f2937;
 }
 
 .footer-content p {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #6b7280;
   margin-bottom: 32px;
 }
 
@@ -618,7 +324,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(135deg, #a855f7, #06b6d4);
+  background: #1f2937;
   color: white;
   border: none;
   padding: 14px 32px;
@@ -627,12 +333,12 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
 }
 
 .cta-button:hover {
+  background: #111827;
   transform: translateY(-2px);
-  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 10px 30px rgba(31, 41, 55, 0.2);
 }
 
 /* Animations */
@@ -667,37 +373,28 @@
   }
 }
 
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
 /* Responsive */
 @media (max-width: 1024px) {
   .roadmap-container {
     padding: 40px 30px 60px;
   }
 
-  .roadmap-header h1 {
-    font-size: 3rem;
-  }
-
-  .milestones-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+  .circular-roadmap-container {
+    max-width: 700px;
   }
 
   .milestone-circle {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 
-  .milestone-card {
-    width: 280px;
+  .milestone-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .milestone-info {
+    width: 240px;
   }
 }
 
@@ -706,16 +403,8 @@
     padding: 30px 20px 40px;
   }
 
-  .roadmap-header {
-    margin-bottom: 60px;
-  }
-
   .roadmap-header h1 {
-    font-size: 2.2rem;
-  }
-
-  .roadmap-header p {
-    font-size: 1rem;
+    font-size: 2.5rem;
   }
 
   .timeline-stats {
@@ -726,45 +415,34 @@
     font-size: 1.5rem;
   }
 
-  .milestones-grid {
-    grid-template-columns: 1fr;
-    gap: 50px;
-    padding: 60px 10px 20px;
-  }
-
-  .roadmap-svg {
-    min-height: 300px;
-    margin-bottom: -60px;
+  .circular-roadmap-container {
+    max-width: 100%;
+    padding: 20px;
   }
 
   .milestone-circle {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
   }
 
-  .milestone-card {
-    position: static;
-    transform: none;
-    width: 100%;
-    opacity: 1;
-    visibility: visible;
-    margin-top: 20px;
-    pointer-events: all;
+  .milestone-icon {
+    width: 32px;
+    height: 32px;
   }
 
-  .milestone-item {
-    margin-bottom: 40px;
+  .milestone-info {
+    width: 200px;
+    font-size: 0.85rem;
+  }
+
+  .footer-content h2 {
+    font-size: 1.8rem;
   }
 }
 
 @media (max-width: 480px) {
   .roadmap-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .header-badge {
-    font-size: 0.75rem;
-    padding: 8px 12px;
+    font-size: 2rem;
   }
 
   .timeline-stats {
@@ -778,12 +456,26 @@
   }
 
   .milestone-circle {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .milestone-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .milestone-info {
+    width: 180px;
+    padding: 12px;
   }
 
   .milestone-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  .milestone-description {
+    font-size: 0.8rem;
   }
 
   .roadmap-footer {

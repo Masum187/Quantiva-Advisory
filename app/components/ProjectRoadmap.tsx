@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Workflow, Cog, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, Zap, Brain } from 'lucide-react';
+import { Zap, Brain, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, ClipboardList } from 'lucide-react';
 import './ProjectRoadmap.css';
 
 const ProjectRoadmap = () => {
@@ -18,106 +18,64 @@ const ProjectRoadmap = () => {
       id: '01',
       icon: Zap,
       title: 'FlowGrid OS',
-      shortTitle: 'FlowGrid',
       description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration',
-      details: [
-        'AI-Integration in Collaboration Tools',
-        'Intelligente Workflow-Automatisierung',
-        'Multi-Channel Collaboration Platform'
-      ],
-      color: 'gradient-purple',
-      status: 'Abgeschlossen',
-      results: '50%+ Produktivität'
+      color: 'red',
+      position: { top: '-5%', left: '5%' },
+      angle: -20
     },
     {
       id: '02',
       icon: Brain,
       title: 'OrchestIQ',
-      shortTitle: 'OrchestIQ',
       description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse',
-      details: [
-        'AI-powered Automation',
-        'Business Process Orchestration',
-        'RPA Integration'
-      ],
-      color: 'gradient-blue',
-      status: 'In Arbeit',
-      results: '70% Automatisierung'
+      color: 'blue',
+      position: { top: '20%', left: '-5%' },
+      angle: 30
     },
     {
       id: '03',
       icon: Target,
       title: 'Proofroom',
-      shortTitle: 'Proofroom',
       description: 'AI-gestützte Sales Enablement & Marketing Automation für höhere Conversion',
-      details: [
-        'AI-Sales-Assistenten',
-        'Marketing Automation Platform',
-        'Lead-Scoring & Qualification'
-      ],
-      color: 'gradient-cyan',
-      status: 'In Arbeit',
-      results: '40% Conversion'
+      color: 'cyan',
+      position: { top: '0%', right: '5%' },
+      angle: 15
     },
     {
       id: '04',
       icon: Users,
       title: 'SkillLedger',
-      shortTitle: 'SkillLedger',
       description: 'Intelligentes Schulmanagement & Learning Analytics für personalisierte Bildung',
-      details: [
-        'AI-Enhanced Learning Platform',
-        'Student Performance Analytics',
-        'Automated Administration'
-      ],
-      color: 'gradient-purple',
-      status: 'Geplant',
-      results: '90% Papierreduktion'
+      color: 'purple',
+      position: { top: '25%', right: '-5%' },
+      angle: -30
     },
     {
       id: '05',
       icon: Bot,
       title: 'Verisprint',
-      shortTitle: 'Verisprint',
       description: 'AI-native Recruiting Platform für intelligente Talent-Akquise und Matching',
-      details: [
-        'AI-Talent Matching',
-        'Intelligent Candidate Screening',
-        'Recruiting Analytics'
-      ],
-      color: 'gradient-blue',
-      status: 'Geplant',
-      results: '60% Efficiency'
+      color: 'yellow',
+      position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)' },
+      angle: 0
     },
     {
       id: '06',
       icon: Lock,
       title: 'ShiftGate AI',
-      shortTitle: 'ShiftGate',
       description: 'AI-powered Security Gateway für intelligente Bedrohungserkennung und Zugriffskontrolle',
-      details: [
-        'AI-Driven Threat Detection',
-        'Intelligent Access Control',
-        'Real-time Security Monitoring'
-      ],
-      color: 'gradient-purple',
-      status: 'Geplant',
-      results: '99.9% Security'
+      color: 'green',
+      position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '120px' },
+      angle: 45
     },
     {
       id: '07',
       icon: CheckCircle2,
       title: 'SoftCheck',
-      shortTitle: 'SoftCheck',
       description: 'AI-gestütztes Quality Assurance & Testing System für automatisierte Qualitätskontrolle',
-      details: [
-        'Automated Quality Assurance',
-        'AI-Powered Test Generation',
-        'Intelligent Bug Detection'
-      ],
-      color: 'gradient-cyan',
-      status: 'Geplant',
-      results: '80% Faster Testing'
+      color: 'green',
+      position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '-120px' },
+      angle: -45
     }
   ];
 
@@ -133,26 +91,16 @@ const ProjectRoadmap = () => {
       <div className="roadmap-container">
         {/* Header Section */}
         <div className="roadmap-header">
-          <div className="header-badge">
-            <Sparkles size={16} />
-            <span>PRODUKTENTWICKLUNG</span>
+          <div className="header-icon">
+            <ClipboardList size={24} />
           </div>
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Unsere <span className="gradient-text-main">Projekt-Roadmap</span>
+            Projekt-Roadmap
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-          >
-            Von der innovativen Idee zur produktiven Realität. Folgen Sie unseren KI-Projekten 
-            auf dem Weg zur Zukunft – transparent und detailliert.
-          </motion.p>
-          
           <motion.div 
             className="timeline-stats"
             initial={{ opacity: 0, y: -20 }}
@@ -176,148 +124,88 @@ const ProjectRoadmap = () => {
           </motion.div>
         </div>
 
-        {/* Main Timeline */}
-        <div className={`roadmap-track ${isInView ? 'in-view' : ''}`}>
-          {/* Timeline connection line */}
-          <div className="timeline-line">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="line-segment" style={{ animationDelay: `${i * 0.2}s` }}></div>
-            ))}
+        {/* Circular Roadmap */}
+        <div className="circular-roadmap-container">
+          {/* Circular Track */}
+          <div className="circular-track">
+            <svg className="roadmap-circle" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="trackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#4b5563" />
+                  <stop offset="100%" stopColor="#6b7280" />
+                </linearGradient>
+              </defs>
+              {/* Main circular path */}
+              <circle
+                cx="300"
+                cy="300"
+                r="240"
+                fill="none"
+                stroke="url(#trackGradient)"
+                strokeWidth="30"
+                strokeDasharray="15 10"
+                className="road-path"
+              />
+              {/* Center dashed line */}
+              <circle
+                cx="300"
+                cy="300"
+                r="240"
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.8)"
+                strokeWidth="3"
+                strokeDasharray="10 10"
+                className="center-line"
+              />
+            </svg>
           </div>
 
-          {/* Milestone Cards */}
-          <div className="milestones-grid">
-            {milestones.map((milestone, index) => {
-              const Icon = milestone.icon;
-              const isActive = activeIndex === index;
-              
-              return (
+          {/* Milestones positioned around the circle */}
+          {milestones.slice(0, 5).map((milestone, index) => {
+            const Icon = milestone.icon;
+            const isActive = activeIndex === index;
+            
+            // Calculate positions for 5 evenly spaced items around the circle
+            const angle = (index * 360 / 5) - 90; // Start at top (-90 degrees)
+            const radius = 240;
+            const centerX = 50; // percentage
+            const centerY = 50; // percentage
+            const radian = (angle * Math.PI) / 180;
+            const x = centerX + (radius / 10) * Math.cos(radian);
+            const y = centerY + (radius / 10) * Math.sin(radian);
+            
+            return (
+              <motion.div
+                key={milestone.id}
+                className={`milestone-wrapper ${isActive ? 'active' : ''}`}
+                style={{
+                  position: 'absolute',
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  transform: 'translate(-50%, -50%)'
+                }}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
+              >
+                {/* Milestone Circle */}
                 <motion.div
-                  key={milestone.id}
-                  className={`milestone-item ${isActive ? 'active' : ''}`}
-                  initial={{ opacity: 0, y: 50, scale: 0.8 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.6, delay: index * 0.15, type: "spring", stiffness: 150 }}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(null)}
-                  whileHover={{ scale: 1.05 }}
+                  className={`milestone-circle ${milestone.color}`}
+                  whileHover={{ scale: 1.15 }}
                 >
-                  {/* Milestone Circle */}
-                  <motion.div 
-                    className={`milestone-circle ${milestone.color}`}
-                    animate={{
-                      boxShadow: [
-                        '0 0 20px rgba(168, 85, 247, 0.3)',
-                        '0 0 40px rgba(168, 85, 247, 0.6)',
-                        '0 0 20px rgba(168, 85, 247, 0.3)'
-                      ]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    whileHover={{
-                      scale: 1.15,
-                      rotate: 5,
-                      transition: { duration: 0.3 }
-                    }}
-                  >
-                    <div className="circle-bg"></div>
-                    <div className="circle-border"></div>
-                    <motion.div
-                      animate={{
-                        rotate: [0, 360]
-                      }}
-                      transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                    >
-                      <Icon className="milestone-icon" size={44} />
-                    </motion.div>
-                    <div className="circle-glow"></div>
-                    {/* Animated inner particles */}
-                    {[...Array(6)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="icon-particle"
-                        style={{
-                          '--angle': `${i * 60}deg`
-                        } as React.CSSProperties}
-                        animate={{
-                          scale: [0, 1, 0],
-                          opacity: [0, 1, 0]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: i * 0.3
-                        }}
-                      />
-                    ))}
-                  </motion.div>
-
-                  {/* Badge */}
-                  <div className={`milestone-badge ${milestone.color}`}>
-                    <span>{milestone.id}</span>
-                  </div>
-
-                  {/* Status */}
-                  <div className={`milestone-status ${milestone.status.toLowerCase().replace(/\s/g, '-')}`}>
-                    <span>{milestone.status}</span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="milestone-title">{milestone.title}</h3>
-
-                  {/* Expanded Card */}
-                  <div className={`milestone-card ${isActive ? 'show' : ''}`}>
-                    <div className="card-header">
-                      <h4>{milestone.title}</h4>
-                      <ArrowRight size={18} />
-                    </div>
-                    
-                    <p className="card-description">{milestone.description}</p>
-                    
-                    <div className="card-details">
-                      <h5>Aktivitäten:</h5>
-                      <ul>
-                        {milestone.details.map((detail, i) => (
-                          <li key={i}>
-                            <span className="detail-dot"></span>
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="card-footer">
-                      <div className="timeline-progress">
-                        <div className="progress-label">Fortschritt</div>
-                        <div className="progress-bar">
-                          <motion.div 
-                            className="progress-fill"
-                            initial={{ width: 0 }}
-                            animate={{ 
-                              width: milestone.status === 'Abgeschlossen' ? '100%' : 
-                                     milestone.status === 'In Arbeit' ? '60%' : '20%'
-                            }}
-                            transition={{ duration: 1, delay: index * 0.2 }}
-                          ></motion.div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Connector Line */}
-                  <div className="connector-line"></div>
+                  <Icon className="milestone-icon" size={44} />
                 </motion.div>
-              );
-            })}
-          </div>
+
+                {/* Info Card */}
+                <div className={`milestone-info ${isActive ? 'show' : ''}`}>
+                  <h3 className="milestone-title">{milestone.title}</h3>
+                  <p className="milestone-description">{milestone.description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Bottom CTA Section */}
