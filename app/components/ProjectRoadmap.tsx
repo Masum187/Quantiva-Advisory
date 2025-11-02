@@ -19,7 +19,7 @@ const ProjectRoadmap = () => {
       icon: Zap,
       title: 'FlowGrid OS',
       description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration',
-      color: 'red',
+      color: 'teal',
       position: { top: '-5%', left: '5%' },
       angle: -20
     },
@@ -28,7 +28,7 @@ const ProjectRoadmap = () => {
       icon: Brain,
       title: 'OrchestIQ',
       description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse',
-      color: 'blue',
+      color: 'purple',
       position: { top: '20%', left: '-5%' },
       angle: 30
     },
@@ -37,7 +37,7 @@ const ProjectRoadmap = () => {
       icon: Target,
       title: 'Proofroom',
       description: 'AI-gestützte Sales Enablement & Marketing Automation für höhere Conversion',
-      color: 'cyan',
+      color: 'pink',
       position: { top: '0%', right: '5%' },
       angle: 15
     },
@@ -46,7 +46,7 @@ const ProjectRoadmap = () => {
       icon: Users,
       title: 'SkillLedger',
       description: 'Intelligentes Schulmanagement & Learning Analytics für personalisierte Bildung',
-      color: 'purple',
+      color: 'teal',
       position: { top: '25%', right: '-5%' },
       angle: -30
     },
@@ -55,7 +55,7 @@ const ProjectRoadmap = () => {
       icon: Bot,
       title: 'Verisprint',
       description: 'AI-native Recruiting Platform für intelligente Talent-Akquise und Matching',
-      color: 'yellow',
+      color: 'purple',
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)' },
       angle: 0
     },
@@ -64,7 +64,7 @@ const ProjectRoadmap = () => {
       icon: Lock,
       title: 'ShiftGate AI',
       description: 'AI-powered Security Gateway für intelligente Bedrohungserkennung und Zugriffskontrolle',
-      color: 'green',
+      color: 'pink',
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '120px' },
       angle: 45
     },
@@ -73,7 +73,7 @@ const ProjectRoadmap = () => {
       icon: CheckCircle2,
       title: 'SoftCheck',
       description: 'AI-gestütztes Quality Assurance & Testing System für automatisierte Qualitätskontrolle',
-      color: 'green',
+      color: 'teal',
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '-120px' },
       angle: -45
     }
