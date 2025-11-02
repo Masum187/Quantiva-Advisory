@@ -160,52 +160,71 @@ const ProjectRoadmap = () => {
             </svg>
           </div>
 
-          {/* Milestones positioned around the circle */}
-          {milestones.slice(0, 5).map((milestone, index) => {
-            const Icon = milestone.icon;
-            const isActive = activeIndex === index;
-            
-            // Calculate positions for 5 evenly spaced items around the circle
-            const angle = (index * 360 / 5) - 90; // Start at top (-90 degrees)
-            const radius = 240;
-            const centerX = 50; // percentage
-            const centerY = 50; // percentage
-            const radian = (angle * Math.PI) / 180;
-            const x = centerX + (radius / 10) * Math.cos(radian);
-            const y = centerY + (radius / 10) * Math.sin(radian);
-            
-            return (
-              <motion.div
-                key={milestone.id}
-                className={`milestone-wrapper ${isActive ? 'active' : ''}`}
-                style={{
-                  position: 'absolute',
-                  left: `${x}%`,
-                  top: `${y}%`,
-                  transform: 'translate(-50%, -50%)'
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                onMouseEnter={() => setActiveIndex(index)}
-                onMouseLeave={() => setActiveIndex(null)}
-              >
-                {/* Milestone Circle */}
+          {/* Rotating wrapper for all milestones */}
+          <motion.div
+            className="rotating-milestones"
+            animate={{
+              rotate: [0, 360]
+            }}
+            transition={{
+              duration: 40,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            {/* Milestones positioned around the circle */}
+            {milestones.slice(0, 7).map((milestone, index) => {
+              const Icon = milestone.icon;
+              const isActive = activeIndex === index;
+              
+              // Calculate positions for evenly spaced items around the circle
+              const angle = (index * 360 / 7) - 90; // Start at top (-90 degrees)
+              const radius = 240;
+              const radian = (angle * Math.PI) / 180;
+              const x = 300 + radius * Math.cos(radian);
+              const y = 300 + radius * Math.sin(radian);
+              
+              return (
                 <motion.div
-                  className={`milestone-circle ${milestone.color}`}
-                  whileHover={{ scale: 1.15 }}
+                  key={milestone.id}
+                  className={`milestone-wrapper ${isActive ? 'active' : ''}`}
+                  style={{
+                    position: 'absolute',
+                    left: `${x}px`,
+                    top: `${y}px`,
+                    transform: 'translate(-50%, -50%)'
+                  }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{
+                    rotate: [0, -360],
+                    opacity: 1,
+                    scale: 1
+                  }}
+                  transition={{
+                    rotate: { duration: 40, repeat: Infinity, ease: "linear" },
+                    opacity: { duration: 0.6, delay: index * 0.1 },
+                    scale: { duration: 0.6, delay: index * 0.1 }
+                  }}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onMouseLeave={() => setActiveIndex(null)}
                 >
-                  <Icon className="milestone-icon" size={44} />
-                </motion.div>
+                  {/* Milestone Circle */}
+                  <motion.div
+                    className={`milestone-circle ${milestone.color}`}
+                    whileHover={{ scale: 1.15 }}
+                  >
+                    <Icon className="milestone-icon" size={44} />
+                  </motion.div>
 
-                {/* Info Card */}
-                <div className={`milestone-info ${isActive ? 'show' : ''}`}>
-                  <h3 className="milestone-title">{milestone.title}</h3>
-                  <p className="milestone-description">{milestone.description}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+                  {/* Info Card */}
+                  <div className={`milestone-info ${isActive ? 'show' : ''}`}>
+                    <h3 className="milestone-title">{milestone.title}</h3>
+                    <p className="milestone-description">{milestone.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
 
         {/* Bottom CTA Section */}
