@@ -237,6 +237,20 @@ const ProjectRoadmap = () => {
               );
             })}
           </motion.div>
+
+          {/* Center Slogan */}
+          <div className="center-slogan">
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="slogan-text"
+            >
+              AI-Powered
+              <br />
+              <span className="slogan-highlight">Innovation</span>
+            </motion.h2>
+          </div>
         </div>
 
         {/* Bottom CTA Section */}

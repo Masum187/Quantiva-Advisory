@@ -230,6 +230,44 @@
   }
 }
 
+/* Center Slogan */
+.center-slogan {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  text-align: center;
+  pointer-events: none;
+}
+
+.slogan-text {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+  letter-spacing: 0.05em;
+}
+
+.slogan-highlight {
+  background: linear-gradient(135deg, #a855f7, #06b6d4, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 /* Milestone Wrapper - Nutzt CSS Custom Properties für Position */
 .milestone-wrapper {
   --icon-angle: 0deg;
