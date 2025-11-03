@@ -51,7 +51,8 @@ const ProjectRoadmap = () => {
       description: 'Intelligentes Schulmanagement & Learning Analytics für personalisierte Bildung',
       color: 'teal',
       position: { top: '25%', right: '-5%' },
-      angle: -30
+      angle: -30,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762183140/afadxeax39xcaj5utiy0.jpg'
     },
     {
       id: '05',
