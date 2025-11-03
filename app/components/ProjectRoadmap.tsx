@@ -77,7 +77,8 @@ const ProjectRoadmap = () => {
       description: 'AI-gestütztes Quality Assurance & Testing System für automatisierte Qualitätskontrolle',
       color: 'teal',
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '-120px' },
-      angle: -45
+      angle: -45,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762160270/e1cfed67-2f6a-4b57-9390-4d41d6975844_zgy0pq.jpg'
     }
   ];
 
