@@ -41,7 +41,8 @@ const ProjectRoadmap = () => {
       description: 'AI-gestützte Sales Enablement & Marketing Automation für höhere Conversion',
       color: 'pink',
       position: { top: '0%', right: '5%' },
-      angle: 15
+      angle: 15,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762182285/808a4e4c-d7d3-4ad2-90b8-afc74b3f3cb5_ygvgxq.jpg'
     },
     {
       id: '04',
