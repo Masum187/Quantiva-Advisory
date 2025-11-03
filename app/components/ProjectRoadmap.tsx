@@ -59,7 +59,8 @@ const ProjectRoadmap = () => {
       description: 'AI-native Recruiting Platform für intelligente Talent-Akquise und Matching',
       color: 'purple',
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)' },
-      angle: 0
+      angle: 0,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762180477/6db05ac3-0d38-4abd-9e47-13a5c5ab71e2_h1aedi.jpg'
     },
     {
       id: '06',
