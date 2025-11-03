@@ -215,9 +215,8 @@ const ProjectRoadmap = () => {
                       <Image 
                         src={milestone.imageUrl} 
                         alt={milestone.title}
-                        width={66}
-                        height={66}
-                        className="rounded-full"
+                        width={150}
+                        height={150}
                       />
                     ) : (
                       <Icon className="milestone-icon" size={66} />

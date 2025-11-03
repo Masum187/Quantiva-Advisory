@@ -297,6 +297,52 @@
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
 }
 
+/* Laser border effect for milestone images */
+.milestone-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 1;
+  border: 8px solid transparent;
+  background-image: 
+    linear-gradient(#0a0a0a, #0a0a0a),
+    linear-gradient(90deg, #00ffff, #00ff00, #ffff00, #ff00ff, #00ffff);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: laserRotate 3s linear infinite;
+}
+
+@keyframes laserRotate {
+  0% {
+    background-image: 
+      linear-gradient(#0a0a0a, #0a0a0a),
+      linear-gradient(0deg, #00ffff, #00ff00, #ffff00, #ff00ff, #00ffff);
+  }
+  25% {
+    background-image: 
+      linear-gradient(#0a0a0a, #0a0a0a),
+      linear-gradient(90deg, #00ffff, #00ff00, #ffff00, #ff00ff, #00ffff);
+  }
+  50% {
+    background-image: 
+      linear-gradient(#0a0a0a, #0a0a0a),
+      linear-gradient(180deg, #00ffff, #00ff00, #ffff00, #ff00ff, #00ffff);
+  }
+  75% {
+    background-image: 
+      linear-gradient(#0a0a0a, #0a0a0a),
+      linear-gradient(270deg, #00ffff, #00ff00, #ffff00, #ff00ff, #00ffff);
+  }
+  100% {
+    background-image: 
+      linear-gradient(#0a0a0a, #0a0a0a),
+      linear-gradient(360deg, #00ffff, #00ff00, #ffff00, #ff00ff, #00ffff);
+  }
+}
+
 /* Icon hover ohne Transform-Konflikte */
 .milestone-wrapper:hover .milestone-circle {
   scale: 1.15;
