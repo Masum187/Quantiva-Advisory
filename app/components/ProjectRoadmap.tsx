@@ -31,7 +31,8 @@ const ProjectRoadmap = () => {
       description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse',
       color: 'purple',
       position: { top: '20%', left: '-5%' },
-      angle: 30
+      angle: 30,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762166973/35dcb90e-f046-431f-9552-57e85f45d53b_h62a0i.jpg'
     },
     {
       id: '03',
