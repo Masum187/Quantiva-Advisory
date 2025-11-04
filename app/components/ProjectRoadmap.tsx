@@ -91,6 +91,14 @@ const ProjectRoadmap = () => {
     <div className="roadmap-wrapper">
       {/* Animated Background */}
       <div className="animated-bg">
+        <div className="cube-container">
+          <div className="cube-3d"></div>
+          <div className="cube-3d"></div>
+          <div className="cube-3d"></div>
+          <div className="cube-3d"></div>
+          <div className="cube-3d"></div>
+          <div className="cube-3d"></div>
+        </div>
         <div className="bg-sphere sphere-1"></div>
         <div className="bg-sphere sphere-2"></div>
         <div className="bg-sphere sphere-3"></div>
