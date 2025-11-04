@@ -22,7 +22,8 @@ const ProjectRoadmap = () => {
       description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration',
       color: 'teal',
       position: { top: '-5%', left: '5%' },
-      angle: -20
+      angle: -20,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762285982/f213ad3c-ec49-431c-9304-acd5c2d43a53_ebiuch.jpg'
     },
     {
       id: '02',
