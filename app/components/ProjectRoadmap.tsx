@@ -26,6 +26,66 @@ const ProjectRoadmap = () => {
     }
   }, [cardHovered, activeIndex, openedIndex]);
 
+  // Team members data - mapped to projects
+  const teamMembers = [
+    {
+      id: 1,
+      name: 'Gülnur Patan',
+      role: 'CEO & Gründerin',
+      image: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1760346416/image3_l0nj0f.jpg',
+      projectIndex: 0, // FlowGrid OS
+      projectStory: 'FlowGrid OS ist unsere Vision für die Zukunft der Teamkollaboration. Mit KI-gestützten Workflows revolutionieren wir, wie Teams zusammenarbeiten und komplexe Projekte effizient umsetzen. Als CEO sehe ich täglich, wie diese Plattform Unternehmen dabei hilft, ihre Produktivität zu steigern und Innovationen voranzutreiben.'
+    },
+    {
+      id: 2,
+      name: 'Dr. Michael Weber',
+      role: 'CTO & Technischer Leiter',
+      image: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1760221471/generated-image_30_r8cjtq.png',
+      projectIndex: 1, // OrchestIQ
+      projectStory: 'OrchestIQ setzt neue Maßstäbe in der Business Process Automation. Unsere intelligente Orchestrierungsplattform ermöglicht es Unternehmen, komplexe Prozesse nahtlos zu automatisieren und zu optimieren. Als CTO habe ich die technische Architektur entwickelt, die es ermöglicht, tausende von Prozessen gleichzeitig zu orchestrieren.'
+    },
+    {
+      id: 3,
+      name: 'Francja Albertijn',
+      role: 'Strategieberaterin',
+      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=300&auto=format&fit=crop',
+      projectIndex: 2, // Proofroom
+      projectStory: 'Proofroom transformiert Sales Enablement durch KI. Unsere Plattform hilft Sales-Teams, bessere Pitches zu erstellen und Conversion-Raten signifikant zu steigern. Mit meiner strategischen Expertise habe ich dabei geholfen, die Customer Journey zu optimieren und die ROI unserer Kunden zu maximieren.'
+    },
+    {
+      id: 4,
+      name: 'Roseness Simmons',
+      role: 'Technologieberaterin',
+      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=300&auto=format&fit=crop',
+      projectIndex: 3, // SkillLedger
+      projectStory: 'SkillLedger revolutioniert das Bildungsmanagement. Mit KI-gestützten Analytics können Bildungseinrichtungen personalisierte Lernpfade erstellen und den Lernerfolg maximieren. Als Technologieberaterin habe ich die Integration verschiedener Lernplattformen geleitet und sichergestellt, dass die Lösung nahtlos funktioniert.'
+    },
+    {
+      id: 5,
+      name: 'Emmanuel Di Invideo',
+      role: 'Datenanalyst',
+      image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=300&auto=format&fit=crop',
+      projectIndex: 4, // Verisprint
+      projectStory: 'Verisprint nutzt KI, um Recruiting zu revolutionieren. Unsere Plattform findet die perfekten Kandidaten durch intelligentes Matching und automatisiert den gesamten Recruiting-Prozess. Mit meiner Expertise in Datenanalyse habe ich die Algorithmen entwickelt, die die Genauigkeit unserer Matching-Prozesse auf über 95% erhöht haben.'
+    },
+    {
+      id: 6,
+      name: 'Leonett Andrew',
+      role: 'Prozessberater',
+      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=300&auto=format&fit=crop',
+      projectIndex: 5, // ShiftGate AI
+      projectStory: 'ShiftGate AI ist unsere Antwort auf moderne Sicherheitsherausforderungen. Mit KI-gestützter Bedrohungserkennung schützen wir Unternehmen vor Cyber-Angriffen in Echtzeit. Als Prozessberater habe ich die Sicherheitsprozesse optimiert und dafür gesorgt, dass die Lösung auch in komplexen Enterprise-Umgebungen nahtlos funktioniert.'
+    },
+    {
+      id: 7,
+      name: 'Michael Chen',
+      role: 'IT-Architekt',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      projectIndex: 6, // SoftCheck
+      projectStory: 'SoftCheck automatisiert Quality Assurance durch KI. Unser System findet Bugs schneller, testet umfassender und stellt sicher, dass nur qualitativ hochwertige Software ausgeliefert wird. Als IT-Architekt habe ich die skalierbare Infrastruktur entwickelt, die es ermöglicht, Millionen von Tests parallel durchzuführen.'
+    }
+  ];
+
   const milestones = [
     {
       id: '01',
@@ -278,6 +338,42 @@ const ProjectRoadmap = () => {
             </motion.h2>
           </div>
 
+          {/* Team Members around Slogan */}
+          {teamMembers.map((member, index) => {
+            const teamAngle = (index * 360 / 7);
+            const teamAngleRad = (teamAngle * Math.PI) / 180;
+            const teamDistance = 160; // Closer to center than projects
+            
+            return (
+              <motion.div
+                key={member.id}
+                className="team-member-wrapper"
+                style={{
+                  '--team-angle': `${teamAngle}deg`,
+                  '--team-distance': `${teamDistance}px`
+                } as React.CSSProperties}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  opacity: { duration: 0.6, delay: 1.5 + index * 0.1 },
+                  scale: { duration: 0.6, delay: 1.5 + index * 0.1 }
+                }}
+              >
+                <div className="team-member-circle">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    width={80}
+                    height={80}
+                    className="team-member-image"
+                    unoptimized
+                    priority={index < 3}
+                  />
+                </div>
+              </motion.div>
+            );
+          })}
+
           {/* 3D Project Detail Card */}
           {openedIndex !== null && (() => {
             const milestone = milestones[openedIndex];
@@ -354,6 +450,33 @@ const ProjectRoadmap = () => {
                   </button>
                   <h3 className="card-title">{milestone.title}</h3>
                   <p className="card-description">{milestone.description}</p>
+                  
+                  {/* Team Member Info */}
+                  {(() => {
+                    const teamMember = teamMembers.find(m => m.projectIndex === openedIndex);
+                    if (teamMember) {
+                      return (
+                        <div className="card-team-section">
+                          <div className="team-member-info">
+                            <Image
+                              src={teamMember.image}
+                              alt={teamMember.name}
+                              width={50}
+                              height={50}
+                              className="team-member-avatar"
+                            />
+                            <div className="team-member-details">
+                              <h4 className="team-member-name">{teamMember.name}</h4>
+                              <p className="team-member-role">{teamMember.role}</p>
+                            </div>
+                          </div>
+                          <p className="team-member-story">{teamMember.projectStory}</p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
+                  
                   <div className="card-footer">
                     <motion.button
                       className="card-button"
