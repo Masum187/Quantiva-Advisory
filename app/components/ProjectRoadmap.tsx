@@ -9,11 +9,22 @@ import './ProjectRoadmap.css';
 const ProjectRoadmap = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [openedIndex, setOpenedIndex] = useState<number | null>(null);
+  const [cardHovered, setCardHovered] = useState(false);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     setIsInView(true);
   }, []);
+
+  // Close card when cursor leaves it (with smoke effect)
+  useEffect(() => {
+    if (openedIndex !== null && !cardHovered && activeIndex !== openedIndex) {
+      const timer = setTimeout(() => {
+        setOpenedIndex(null);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [cardHovered, activeIndex, openedIndex]);
 
   const milestones = [
     {
@@ -273,7 +284,8 @@ const ProjectRoadmap = () => {
             const angle = (openedIndex * 360 / 7);
             const angleRad = (angle * Math.PI) / 180;
             const isLeftSide = angle > 90 && angle < 270;
-            const cardDistance = 420;
+            // Position card above the logo (same angle, but closer to center)
+            const cardDistance = 280; // Closer to center than logo
             const cardX = Math.sin(angleRad) * cardDistance;
             const cardY = -Math.cos(angleRad) * cardDistance;
             
@@ -282,28 +294,41 @@ const ProjectRoadmap = () => {
                 className="project-detail-card"
                 initial={{ 
                   opacity: 0, 
-                  scale: 0.5,
-                  rotateY: isLeftSide ? -90 : 90,
-                  x: cardX + (isLeftSide ? -100 : 100),
-                  y: cardY
+                  scale: 0.3,
+                  rotateY: isLeftSide ? -120 : 120,
+                  rotateX: -30,
+                  x: cardX,
+                  y: cardY - 100,
+                  z: -200,
+                  filter: 'blur(20px)'
                 }}
                 animate={{ 
-                  opacity: 1, 
+                  opacity: cardHovered ? 1 : 0.95, 
                   scale: 1,
                   rotateY: 0,
+                  rotateX: 0,
                   x: cardX,
-                  y: cardY
+                  y: cardY,
+                  z: 0,
+                  filter: 'blur(0px)'
                 }}
                 exit={{ 
                   opacity: 0, 
                   scale: 0.5,
-                  rotateY: isLeftSide ? -90 : 90
+                  rotateY: isLeftSide ? -90 : 90,
+                  rotateX: 30,
+                  y: cardY - 50,
+                  z: -100,
+                  filter: 'blur(15px)'
                 }}
                 transition={{ 
                   type: "spring",
-                  stiffness: 200,
-                  damping: 20
+                  stiffness: 150,
+                  damping: 15,
+                  mass: 0.8
                 }}
+                onMouseEnter={() => setCardHovered(true)}
+                onMouseLeave={() => setCardHovered(false)}
                 style={{
                   '--card-angle': `${angle}deg`,
                   '--card-distance': `${cardDistance}px`,
@@ -311,6 +336,13 @@ const ProjectRoadmap = () => {
                 } as React.CSSProperties}
               >
                 <div className="card-content">
+                  {/* Smoke particles effect */}
+                  <div className="smoke-particles">
+                    {[...Array(8)].map((_, i) => (
+                      <div key={i} className={`smoke-particle smoke-${i + 1}`}></div>
+                    ))}
+                  </div>
+                  
                   <button 
                     className="card-close"
                     onClick={(e) => {
