@@ -86,6 +86,42 @@ const ProjectRoadmap = () => {
     }
   ];
 
+  // Project Stats for Cards
+  const projectStats = [
+    {
+      id: '01',
+      title: 'FlowGrid OS',
+      description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration. Unsere Plattform revolutioniert die Art und Weise, wie Teams zusammenarbeiten und komplexe Projekte effizient umsetzen.',
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762285982/f213ad3c-ec49-431c-9304-acd5c2d43a53_ebiuch.jpg',
+      statValue: '50K+',
+      statLabel: 'tägliche Nutzer'
+    },
+    {
+      id: '02',
+      title: 'OrchestIQ',
+      description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse. Unsere Plattform ermöglicht es Unternehmen, komplexe Prozesse nahtlos zu automatisieren und zu optimieren.',
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762166973/35dcb90e-f046-431f-9552-57e85f45d53b_h62a0i.jpg',
+      statValue: '10K+',
+      statLabel: 'automatisierte Prozesse'
+    },
+    {
+      id: '03',
+      title: 'Proofroom',
+      description: 'AI-gestützte Sales Enablement & Marketing Automation für höhere Conversion. Unsere Plattform hilft Sales-Teams, bessere Pitches zu erstellen und Conversion-Raten signifikant zu steigern.',
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762182285/808a4e4c-d7d3-4ad2-90b8-afc74b3f3cb5_ygvgxq.jpg',
+      statValue: '35%',
+      statLabel: 'höhere Conversion'
+    },
+    {
+      id: '04',
+      title: 'SkillLedger',
+      description: 'Intelligentes Schulmanagement & Learning Analytics für personalisierte Bildung. Unsere Plattform ermöglicht Bildungseinrichtungen, personalisierte Lernpfade zu erstellen und den Lernerfolg zu maximieren.',
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762183140/afadxeax39xcaj5utiy0.jpg',
+      statValue: '25K+',
+      statLabel: 'Lernende'
+    }
+  ];
+
   const milestones = [
     {
       id: '01',
@@ -177,6 +213,41 @@ const ProjectRoadmap = () => {
       </div>
 
       <div className="roadmap-container">
+        {/* Project Stats Cards Section */}
+        <section className="project-stats-section">
+          <div className="project-stats-grid">
+            {projectStats.map((project, index) => (
+              <motion.div
+                key={project.id}
+                className="project-stat-card"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                whileHover={{ y: -5, transition: { duration: 0.3 } }}
+              >
+                <div className="project-stat-header">
+                  <div className="project-stat-logo">
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.title}
+                      width={40}
+                      height={40}
+                      className="project-stat-logo-image"
+                      unoptimized
+                    />
+                  </div>
+                  <h3 className="project-stat-title">{project.title}</h3>
+                </div>
+                <p className="project-stat-description">{project.description}</p>
+                <div className="project-stat-footer">
+                  <span className="project-stat-value">{project.statValue}</span>
+                  <span className="project-stat-label">{project.statLabel}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
         {/* Header Section */}
         <div className="roadmap-header">
           <div className="header-icon">
