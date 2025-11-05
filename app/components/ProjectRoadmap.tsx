@@ -8,6 +8,7 @@ import './ProjectRoadmap.css';
 
 const ProjectRoadmap = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [openedIndex, setOpenedIndex] = useState<number | null>(null);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
@@ -146,11 +147,11 @@ const ProjectRoadmap = () => {
           <motion.div
             className="rotating-wrapper"
             animate={{
-              rotate: [0, 360]
+              rotate: activeIndex !== null ? undefined : [0, 360]
             }}
             transition={{
               duration: 40,
-              repeat: Infinity,
+              repeat: activeIndex !== null ? 0 : Infinity,
               ease: "linear"
             }}
           >
@@ -214,15 +215,20 @@ const ProjectRoadmap = () => {
                   }}
                   onMouseEnter={() => setActiveIndex(index)}
                   onMouseLeave={() => setActiveIndex(null)}
+                  onClick={() => setOpenedIndex(openedIndex === index ? null : index)}
                 >
                   {/* Milestone Circle */}
                   <motion.div
                     className={`milestone-circle ${milestone.color}`}
                     animate={{
-                      rotate: [0, -360]
+                      rotate: activeIndex === index ? 0 : [0, -360]
                     }}
                     transition={{
-                      rotate: { duration: 40, repeat: Infinity, ease: "linear" }
+                      rotate: { 
+                        duration: activeIndex === index ? 0 : 40, 
+                        repeat: activeIndex === index ? 0 : Infinity, 
+                        ease: "linear" 
+                      }
                     }}
                   >
                     {milestone.imageUrl ? (
@@ -260,6 +266,76 @@ const ProjectRoadmap = () => {
               <span className="slogan-highlight">Innovation</span>
             </motion.h2>
           </div>
+
+          {/* 3D Project Detail Card */}
+          {openedIndex !== null && (() => {
+            const milestone = milestones[openedIndex];
+            const angle = (openedIndex * 360 / 7);
+            const angleRad = (angle * Math.PI) / 180;
+            const isLeftSide = angle > 90 && angle < 270;
+            const cardDistance = 420;
+            const cardX = Math.sin(angleRad) * cardDistance;
+            const cardY = -Math.cos(angleRad) * cardDistance;
+            
+            return (
+              <motion.div
+                className="project-detail-card"
+                initial={{ 
+                  opacity: 0, 
+                  scale: 0.5,
+                  rotateY: isLeftSide ? -90 : 90,
+                  x: cardX + (isLeftSide ? -100 : 100),
+                  y: cardY
+                }}
+                animate={{ 
+                  opacity: 1, 
+                  scale: 1,
+                  rotateY: 0,
+                  x: cardX,
+                  y: cardY
+                }}
+                exit={{ 
+                  opacity: 0, 
+                  scale: 0.5,
+                  rotateY: isLeftSide ? -90 : 90
+                }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 20
+                }}
+                style={{
+                  '--card-angle': `${angle}deg`,
+                  '--card-distance': `${cardDistance}px`,
+                  '--card-side': isLeftSide ? 'left' : 'right'
+                } as React.CSSProperties}
+              >
+                <div className="card-content">
+                  <button 
+                    className="card-close"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenedIndex(null);
+                    }}
+                  >
+                    ×
+                  </button>
+                  <h3 className="card-title">{milestone.title}</h3>
+                  <p className="card-description">{milestone.description}</p>
+                  <div className="card-footer">
+                    <motion.button
+                      className="card-button"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Mehr erfahren
+                      <ArrowRight size={16} />
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })()}
         </div>
 
         {/* Bottom CTA Section */}
