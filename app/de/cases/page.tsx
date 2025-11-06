@@ -184,9 +184,15 @@ export default function CasesPage() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto"
+                  onClick={() => {
+                    const projectSection = document.querySelector('.project-stats-section');
+                    if (projectSection) {
+                      projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className="px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto uppercase tracking-wide"
                 >
-                  GO TO CASE STUDIES
+                  GO TO PROJECTS
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </motion.div>
