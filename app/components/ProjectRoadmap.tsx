@@ -92,47 +92,82 @@ const ProjectRoadmap = () => {
     }
   ];
 
-  // Project Stats for Cards
-  const projectStats = [
+  // Focus Areas for Cards
+  const focusAreas = [
     {
       id: '01',
-      title: 'FlowGrid OS',
-      description: 'AI-powered Collaboration Platform & Workflow Automation für intelligente Teamkollaboration. Unsere Plattform revolutioniert die Art und Weise, wie Teams zusammenarbeiten und komplexe Projekte effizient umsetzen.',
-      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762285982/f213ad3c-ec49-431c-9304-acd5c2d43a53_ebiuch.jpg',
-      statValue: '50K+',
-      statLabel: 'tägliche Nutzer'
+      title: 'Vertrieb',
+      subtitle: 'der umsatzstarke Copilot',
+      features: [
+        'Opportunity-Intelligence: Priorisierung nach Abschlusswahrscheinlichkeit und Marge.',
+        'Next-Best-Action: KI-gestützte Empfehlungen für Kontakt, Kanal und Timing.',
+        'Content-AutoCraft: passgenaue E-Mails, Pitches und Angebote – markenkonform und rechtssicher.'
+      ],
+      icon: Target
     },
     {
       id: '02',
-      title: 'OrchestIQ',
-      description: 'Intelligente Automatisierung & Business Process Orchestration für effiziente Prozesse. Unsere Plattform ermöglicht es Unternehmen, komplexe Prozesse nahtlos zu automatisieren und zu optimieren.',
-      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762166973/35dcb90e-f046-431f-9552-57e85f45d53b_h62a0i.jpg',
-      statValue: '10K+',
-      statLabel: 'automatisierte Prozesse'
+      title: 'Workflow-Management',
+      subtitle: 'der Orchestrator für Teams und Tools',
+      features: [
+        'Automatisierte Prozessketten: von Anfrage bis Abrechnung, systemübergreifend.',
+        'Agenten statt Workarounds: KI-Assistenten, die Daten beschaffen, prüfen und übergeben.',
+        'Transparenz by Design: End-to-End-Monitoring, KPI-Dashboards und Audit-Trails.'
+      ],
+      icon: Bot
     },
     {
       id: '03',
-      title: 'Proofroom',
-      description: 'AI-gestützte Sales Enablement & Marketing Automation für höhere Conversion. Unsere Plattform hilft Sales-Teams, bessere Pitches zu erstellen und Conversion-Raten signifikant zu steigern.',
-      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762182285/808a4e4c-d7d3-4ad2-90b8-afc74b3f3cb5_ygvgxq.jpg',
-      statValue: '35%',
-      statLabel: 'höhere Conversion'
+      title: 'Learning',
+      subtitle: 'der adaptive Kompetenz-Companion',
+      features: [
+        'Rollenbasiertes Upskilling: Lernpfade, die sich an Zielen und Projekten ausrichten.',
+        'On-the-Job-Coaching: Antworten im Kontext realer Aufgaben statt abstrakter Kurse.',
+        'Wissenssicherung: Unternehmenswissen wird auffindbar, aktuell und wiederverwendbar.'
+      ],
+      icon: Brain
+    }
+  ];
+
+  // Timeline Data
+  const timelineData = [
+    {
+      year: '2025',
+      title: 'Validieren & Beschleunigen',
+      items: [
+        '5–10 Pilotprojekte in Vertrieb, Operations und HR',
+        'Messbare Outcomes (z. B. Conversion, Durchlaufzeit, Time-to-Productivity)',
+        'Open-Interfaces, Security & Governance als Standard'
+      ]
     },
     {
-      id: '04',
-      title: 'SkillLedger',
-      description: 'Intelligentes Schulmanagement & Learning Analytics für personalisierte Bildung. Unsere Plattform ermöglicht Bildungseinrichtungen, personalisierte Lernpfade zu erstellen und den Lernerfolg zu maximieren.',
-      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762183140/afadxeax39xcaj5utiy0.jpg',
-      statValue: '25K+',
-      statLabel: 'Lernende'
+      year: '2026',
+      title: 'Skalieren & Markteinführung',
+      items: [
+        'Produktisierte Module („Copilot", „Orchestrator", „Learning Companion")',
+        'Marketplace-Bereitstellung & Partner-Ökosystem',
+        'Rollouts mit Erfolgsgarantien auf Basis klarer KPIs'
+      ]
+    }
+  ];
+
+  // Principles Data
+  const principles = [
+    {
+      title: 'Datenschutz & Souveränität',
+      description: 'EU-konforme Verarbeitung, Datenhoheit bleibt beim Kunden.'
     },
     {
-      id: '05',
-      title: 'DataVault AI',
-      description: 'KI-gestützte Datenverwaltung & Analytics Platform für intelligente Datenanalyse und -speicherung. Unsere Lösung ermöglicht es Unternehmen, große Datenmengen effizient zu verwalten und wertvolle Insights zu generieren.',
-      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762421820/ickdffvwgns0gn7jfehn.jpg',
-      statValue: '100TB+',
-      statLabel: 'verwaltete Daten'
+      title: 'Interoperabilität',
+      description: 'Offene Schnittstellen zu CRM, ERP, ITSM & Collaboration-Tools.'
+    },
+    {
+      title: 'Responsible AI',
+      description: 'Transparenz, Fairness, menschliche Kontrolle – von Anfang an.'
+    },
+    {
+      title: 'Time-to-Value',
+      description: 'Wochen statt Monate – schnelle MVPs, iterative Releases.'
     }
   ];
 
@@ -237,39 +272,139 @@ const ProjectRoadmap = () => {
       </div>
 
       <div className="roadmap-container">
-        {/* Project Stats Cards Section */}
-        <section className="project-stats-section">
-          <div className="project-stats-grid">
-            {projectStats.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="project-stat-card"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                whileHover={{ y: -5, transition: { duration: 0.3 } }}
-              >
-                <div className="project-stat-header">
-                  <div className="project-stat-logo">
-                    <Image
-                      src={project.imageUrl}
-                      alt={project.title}
-                      width={40}
-                      height={40}
-                      className="project-stat-logo-image"
-                      unoptimized
-                    />
-                  </div>
-                  <h3 className="project-stat-title">{project.title}</h3>
-                </div>
-                <p className="project-stat-description">{project.description}</p>
-                <div className="project-stat-footer">
-                  <span className="project-stat-value">{project.statValue}</span>
-                  <span className="project-stat-label">{project.statLabel}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        {/* Hero Section */}
+        <section className="quantiva-hero-section">
+          <motion.div
+            className="hero-content"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="hero-title">
+              Quantiva Advisory – Wir bauen KI-Produkte, nicht nur PowerPoints
+            </h1>
+            <p className="hero-subtitle">
+              Wir beraten nicht nur in KI – wir entwickeln sie.
+            </p>
+            <p className="hero-description">
+              Quantiva Advisory treibt eigene, marktreife KI-Lösungen voran und bringt sie bis Ende 2026 in den produktiven Einsatz. Unser Anspruch: Geschäftsprozesse neu denken – vom Vertrieb über Workflow-Management bis hin zu Learning – und daraus messbaren Nutzen schaffen.
+            </p>
+          </motion.div>
+
+          {/* Mission Section */}
+          <motion.div
+            className="mission-section"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h2 className="mission-title">Unsere Mission</h2>
+            <p className="mission-text">
+              Wir verbinden strategische Beratung mit echter Produktentwicklung. Gemeinsam mit Pilotkunden entwickeln wir KI-Bausteine, die sich nahtlos in bestehende Systeme integrieren, Datenschutz respektieren und schnell Wert stiften.
+            </p>
+          </motion.div>
+
+          {/* Focus Areas Section */}
+          <section className="focus-areas-section">
+            <motion.h2
+              className="focus-areas-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Drei Fokusfelder, neu gedacht
+            </motion.h2>
+            <div className="focus-areas-grid">
+              {focusAreas.map((area, index) => {
+                const Icon = area.icon;
+                return (
+                  <motion.div
+                    key={area.id}
+                    className="focus-area-card"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                    whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                  >
+                    <div className="focus-area-header">
+                      <div className="focus-area-icon">
+                        <Icon size={32} />
+                      </div>
+                      <div>
+                        <h3 className="focus-area-title">{area.title}</h3>
+                        <p className="focus-area-subtitle">{area.subtitle}</p>
+                      </div>
+                    </div>
+                    <ul className="focus-area-features">
+                      {area.features.map((feature, idx) => (
+                        <li key={idx} className="focus-area-feature">
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Timeline Section */}
+          <section className="timeline-section">
+            <motion.h2
+              className="timeline-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              Unser Weg bis Ende 2026
+            </motion.h2>
+            <div className="timeline-grid">
+              {timelineData.map((timeline, index) => (
+                <motion.div
+                  key={timeline.year}
+                  className="timeline-card"
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.9 + index * 0.1 }}
+                >
+                  <div className="timeline-year">{timeline.year}</div>
+                  <h3 className="timeline-card-title">{timeline.title}</h3>
+                  <ul className="timeline-items">
+                    {timeline.items.map((item, idx) => (
+                      <li key={idx} className="timeline-item">{item}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Principles Section */}
+          <section className="principles-section">
+            <motion.h2
+              className="principles-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1 }}
+            >
+              Prinzipien, die wir nicht verhandeln
+            </motion.h2>
+            <div className="principles-grid">
+              {principles.map((principle, index) => (
+                <motion.div
+                  key={index}
+                  className="principle-card"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                >
+                  <h4 className="principle-title">{principle.title}</h4>
+                  <p className="principle-description">{principle.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
         </section>
 
         {/* Separator between Project Stats and Roadmap Header */}
