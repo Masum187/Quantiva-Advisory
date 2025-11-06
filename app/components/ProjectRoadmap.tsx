@@ -325,74 +325,67 @@ const ProjectRoadmap = () => {
               ease: "linear"
             }}
           >
-            {/* Circular Track with Connection Lines */}
+            {/* Connection Lines from Center to Projects */}
             <div className="circular-track">
               <svg className="roadmap-circle" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  <linearGradient id="trackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(6, 182, 212, 0.6)" />
-                    <stop offset="50%" stopColor="rgba(168, 85, 247, 0.6)" />
-                    <stop offset="100%" stopColor="rgba(236, 72, 153, 0.6)" />
-                  </linearGradient>
                   <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(6, 182, 212, 0.8)" />
+                    <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
+                    <stop offset="50%" stopColor="rgba(6, 182, 212, 0.8)" />
                     <stop offset="100%" stopColor="rgba(168, 85, 247, 0.8)" />
                   </linearGradient>
                   <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
                     <feMerge>
                       <feMergeNode in="coloredBlur"/>
                       <feMergeNode in="SourceGraphic"/>
                     </feMerge>
                   </filter>
+                  <marker
+                    id="arrowhead-connection"
+                    markerWidth="10"
+                    markerHeight="10"
+                    refX="9"
+                    refY="3"
+                    orient="auto"
+                  >
+                    <polygon
+                      points="0 0, 10 3, 0 6"
+                      fill="rgba(168, 85, 247, 0.9)"
+                    />
+                  </marker>
                 </defs>
-                {/* Connection lines between projects */}
+                {/* Connection lines from center to each project */}
                 {milestones.slice(0, 8).map((_, index) => {
-                  const angle1 = (index * 360 / 8) * Math.PI / 180;
-                  const angle2 = ((index + 1) * 360 / 8) * Math.PI / 180;
-                  const radius = 360;
-                  const x1 = 450 + Math.sin(angle1) * radius;
-                  const y1 = 450 - Math.cos(angle1) * radius;
-                  const x2 = 450 + Math.sin(angle2) * radius;
-                  const y2 = 450 - Math.cos(angle2) * radius;
+                  const angle = (index * 360 / 8) * Math.PI / 180;
+                  const centerX = 450;
+                  const centerY = 450;
+                  const centerRadius = 100; // Radius of center circle
+                  const projectRadius = 360; // Distance to projects
+                  
+                  // Start from center circle edge
+                  const startX = centerX + Math.sin(angle) * centerRadius;
+                  const startY = centerY - Math.cos(angle) * centerRadius;
+                  
+                  // End at project circle edge
+                  const endX = centerX + Math.sin(angle) * projectRadius;
+                  const endY = centerY - Math.cos(angle) * projectRadius;
                   
                   return (
-                    <line
-                      key={`connection-${index}`}
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                      stroke="url(#connectionGradient)"
-                      strokeWidth="2"
-                      strokeDasharray="5 5"
-                      opacity="0.5"
-                      filter="url(#glow)"
-                    />
+                    <g key={`center-connection-${index}`}>
+                      <line
+                        x1={startX}
+                        y1={startY}
+                        x2={endX}
+                        y2={endY}
+                        stroke="url(#connectionGradient)"
+                        strokeWidth="3"
+                        filter="url(#glow)"
+                        markerEnd="url(#arrowhead-connection)"
+                      />
+                    </g>
                   );
                 })}
-                {/* Main circular path */}
-                <circle
-                  cx="450"
-                  cy="450"
-                  r="360"
-                  fill="none"
-                  stroke="url(#trackGradient)"
-                  strokeWidth="8"
-                  strokeDasharray="20 10"
-                  className="road-path"
-                />
-                {/* Center dashed line */}
-                <circle
-                  cx="450"
-                  cy="450"
-                  r="360"
-                  fill="none"
-                  stroke="rgba(168, 85, 247, 0.8)"
-                  strokeWidth="3"
-                  strokeDasharray="12 8"
-                  className="center-line"
-                />
               </svg>
             </div>
 
