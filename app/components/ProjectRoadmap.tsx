@@ -11,8 +11,19 @@ const ProjectRoadmap = () => {
   const [cardHovered, setCardHovered] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const missionRef = useRef<HTMLDivElement>(null);
+  const focusAreasRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const principlesRef = useRef<HTMLDivElement>(null);
+  
   const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
+  const heroInView = useInView(heroRef, { once: true, amount: 0.2 });
+  const missionInView = useInView(missionRef, { once: true, amount: 0.3 });
+  const focusAreasInView = useInView(focusAreasRef, { once: true, amount: 0.2 });
+  const timelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
+  const principlesInView = useInView(principlesRef, { once: true, amount: 0.2 });
 
   // Close card when cursor leaves it (with smoke effect)
   useEffect(() => {
@@ -273,44 +284,127 @@ const ProjectRoadmap = () => {
 
       <div className="roadmap-container">
         {/* Hero Section */}
-        <section className="quantiva-hero-section">
+        <section className="quantiva-hero-section" ref={heroRef}>
           <motion.div
             className="hero-content"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 100, rotateX: -20, scale: 0.8 }}
+            animate={heroInView ? { 
+              opacity: 1, 
+              y: 0, 
+              rotateX: 0, 
+              scale: 1,
+              transition: { 
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                mass: 1
+              }
+            } : {}}
+            style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
           >
-            <h1 className="hero-title">
+            <motion.h1 
+              className="hero-title"
+              initial={{ opacity: 0, y: 50, rotateY: -30 }}
+              animate={heroInView ? { 
+                opacity: 1, 
+                y: 0, 
+                rotateY: 0,
+                transition: { delay: 0.2, type: "spring", stiffness: 80 }
+              } : {}}
+            >
               Quantiva Advisory – Wir bauen KI-Produkte, nicht nur PowerPoints
-            </h1>
-            <p className="hero-subtitle">
+            </motion.h1>
+            <motion.p 
+              className="hero-subtitle"
+              initial={{ opacity: 0, y: 30, rotateX: 15 }}
+              animate={heroInView ? { 
+                opacity: 1, 
+                y: 0, 
+                rotateX: 0,
+                transition: { delay: 0.4, type: "spring", stiffness: 80 }
+              } : {}}
+            >
               Wir beraten nicht nur in KI – wir entwickeln sie.
-            </p>
-            <p className="hero-description">
+            </motion.p>
+            <motion.p 
+              className="hero-description"
+              initial={{ opacity: 0, y: 30, rotateX: 10 }}
+              animate={heroInView ? { 
+                opacity: 1, 
+                y: 0, 
+                rotateX: 0,
+                transition: { delay: 0.6, type: "spring", stiffness: 80 }
+              } : {}}
+            >
               Quantiva Advisory treibt eigene, marktreife KI-Lösungen voran und bringt sie bis Ende 2026 in den produktiven Einsatz. Unser Anspruch: Geschäftsprozesse neu denken – vom Vertrieb über Workflow-Management bis hin zu Learning – und daraus messbaren Nutzen schaffen.
-            </p>
+            </motion.p>
           </motion.div>
 
           {/* Mission Section */}
           <motion.div
+            ref={missionRef}
             className="mission-section"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, y: 80, rotateX: 25, scale: 0.9 }}
+            animate={missionInView ? { 
+              opacity: 1, 
+              y: 0, 
+              rotateX: 0, 
+              scale: 1,
+              transition: { 
+                type: "spring",
+                stiffness: 90,
+                damping: 12
+              }
+            } : {}}
+            whileHover={{ 
+              rotateY: 2,
+              rotateX: -2,
+              scale: 1.02,
+              transition: { duration: 0.3 }
+            }}
+            style={{ transformStyle: 'preserve-3d' }}
           >
-            <h2 className="mission-title">Unsere Mission</h2>
-            <p className="mission-text">
+            <motion.h2 
+              className="mission-title"
+              initial={{ opacity: 0, scale: 0.8, rotateZ: -5 }}
+              animate={missionInView ? { 
+                opacity: 1, 
+                scale: 1, 
+                rotateZ: 0,
+                transition: { delay: 0.2, type: "spring" }
+              } : {}}
+            >
+              Unsere Mission
+            </motion.h2>
+            <motion.p 
+              className="mission-text"
+              initial={{ opacity: 0, y: 20 }}
+              animate={missionInView ? { 
+                opacity: 1, 
+                y: 0,
+                transition: { delay: 0.4 }
+              } : {}}
+            >
               Wir verbinden strategische Beratung mit echter Produktentwicklung. Gemeinsam mit Pilotkunden entwickeln wir KI-Bausteine, die sich nahtlos in bestehende Systeme integrieren, Datenschutz respektieren und schnell Wert stiften.
-            </p>
+            </motion.p>
           </motion.div>
 
           {/* Focus Areas Section */}
-          <section className="focus-areas-section">
+          <section className="focus-areas-section" ref={focusAreasRef}>
             <motion.h2
               className="focus-areas-title"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              initial={{ opacity: 0, y: 50, rotateX: -30 }}
+              animate={focusAreasInView ? { 
+                opacity: 1, 
+                y: 0, 
+                rotateX: 0,
+                transition: { 
+                  type: "spring",
+                  stiffness: 100,
+                  delay: 0.2
+                }
+              } : {}}
+              style={{ transformStyle: 'preserve-3d' }}
             >
               Drei Fokusfelder, neu gedacht
             </motion.h2>
@@ -321,25 +415,74 @@ const ProjectRoadmap = () => {
                   <motion.div
                     key={area.id}
                     className="focus-area-card"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                    whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                    initial={{ 
+                      opacity: 0, 
+                      y: 100, 
+                      rotateX: -45,
+                      rotateY: index % 2 === 0 ? -20 : 20,
+                      scale: 0.7,
+                      z: -200
+                    }}
+                    animate={focusAreasInView ? { 
+                      opacity: 1, 
+                      y: 0, 
+                      rotateX: 0,
+                      rotateY: 0,
+                      scale: 1,
+                      z: 0,
+                      transition: { 
+                        type: "spring",
+                        stiffness: 80,
+                        damping: 12,
+                        delay: 0.3 + index * 0.15
+                      }
+                    } : {}}
+                    whileHover={{ 
+                      y: -20,
+                      rotateY: index % 2 === 0 ? 5 : -5,
+                      rotateX: -5,
+                      scale: 1.05,
+                      z: 50,
+                      transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                    }}
+                    style={{ transformStyle: 'preserve-3d' }}
                   >
-                    <div className="focus-area-header">
-                      <div className="focus-area-icon">
+                    <motion.div 
+                      className="focus-area-header"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <motion.div 
+                        className="focus-area-icon"
+                        whileHover={{ 
+                          rotateY: 360,
+                          rotateZ: 10,
+                          scale: 1.2,
+                          transition: { duration: 0.6 }
+                        }}
+                        style={{ transformStyle: 'preserve-3d' }}
+                      >
                         <Icon size={32} />
-                      </div>
+                      </motion.div>
                       <div>
                         <h3 className="focus-area-title">{area.title}</h3>
                         <p className="focus-area-subtitle">{area.subtitle}</p>
                       </div>
-                    </div>
+                    </motion.div>
                     <ul className="focus-area-features">
                       {area.features.map((feature, idx) => (
-                        <li key={idx} className="focus-area-feature">
+                        <motion.li 
+                          key={idx} 
+                          className="focus-area-feature"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={focusAreasInView ? { 
+                            opacity: 1, 
+                            x: 0,
+                            transition: { delay: 0.5 + index * 0.15 + idx * 0.1 }
+                          } : {}}
+                          whileHover={{ x: 10, scale: 1.02 }}
+                        >
                           {feature}
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
                   </motion.div>
@@ -349,12 +492,21 @@ const ProjectRoadmap = () => {
           </section>
 
           {/* Timeline Section */}
-          <section className="timeline-section">
+          <section className="timeline-section" ref={timelineRef}>
             <motion.h2
               className="timeline-title"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              initial={{ opacity: 0, y: 50, rotateX: -30 }}
+              animate={timelineInView ? { 
+                opacity: 1, 
+                y: 0, 
+                rotateX: 0,
+                transition: { 
+                  type: "spring",
+                  stiffness: 100,
+                  delay: 0.2
+                }
+              } : {}}
+              style={{ transformStyle: 'preserve-3d' }}
             >
               Unser Weg bis Ende 2026
             </motion.h2>
@@ -363,15 +515,61 @@ const ProjectRoadmap = () => {
                 <motion.div
                   key={timeline.year}
                   className="timeline-card"
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.9 + index * 0.1 }}
+                  initial={{ 
+                    opacity: 0, 
+                    x: index % 2 === 0 ? -150 : 150,
+                    rotateY: index % 2 === 0 ? -45 : 45,
+                    scale: 0.8,
+                    z: -300
+                  }}
+                  animate={timelineInView ? { 
+                    opacity: 1, 
+                    x: 0, 
+                    rotateY: 0,
+                    scale: 1,
+                    z: 0,
+                    transition: { 
+                      type: "spring",
+                      stiffness: 70,
+                      damping: 15,
+                      delay: 0.3 + index * 0.2
+                    }
+                  } : {}}
+                  whileHover={{ 
+                    rotateY: index % 2 === 0 ? 8 : -8,
+                    rotateX: -5,
+                    scale: 1.05,
+                    z: 80,
+                    transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                  }}
+                  style={{ transformStyle: 'preserve-3d' }}
                 >
-                  <div className="timeline-year">{timeline.year}</div>
+                  <motion.div 
+                    className="timeline-year"
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotateZ: 5,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    {timeline.year}
+                  </motion.div>
                   <h3 className="timeline-card-title">{timeline.title}</h3>
                   <ul className="timeline-items">
                     {timeline.items.map((item, idx) => (
-                      <li key={idx} className="timeline-item">{item}</li>
+                      <motion.li 
+                        key={idx} 
+                        className="timeline-item"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={timelineInView ? { 
+                          opacity: 1, 
+                          x: 0,
+                          transition: { delay: 0.5 + index * 0.2 + idx * 0.1 }
+                        } : {}}
+                        whileHover={{ x: 10, scale: 1.05 }}
+                      >
+                        {item}
+                      </motion.li>
                     ))}
                   </ul>
                 </motion.div>
@@ -380,29 +578,80 @@ const ProjectRoadmap = () => {
           </section>
 
           {/* Principles Section */}
-          <section className="principles-section">
+          <section className="principles-section" ref={principlesRef}>
             <motion.h2
               className="principles-title"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.1 }}
+              initial={{ opacity: 0, y: 50, rotateX: -30 }}
+              animate={principlesInView ? { 
+                opacity: 1, 
+                y: 0, 
+                rotateX: 0,
+                transition: { 
+                  type: "spring",
+                  stiffness: 100,
+                  delay: 0.2
+                }
+              } : {}}
+              style={{ transformStyle: 'preserve-3d' }}
             >
               Prinzipien, die wir nicht verhandeln
             </motion.h2>
             <div className="principles-grid">
-              {principles.map((principle, index) => (
-                <motion.div
-                  key={index}
-                  className="principle-card"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
-                >
-                  <h4 className="principle-title">{principle.title}</h4>
-                  <p className="principle-description">{principle.description}</p>
-                </motion.div>
-              ))}
+              {principles.map((principle, index) => {
+                const row = Math.floor(index / 2);
+                const col = index % 2;
+                return (
+                  <motion.div
+                    key={index}
+                    className="principle-card"
+                    initial={{ 
+                      opacity: 0, 
+                      scale: 0.5,
+                      rotateX: -60,
+                      rotateY: col === 0 ? -30 : 30,
+                      z: -400
+                    }}
+                    animate={principlesInView ? { 
+                      opacity: 1, 
+                      scale: 1,
+                      rotateX: 0,
+                      rotateY: 0,
+                      z: 0,
+                      transition: { 
+                        type: "spring",
+                        stiffness: 80,
+                        damping: 12,
+                        delay: 0.3 + index * 0.12
+                      }
+                    } : {}}
+                    whileHover={{ 
+                      rotateY: col === 0 ? 10 : -10,
+                      rotateX: -8,
+                      scale: 1.08,
+                      z: 60,
+                      transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                    }}
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
+                    <motion.h4 
+                      className="principle-title"
+                      whileHover={{ scale: 1.1, x: 5 }}
+                    >
+                      {principle.title}
+                    </motion.h4>
+                    <motion.p 
+                      className="principle-description"
+                      initial={{ opacity: 0 }}
+                      animate={principlesInView ? { 
+                        opacity: 1,
+                        transition: { delay: 0.5 + index * 0.12 }
+                      } : {}}
+                    >
+                      {principle.description}
+                    </motion.p>
+                  </motion.div>
+                );
+              })}
             </div>
           </section>
         </section>
