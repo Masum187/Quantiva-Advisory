@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Zap, Brain, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, ClipboardList } from 'lucide-react';
+import { Zap, Brain, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, ClipboardList, Database } from 'lucide-react';
 import './ProjectRoadmap.css';
 
 const ProjectRoadmap = () => {
@@ -83,6 +83,14 @@ const ProjectRoadmap = () => {
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
       projectIndex: 6, // SoftCheck
       projectStory: 'SoftCheck automatisiert Quality Assurance durch KI. Unser System findet Bugs schneller, testet umfassender und stellt sicher, dass nur qualitativ hochwertige Software ausgeliefert wird. Als IT-Architekt habe ich die skalierbare Infrastruktur entwickelt, die es ermöglicht, Millionen von Tests parallel durchzuführen.'
+    },
+    {
+      id: 8,
+      name: 'Sarah Martinez',
+      role: 'Data Engineer',
+      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=300&auto=format&fit=crop',
+      projectIndex: 7, // DataVault AI
+      projectStory: 'DataVault AI revolutioniert die Art und Weise, wie Unternehmen ihre Daten verwalten und analysieren. Mit KI-gestützten Algorithmen können wir große Datenmengen in Echtzeit verarbeiten und wertvolle Insights generieren. Als Data Engineer habe ich die Infrastruktur entwickelt, die es ermöglicht, Petabytes von Daten sicher und effizient zu speichern und zu analysieren.'
     }
   ];
 
@@ -119,6 +127,14 @@ const ProjectRoadmap = () => {
       imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762183140/afadxeax39xcaj5utiy0.jpg',
       statValue: '25K+',
       statLabel: 'Lernende'
+    },
+    {
+      id: '05',
+      title: 'DataVault AI',
+      description: 'KI-gestützte Datenverwaltung & Analytics Platform für intelligente Datenanalyse und -speicherung. Unsere Lösung ermöglicht es Unternehmen, große Datenmengen effizient zu verwalten und wertvolle Insights zu generieren.',
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762421820/ickdffvwgns0gn7jfehn.jpg',
+      statValue: '100TB+',
+      statLabel: 'verwaltete Daten'
     }
   ];
 
@@ -192,6 +208,16 @@ const ProjectRoadmap = () => {
       position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '-120px' },
       angle: -45,
       imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762160270/e1cfed67-2f6a-4b57-9390-4d41d6975844_zgy0pq.jpg'
+    },
+    {
+      id: '08',
+      icon: Database,
+      title: 'DataVault AI',
+      description: 'KI-gestützte Datenverwaltung & Analytics Platform für intelligente Datenanalyse und -speicherung',
+      color: 'purple',
+      position: { bottom: '15%', left: '50%', transform: 'translateX(-50%)', offset: '0px' },
+      angle: 0,
+      imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762421820/ickdffvwgns0gn7jfehn.jpg'
     }
   ];
 
@@ -248,6 +274,9 @@ const ProjectRoadmap = () => {
           </div>
         </section>
 
+        {/* Separator between Project Stats and Roadmap Header */}
+        <div className="roadmap-separator"></div>
+
         {/* Header Section */}
         <div className="roadmap-header">
           <div className="header-icon">
@@ -267,7 +296,7 @@ const ProjectRoadmap = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="stat-item">
-              <span className="stat-number">7</span>
+              <span className="stat-number">8</span>
               <span className="stat-label">Projekte</span>
             </div>
             <div className="stat-divider"></div>
@@ -332,12 +361,12 @@ const ProjectRoadmap = () => {
             </div>
 
             {/* Milestones positioned around the circle */}
-            {milestones.slice(0, 7).map((milestone, index) => {
+            {milestones.slice(0, 8).map((milestone, index) => {
               const Icon = milestone.icon;
               const isActive = activeIndex === index;
               
-              // Calculate angle for positioning
-              const angle = (index * 360 / 7);
+              // Calculate angle for positioning (8 projects = 45 degrees each)
+              const angle = (index * 360 / 8);
               
               return (
                 <motion.div
@@ -411,7 +440,7 @@ const ProjectRoadmap = () => {
 
           {/* Team Members around Slogan */}
           {teamMembers.map((member, index) => {
-            const teamAngle = (index * 360 / 7);
+            const teamAngle = (index * 360 / 8);
             const teamAngleRad = (teamAngle * Math.PI) / 180;
             const teamDistance = 160; // Closer to center than projects
             
@@ -448,7 +477,7 @@ const ProjectRoadmap = () => {
           {/* 3D Project Detail Card */}
           {openedIndex !== null && (() => {
             const milestone = milestones[openedIndex];
-            const angle = (openedIndex * 360 / 7);
+            const angle = (openedIndex * 360 / 8);
             const angleRad = (angle * Math.PI) / 180;
             const isLeftSide = angle > 90 && angle < 270;
             // Position card above the logo (same angle, but closer to center)
