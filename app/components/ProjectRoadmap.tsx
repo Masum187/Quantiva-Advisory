@@ -7,7 +7,6 @@ import { Zap, Brain, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle
 import './ProjectRoadmap.css';
 
 const ProjectRoadmap = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [openedIndex, setOpenedIndex] = useState<number | null>(null);
   const [cardHovered, setCardHovered] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -18,13 +17,13 @@ const ProjectRoadmap = () => {
 
   // Close card when cursor leaves it (with smoke effect)
   useEffect(() => {
-    if (openedIndex !== null && !cardHovered && activeIndex !== openedIndex) {
+    if (openedIndex !== null && !cardHovered) {
       const timer = setTimeout(() => {
         setOpenedIndex(null);
-      }, 300);
+      }, 500);
       return () => clearTimeout(timer);
     }
-  }, [cardHovered, activeIndex, openedIndex]);
+  }, [cardHovered, openedIndex]);
 
   // Team members data - mapped to projects
   const teamMembers = [
@@ -318,23 +317,60 @@ const ProjectRoadmap = () => {
           <motion.div
             className="rotating-wrapper"
             animate={{
-              rotate: activeIndex !== null ? undefined : [0, 360]
+              rotate: openedIndex !== null ? undefined : [0, 360]
             }}
             transition={{
               duration: 40,
-              repeat: activeIndex !== null ? 0 : Infinity,
+              repeat: openedIndex !== null ? 0 : Infinity,
               ease: "linear"
             }}
           >
-            {/* Circular Track */}
+            {/* Circular Track with Connection Lines */}
             <div className="circular-track">
               <svg className="roadmap-circle" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="trackGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#4b5563" />
-                    <stop offset="100%" stopColor="#6b7280" />
+                    <stop offset="0%" stopColor="rgba(6, 182, 212, 0.6)" />
+                    <stop offset="50%" stopColor="rgba(168, 85, 247, 0.6)" />
+                    <stop offset="100%" stopColor="rgba(236, 72, 153, 0.6)" />
                   </linearGradient>
+                  <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(6, 182, 212, 0.8)" />
+                    <stop offset="100%" stopColor="rgba(168, 85, 247, 0.8)" />
+                  </linearGradient>
+                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
+                {/* Connection lines between projects */}
+                {milestones.slice(0, 8).map((_, index) => {
+                  const angle1 = (index * 360 / 8) * Math.PI / 180;
+                  const angle2 = ((index + 1) * 360 / 8) * Math.PI / 180;
+                  const radius = 360;
+                  const x1 = 450 + Math.sin(angle1) * radius;
+                  const y1 = 450 - Math.cos(angle1) * radius;
+                  const x2 = 450 + Math.sin(angle2) * radius;
+                  const y2 = 450 - Math.cos(angle2) * radius;
+                  
+                  return (
+                    <line
+                      key={`connection-${index}`}
+                      x1={x1}
+                      y1={y1}
+                      x2={x2}
+                      y2={y2}
+                      stroke="url(#connectionGradient)"
+                      strokeWidth="2"
+                      strokeDasharray="5 5"
+                      opacity="0.5"
+                      filter="url(#glow)"
+                    />
+                  );
+                })}
                 {/* Main circular path */}
                 <circle
                   cx="450"
@@ -342,8 +378,8 @@ const ProjectRoadmap = () => {
                   r="360"
                   fill="none"
                   stroke="url(#trackGradient)"
-                  strokeWidth="45"
-                  strokeDasharray="22 15"
+                  strokeWidth="8"
+                  strokeDasharray="20 10"
                   className="road-path"
                 />
                 {/* Center dashed line */}
@@ -352,9 +388,9 @@ const ProjectRoadmap = () => {
                   cy="450"
                   r="360"
                   fill="none"
-                  stroke="rgba(255, 255, 255, 0.8)"
-                  strokeWidth="4"
-                  strokeDasharray="15 15"
+                  stroke="rgba(168, 85, 247, 0.8)"
+                  strokeWidth="3"
+                  strokeDasharray="12 8"
                   className="center-line"
                 />
               </svg>
@@ -363,7 +399,6 @@ const ProjectRoadmap = () => {
             {/* Milestones positioned around the circle */}
             {milestones.slice(0, 8).map((milestone, index) => {
               const Icon = milestone.icon;
-              const isActive = activeIndex === index;
               
               // Calculate angle for positioning (8 projects = 45 degrees each)
               const angle = (index * 360 / 8);
@@ -371,7 +406,7 @@ const ProjectRoadmap = () => {
               return (
                 <motion.div
                   key={milestone.id}
-                  className={`milestone-wrapper ${isActive ? 'active' : ''}`}
+                  className="milestone-wrapper"
                   style={{
                     '--icon-angle': `${angle}deg`
                   } as React.CSSProperties}
@@ -384,20 +419,18 @@ const ProjectRoadmap = () => {
                     opacity: { duration: 0.6, delay: index * 0.1 },
                     scale: { duration: 0.6, delay: index * 0.1 }
                   }}
-                  onMouseEnter={() => setActiveIndex(index)}
-                  onMouseLeave={() => setActiveIndex(null)}
                   onClick={() => setOpenedIndex(openedIndex === index ? null : index)}
                 >
                   {/* Milestone Circle */}
                   <motion.div
                     className={`milestone-circle ${milestone.color}`}
                     animate={{
-                      rotate: activeIndex === index ? 0 : [0, -360]
+                      rotate: openedIndex === index ? 0 : [0, -360]
                     }}
                     transition={{
                       rotate: { 
-                        duration: activeIndex === index ? 0 : 40, 
-                        repeat: activeIndex === index ? 0 : Infinity, 
+                        duration: openedIndex === index ? 0 : 40, 
+                        repeat: openedIndex === index ? 0 : Infinity, 
                         ease: "linear" 
                       }
                     }}
@@ -413,12 +446,6 @@ const ProjectRoadmap = () => {
                       <Icon className="milestone-icon" size={66} />
                     )}
                   </motion.div>
-
-                  {/* Info Card */}
-                  <div className={`milestone-info ${isActive ? 'show' : ''}`}>
-                    <h3 className="milestone-title">{milestone.title}</h3>
-                    <p className="milestone-description">{milestone.description}</p>
-                  </div>
                 </motion.div>
               );
             })}
@@ -474,64 +501,123 @@ const ProjectRoadmap = () => {
             );
           })}
 
-          {/* 3D Project Detail Card */}
+          {/* Connection Arrow */}
           {openedIndex !== null && (() => {
             const milestone = milestones[openedIndex];
             const angle = (openedIndex * 360 / 8);
             const angleRad = (angle * Math.PI) / 180;
-            const isLeftSide = angle > 90 && angle < 270;
-            // Position card above the logo (same angle, but closer to center)
-            const cardDistance = 280; // Closer to center than logo
-            const cardX = Math.sin(angleRad) * cardDistance;
-            const cardY = -Math.cos(angleRad) * cardDistance;
+            // Calculate project position (center of milestone logo, relative to container center)
+            const projectDistance = 360; // Same as icon-distance in CSS
+            const projectX = Math.sin(angleRad) * projectDistance;
+            const projectY = -Math.cos(angleRad) * projectDistance;
+            
+            // Bubble position (right side of container, centered vertically)
+            // Container is 1200px max-width, so center is at 0,0
+            // Bubble is at right: 20px, so X = 600 - 210 (half width) - 20 = 370
+            const bubbleX = 370; // Right side position
+            const bubbleY = 0; // Centered vertically
+            
+            // Calculate arrow path (from project center to bubble left edge)
+            const arrowStartX = projectX;
+            const arrowStartY = projectY;
+            const arrowEndX = bubbleX - 210; // Left edge of bubble (420px / 2)
+            const arrowEndY = bubbleY;
+            
+            // Calculate control points for smooth curved arrow
+            const midX = (arrowStartX + arrowEndX) / 2;
+            const controlX1 = arrowStartX + (midX - arrowStartX) * 0.6;
+            const controlY1 = arrowStartY;
+            const controlX2 = arrowEndX - (arrowEndX - midX) * 0.6;
+            const controlY2 = arrowEndY;
+            
+            return (
+              <svg
+                className="project-connection-arrow"
+                viewBox="-600 -600 1200 1200"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  width: '100%',
+                  height: '100%',
+                  pointerEvents: 'none',
+                  zIndex: 15,
+                  overflow: 'visible'
+                }}
+              >
+                <defs>
+                  <marker
+                    id={`arrowhead-${openedIndex}`}
+                    markerWidth="12"
+                    markerHeight="12"
+                    refX="10"
+                    refY="3"
+                    orient="auto"
+                  >
+                    <polygon
+                      points="0 0, 12 3, 0 6"
+                      fill="rgba(168, 85, 247, 0.9)"
+                    />
+                  </marker>
+                  <linearGradient id={`arrowGradient-${openedIndex}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
+                    <stop offset="100%" stopColor="rgba(6, 182, 212, 0.8)" />
+                  </linearGradient>
+                </defs>
+                <motion.path
+                  d={`M ${arrowStartX} ${arrowStartY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${arrowEndX} ${arrowEndY}`}
+                  stroke={`url(#arrowGradient-${openedIndex})`}
+                  strokeWidth="4"
+                  fill="none"
+                  markerEnd={`url(#arrowhead-${openedIndex})`}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  exit={{ pathLength: 0, opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  style={{
+                    filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))'
+                  }}
+                />
+              </svg>
+            );
+          })()}
+
+          {/* Bubble Project Detail Card */}
+          {openedIndex !== null && (() => {
+            const milestone = milestones[openedIndex];
             
             return (
               <motion.div
-                className="project-detail-card"
+                className="project-detail-bubble"
                 initial={{ 
                   opacity: 0, 
                   scale: 0.3,
-                  rotateY: isLeftSide ? -120 : 120,
-                  rotateX: -30,
-                  x: cardX,
-                  y: cardY - 100,
-                  z: -200,
+                  x: 100,
                   filter: 'blur(20px)'
                 }}
                 animate={{ 
                   opacity: cardHovered ? 1 : 0.95, 
                   scale: 1,
-                  rotateY: 0,
-                  rotateX: 0,
-                  x: cardX,
-                  y: cardY,
-                  z: 0,
+                  x: 0,
                   filter: 'blur(0px)'
                 }}
                 exit={{ 
                   opacity: 0, 
                   scale: 0.5,
-                  rotateY: isLeftSide ? -90 : 90,
-                  rotateX: 30,
-                  y: cardY - 50,
-                  z: -100,
+                  x: 50,
                   filter: 'blur(15px)'
                 }}
                 transition={{ 
                   type: "spring",
-                  stiffness: 150,
-                  damping: 15,
-                  mass: 0.8
+                  stiffness: 200,
+                  damping: 20,
+                  mass: 0.5
                 }}
                 onMouseEnter={() => setCardHovered(true)}
                 onMouseLeave={() => setCardHovered(false)}
-                style={{
-                  '--card-angle': `${angle}deg`,
-                  '--card-distance': `${cardDistance}px`,
-                  '--card-side': isLeftSide ? 'left' : 'right'
-                } as React.CSSProperties}
               >
-                <div className="card-content">
+                <div className="bubble-content">
                   {/* Smoke particles effect */}
                   <div className="smoke-particles">
                     {[...Array(8)].map((_, i) => (
@@ -540,7 +626,7 @@ const ProjectRoadmap = () => {
                   </div>
                   
                   <button 
-                    className="card-close"
+                    className="bubble-close"
                     onClick={(e) => {
                       e.stopPropagation();
                       setOpenedIndex(null);
@@ -548,15 +634,15 @@ const ProjectRoadmap = () => {
                   >
                     ×
                   </button>
-                  <h3 className="card-title">{milestone.title}</h3>
-                  <p className="card-description">{milestone.description}</p>
+                  <h3 className="bubble-title">{milestone.title}</h3>
+                  <p className="bubble-description">{milestone.description}</p>
                   
                   {/* Team Member Info */}
                   {(() => {
                     const teamMember = teamMembers.find(m => m.projectIndex === openedIndex);
                     if (teamMember) {
                       return (
-                        <div className="card-team-section">
+                        <div className="bubble-team-section">
                           <div className="team-member-info">
                             <Image
                               src={teamMember.image}
@@ -577,13 +663,19 @@ const ProjectRoadmap = () => {
                     return null;
                   })()}
                   
-                  <div className="card-footer">
+                  <div className="bubble-footer">
                     <motion.button
-                      className="card-button"
+                      className="bubble-button"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        const projectSection = document.querySelector('.project-stats-section');
+                        if (projectSection) {
+                          projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
                     >
-                      Mehr erfahren
+                      Go to Projects
                       <ArrowRight size={16} />
                     </motion.button>
                   </div>
