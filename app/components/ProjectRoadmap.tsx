@@ -668,7 +668,7 @@ const ProjectRoadmap = () => {
                         }
                       }}
                     >
-                      Go to Projects
+                      GO TO PROJECTS
                       <ArrowRight size={16} />
                     </motion.button>
                   </div>
