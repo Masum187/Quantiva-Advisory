@@ -422,35 +422,15 @@
 .roadmap-header {
   text-align: center;
   margin-bottom: 60px;
-  animation: fadeInDown 0.8s ease-out;
 }
 
-.header-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  background: rgba(168, 85, 247, 0.1);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  border-radius: 12px;
-  margin-bottom: 24px;
-  animation: slideDown 0.8s ease-out;
-}
-
-.header-icon svg {
-  color: #a855f7;
-}
-
-.roadmap-header h1 {
+.roadmap-title {
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 40px;
   letter-spacing: -2px;
   line-height: 1.1;
   color: white;
-  animation: slideDown 0.9s ease-out;
-  animation-delay: 0.1s;
 }
 
 .timeline-stats {
@@ -459,8 +439,7 @@
   align-items: center;
   gap: 40px;
   margin-top: 20px;
-  animation: slideDown 1s ease-out;
-  animation-delay: 0.3s;
+  flex-wrap: wrap;
 }
 
 .stat-item {
@@ -468,6 +447,14 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
+}
+
+.stat-item-left {
+  /* Will be animated from left */
+}
+
+.stat-item-right {
+  /* Will be animated from right */
 }
 
 .stat-number {

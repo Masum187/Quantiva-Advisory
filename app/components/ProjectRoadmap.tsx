@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import { Zap, Brain, Target, Users, Bot, ArrowRight, Sparkles, Lock, CheckCircle2, ClipboardList, Database } from 'lucide-react';
 import './ProjectRoadmap.css';
@@ -9,11 +9,10 @@ import './ProjectRoadmap.css';
 const ProjectRoadmap = () => {
   const [openedIndex, setOpenedIndex] = useState<number | null>(null);
   const [cardHovered, setCardHovered] = useState(false);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    setIsInView(true);
-  }, []);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
+  const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
 
   // Close card when cursor leaves it (with smoke effect)
   useEffect(() => {
@@ -277,37 +276,58 @@ const ProjectRoadmap = () => {
         <div className="roadmap-separator"></div>
 
         {/* Header Section */}
-        <div className="roadmap-header">
-          <div className="header-icon">
-            <ClipboardList size={24} />
-          </div>
+        <div className="roadmap-header" ref={headerRef}>
           <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -200 }}
+            animate={headerInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -200 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="roadmap-title"
           >
             Projekt-Roadmap
           </motion.h1>
           <motion.div 
             className="timeline-stats"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            ref={statsRef}
           >
-            <div className="stat-item">
+            <motion.div 
+              className="stat-item stat-item-left"
+              initial={{ opacity: 0, x: -100 }}
+              animate={statsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
               <span className="stat-number">8</span>
               <span className="stat-label">Projekte</span>
-            </div>
+            </motion.div>
             <div className="stat-divider"></div>
-            <div className="stat-item">
+            <motion.div 
+              className="stat-item stat-item-right"
+              initial={{ opacity: 0, x: 100 }}
+              animate={statsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            >
               <span className="stat-number">2024</span>
               <span className="stat-label">Start</span>
-            </div>
+            </motion.div>
             <div className="stat-divider"></div>
-            <div className="stat-item">
+            <motion.div 
+              className="stat-item stat-item-right"
+              initial={{ opacity: 0, x: 100 }}
+              animate={statsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            >
+              <span className="stat-number">2026</span>
+              <span className="stat-label">Ende Datum</span>
+            </motion.div>
+            <div className="stat-divider"></div>
+            <motion.div 
+              className="stat-item stat-item-right"
+              initial={{ opacity: 0, x: 100 }}
+              animate={statsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+            >
               <span className="stat-number">Q2</span>
               <span className="stat-label">Launch</span>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
