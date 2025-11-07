@@ -9,6 +9,7 @@ import './ProjectRoadmap.css';
 const ProjectRoadmap = () => {
   const [openedIndex, setOpenedIndex] = useState<number | null>(null);
   const [cardHovered, setCardHovered] = useState(false);
+  const [hoveredTeamMember, setHoveredTeamMember] = useState<number | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -717,88 +718,62 @@ const ProjectRoadmap = () => {
 
         {/* Circular Roadmap */}
         <div className="circular-roadmap-container">
-          {/* Rotating wrapper that contains both circle and milestones */}
+          {/* Rotating wrapper that contains circle - only rotates when no team member is hovered */}
           <motion.div
             className="rotating-wrapper"
             animate={{
-              rotate: openedIndex !== null ? undefined : [0, 360]
+              rotate: (openedIndex !== null || hoveredTeamMember !== null) ? undefined : [0, 360]
             }}
             transition={{
               duration: 40,
-              repeat: openedIndex !== null ? 0 : Infinity,
+              repeat: (openedIndex !== null || hoveredTeamMember !== null) ? 0 : Infinity,
               ease: "linear"
             }}
           >
-            {/* Connection Lines from Center to Projects */}
-            <div className="circular-track">
-              <svg className="roadmap-circle" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
-                    <stop offset="50%" stopColor="rgba(6, 182, 212, 0.8)" />
-                    <stop offset="100%" stopColor="rgba(168, 85, 247, 0.8)" />
-                  </linearGradient>
-                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                  <marker
-                    id="arrowhead-connection"
-                    markerWidth="10"
-                    markerHeight="10"
-                    refX="9"
-                    refY="3"
-                    orient="auto"
-                  >
-                    <polygon
-                      points="0 0, 10 3, 0 6"
-                      fill="rgba(168, 85, 247, 0.9)"
-                    />
-                  </marker>
-                </defs>
-                {/* Connection lines from center to each project */}
-                {milestones.slice(0, 8).map((_, index) => {
-                  const angle = (index * 360 / 8) * Math.PI / 180;
-                  const centerX = 450;
-                  const centerY = 450;
-                  const centerRadius = 100; // Radius of center circle
-                  const projectRadius = 360; // Distance to projects
-                  
-                  // Start from center circle edge
-                  const startX = centerX + Math.sin(angle) * centerRadius;
-                  const startY = centerY - Math.cos(angle) * centerRadius;
-                  
-                  // End at project circle edge
-                  const endX = centerX + Math.sin(angle) * projectRadius;
-                  const endY = centerY - Math.cos(angle) * projectRadius;
-                  
-                  return (
-                    <g key={`center-connection-${index}`}>
-                      <line
-                        x1={startX}
-                        y1={startY}
-                        x2={endX}
-                        y2={endY}
-                        stroke="url(#connectionGradient)"
-                        strokeWidth="3"
-                        filter="url(#glow)"
-                        markerEnd="url(#arrowhead-connection)"
+            {/* Connection Lines from Center to Projects - only visible when team member hovered */}
+            {hoveredTeamMember !== null && (
+              <div className="circular-track">
+                <svg className="roadmap-circle" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
+                      <stop offset="50%" stopColor="rgba(6, 182, 212, 0.8)" />
+                      <stop offset="100%" stopColor="rgba(168, 85, 247, 0.8)" />
+                    </linearGradient>
+                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <marker
+                      id="arrowhead-connection"
+                      markerWidth="10"
+                      markerHeight="10"
+                      refX="9"
+                      refY="3"
+                      orient="auto"
+                    >
+                      <polygon
+                        points="0 0, 10 3, 0 6"
+                        fill="rgba(168, 85, 247, 0.9)"
                       />
-                    </g>
-                  );
-                })}
-              </svg>
-            </div>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+            )}
 
-            {/* Milestones positioned around the circle */}
-            {milestones.slice(0, 8).map((milestone, index) => {
+            {/* Milestones positioned around the circle - only visible when team member hovered */}
+            {hoveredTeamMember !== null && (() => {
+              const teamMember = teamMembers[hoveredTeamMember];
+              const projectIndex = teamMember.projectIndex;
+              const milestone = milestones[projectIndex];
               const Icon = milestone.icon;
               
               // Calculate angle for positioning (8 projects = 45 degrees each)
-              const angle = (index * 360 / 8);
+              const angle = (projectIndex * 360 / 8);
               
               return (
                 <motion.div
@@ -807,30 +782,25 @@ const ProjectRoadmap = () => {
                   style={{
                     '--icon-angle': `${angle}deg`
                   } as React.CSSProperties}
-                  initial={{ opacity: 0, scale: 0 }}
+                  initial={{ opacity: 0, scale: 0.5 }}
                   animate={{
                     opacity: 1,
                     scale: 1
                   }}
                   transition={{
-                    opacity: { duration: 0.6, delay: index * 0.1 },
-                    scale: { duration: 0.6, delay: index * 0.1 }
+                    opacity: { duration: 0.4 },
+                    scale: { duration: 0.4, type: "spring", stiffness: 200 }
                   }}
-                  onClick={() => setOpenedIndex(openedIndex === index ? null : index)}
+                  onClick={() => {
+                    setOpenedIndex(projectIndex);
+                    setHoveredTeamMember(null);
+                  }}
                 >
                   {/* Milestone Circle */}
                   <motion.div
                     className={`milestone-circle ${milestone.color}`}
-                    animate={{
-                      rotate: openedIndex === index ? 0 : [0, -360]
-                    }}
-                    transition={{
-                      rotate: { 
-                        duration: openedIndex === index ? 0 : 40, 
-                        repeat: openedIndex === index ? 0 : Infinity, 
-                        ease: "linear" 
-                      }
-                    }}
+                    whileHover={{ scale: 1.1 }}
+                    style={{ cursor: 'pointer' }}
                   >
                     {milestone.imageUrl ? (
                       <Image 
@@ -845,7 +815,7 @@ const ProjectRoadmap = () => {
                   </motion.div>
                 </motion.div>
               );
-            })}
+            })()}
           </motion.div>
 
           {/* Center Slogan */}
@@ -867,6 +837,11 @@ const ProjectRoadmap = () => {
             const teamAngle = (index * 360 / 8);
             const teamAngleRad = (teamAngle * Math.PI) / 180;
             const teamDistance = 160; // Closer to center than projects
+            const isHovered = hoveredTeamMember === index;
+            const projectIndex = member.projectIndex;
+            const projectAngle = (projectIndex * 360 / 8);
+            const projectAngleRad = (projectAngle * Math.PI) / 180;
+            const projectDistance = 360;
             
             return (
               <motion.div
@@ -882,6 +857,8 @@ const ProjectRoadmap = () => {
                   opacity: { duration: 0.6, delay: 1.5 + index * 0.1 },
                   scale: { duration: 0.6, delay: 1.5 + index * 0.1 }
                 }}
+                onMouseEnter={() => setHoveredTeamMember(index)}
+                onMouseLeave={() => setHoveredTeamMember(null)}
               >
                 <div className="team-member-circle">
                   <Image
@@ -894,9 +871,108 @@ const ProjectRoadmap = () => {
                     priority={index < 3}
                   />
                 </div>
+                
+                {/* Speech Bubble "Mein Projekt" */}
+                {isHovered && (
+                  <motion.div
+                    className="team-speech-bubble"
+                    initial={{ opacity: 0, scale: 0.5, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+                  >
+                    <span>Mein Projekt</span>
+                  </motion.div>
+                )}
               </motion.div>
             );
           })}
+
+          {/* Arrow from Team Member to Project */}
+          {hoveredTeamMember !== null && (() => {
+            const teamMember = teamMembers[hoveredTeamMember];
+            const teamAngle = (hoveredTeamMember * 360 / 8);
+            const teamAngleRad = (teamAngle * Math.PI) / 180;
+            const teamDistance = 160;
+            
+            const projectIndex = teamMember.projectIndex;
+            const projectAngle = (projectIndex * 360 / 8);
+            const projectAngleRad = (projectAngle * Math.PI) / 180;
+            const projectDistance = 360;
+            
+            // Calculate positions (relative to container center)
+            const teamX = Math.sin(teamAngleRad) * teamDistance;
+            const teamY = -Math.cos(teamAngleRad) * teamDistance;
+            
+            const projectX = Math.sin(projectAngleRad) * projectDistance;
+            const projectY = -Math.cos(projectAngleRad) * projectDistance;
+            
+            // Offset for speech bubble (above team member)
+            const bubbleOffset = -100;
+            const arrowStartX = teamX;
+            const arrowStartY = teamY + bubbleOffset;
+            const arrowEndX = projectX;
+            const arrowEndY = projectY;
+            
+            // Calculate control points for smooth curved arrow
+            const midX = (arrowStartX + arrowEndX) / 2;
+            const controlX1 = arrowStartX + (midX - arrowStartX) * 0.5;
+            const controlY1 = arrowStartY;
+            const controlX2 = arrowEndX - (arrowEndX - midX) * 0.5;
+            const controlY2 = arrowEndY;
+            
+            return (
+              <svg
+                className="team-to-project-arrow"
+                viewBox="-600 -600 1200 1200"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  width: '100%',
+                  height: '100%',
+                  pointerEvents: 'none',
+                  zIndex: 12,
+                  overflow: 'visible'
+                }}
+              >
+                <defs>
+                  <marker
+                    id={`team-arrowhead-${hoveredTeamMember}`}
+                    markerWidth="12"
+                    markerHeight="12"
+                    refX="10"
+                    refY="3"
+                    orient="auto"
+                  >
+                    <polygon
+                      points="0 0, 12 3, 0 6"
+                      fill="rgba(168, 85, 247, 0.9)"
+                    />
+                  </marker>
+                  <linearGradient id={`teamArrowGradient-${hoveredTeamMember}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
+                    <stop offset="100%" stopColor="rgba(6, 182, 212, 0.8)" />
+                  </linearGradient>
+                </defs>
+                <motion.path
+                  d={`M ${arrowStartX} ${arrowStartY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${arrowEndX} ${arrowEndY}`}
+                  stroke={`url(#teamArrowGradient-${hoveredTeamMember})`}
+                  strokeWidth="4"
+                  fill="none"
+                  markerEnd={`url(#team-arrowhead-${hoveredTeamMember})`}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  exit={{ pathLength: 0, opacity: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  style={{
+                    filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))'
+                  }}
+                />
+              </svg>
+            );
+          })()}
 
           {/* Connection Arrow */}
           {openedIndex !== null && (() => {
