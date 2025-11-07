@@ -438,12 +438,12 @@ const ProjectRoadmap = () => {
                       }
                     } : {}}
                     whileHover={{ 
-                      y: -20,
-                      rotateY: index % 2 === 0 ? 5 : -5,
-                      rotateX: -5,
-                      scale: 1.05,
-                      z: 50,
-                      transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                      y: -14,
+                      rotateY: index % 2 === 0 ? 2.5 : -2.5,
+                      rotateX: -2,
+                      scale: 1.03,
+                      z: 35,
+                      transition: { duration: 0.4, type: "spring", stiffness: 260 }
                     }}
                     style={{ transformStyle: 'preserve-3d' }}
                   >
@@ -536,11 +536,11 @@ const ProjectRoadmap = () => {
                     }
                   } : {}}
                   whileHover={{ 
-                    rotateY: index % 2 === 0 ? 8 : -8,
-                    rotateX: -5,
-                    scale: 1.05,
-                    z: 80,
-                    transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                    rotateY: index % 2 === 0 ? 3.5 : -3.5,
+                    rotateX: -2.5,
+                    scale: 1.03,
+                    z: 60,
+                    transition: { duration: 0.4, type: "spring", stiffness: 260 }
                   }}
                   style={{ transformStyle: 'preserve-3d' }}
                 >
@@ -625,11 +625,11 @@ const ProjectRoadmap = () => {
                       }
                     } : {}}
                     whileHover={{ 
-                      rotateY: col === 0 ? 10 : -10,
-                      rotateX: -8,
-                      scale: 1.08,
-                      z: 60,
-                      transition: { duration: 0.4, type: "spring", stiffness: 300 }
+                      rotateY: col === 0 ? 3.5 : -3.5,
+                      rotateX: -2.5,
+                      scale: 1.03,
+                      z: 45,
+                      transition: { duration: 0.4, type: "spring", stiffness: 260 }
                     }}
                     style={{ transformStyle: 'preserve-3d' }}
                   >
