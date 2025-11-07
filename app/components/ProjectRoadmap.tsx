@@ -10,6 +10,7 @@ const ProjectRoadmap = () => {
   const [openedIndex, setOpenedIndex] = useState<number | null>(null);
   const [cardHovered, setCardHovered] = useState(false);
   const [hoveredTeamMember, setHoveredTeamMember] = useState<number | null>(null);
+  const [clickedTeamMember, setClickedTeamMember] = useState<number | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -718,56 +719,87 @@ const ProjectRoadmap = () => {
 
         {/* Circular Roadmap */}
         <div className="circular-roadmap-container">
-          {/* Rotating wrapper that contains circle - only rotates when no team member is hovered */}
+          {/* Rotating wrapper that contains circle and team members - only stops when project clicked */}
           <motion.div
             className="rotating-wrapper"
             animate={{
-              rotate: (openedIndex !== null || hoveredTeamMember !== null) ? undefined : [0, 360]
+              rotate: (openedIndex !== null || clickedTeamMember !== null) ? undefined : [0, 360]
             }}
             transition={{
               duration: 40,
-              repeat: (openedIndex !== null || hoveredTeamMember !== null) ? 0 : Infinity,
+              repeat: (openedIndex !== null || clickedTeamMember !== null) ? 0 : Infinity,
               ease: "linear"
             }}
           >
-            {/* Connection Lines from Center to Projects - only visible when team member hovered */}
-            {hoveredTeamMember !== null && (
-              <div className="circular-track">
-                <svg className="roadmap-circle" viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
-                      <stop offset="50%" stopColor="rgba(6, 182, 212, 0.8)" />
-                      <stop offset="100%" stopColor="rgba(168, 85, 247, 0.8)" />
-                    </linearGradient>
-                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                      <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                      </feMerge>
-                    </filter>
-                    <marker
-                      id="arrowhead-connection"
-                      markerWidth="10"
-                      markerHeight="10"
-                      refX="9"
-                      refY="3"
-                      orient="auto"
+            {/* Team Members around Slogan - inside rotating wrapper so they rotate */}
+            {teamMembers.map((member, index) => {
+              const teamAngle = (index * 360 / 8);
+              const teamAngleRad = (teamAngle * Math.PI) / 180;
+              const teamDistance = 220; // Increased distance for larger circle
+              const isHovered = hoveredTeamMember === index;
+              const isClicked = clickedTeamMember === index;
+              
+              return (
+                <motion.div
+                  key={member.id}
+                  className="team-member-wrapper"
+                  style={{
+                    '--team-angle': `${teamAngle}deg`,
+                    '--team-distance': `${teamDistance}px`
+                  } as React.CSSProperties}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{
+                    opacity: { duration: 0.6, delay: 1.5 + index * 0.1 },
+                    scale: { duration: 0.6, delay: 1.5 + index * 0.1 }
+                  }}
+                  onMouseEnter={() => setHoveredTeamMember(index)}
+                  onMouseLeave={() => {
+                    // Only clear hover if not clicked, and rotation continues on hover
+                    if (clickedTeamMember !== index) {
+                      setHoveredTeamMember(null);
+                    }
+                  }}
+                >
+                  <div className="team-member-circle">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      width={80}
+                      height={80}
+                      className="team-member-image"
+                      unoptimized
+                      priority={index < 3}
+                    />
+                  </div>
+                  
+                  {/* Speech Bubble "Mein Projekt" - clickable */}
+                  {(isHovered || isClicked) && (
+                    <motion.div
+                      className="team-speech-bubble"
+                      initial={{ opacity: 0, scale: 0.5, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.5 }}
+                      transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setClickedTeamMember(isClicked ? null : index);
+                        if (!isClicked) {
+                          setHoveredTeamMember(index);
+                        }
+                      }}
+                      style={{ cursor: 'pointer' }}
                     >
-                      <polygon
-                        points="0 0, 10 3, 0 6"
-                        fill="rgba(168, 85, 247, 0.9)"
-                      />
-                    </marker>
-                  </defs>
-                </svg>
-              </div>
-            )}
+                      <span>Mein Projekt</span>
+                    </motion.div>
+                  )}
+                </motion.div>
+              );
+            })}
 
-            {/* Milestones positioned around the circle - only visible when team member hovered */}
-            {hoveredTeamMember !== null && (() => {
-              const teamMember = teamMembers[hoveredTeamMember];
+            {/* Milestones positioned around the circle - only visible when team member clicked */}
+            {clickedTeamMember !== null && (() => {
+              const teamMember = teamMembers[clickedTeamMember];
               const projectIndex = teamMember.projectIndex;
               const milestone = milestones[projectIndex];
               const Icon = milestone.icon;
@@ -782,18 +814,20 @@ const ProjectRoadmap = () => {
                   style={{
                     '--icon-angle': `${angle}deg`
                   } as React.CSSProperties}
-                  initial={{ opacity: 0, scale: 0.5 }}
+                  initial={{ opacity: 0, scale: 0.3, filter: 'blur(20px)' }}
                   animate={{
                     opacity: 1,
-                    scale: 1
+                    scale: 1,
+                    filter: 'blur(0px)'
                   }}
                   transition={{
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.4, type: "spring", stiffness: 200 }
+                    opacity: { duration: 1.2, ease: "easeOut" },
+                    scale: { duration: 1.2, ease: "easeOut" },
+                    filter: { duration: 1.2, ease: "easeOut" }
                   }}
                   onClick={() => {
                     setOpenedIndex(projectIndex);
-                    setHoveredTeamMember(null);
+                    setClickedTeamMember(null);
                   }}
                 >
                   {/* Milestone Circle */}
@@ -818,7 +852,7 @@ const ProjectRoadmap = () => {
             })()}
           </motion.div>
 
-          {/* Center Slogan */}
+          {/* Center Slogan - outside rotating wrapper so it stays fixed */}
           <div className="center-slogan">
             <motion.h2
               initial={{ opacity: 0, scale: 0.8 }}
@@ -832,73 +866,17 @@ const ProjectRoadmap = () => {
             </motion.h2>
           </div>
 
-          {/* Team Members around Slogan */}
-          {teamMembers.map((member, index) => {
-            const teamAngle = (index * 360 / 8);
+          {/* Arrow from Team Member Speech Bubble to Project - only when clicked */}
+          {clickedTeamMember !== null && (() => {
+            const teamMember = teamMembers[clickedTeamMember];
+            const teamAngle = (clickedTeamMember * 360 / 8);
             const teamAngleRad = (teamAngle * Math.PI) / 180;
-            const teamDistance = 160; // Closer to center than projects
-            const isHovered = hoveredTeamMember === index;
-            const projectIndex = member.projectIndex;
-            const projectAngle = (projectIndex * 360 / 8);
-            const projectAngleRad = (projectAngle * Math.PI) / 180;
-            const projectDistance = 360;
-            
-            return (
-              <motion.div
-                key={member.id}
-                className="team-member-wrapper"
-                style={{
-                  '--team-angle': `${teamAngle}deg`,
-                  '--team-distance': `${teamDistance}px`
-                } as React.CSSProperties}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 1.5 + index * 0.1 },
-                  scale: { duration: 0.6, delay: 1.5 + index * 0.1 }
-                }}
-                onMouseEnter={() => setHoveredTeamMember(index)}
-                onMouseLeave={() => setHoveredTeamMember(null)}
-              >
-                <div className="team-member-circle">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={80}
-                    height={80}
-                    className="team-member-image"
-                    unoptimized
-                    priority={index < 3}
-                  />
-                </div>
-                
-                {/* Speech Bubble "Mein Projekt" */}
-                {isHovered && (
-                  <motion.div
-                    className="team-speech-bubble"
-                    initial={{ opacity: 0, scale: 0.5, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
-                  >
-                    <span>Mein Projekt</span>
-                  </motion.div>
-                )}
-              </motion.div>
-            );
-          })}
-
-          {/* Arrow from Team Member to Project */}
-          {hoveredTeamMember !== null && (() => {
-            const teamMember = teamMembers[hoveredTeamMember];
-            const teamAngle = (hoveredTeamMember * 360 / 8);
-            const teamAngleRad = (teamAngle * Math.PI) / 180;
-            const teamDistance = 160;
+            const teamDistance = 220; // Increased distance
             
             const projectIndex = teamMember.projectIndex;
             const projectAngle = (projectIndex * 360 / 8);
             const projectAngleRad = (projectAngle * Math.PI) / 180;
-            const projectDistance = 360;
+            const projectDistance = 480; // Increased distance for larger circle
             
             // Calculate positions (relative to container center)
             const teamX = Math.sin(teamAngleRad) * teamDistance;
@@ -908,7 +886,7 @@ const ProjectRoadmap = () => {
             const projectY = -Math.cos(projectAngleRad) * projectDistance;
             
             // Offset for speech bubble (above team member)
-            const bubbleOffset = -100;
+            const bubbleOffset = -120;
             const arrowStartX = teamX;
             const arrowStartY = teamY + bubbleOffset;
             const arrowEndX = projectX;
@@ -924,7 +902,7 @@ const ProjectRoadmap = () => {
             return (
               <svg
                 className="team-to-project-arrow"
-                viewBox="-600 -600 1200 1200"
+                viewBox="-700 -700 1400 1400"
                 preserveAspectRatio="xMidYMid meet"
                 style={{
                   position: 'absolute',
@@ -939,7 +917,7 @@ const ProjectRoadmap = () => {
               >
                 <defs>
                   <marker
-                    id={`team-arrowhead-${hoveredTeamMember}`}
+                    id={`team-arrowhead-${clickedTeamMember}`}
                     markerWidth="12"
                     markerHeight="12"
                     refX="10"
@@ -951,21 +929,21 @@ const ProjectRoadmap = () => {
                       fill="rgba(168, 85, 247, 0.9)"
                     />
                   </marker>
-                  <linearGradient id={`teamArrowGradient-${hoveredTeamMember}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id={`teamArrowGradient-${clickedTeamMember}`} x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
                     <stop offset="100%" stopColor="rgba(6, 182, 212, 0.8)" />
                   </linearGradient>
                 </defs>
                 <motion.path
                   d={`M ${arrowStartX} ${arrowStartY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${arrowEndX} ${arrowEndY}`}
-                  stroke={`url(#teamArrowGradient-${hoveredTeamMember})`}
+                  stroke={`url(#teamArrowGradient-${clickedTeamMember})`}
                   strokeWidth="4"
                   fill="none"
-                  markerEnd={`url(#team-arrowhead-${hoveredTeamMember})`}
+                  markerEnd={`url(#team-arrowhead-${clickedTeamMember})`}
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
                   exit={{ pathLength: 0, opacity: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
                   style={{
                     filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))'
                   }}

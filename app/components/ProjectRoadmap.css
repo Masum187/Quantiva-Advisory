@@ -880,8 +880,8 @@
   z-index: 3;
   text-align: center;
   pointer-events: none;
-  width: 200px;
-  height: 200px;
+  width: 240px; /* Increased for larger circle */
+  height: 240px; /* Increased for larger circle */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -950,7 +950,7 @@
 /* Team Members around Slogan */
 .team-member-wrapper {
   --team-angle: 0deg;
-  --team-distance: 160px;
+  --team-distance: 220px; /* Increased for larger circle */
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1019,7 +1019,17 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   z-index: 11;
   white-space: nowrap;
-  pointer-events: none;
+  pointer-events: auto; /* Made clickable */
+  transition: all 0.3s ease;
+}
+
+.team-speech-bubble:hover {
+  border-color: rgba(168, 85, 247, 0.9);
+  box-shadow: 
+    0 6px 30px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(168, 85, 247, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateX(-50%) scale(1.05);
 }
 
 .team-speech-bubble span {
@@ -1068,7 +1078,7 @@
 }
 
 .slogan-text {
-  font-size: 1.5rem;
+  font-size: 1.8rem; /* Increased for larger circle */
   font-weight: 800;
   color: white;
   margin: 0;
@@ -1104,7 +1114,7 @@
 /* Milestone Wrapper - Nutzt CSS Custom Properties für Position */
 .milestone-wrapper {
   --icon-angle: 0deg;
-  --icon-distance: 360px;
+  --icon-distance: 480px; /* Increased for larger circle */
   position: absolute;
   left: 50%;
   top: 50%;
