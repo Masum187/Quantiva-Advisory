@@ -289,61 +289,6 @@ const ProjectRoadmap = () => {
       <div className="roadmap-container">
         {/* Hero Section */}
         <section className="quantiva-hero-section" ref={heroRef}>
-          <motion.div
-            className="hero-content"
-            initial={{ opacity: 0, y: 100, rotateX: -20, scale: 0.8 }}
-            animate={heroInView ? { 
-              opacity: 1, 
-              y: 0, 
-              rotateX: 0, 
-              scale: 1,
-              transition: { 
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                mass: 1
-              }
-            } : {}}
-            style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
-          >
-            <motion.h1 
-              className="hero-title"
-              initial={{ opacity: 0, y: 50, rotateY: -30 }}
-              animate={heroInView ? { 
-                opacity: 1, 
-                y: 0, 
-                rotateY: 0,
-                transition: { delay: 0.2, type: "spring", stiffness: 80 }
-              } : {}}
-            >
-              Quantiva Advisory – Wir bauen KI-Produkte, nicht nur PowerPoints
-            </motion.h1>
-            <motion.p 
-              className="hero-subtitle"
-              initial={{ opacity: 0, y: 30, rotateX: 15 }}
-              animate={heroInView ? { 
-                opacity: 1, 
-                y: 0, 
-                rotateX: 0,
-                transition: { delay: 0.4, type: "spring", stiffness: 80 }
-              } : {}}
-            >
-              Wir beraten nicht nur in KI – wir entwickeln sie.
-            </motion.p>
-            <motion.p 
-              className="hero-description"
-              initial={{ opacity: 0, y: 30, rotateX: 10 }}
-              animate={heroInView ? { 
-                opacity: 1, 
-                y: 0, 
-                rotateX: 0,
-                transition: { delay: 0.6, type: "spring", stiffness: 80 }
-              } : {}}
-            >
-              Quantiva Advisory treibt eigene, marktreife KI-Lösungen voran und bringt sie bis Ende 2026 in den produktiven Einsatz. Unser Anspruch: Geschäftsprozesse neu denken – vom Vertrieb über Workflow-Management bis hin zu Learning – und daraus messbaren Nutzen schaffen.
-            </motion.p>
-          </motion.div>
-
           {/* Mission Section */}
           <motion.div
             ref={missionRef}
