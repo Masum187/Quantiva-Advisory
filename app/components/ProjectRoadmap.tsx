@@ -18,6 +18,7 @@ const ProjectRoadmap = () => {
   const focusAreasRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const principlesRef = useRef<HTMLDivElement>(null);
+  const circularRef = useRef<HTMLDivElement>(null);
   
   const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
   const statsInView = useInView(statsRef, { once: true, amount: 0.3 });
@@ -26,6 +27,7 @@ const ProjectRoadmap = () => {
   const focusAreasInView = useInView(focusAreasRef, { once: true, amount: 0.2 });
   const timelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
   const principlesInView = useInView(principlesRef, { once: true, amount: 0.2 });
+  const circularInView = useInView(circularRef, { once: true, amount: 0.3 });
 
   // Close card when cursor leaves it (with smoke effect)
   useEffect(() => {
@@ -718,7 +720,17 @@ const ProjectRoadmap = () => {
         </div>
 
         {/* Circular Roadmap */}
-        <div className="circular-roadmap-container">
+        <motion.div
+          className="circular-roadmap-container"
+          ref={circularRef}
+          initial={{ opacity: 0, x: -250, scale: 0.85 }}
+          animate={
+            circularInView
+              ? { opacity: 1, x: 0, scale: 1 }
+              : { opacity: 0, x: -250, scale: 0.85 }
+          }
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+        >
           {/* Rotating wrapper that contains circle and team members - only stops when project clicked */}
           <motion.div
             className="rotating-wrapper"
@@ -735,7 +747,7 @@ const ProjectRoadmap = () => {
             {teamMembers.map((member, index) => {
               const teamAngle = (index * 360 / 8);
               const teamAngleRad = (teamAngle * Math.PI) / 180;
-              const teamDistance = 220; // Increased distance for larger circle
+              const teamDistance = 300; // Increased distance for larger circle
               const isHovered = hoveredTeamMember === index;
               const isClicked = clickedTeamMember === index;
               
@@ -871,12 +883,12 @@ const ProjectRoadmap = () => {
             const teamMember = teamMembers[clickedTeamMember];
             const teamAngle = (clickedTeamMember * 360 / 8);
             const teamAngleRad = (teamAngle * Math.PI) / 180;
-            const teamDistance = 220; // Increased distance
+            const teamDistance = 300; // Increased distance
             
             const projectIndex = teamMember.projectIndex;
             const projectAngle = (projectIndex * 360 / 8);
             const projectAngleRad = (projectAngle * Math.PI) / 180;
-            const projectDistance = 480; // Increased distance for larger circle
+            const projectDistance = 540; // Increased distance for larger circle
             
             // Calculate positions (relative to container center)
             const teamX = Math.sin(teamAngleRad) * teamDistance;
@@ -958,7 +970,7 @@ const ProjectRoadmap = () => {
             const angle = (openedIndex * 360 / 8);
             const angleRad = (angle * Math.PI) / 180;
             // Calculate project position (center of milestone logo, relative to container center)
-            const projectDistance = 360; // Same as icon-distance in CSS
+            const projectDistance = 540; // Matches icon distance for enlarged circle
             const projectX = Math.sin(angleRad) * projectDistance;
             const projectY = -Math.cos(angleRad) * projectDistance;
             
@@ -1134,7 +1146,7 @@ const ProjectRoadmap = () => {
               </motion.div>
             );
           })()}
-        </div>
+        </motion.div>
 
         {/* Bottom CTA Section */}
         <motion.div 
