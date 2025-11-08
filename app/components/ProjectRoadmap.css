@@ -808,10 +808,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1100px;
-  height: 1100px;
-  margin-left: -550px; /* Half of width instead of transform */
-  margin-top: -550px; /* Half of height instead of transform */
+  width: 1300px;
+  height: 1300px;
+  margin-left: -650px; /* Half of width instead of transform */
+  margin-top: -650px; /* Half of height instead of transform */
   transform-origin: center center;
   /* Will be animated by Framer Motion */
 }
@@ -880,8 +880,8 @@
   z-index: 3;
   text-align: center;
   pointer-events: none;
-  width: 320px; /* Increased for larger circle */
-  height: 320px; /* Increased for larger circle */
+  width: 360px; /* Increased for larger circle */
+  height: 360px; /* Increased for larger circle */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -891,7 +891,7 @@
 .center-slogan::before {
   content: '';
   position: absolute;
-  inset: -12px;
+  inset: -16px;
   border-radius: 50%;
   border: 3px dashed rgba(168, 85, 247, 0.6);
   background: transparent;
@@ -950,14 +950,14 @@
 /* Team Members around Slogan */
 .team-member-wrapper {
   --team-angle: 0deg;
-  --team-distance: 300px; /* Increased for larger circle */
+  --team-distance: 380px; /* Increased for larger circle */
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 80px;
-  height: 80px;
-  margin-left: -40px;
-  margin-top: -40px;
+  width: 120px;
+  height: 260px;
+  margin-left: -60px;
+  margin-top: -130px;
   transform-origin: center;
   transform: 
     rotate(var(--team-angle)) 
@@ -966,6 +966,11 @@
   pointer-events: auto;
   opacity: 1;
   visibility: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
 }
 
 .team-member-circle {
@@ -973,11 +978,11 @@
   height: 100%;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid rgba(168, 85, 247, 0.5);
+  border: 3px solid rgba(168, 85, 247, 0.5);
   box-shadow: 
-    0 0 20px rgba(168, 85, 247, 0.6),
-    0 0 40px rgba(6, 182, 212, 0.4),
-    inset 0 0 20px rgba(168, 85, 247, 0.2);
+    0 0 25px rgba(168, 85, 247, 0.6),
+    0 0 55px rgba(6, 182, 212, 0.4),
+    inset 0 0 25px rgba(168, 85, 247, 0.2);
   transition: all 0.3s ease;
   background: rgba(15, 15, 30, 0.8);
   backdrop-filter: blur(10px);
@@ -985,11 +990,11 @@
 }
 
 .team-member-circle:hover {
-  border-color: rgba(168, 85, 247, 0.6);
+  border-color: rgba(168, 85, 247, 0.7);
   box-shadow: 
-    0 0 30px rgba(168, 85, 247, 0.6),
-    0 0 60px rgba(6, 182, 212, 0.4);
-  transform: scale(1.1);
+    0 0 38px rgba(168, 85, 247, 0.6),
+    0 0 70px rgba(6, 182, 212, 0.4);
+  transform: scale(1.08);
 }
 
 .team-member-image {
@@ -1004,10 +1009,7 @@
 
 /* Team Speech Bubble */
 .team-speech-bubble {
-  position: absolute;
-  top: -70px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   background: rgba(15, 15, 30, 0.95);
   backdrop-filter: blur(20px);
   border: 2px solid rgba(168, 85, 247, 0.6);
@@ -1021,6 +1023,8 @@
   white-space: nowrap;
   pointer-events: auto; /* Made clickable */
   transition: all 0.3s ease;
+  order: -1;
+  align-self: center;
 }
 
 .team-speech-bubble:hover {
@@ -1078,7 +1082,7 @@
 }
 
 .slogan-text {
-  font-size: 2.2rem; /* Increased for larger circle */
+  font-size: 2.6rem; /* Increased for larger circle */
   font-weight: 800;
   color: white;
   margin: 0;
@@ -1114,14 +1118,14 @@
 /* Milestone Wrapper - Nutzt CSS Custom Properties für Position */
 .milestone-wrapper {
   --icon-angle: 0deg;
-  --icon-distance: 540px; /* Increased for larger circle */
+  --icon-distance: 620px; /* Increased for larger circle */
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 150px;
-  height: 150px;
-  margin-left: -75px;
-  margin-top: -75px;
+  width: 170px;
+  height: 170px;
+  margin-left: -85px;
+  margin-top: -85px;
   transform-origin: center;
   transform: 
     rotate(var(--icon-angle)) 
