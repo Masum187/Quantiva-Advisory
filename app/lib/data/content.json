@@ -1,18 +1,20 @@
 {
   "hero": {
     "de": {
-      "title": "Digitale Transformation für dein Unternehmen",
-      "subtitle": "SAP · Cloud · AI · Integration",
-      "description": "Strategische Beratung, technische Exzellenz und nachhaltige Lösungen für Ihren digitalen Erfolg",
+      "title": "Digitale Transformation für den Mittelstand",
+      "subtitle": "SAP · Cloud · KI · Compliance-fit",
+      "highlight": "Planbar. Sicher. Skalierbar.",
+      "description": "Wir modernisieren SAP-Landschaften, bauen Cloud-Betriebsmodelle auf und bringen KI-Anwendungen in die Fläche – speziell für mittelständische Marktführer.",
       "ctaPrimary": "Jetzt Beraten lassen",
       "ctaSecondary": "Projekte ansehen",
       "backgroundVideo": "/assets/hero-bg.mp4",
       "backgroundImage": "/assets/hero-fallback.jpg"
     },
     "en": {
-      "title": "Digital Transformation for Your Business",
-      "subtitle": "SAP · Cloud · AI · Integration",
-      "description": "Strategic consulting, technical excellence and sustainable solutions for your digital success",
+      "title": "Mid-Market Transformation that Delivers",
+      "subtitle": "SAP · Cloud · AI · Compliance-ready",
+      "highlight": "Predictable. Secure. Scalable.",
+      "description": "We upgrade SAP cores, build cloud operating models and ship AI use cases that create measurable value for European mid-market leaders.",
       "ctaPrimary": "Get Consulting Now",
       "ctaSecondary": "View Projects",
       "backgroundVideo": "/assets/hero-bg.mp4",

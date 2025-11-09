@@ -1,0 +1,98 @@
+[
+  {
+    "id": "sap-senior-consultant",
+    "language": "de",
+    "title": "Senior SAP S/4HANA Consultant",
+    "department": "SAP Transformation",
+    "location": "Remote · München",
+    "employmentType": "Vollzeit",
+    "seniority": "Senior",
+    "remote": true,
+    "tags": ["SAP", "S/4HANA", "Projektleitung"],
+    "description": "Du begleitest mittelständische Kunden auf ihrem Weg nach S/4HANA – von der Roadmap bis zum Go-Live. Gemeinsam mit unserem Delivery-Team orchestrierst du Brownfield- und Bluefield-Szenarien, implementierst Best-Practice-Prozesse und stellst Audit-Readiness sicher.",
+    "requirements": [
+      "5+ Jahre Erfahrung in SAP-Transformationsprojekten",
+      "Fundiertes Wissen in Finance oder Logistik",
+      "Sichere Kommunikation auf Deutsch und Englisch"
+    ],
+    "benefits": [
+      "Individuelles Weiterbildungsbudget",
+      "Remote-first mit optionalen Hubs",
+      "Familienfreundliche Arbeitszeiten"
+    ],
+    "applyUrl": "https://quantivaadvisory.com/de/apply/sap-senior",
+    "publishedAt": "2025-01-05"
+  },
+  {
+    "id": "ml-engineer-midmarket",
+    "language": "de",
+    "title": "AI/ML Engineer Mittelstand",
+    "department": "AI & Automation",
+    "location": "Remote · Köln",
+    "employmentType": "Vollzeit",
+    "seniority": "Professional",
+    "remote": true,
+    "tags": ["Machine Learning", "Python", "MLOps"],
+    "description": "Du entwickelst KI-Lösungen, die Produktionslinien stabiler, Vertriebsprozesse smarter und Service-Organisationen effizienter machen. Schwerpunkt: MLOps, Edge-Inferenz und Integration in bestehende ERP/MES-Landschaften.",
+    "requirements": [
+      "Gute Kenntnisse in Python & ML-Frameworks",
+      "Erfahrung mit MLOps-Stacks (MLflow, Kubeflow o.ä.)",
+      "Verständnis für Datenintegration und APIs"
+    ],
+    "benefits": [
+      "State-of-the-art Tooling",
+      "Mentoring durch Principal Engineers",
+      "Option auf Anteil am Gewinnbeteiligungsprogramm"
+    ],
+    "applyUrl": "https://quantivaadvisory.com/de/apply/ml-engineer",
+    "publishedAt": "2025-01-18"
+  },
+  {
+    "id": "cloud-operating-model-lead",
+    "language": "en",
+    "title": "Cloud Operating Model Lead",
+    "department": "Cloud & Infrastructure",
+    "location": "Remote · Frankfurt",
+    "employmentType": "Full-time",
+    "seniority": "Senior",
+    "remote": true,
+    "tags": ["Cloud", "Governance", "FinOps"],
+    "description": "You design and implement cloud operating models for European mid-market champions. From FinOps control planes to audit-ready guardrails – you ensure delivery teams ship fast and compliant.",
+    "requirements": [
+      "7+ years in cloud architecture or governance",
+      "Hands-on experience with AWS or Azure landing zones",
+      "Ability to facilitate C-level workshops in English and German"
+    ],
+    "benefits": [
+      "Hybrid work with quarterly on-site gatherings",
+      "Annual learning stipend",
+      "Private health insurance"
+    ],
+    "applyUrl": "https://quantivaadvisory.com/en/apply/cloud-operating-model",
+    "publishedAt": "2025-01-10"
+  },
+  {
+    "id": "security-analyst-iso",
+    "language": "en",
+    "title": "Security Analyst – ISO 27001",
+    "department": "Cyber Security",
+    "location": "Remote · Stuttgart",
+    "employmentType": "Full-time",
+    "seniority": "Professional",
+    "remote": true,
+    "tags": ["Security", "ISO27001", "Risk"],
+    "description": "Support our clients on their ISO 27001 journey: risk assessments, control implementation and evidence automation for audits.",
+    "requirements": [
+      "3+ years of experience in information security",
+      "Knowledge of ISO 27001/2 and NIS2",
+      "Fluent in German and English"
+    ],
+    "benefits": [
+      "Flexible working hours",
+      "Budget for certifications",
+      "Mentoring from senior security architects"
+    ],
+    "applyUrl": "https://quantivaadvisory.com/en/apply/security-analyst",
+    "publishedAt": "2024-12-15"
+  }
+]

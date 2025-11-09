@@ -16,6 +16,7 @@ import {
   Zap,
   Shield
 } from 'lucide-react';
+import IndustriesSection from '../../components/sections/IndustriesSection';
 
 // Animation Component
 function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number }) {
@@ -430,78 +431,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Industry Focus - Visual Grid */}
-      <section className="py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SlideIn>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Industry Expertise
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Deep understanding of your industry
-              </p>
-            </div>
-          </SlideIn>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Manufacturing',
-                image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop&auto=format&q=80',
-                description: 'Industry 4.0 & Smart Factory Solutions'
-              },
-              {
-                title: 'Pharma & Healthcare',
-                image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop&auto=format&q=80',
-                description: 'Compliance-driven digital transformation'
-              },
-              {
-                title: 'Retail & E-Commerce',
-                image: 'https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=600&h=400&fit=crop&auto=format&q=80',
-                description: 'Omnichannel & Customer Experience'
-              },
-              {
-                title: 'Finance & Banking',
-                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&auto=format&q=80',
-                description: 'FinTech & digital financial services'
-              },
-              {
-                title: 'Logistics',
-                image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop&auto=format&q=80',
-                description: 'Supply Chain Optimization & IoT'
-              },
-              {
-                title: 'Energy & Utilities',
-                image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=400&fit=crop&auto=format&q=80',
-                description: 'Smart Grid & sustainable energy'
-              },
-            ].map((industry, index) => (
-              <SlideIn key={index} delay={index * 0.1}>
-                <motion.div
-                  whileHover={{ y: -10 }}
-                  className="group relative overflow-hidden rounded-2xl border border-purple-500/20 hover:border-purple-500/60 transition-all duration-300"
-                >
-                  <div className="relative h-64 overflow-hidden">
-                    <Image
-                      src={industry.image}
-                      alt={industry.title}
-                      width={400}
-                      height={256}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-2xl font-bold text-white mb-2">{industry.title}</h3>
-                    <p className="text-gray-300">{industry.description}</p>
-                  </div>
-                </motion.div>
-              </SlideIn>
-            ))}
-          </div>
-        </div>
-      </section>
+      <IndustriesSection lang="en" />
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-purple-900/30 via-black to-teal-900/30 border-t border-purple-500/20">

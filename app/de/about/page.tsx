@@ -23,6 +23,7 @@ import {
   ArrowRight,
   CheckCircle
 } from 'lucide-react';
+import IndustriesSection from '../../components/sections/IndustriesSection';
 
 // Animation Component
 function SlideIn({ children, direction = 'up', delay = 0 }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number }) {
@@ -131,33 +132,6 @@ export default function AboutPage() {
     { value: '200+', label: 'Erfolgreiche Projekte', icon: Target },
     { value: '50+', label: 'Zufriedene Kunden', icon: Users },
     { value: '99%', label: 'Projekt-Erfolgsrate', icon: Award },
-  ];
-
-  const industries = [
-    {
-      title: 'Finanzdienstleistungen',
-      description: 'Banking, Insurance, FinTech',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop',
-      projects: 45
-    },
-    {
-      title: 'Automotive',
-      description: 'OEM, Zulieferer, Mobility',
-      image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=400&auto=format&fit=crop',
-      projects: 32
-    },
-    {
-      title: 'Healthcare',
-      description: 'Pharma, MedTech, Kliniken',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=400&auto=format&fit=crop',
-      projects: 28
-    },
-    {
-      title: 'Retail & E-Commerce',
-      description: 'Omnichannel, Digital Commerce',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=400&auto=format&fit=crop',
-      projects: 38
-    }
   ];
 
   const leadershipQuote = {
@@ -430,54 +404,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Industries Section */}
-      <div className="py-20 bg-black relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SlideIn direction="up">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Branchen-Expertise
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Wir arbeiten mit Unternehmen aus verschiedenen Branchen zusammen und verstehen deren spezifische Herausforderungen.
-              </p>
-            </div>
-          </SlideIn>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {industries.map((industry, index) => (
-              <SlideIn key={index} direction="up" delay={index * 0.1}>
-                <motion.div
-                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-sm border border-white/10"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={industry.image}
-                      alt={industry.title}
-                      width={400}
-                      height={256}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-lg font-bold text-white mb-1">{industry.title}</h3>
-                      <p className="text-sm text-gray-300">{industry.description}</p>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-400">Projekte</span>
-                      <span className="text-2xl font-bold text-teal-400">{industry.projects}+</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </SlideIn>
-            ))}
-          </div>
-        </div>
-      </div>
+      <IndustriesSection lang="de" />
 
       {/* Leadership Quote Section */}
       <div className="py-20 bg-gradient-to-br from-teal-900/20 via-black to-purple-900/20 relative overflow-hidden">

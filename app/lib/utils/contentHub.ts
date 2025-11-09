@@ -1,0 +1,96 @@
+import postsData from '../data/posts.json';
+import { fetchEntries, getAssetUrl, isContentfulEnabled, richTextToPlainText } from './contentful';
+
+export type SupportedLanguage = 'de' | 'en';
+
+export interface ContentPost {
+  slug: string;
+  language: SupportedLanguage;
+  title: string;
+  excerpt: string;
+  tags: string[];
+  industry?: string;
+  publishedAt: string;
+  readingTime?: number;
+  heroImage?: string | null;
+  highlight?: boolean;
+  author?: string;
+  body?: string;
+}
+
+const FALLBACK_POSTS: ContentPost[] = postsData as unknown as ContentPost[];
+
+const contentfulFieldsByLang = (lang: SupportedLanguage) => ({
+  title: lang === 'de' ? 'titleDe' : 'titleEn',
+  excerpt: lang === 'de' ? 'excerptDe' : 'excerptEn',
+  body: lang === 'de' ? 'bodyDe' : 'bodyEn',
+});
+
+const mapContentfulPost = (entry: any, lang: SupportedLanguage): ContentPost | null => {
+  if (!entry?.fields) return null;
+  const { fields } = entry;
+  const fieldMap = contentfulFieldsByLang(lang);
+  const language = (fields.language || lang) as SupportedLanguage;
+  if (language !== lang) return null;
+
+  const bodyField = fields[fieldMap.body] || fields.body;
+
+  return {
+    slug: fields.slug,
+    language,
+    title: fields[fieldMap.title] || fields.title || '',
+    excerpt: fields[fieldMap.excerpt] || fields.excerpt || '',
+    tags: Array.isArray(fields.tags) ? fields.tags : [],
+    industry: fields.industry || undefined,
+    publishedAt: fields.publishedAt || new Date().toISOString(),
+    readingTime: typeof fields.readingTime === 'number' ? fields.readingTime : undefined,
+    heroImage: getAssetUrl(fields.heroImage) || fields.heroImageUrl || null,
+    highlight: typeof fields.highlight === 'boolean' ? fields.highlight : undefined,
+    author: fields.author || undefined,
+    body: bodyField ? richTextToPlainText(bodyField) : undefined,
+  };
+};
+
+const mapFallbackPosts = (lang: SupportedLanguage) =>
+  FALLBACK_POSTS.filter((post) => post.language === lang).sort((a, b) =>
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+export async function getContentPosts(lang: SupportedLanguage): Promise<ContentPost[]> {
+  if (!isContentfulEnabled) {
+    return mapFallbackPosts(lang);
+  }
+
+  const entries = await fetchEntries('contentPost', {
+    'fields.language': lang,
+    order: '-fields.publishedAt',
+  });
+
+  const posts = (entries || [])
+    .map((entry) => mapContentfulPost(entry, lang))
+    .filter((post): post is ContentPost => Boolean(post));
+
+  if (!posts.length) {
+    return mapFallbackPosts(lang);
+  }
+
+  return posts;
+}
+
+export async function getContentPost(lang: SupportedLanguage, slug: string): Promise<ContentPost | null> {
+  if (!isContentfulEnabled) {
+    return mapFallbackPosts(lang).find((post) => post.slug === slug) || null;
+  }
+
+  const entries = await fetchEntries('contentPost', {
+    'fields.slug': slug,
+    limit: 1,
+  });
+
+  if (!entries?.length) {
+    return mapFallbackPosts(lang).find((post) => post.slug === slug) || null;
+  }
+
+  const post = mapContentfulPost(entries[0], lang);
+  return post ?? null;
+}

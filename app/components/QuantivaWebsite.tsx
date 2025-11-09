@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
+import { AnimatedCard } from './services/AnimatedCard';
+import IndustriesSection from './sections/IndustriesSection';
 
 const AIImageSlider = dynamic(() => import("./AIImageSlider"), {
   ssr: false,
@@ -173,49 +175,6 @@ function SlideIn({ children, direction = "up", delay = 0, className = "" }: {
       className={className}
     >
       {children}
-    </motion.div>
-  );
-}
-
-function StaggerSlideIn({ children, className = "" }: {
-  children: React.ReactNode[];
-  className?: string;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        visible: {
-          transition: {
-            staggerChildren: 0.2,
-          },
-        },
-      }}
-    >
-      {children.map((child, index) => (
-        <motion.div
-          key={index}
-          variants={{
-            hidden: { y: 60, opacity: 0 },
-            visible: { 
-              y: 0, 
-              opacity: 1,
-              transition: {
-                duration: 0.6,
-                ease: [0.25, 0.1, 0.25, 1],
-              }
-            },
-          }}
-        >
-          {child}
-        </motion.div>
-      ))}
     </motion.div>
   );
 }
@@ -612,34 +571,42 @@ export default function QuantivaWebsite() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight mb-8 break-words">
-                {lang === 'de' ? (
-                  <>
-                    DIGITALE<br />
-                    TRANSFORMATION<br />
-                    <span className="text-teal-400">NEU GEDACHT</span>
-                  </>
-                ) : (
-                  <>
-                    DIGITAL<br />
-                    TRANSFORMATION<br />
-                    <span className="text-teal-400">REIMAGINED</span>
-                  </>
-                )}
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-teal-200">
+                {hero.subtitle}
+              </p>
+              <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight break-words">
+                {hero.title}
               </h1>
+              {hero.highlight ? (
+                <p className="mt-4 text-lg font-semibold uppercase tracking-[0.4em] text-teal-300">
+                  {hero.highlight}
+                </p>
+              ) : null}
 
-              {/* Video Play Button */}
-              <button 
-                className="group flex items-center gap-3 text-white hover:text-teal-400 transition-colors"
-                onClick={() => scrollTo('services')}
-              >
-                <div className="w-14 h-14 rounded-full border-2 border-white group-hover:border-teal-400 flex items-center justify-center transition-all group-hover:scale-110">
-                  <div className="w-0 h-0 border-l-[12px] border-l-current border-y-[8px] border-y-transparent ml-1"></div>
-                </div>
-                <span className="text-sm font-medium uppercase tracking-wider">
-                  {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-                </span>
-              </button>
+              <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-gray-300">
+                <p className="max-w-xl leading-relaxed">
+                  {hero.description}
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link
+                  href={localePath('/#contact')}
+                  className="inline-flex items-center gap-3 rounded-full bg-teal-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/40 transition hover:-translate-y-1 hover:bg-teal-400"
+                >
+                  {hero.ctaPrimary}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <button
+                  onClick={() => scrollTo('services')}
+                  className="group inline-flex items-center gap-3 rounded-full border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white transition hover:border-teal-400/60 hover:text-teal-300"
+                >
+                  <span>{hero.ctaSecondary}</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 transition group-hover:border-teal-400">
+                    <div className="w-0 h-0 border-l-[10px] border-l-current border-y-[7px] border-y-transparent ml-1" />
+                  </div>
+                </button>
+              </div>
             </motion.div>
 
             {/* Right: Content - Accenture Style */}
@@ -679,14 +646,14 @@ export default function QuantivaWebsite() {
               <AIImageSlider lang={lang} />
 
               {/* Stats - Minimalist */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800">
-                {[
-                  { value: "50+", label: lang === 'de' ? "Projekte" : "Projects" },
-                  { value: "99%", label: lang === 'de' ? "Zufriedenheit" : "Satisfaction" },
-                  { value: "24/7", label: "Support" }
+              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left lg:text-left">
+                {[ 
+                  { value: "60%", label: lang === 'de' ? "schnellere Time-to-Value" : "faster time-to-value" },
+                  { value: "30+", label: lang === 'de' ? "Mittelstandsreferenzen" : "mid-market references" },
+                  { value: "ISO 27001", label: lang === 'de' ? "sicher & audit-ready" : "secure & audit-ready" }
                 ].map((stat, index) => (
-                  <div key={index} className="text-center lg:text-left">
-                    <div className="text-3xl md:text-4xl font-black text-white mb-1">
+                  <div key={index}>
+                    <div className="text-2xl md:text-3xl font-black text-white mb-1">
                       {stat.value}
                     </div>
                     <div className="text-xs text-gray-400 uppercase tracking-wider">
@@ -706,6 +673,9 @@ export default function QuantivaWebsite() {
       {/* Team */}
       <TeamSection />
 
+      {/* Industries */}
+      <IndustriesSection lang={lang} />
+
       {/* Services */}
       <section id="services" className="bg-black py-24">
         <div className="mx-auto max-w-7xl px-6">
@@ -720,54 +690,61 @@ export default function QuantivaWebsite() {
             </p>
           </SlideIn>
 
-          <StaggerSlideIn className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {services.items.slice(0, 6).map((service, index) => {
-              // Reihenfolge entspricht content.json: sap, cloud, ai, integration, security, enablement
               const serviceUrls = [
-                'sap',              // SAP Services
-                'cloud',            // Cloud Solutions
-                'ai',               // AI & Machine Learning
-                'microservices',    // System Integration
-                'cyber-security',   // Cyber Security
-                'new-work'          // New Work
+                'sap',
+                'cloud',
+                'ai',
+                'microservices',
+                'cyber-security',
+                'new-work'
               ];
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
-              
+              const direction = index % 2 === 0 ? 'left' : 'right';
+
               return (
-                <article 
-                  key={service.id} 
-                  onClick={() => window.location.href = serviceUrl}
-                  className="group relative overflow-hidden rounded-2xl shadow-2xl shadow-teal-500/20 border border-teal-500/30 hover:shadow-teal-500/40 hover:border-teal-400/50 transition-all duration-300 cursor-pointer"
+                <AnimatedCard
+                  key={service.id}
+                  direction={direction}
+                  delay={index * 0.08}
+                  as="article"
+                  className="h-full"
                 >
-                  {/* Hintergrundbild mit Zoom beim Hover - Bild aus CMS */}
-                  <div
-                    className="h-64 w-full bg-cover bg-center transition duration-300 group-hover:scale-110"
-                    style={{ 
-                      backgroundImage: `url(${(service as any).image})`,
-                      backgroundPosition: 'left center'
-                    }}
-                  />
-                  {/* Gradient-Overlay (wird dunkler beim Hover) */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 transition group-hover:bg-black/85" />
-                  {/* Titel (immer sichtbar, einzeilig und baseline-ausgerichtet) */}
-                  <div className="absolute inset-x-0 bottom-0 z-10 p-5 text-white">
-                    <div className="h-16 flex items-end">
-                      <h3 className="text-2xl md:text-3xl font-bold leading-none tracking-tight drop-shadow-2xl text-shadow-xl line-clamp-1 truncate">
-                        {service.title}
-                      </h3>
+                  <Link
+                    href={serviceUrl}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-teal-500/30 bg-slate-950/70 shadow-[0_35px_80px_-40px_rgba(45,212,191,0.45)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70"
+                  >
+                    <div className="relative h-64 w-full overflow-hidden">
+                      <div
+                        className="absolute inset-0 scale-105 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 group-focus-visible:scale-110"
+                        style={{ backgroundImage: `url(${(service as any).image})` }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 transition-opacity duration-500 group-hover:opacity-80 group-focus-visible:opacity-80" />
                     </div>
-                  </div>
-                  {/* Beschreibung (fährt beim Hover hoch) */}
-                  <div className="absolute inset-0 z-20 flex flex-col translate-y-full items-center justify-center bg-gradient-to-br from-black/98 via-slate-900/98 to-black/98 p-6 text-center text-white transition duration-300 group-hover:translate-y-0">
-                    <p className="max-w-sm text-base text-gray-100 mb-4 text-shadow-lg">{service.description}</p>
-                    <span className="inline-flex items-center gap-2 text-teal-400 font-semibold text-shadow-lg">
-                      {lang === 'de' ? 'Mehr erfahren' : 'Learn more'} <ChevronRight className="w-5 h-5" />
-                    </span>
-                  </div>
-                </article>
+
+                    <div className="relative flex flex-1 flex-col justify-end p-6">
+                      <div className="flex items-center justify-between gap-4">
+                        <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-2xl md:text-3xl">
+                          {service.title}
+                        </h3>
+                        <ChevronRight className="h-6 w-6 text-teal-300 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                      </div>
+
+                      <p className="mt-5 max-w-sm text-base text-gray-200 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                        {service.description}
+                      </p>
+
+                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300">
+                        {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
+                        <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                      </span>
+                    </div>
+                  </Link>
+                </AnimatedCard>
               );
             })}
-          </StaggerSlideIn>
+          </div>
         </div>
       </section>
 

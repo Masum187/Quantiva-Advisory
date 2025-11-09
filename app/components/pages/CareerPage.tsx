@@ -7,10 +7,13 @@ import Navigation from '../Navigation';
 import {
   ChevronRight, ArrowRight, Users, Heart, TrendingUp,
   GraduationCap, Lightbulb, Target, Award, Shield, Sparkles,
-  Brain, Cloud, Code, Database, Globe, Zap, Menu, X
+  Brain, Cloud, Code, Database, Globe, Zap, Menu, X, BriefcaseIcon
 } from 'lucide-react';
 import { useLanguage } from '../QuantivaWebsite';
 import VideoCard from '../VideoCard';
+import { getJobListings, submitJobPosting, JobListing } from '../../lib/utils/jobs';
+import ContactForm from '../ContactForm';
+import { AnimatePresence } from 'framer-motion';
 
 // Animation Components
 function SlideIn({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; className?: string }) {
@@ -331,6 +334,52 @@ const ELEVENLABS_VOICES = {
 export default function CareerPage() {
   const { lang, localePath } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [jobListings, setJobListings] = useState<JobListing[]>([]);
+  const [jobLoading, setJobLoading] = useState(true);
+  const [jobError, setJobError] = useState<string | null>(null);
+  const [selectedJob, setSelectedJob] = useState<JobListing | null>(null);
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [submissionError, setSubmissionError] = useState<string>('');
+
+  useEffect(() => {
+    let mounted = true;
+    setJobLoading(true);
+    getJobListings(lang)
+      .then((jobs) => {
+        if (mounted) {
+          setJobListings(jobs);
+        }
+      })
+      .catch(() => {
+        if (mounted) setJobError(lang === 'de' ? 'Stellen konnten nicht geladen werden.' : 'Unable to load job listings.');
+      })
+      .finally(() => mounted && setJobLoading(false));
+
+    return () => {
+      mounted = false;
+    };
+  }, [lang]);
+
+  const handleJobApply = async (job: JobListing) => {
+    setSelectedJob(job);
+  };
+
+  const handleJobSubmission = async (data: { name: string; email: string; message: string }) => {
+    if (!selectedJob) return;
+    try {
+      setSubmissionStatus('loading');
+      await submitJobPosting({
+        ...selectedJob,
+        description: `${selectedJob.description}\n\n---\nCandidate: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`,
+      });
+      setSubmissionStatus('success');
+      setSelectedJob(null);
+      setTimeout(() => setSubmissionStatus('idle'), 3000);
+    } catch (error) {
+      setSubmissionStatus('error');
+      setSubmissionError(error instanceof Error ? error.message : 'Submission failed');
+    }
+  };
 
   // Navigation items
   const navigationItems = [
@@ -1258,64 +1307,96 @@ export default function CareerPage() {
             </SlideIn>
 
             <div className="space-y-8">
-              {positions.map((position, index) => (
-                <SlideIn key={position.title} direction="up" delay={index * 0.1}>
-                  <div className="group">
-                    <div className="relative p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
-                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
-                      <div className="relative z-10">
-                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                          <div>
-                            <h3 className="text-2xl font-bold text-white mb-2">{position.title}</h3>
-                            <div className="flex items-center gap-4 text-gray-300">
-                              <span className="flex items-center gap-2">
-                                <Globe className="w-4 h-4" />
-                                {position.location}
-                              </span>
-                              <span className="flex items-center gap-2">
-                                <Users className="w-4 h-4" />
-                                {position.type}
-                              </span>
+              {jobLoading ? (
+                <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
+                  {lang === 'de' ? 'Lade offene Positionen …' : 'Loading job openings …'}
+                </div>
+              ) : jobError ? (
+                <div className="rounded-3xl border border-red-500/40 bg-red-500/10 p-10 text-center text-red-200">
+                  {jobError}
+                </div>
+              ) : jobListings.length === 0 ? (
+                <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
+                  {lang === 'de' ? 'Derzeit keine offenen Positionen.' : 'No open positions at the moment.'}
+                </div>
+              ) : (
+                jobListings.map((job, index) => (
+                  <SlideIn key={job.id} direction="up" delay={index * 0.1}>
+                    <div className="group">
+                      <div className="relative p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
+                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
+                        <div className="relative z-10">
+                          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                            <div>
+                              <h3 className="text-2xl font-bold text-white mb-2">{job.title}</h3>
+                              <div className="flex flex-wrap items-center gap-4 text-gray-300 text-sm">
+                                <span className="flex items-center gap-2">
+                                  <Globe className="w-4 h-4" />
+                                  {job.location}
+                                </span>
+                                <span className="flex items-center gap-2">
+                                  <Users className="w-4 h-4" />
+                                  {job.employmentType}
+                                </span>
+                                {job.department ? (
+                                  <span className="flex items-center gap-2">
+                                    <BriefcaseIcon className="w-4 h-4" />
+                                    {job.department}
+                                  </span>
+                                ) : null}
+                                {job.remote ? (
+                                  <span className="rounded-full border border-teal-400/30 bg-teal-500/10 px-3 py-1 text-xs uppercase tracking-wider text-teal-300">
+                                    Remote
+                                  </span>
+                                ) : null}
+                              </div>
                             </div>
+                            <button
+                              className="mt-4 lg:mt-0 px-6 py-3 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+                              onClick={() => handleJobApply(job)}
+                            >
+                              {lang === 'de' ? 'Jetzt bewerben' : 'Apply now'}
+                            </button>
                           </div>
-                          <button className="mt-4 lg:mt-0 px-6 py-3 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300">
-                            Jetzt bewerben
-                          </button>
-                        </div>
-                        
-                        <p className="text-gray-300 mb-6 leading-relaxed">
-                          {position.description}
-                        </p>
-                        
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <h4 className="text-lg font-semibold text-white mb-3">Anforderungen</h4>
-                            <ul className="space-y-2">
-                              {position.requirements.map((req, reqIndex) => (
-                                <li key={reqIndex} className="flex items-center gap-2 text-gray-300">
-                                  <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                                  {req}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div>
-                            <h4 className="text-lg font-semibold text-white mb-3">Benefits</h4>
-                            <ul className="space-y-2">
-                              {position.benefits.map((benefit, benefitIndex) => (
-                                <li key={benefitIndex} className="flex items-center gap-2 text-gray-300">
-                                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                                  {benefit}
-                                </li>
-                              ))}
-                            </ul>
+
+                          <p className="text-gray-300 mb-6 leading-relaxed">
+                            {job.description}
+                          </p>
+
+                          <div className="grid md:grid-cols-2 gap-6">
+                            <div>
+                              <h4 className="text-lg font-semibold text-white mb-3">
+                                {lang === 'de' ? 'Anforderungen' : 'Requirements'}
+                              </h4>
+                              <ul className="space-y-2">
+                                {job.requirements.map((req, reqIndex) => (
+                                  <li key={reqIndex} className="flex items-center gap-2 text-gray-300">
+                                    <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
+                                    {req}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <h4 className="text-lg font-semibold text-white mb-3">
+                                Benefits
+                              </h4>
+                              <ul className="space-y-2">
+                                {job.benefits.map((benefit, benefitIndex) => (
+                                  <li key={benefitIndex} className="flex items-center gap-2 text-gray-300">
+                                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                    {benefit}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </SlideIn>
-              ))}
+                  </SlideIn>
+                ))
+              )}
             </div>
           </div>
 
@@ -1730,6 +1811,78 @@ export default function CareerPage() {
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedJob ? (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="w-full max-w-3xl rounded-3xl bg-slate-900/95 border border-white/10 p-8"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">{selectedJob.title}</h3>
+                  <p className="text-sm text-gray-400 mt-2">
+                    {selectedJob.location} · {selectedJob.employmentType}
+                  </p>
+                </div>
+                <button
+                  className="rounded-full border border-white/20 px-4 py-2 text-xs uppercase tracking-[0.3em] text-gray-400 hover:border-teal-400/40 hover:text-teal-300"
+                  onClick={() => setSelectedJob(null)}
+                >
+                  {lang === 'de' ? 'Schließen' : 'Close'}
+                </button>
+              </div>
+
+              <div className="mt-6 grid gap-6 md:grid-cols-2 text-sm text-gray-300">
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-3">
+                    {lang === 'de' ? 'Anforderungen' : 'Requirements'}
+                  </h4>
+                  <ul className="space-y-2">
+                    {selectedJob.requirements.map((req, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <div className="mt-1 h-2 w-2 rounded-full bg-teal-400" />
+                        {req}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-3">Benefits</h4>
+                  <ul className="space-y-2">
+                    {selectedJob.benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start gap-2">
+                        <div className="mt-1 h-2 w-2 rounded-full bg-purple-400" />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-2xl bg-black/40 border border-white/10 p-6">
+                <h4 className="text-lg font-semibold text-white mb-3">
+                  {lang === 'de' ? 'Jetzt direkt bewerben' : 'Apply directly'}
+                </h4>
+                <p className="text-sm text-gray-400 mb-4">
+                  {lang === 'de'
+                    ? 'Sende uns kurz deine Kontaktdaten und wir melden uns innerhalb eines Tages.'
+                    : 'Share your contact details – we will get back within one business day.'}
+                </p>
+                <ContactForm lang={lang} />
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 }

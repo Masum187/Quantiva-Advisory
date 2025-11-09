@@ -1,9 +1,15 @@
+'use client';
+
 import React from 'react';
 import { useLanguage } from '../../QuantivaWebsite';
-import { Boxes, GitBranch, Zap, Cloud, CheckCircle, ArrowRight } from 'lucide-react';
+import { Network, Cpu, Share2, Workflow, CheckCircle, ArrowRight } from 'lucide-react';
+import { AnimatedCard } from '../../services/AnimatedCard';
 
 export default function MicroservicesPage() {
   const { lang, localePath } = useLanguage();
+
+  const featureHint = lang === 'de' ? 'Architekturdetails anzeigen.' : 'Reveal architecture details.';
+  const listHint = lang === 'de' ? 'Mehr erfahren' : 'Learn more';
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -11,15 +17,15 @@ export default function MicroservicesPage() {
       <section className="relative py-20 px-6 bg-gradient-to-br from-slate-900 via-black to-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
-            <Boxes className="w-12 h-12 text-teal-400" />
+            <Network className="w-12 h-12 text-teal-400" />
             <h1 className="text-4xl md:text-5xl font-bold">
-              {lang === 'de' ? 'Microservices & APIs' : 'Microservices & APIs'}
+              {lang === 'de' ? 'Microservices & Integration' : 'Microservices & Integration'}
             </h1>
           </div>
           <p className="text-xl text-gray-300 max-w-3xl">
             {lang === 'de' 
-              ? 'Skalierbare Microservice-Architekturen und API-first Designs für moderne, flexible Systeme.'
-              : 'Scalable microservice architectures and API-first designs for modern, flexible systems.'}
+              ? 'Wir bauen entkoppelte Plattformen, die Geschwindigkeit, Skalierbarkeit und Wartbarkeit vereinen.'
+              : 'We build decoupled platforms that combine speed, scalability and maintainability.'}
           </p>
         </div>
       </section>
@@ -33,17 +39,31 @@ export default function MicroservicesPage() {
               <h2 className="text-3xl font-bold mb-6">
                 {lang === 'de' ? 'Unsere Leistungen' : 'Our Services'}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {[
-                  { icon: GitBranch, title: lang === 'de' ? 'Microservice-Architektur' : 'Microservice Architecture' },
-                  { icon: Zap, title: lang === 'de' ? 'API-First Design' : 'API-First Design' },
-                  { icon: Cloud, title: lang === 'de' ? 'Cloud-Native Development' : 'Cloud-Native Development' },
-                  { icon: Boxes, title: lang === 'de' ? 'Container Orchestration' : 'Container Orchestration' },
+                  { icon: Cpu, title: lang === 'de' ? 'Microservice-Architekturen' : 'Microservice architectures' },
+                  { icon: Share2, title: lang === 'de' ? 'API- & Event-Landschaften' : 'API & event landscapes' },
+                  { icon: Workflow, title: lang === 'de' ? 'Automatisierung & DevOps' : 'Automation & DevOps' },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-teal-500/30">
-                    <item.icon className="w-6 h-6 text-teal-400" />
-                    <span className="text-lg">{item.title}</span>
-                  </div>
+                  <AnimatedCard
+                    key={item.title}
+                    direction={idx % 2 === 0 ? 'left' : 'right'}
+                    delay={idx * 0.08}
+                    className="group relative overflow-hidden rounded-2xl border border-teal-500/30 bg-slate-900/70 p-5 shadow-lg shadow-teal-500/10 transition-all duration-500 hover:border-teal-400/60 focus-within:border-teal-400/60"
+                    tabIndex={0}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-teal-500/30 to-cyan-500/20 border border-teal-400/50">
+                        <item.icon className="w-6 h-6 text-teal-300" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-lg font-semibold text-white">{item.title}</p>
+                        <p className="mt-2 text-sm text-gray-300 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                          {featureHint}
+                        </p>
+                      </div>
+                    </div>
+                  </AnimatedCard>
                 ))}
               </div>
             </div>
@@ -51,26 +71,36 @@ export default function MicroservicesPage() {
             {/* Right Column */}
             <div>
               <h2 className="text-3xl font-bold mb-6">
-                {lang === 'de' ? 'Vorteile' : 'Benefits'}
+                {lang === 'de' ? 'Business Impact' : 'Business Impact'}
               </h2>
               <p className="text-gray-300 mb-6">
                 {lang === 'de'
-                  ? 'Microservices ermöglichen es Ihnen, schneller zu entwickeln, einfacher zu skalieren und flexibler auf Marktveränderungen zu reagieren.'
-                  : 'Microservices enable you to develop faster, scale easier, and respond more flexibly to market changes.'}
+                  ? 'Wir unterstützen Sie vom Architekturdesign bis zum operativen Betrieb, damit Ihre Plattformen wachsen können.'
+                  : 'We support you from architecture design to operational excellence so your platforms can grow.'}
               </p>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Unabhängige Deployment-Zyklen' : 'Independent deployment cycles'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Horizontale Skalierbarkeit' : 'Horizontal scalability'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Technologie-Flexibilität' : 'Technology flexibility'}</span>
-                </li>
+              <ul className="space-y-5">
+                {[
+                  lang === 'de' ? 'Schnellere Release-Zyklen' : 'Faster release cycles',
+                  lang === 'de' ? 'Erhöhte Systemstabilität' : 'Increased system stability',
+                  lang === 'de' ? 'Nahtlose Integration bestehender Systeme' : 'Seamless integration of existing systems',
+                ].map((item, idx) => (
+                  <AnimatedCard
+                    key={item}
+                    as="li"
+                    direction={idx % 2 === 0 ? 'right' : 'left'}
+                    delay={0.15 + idx * 0.08}
+                    className="group flex items-start gap-3 rounded-2xl border border-slate-800/60 bg-slate-900/60 p-5 shadow-inner shadow-slate-900/80 transition-all duration-500 hover:border-teal-400/40 focus-within:border-teal-400/40"
+                    tabIndex={0}
+                  >
+                    <CheckCircle className="w-5 h-5 text-teal-300 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="text-base text-white">{item}</span>
+                      <span className="mt-2 block text-sm text-gray-400 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                        {listHint}
+                      </span>
+                    </div>
+                  </AnimatedCard>
+                ))}
               </ul>
             </div>
           </div>

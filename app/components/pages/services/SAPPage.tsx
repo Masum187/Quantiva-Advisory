@@ -1,9 +1,15 @@
+'use client';
+
 import React from 'react';
 import { useLanguage } from '../../QuantivaWebsite';
 import { Database, Layers, Workflow, Settings, CheckCircle, ArrowRight } from 'lucide-react';
+import { AnimatedCard } from '../../services/AnimatedCard';
 
 export default function SAPPage() {
   const { lang, localePath } = useLanguage();
+
+  const featureHint = lang === 'de' ? 'Mehr über diese Leistung erfahren.' : 'Discover more about this service.';
+  const listHint = lang === 'de' ? 'Mehr erfahren' : 'Learn more';
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -18,8 +24,8 @@ export default function SAPPage() {
           </div>
           <p className="text-xl text-gray-300 max-w-3xl">
             {lang === 'de' 
-              ? 'ABAP, Fiori, SAP BTP & Integrationslösungen für moderne Geschäftsprozesse.'
-              : 'ABAP, Fiori, SAP BTP & integration solutions for modern business processes.'}
+              ? 'End-to-End Beratung und Implementierung von SAP-Lösungen für nachhaltige Geschäftsprozesse.'
+              : 'End-to-end consulting and implementation of SAP solutions for sustainable business processes.'}
           </p>
         </div>
       </section>
@@ -33,17 +39,31 @@ export default function SAPPage() {
               <h2 className="text-3xl font-bold mb-6">
                 {lang === 'de' ? 'Unsere Leistungen' : 'Our Services'}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {[
-                  { icon: Database, title: lang === 'de' ? 'S/4HANA Migration' : 'S/4HANA Migration' },
-                  { icon: Layers, title: lang === 'de' ? 'SAP BTP Development' : 'SAP BTP Development' },
-                  { icon: Workflow, title: lang === 'de' ? 'SAP Fiori Apps' : 'SAP Fiori Apps' },
-                  { icon: Settings, title: lang === 'de' ? 'ABAP Development' : 'ABAP Development' },
+                  { icon: Layers, title: lang === 'de' ? 'SAP S/4HANA Transformation' : 'SAP S/4HANA Transformation' },
+                  { icon: Workflow, title: lang === 'de' ? 'Process Automation' : 'Process Automation' },
+                  { icon: Settings, title: lang === 'de' ? 'Integration & Customizing' : 'Integration & Customizing' },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-teal-500/30">
-                    <item.icon className="w-6 h-6 text-teal-400" />
-                    <span className="text-lg">{item.title}</span>
-                  </div>
+                  <AnimatedCard
+                    key={item.title}
+                    direction={idx % 2 === 0 ? 'left' : 'right'}
+                    delay={idx * 0.08}
+                    className="group relative overflow-hidden rounded-2xl border border-teal-500/30 bg-slate-900/70 p-5 shadow-lg shadow-teal-500/10 transition-all duration-500 hover:border-teal-400/60 focus-within:border-teal-400/60"
+                    tabIndex={0}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-teal-500/30 to-emerald-500/20 border border-teal-400/50">
+                        <item.icon className="w-6 h-6 text-teal-300" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-lg font-semibold text-white">{item.title}</p>
+                        <p className="mt-2 text-sm text-gray-300 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                          {featureHint}
+                        </p>
+                      </div>
+                    </div>
+                  </AnimatedCard>
                 ))}
               </div>
             </div>
@@ -51,26 +71,36 @@ export default function SAPPage() {
             {/* Right Column */}
             <div>
               <h2 className="text-3xl font-bold mb-6">
-                {lang === 'de' ? 'SAP Expertise' : 'SAP Expertise'}
+                {lang === 'de' ? 'Business Outcomes' : 'Business Outcomes'}
               </h2>
               <p className="text-gray-300 mb-6">
                 {lang === 'de'
-                  ? 'Mit jahrelanger Erfahrung in SAP-Projekten unterstützen wir Sie bei der Modernisierung Ihrer SAP-Landschaft.'
-                  : 'With years of experience in SAP projects, we support you in modernizing your SAP landscape.'}
+                  ? 'Wir verbinden funktionale Expertise mit technischer Exzellenz, um Ihre SAP-Landschaft zukunftssicher zu machen.'
+                  : 'We combine functional expertise with technical excellence to future-proof your SAP landscape.'}
               </p>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'End-to-End SAP Beratung' : 'End-to-end SAP consulting'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Custom Development & Extensions' : 'Custom development & extensions'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Integration & Migration' : 'Integration & migration'}</span>
-                </li>
+              <ul className="space-y-5">
+                {[
+                  lang === 'de' ? 'Beschleunigte Prozesse & Transparenz' : 'Accelerated processes & transparency',
+                  lang === 'de' ? 'Nahtlose Systemintegration' : 'Seamless system integration',
+                  lang === 'de' ? 'Skalierbare Architekturen' : 'Scalable architectures',
+                ].map((item, idx) => (
+                  <AnimatedCard
+                    key={item}
+                    as="li"
+                    direction={idx % 2 === 0 ? 'right' : 'left'}
+                    delay={0.15 + idx * 0.08}
+                    className="group flex items-start gap-3 rounded-2xl border border-slate-800/60 bg-slate-900/60 p-5 shadow-inner shadow-slate-900/80 transition-all duration-500 hover:border-teal-400/40 focus-within:border-teal-400/40"
+                    tabIndex={0}
+                  >
+                    <CheckCircle className="w-5 h-5 text-teal-300 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="text-base text-white">{item}</span>
+                      <span className="mt-2 block text-sm text-gray-400 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                        {listHint}
+                      </span>
+                    </div>
+                  </AnimatedCard>
+                ))}
               </ul>
             </div>
           </div>

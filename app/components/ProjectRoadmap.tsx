@@ -722,8 +722,8 @@ const ProjectRoadmap = () => {
                     <Image
                       src={member.image}
                       alt={member.name}
-                      width={80}
-                      height={80}
+                      width={140}
+                      height={108}
                       className="team-member-image"
                       unoptimized
                       priority={index < 3}
@@ -740,8 +740,13 @@ const ProjectRoadmap = () => {
                       transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setClickedTeamMember(isClicked ? null : index);
-                        if (!isClicked) {
+                        if (isClicked) {
+                          setClickedTeamMember(null);
+                          setOpenedIndex(null);
+                          setHoveredTeamMember(null);
+                        } else {
+                          setClickedTeamMember(index);
+                          setOpenedIndex(member.projectIndex);
                           setHoveredTeamMember(index);
                         }
                       }}
@@ -843,7 +848,7 @@ const ProjectRoadmap = () => {
             const projectY = -Math.cos(projectAngleRad) * projectDistance;
             
             // Offset for speech bubble (above team member)
-            const bubbleOffset = -120;
+            const bubbleOffset = -200;
             const arrowStartX = teamX;
             const arrowStartY = teamY + bubbleOffset;
             const arrowEndX = projectX;
@@ -1038,6 +1043,7 @@ const ProjectRoadmap = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       setOpenedIndex(null);
+                      setClickedTeamMember(null);
                     }}
                   >
                     ×

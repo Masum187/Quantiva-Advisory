@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
 interface SubtitleEntry {
@@ -35,7 +35,7 @@ export default function VideoWithSubtitles({
   const subtitleIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Parse SRT content
-  const parseSRT = (srtContent: string): SubtitleEntry[] => {
+  const parseSRT = useCallback((srtContent: string): SubtitleEntry[] => {
     const entries: SubtitleEntry[] = [];
     const blocks = srtContent.trim().split(/\n\s*\n/);
 
@@ -61,7 +61,7 @@ export default function VideoWithSubtitles({
     });
 
     return entries.sort((a, b) => a.startTime - b.startTime);
-  };
+  }, []);
 
   // Convert SRT time format to seconds
   const parseTimeToSeconds = (timeString: string): number => {
@@ -73,7 +73,8 @@ export default function VideoWithSubtitles({
 
   // Load subtitles from Cloudinary
   useEffect(() => {
-    const loadSubtitles = async () => {
+    async function loadSubtitles() {
+      if (!subtitleUrl) return;
       try {
         setIsLoading(true);
         const response = await fetch(subtitleUrl);
@@ -92,12 +93,12 @@ export default function VideoWithSubtitles({
       } finally {
         setIsLoading(false);
       }
-    };
+    }
 
     if (subtitleUrl) {
       loadSubtitles();
     }
-  }, [subtitleUrl]);
+  }, [subtitleUrl, parseSRT]);
 
   // Update current subtitle based on video time
   useEffect(() => {

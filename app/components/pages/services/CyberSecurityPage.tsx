@@ -1,9 +1,15 @@
+'use client';
+
 import React from 'react';
 import { useLanguage } from '../../QuantivaWebsite';
-import { Shield, Lock, Eye, AlertTriangle, CheckCircle, ArrowRight } from 'lucide-react';
+import { Shield, Lock, AlertTriangle, KeyRound, CheckCircle, ArrowRight } from 'lucide-react';
+import { AnimatedCard } from '../../services/AnimatedCard';
 
 export default function CyberSecurityPage() {
   const { lang, localePath } = useLanguage();
+
+  const featureHint = lang === 'de' ? 'Sicherheitsvorteile anzeigen.' : 'Reveal the security benefits.';
+  const listHint = lang === 'de' ? 'Mehr erfahren' : 'Learn more';
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -18,8 +24,8 @@ export default function CyberSecurityPage() {
           </div>
           <p className="text-xl text-gray-300 max-w-3xl">
             {lang === 'de' 
-              ? 'Zero Trust, Penetration Testing und Sicherheitsarchitekturen für maximalen Schutz Ihrer digitalen Assets.'
-              : 'Zero Trust, penetration testing and security architectures for maximum protection of your digital assets.'}
+              ? 'Ganzheitliche Sicherheitsstrategien und operative Exzellenz für kritische IT-Landschaften.'
+              : 'Holistic security strategies and operational excellence for critical IT landscapes.'}
           </p>
         </div>
       </section>
@@ -33,17 +39,31 @@ export default function CyberSecurityPage() {
               <h2 className="text-3xl font-bold mb-6">
                 {lang === 'de' ? 'Unsere Leistungen' : 'Our Services'}
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {[
-                  { icon: Lock, title: lang === 'de' ? 'Zero Trust Architektur' : 'Zero Trust Architecture' },
-                  { icon: Eye, title: lang === 'de' ? 'Penetration Testing' : 'Penetration Testing' },
-                  { icon: AlertTriangle, title: lang === 'de' ? 'Vulnerability Assessment' : 'Vulnerability Assessment' },
-                  { icon: CheckCircle, title: lang === 'de' ? 'Security Audits' : 'Security Audits' },
+                  { icon: Lock, title: lang === 'de' ? 'Zero Trust Frameworks' : 'Zero Trust Frameworks' },
+                  { icon: AlertTriangle, title: lang === 'de' ? 'Threat Detection & Response' : 'Threat Detection & Response' },
+                  { icon: KeyRound, title: lang === 'de' ? 'Identity & Access Management' : 'Identity & Access Management' },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-teal-500/30">
-                    <item.icon className="w-6 h-6 text-teal-400" />
-                    <span className="text-lg">{item.title}</span>
-                  </div>
+                  <AnimatedCard
+                    key={item.title}
+                    direction={idx % 2 === 0 ? 'left' : 'right'}
+                    delay={idx * 0.08}
+                    className="group relative overflow-hidden rounded-2xl border border-teal-500/30 bg-slate-900/70 p-5 shadow-lg shadow-teal-500/10 transition-all duration-500 hover:border-teal-400/60 focus-within:border-teal-400/60"
+                    tabIndex={0}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-teal-500/30 to-indigo-500/20 border border-teal-400/50">
+                        <item.icon className="w-6 h-6 text-teal-300" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-lg font-semibold text-white">{item.title}</p>
+                        <p className="mt-2 text-sm text-gray-300 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                          {featureHint}
+                        </p>
+                      </div>
+                    </div>
+                  </AnimatedCard>
                 ))}
               </div>
             </div>
@@ -51,26 +71,36 @@ export default function CyberSecurityPage() {
             {/* Right Column */}
             <div>
               <h2 className="text-3xl font-bold mb-6">
-                {lang === 'de' ? 'Warum Cyber Security?' : 'Why Cyber Security?'}
+                {lang === 'de' ? 'Schutz für Ihr Unternehmen' : 'Protection for your business'}
               </h2>
               <p className="text-gray-300 mb-6">
                 {lang === 'de'
-                  ? 'In einer zunehmend vernetzten Welt sind Cyberangriffe eine der größten Bedrohungen für Unternehmen. Wir helfen Ihnen, Ihre Systeme zu schützen und Compliance-Anforderungen zu erfüllen.'
-                  : 'In an increasingly connected world, cyber attacks are one of the biggest threats to businesses. We help you protect your systems and meet compliance requirements.'}
+                  ? 'Wir etablieren Security-by-Design und sorgen für Resilienz gegen moderne Bedrohungen.'
+                  : 'We establish security-by-design principles and ensure resilience against modern threats.'}
               </p>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Ganzheitliche Sicherheitskonzepte' : 'Holistic security concepts'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? 'Compliance & Risikomanagement' : 'Compliance & risk management'}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-teal-400 mt-1 flex-shrink-0" />
-                  <span>{lang === 'de' ? '24/7 Monitoring & Response' : '24/7 monitoring & response'}</span>
-                </li>
+              <ul className="space-y-5">
+                {[
+                  lang === 'de' ? '24/7 Monitoring & Incident Response' : '24/7 monitoring & incident response',
+                  lang === 'de' ? 'Compliance & Audit Readiness' : 'Compliance & audit readiness',
+                  lang === 'de' ? 'Security Awareness & Training' : 'Security awareness & training',
+                ].map((item, idx) => (
+                  <AnimatedCard
+                    key={item}
+                    as="li"
+                    direction={idx % 2 === 0 ? 'right' : 'left'}
+                    delay={0.15 + idx * 0.08}
+                    className="group flex items-start gap-3 rounded-2xl border border-slate-800/60 bg-slate-900/60 p-5 shadow-inner shadow-slate-900/80 transition-all duration-500 hover:border-teal-400/40 focus-within:border-teal-400/40"
+                    tabIndex={0}
+                  >
+                    <CheckCircle className="w-5 h-5 text-teal-300 mt-1 flex-shrink-0" />
+                    <div>
+                      <span className="text-base text-white">{item}</span>
+                      <span className="mt-2 block text-sm text-gray-400 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                        {listHint}
+                      </span>
+                    </div>
+                  </AnimatedCard>
+                ))}
               </ul>
             </div>
           </div>

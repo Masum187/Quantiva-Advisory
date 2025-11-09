@@ -71,6 +71,43 @@ export async function fetchEntry<T = any>(contentType: string, query: any = {}):
   return entries[0] || null;
 }
 
+// Management API helpers -----------------------------------------------------
+
+type ManagementEnv = {
+  getEnvironment: (id: string) => Promise<any>;
+};
+
+async function getManagementEnvironment(): Promise<any | null> {
+  const spaceId = process.env.REACT_APP_CONTENTFUL_SPACE_ID;
+  const managementToken = process.env.REACT_APP_CONTENTFUL_MANAGEMENT_TOKEN;
+  const environmentId = process.env.REACT_APP_CONTENTFUL_ENVIRONMENT || 'master';
+
+  if (!spaceId || !managementToken) {
+    return null;
+  }
+
+  const { createClient: createManagementClient } = await import('contentful-management');
+  const mgmtClient = createManagementClient({ accessToken: managementToken });
+  const space = await mgmtClient.getSpace(spaceId);
+  const env = await (space as ManagementEnv).getEnvironment(environmentId);
+  return env;
+}
+
+export async function createJobPosting(fields: any) {
+  const env = await getManagementEnvironment();
+  if (!env) {
+    throw new Error('Contentful management environment not configured');
+  }
+
+  const entry = await env.createEntry('jobPosting', { fields });
+  await entry.publish();
+  return entry;
+}
+
+export async function getJobPostingEntries(query: any = {}) {
+  return fetchEntries('jobPosting', query);
+}
+
 /**
  * Get Asset URL
  */
