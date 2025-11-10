@@ -9,8 +9,7 @@ import './ProjectRoadmap.css';
 const ProjectRoadmap = () => {
   const [openedIndex, setOpenedIndex] = useState<number | null>(null);
   const [cardHovered, setCardHovered] = useState(false);
-  const [hoveredTeamMember, setHoveredTeamMember] = useState<number | null>(null);
-  const [clickedTeamMember, setClickedTeamMember] = useState<number | null>(null);
+  const [visibleProjects, setVisibleProjects] = useState(0);
   const headerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -40,7 +39,7 @@ const ProjectRoadmap = () => {
   }, [cardHovered, openedIndex]);
 
   // Team members data - mapped to projects
-  const teamMembers = [
+  const projectLeads = [
     {
       id: 1,
       name: 'Gülnur Patan',
@@ -268,6 +267,30 @@ const ProjectRoadmap = () => {
       imageUrl: 'https://res.cloudinary.com/dbrisux8i/image/upload/v1762421820/ickdffvwgns0gn7jfehn.jpg'
     }
   ];
+
+  const totalProjects = milestones.length;
+
+  useEffect(() => {
+     if (!circularInView) return;
+ 
+     setVisibleProjects(0);
+     let current = 0;
+    const timer = setInterval(() => {
+      current += 1;
+      setVisibleProjects((prev) => {
+        if (prev >= totalProjects) {
+          clearInterval(timer);
+          return prev;
+        }
+        return Math.min(prev + 1, totalProjects);
+      });
+      if (current >= totalProjects) {
+        clearInterval(timer);
+      }
+    }, 350);
+ 
+     return () => clearInterval(timer);
+  }, [circularInView, totalProjects]);
 
   return (
     <div className="roadmap-wrapper">
@@ -680,140 +703,50 @@ const ProjectRoadmap = () => {
           <motion.div
             className="rotating-wrapper"
             animate={{
-              rotate: (openedIndex !== null || clickedTeamMember !== null) ? undefined : [0, 360]
+              rotate: openedIndex !== null ? 0 : [0, 360]
             }}
             transition={{
-              duration: 40,
-              repeat: (openedIndex !== null || clickedTeamMember !== null) ? 0 : Infinity,
-              ease: "linear"
+              duration: 60,
+              repeat: openedIndex !== null ? 0 : Infinity,
+              ease: 'linear'
             }}
           >
-            {/* Team Members around Slogan - inside rotating wrapper so they rotate */}
-            {teamMembers.map((member, index) => {
-              const teamAngle = (index * 360 / 8);
-              const teamAngleRad = (teamAngle * Math.PI) / 180;
-              const teamDistance = 300; // Increased distance for larger circle
-              const isHovered = hoveredTeamMember === index;
-              const isClicked = clickedTeamMember === index;
-              
-              return (
-                <motion.div
-                  key={member.id}
-                  className="team-member-wrapper"
-                  style={{
-                    '--team-angle': `${teamAngle}deg`,
-                    '--team-distance': `${teamDistance}px`
-                  } as React.CSSProperties}
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    opacity: { duration: 0.6, delay: 1.5 + index * 0.1 },
-                    scale: { duration: 0.6, delay: 1.5 + index * 0.1 }
-                  }}
-                  onMouseEnter={() => setHoveredTeamMember(index)}
-                  onMouseLeave={() => {
-                    // Only clear hover if not clicked, and rotation continues on hover
-                    if (clickedTeamMember !== index) {
-                      setHoveredTeamMember(null);
-                    }
-                  }}
-                >
-                  <div className="team-member-circle">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={140}
-                      height={108}
-                      className="team-member-image"
-                      unoptimized
-                      priority={index < 3}
-                    />
-                  </div>
-                  
-                  {/* Speech Bubble "Mein Projekt" - clickable */}
-                  {(isHovered || isClicked) && (
-                    <motion.div
-                      className="team-speech-bubble"
-                      initial={{ opacity: 0, scale: 0.5, y: 10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (isClicked) {
-                          setClickedTeamMember(null);
-                          setOpenedIndex(null);
-                          setHoveredTeamMember(null);
-                        } else {
-                          setClickedTeamMember(index);
-                          setOpenedIndex(member.projectIndex);
-                          setHoveredTeamMember(index);
-                        }
-                      }}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      <span>Mein Projekt</span>
-                    </motion.div>
-                  )}
-                </motion.div>
-              );
-            })}
-
-            {/* Milestones positioned around the circle - only visible when team member clicked */}
-            {clickedTeamMember !== null && (() => {
-              const teamMember = teamMembers[clickedTeamMember];
-              const projectIndex = teamMember.projectIndex;
-              const milestone = milestones[projectIndex];
+            {milestones.map((milestone, index) => {
               const Icon = milestone.icon;
-              
-              // Calculate angle for positioning (8 projects = 45 degrees each)
-              const angle = (projectIndex * 360 / 8);
-              
+              const angle = (index * 360) / milestones.length;
+              const isVisible = index < visibleProjects;
+
               return (
                 <motion.div
                   key={milestone.id}
-                  className="milestone-wrapper"
-                  style={{
-                    '--icon-angle': `${angle}deg`
-                  } as React.CSSProperties}
-                  initial={{ opacity: 0, scale: 0.3, filter: 'blur(20px)' }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    filter: 'blur(0px)'
-                  }}
-                  transition={{
-                    opacity: { duration: 1.2, ease: "easeOut" },
-                    scale: { duration: 1.2, ease: "easeOut" },
-                    filter: { duration: 1.2, ease: "easeOut" }
-                  }}
-                  onClick={() => {
-                    setOpenedIndex(projectIndex);
-                    setClickedTeamMember(null);
-                  }}
+                  className={`milestone-wrapper ${isVisible ? 'visible' : ''} ${openedIndex === index ? 'active' : ''}`}
+                  style={{ '--icon-angle': `${angle}deg` } as React.CSSProperties}
+                  initial={{ opacity: 0, scale: 0.3 }}
+                  animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.3 }}
+                  transition={{ duration: 0.6, delay: index * 0.12 }}
+                  onClick={() => setOpenedIndex(openedIndex === index ? null : index)}
                 >
-                  {/* Milestone Circle */}
+                  <span className="milestone-connector" />
                   <motion.div
-                    className={`milestone-circle ${milestone.color}`}
-                    whileHover={{ scale: 1.1 }}
-                    style={{ cursor: 'pointer' }}
+                    className={`milestone-circle ${milestone.color} ${openedIndex === index ? 'selected' : ''}`}
+                    whileHover={{ scale: 1.08 }}
                   >
                     {milestone.imageUrl ? (
-                      <Image 
-                        src={milestone.imageUrl} 
+                      <Image
+                        src={milestone.imageUrl}
                         alt={milestone.title}
                         width={150}
                         height={150}
                       />
                     ) : (
-                      <Icon className="milestone-icon" size={66} />
+                      <Icon className="milestone-icon" size={72} />
                     )}
                   </motion.div>
                 </motion.div>
               );
-            })()}
+            })}
           </motion.div>
-
+ 
           {/* Center Slogan - outside rotating wrapper so it stays fixed */}
           <div className="center-slogan">
             <motion.h2
@@ -827,174 +760,6 @@ const ProjectRoadmap = () => {
               <span className="slogan-highlight">Innovation</span>
             </motion.h2>
           </div>
-
-          {/* Arrow from Team Member Speech Bubble to Project - only when clicked */}
-          {clickedTeamMember !== null && (() => {
-            const teamMember = teamMembers[clickedTeamMember];
-            const teamAngle = (clickedTeamMember * 360 / 8);
-            const teamAngleRad = (teamAngle * Math.PI) / 180;
-            const teamDistance = 300; // Increased distance
-            
-            const projectIndex = teamMember.projectIndex;
-            const projectAngle = (projectIndex * 360 / 8);
-            const projectAngleRad = (projectAngle * Math.PI) / 180;
-            const projectDistance = 540; // Increased distance for larger circle
-            
-            // Calculate positions (relative to container center)
-            const teamX = Math.sin(teamAngleRad) * teamDistance;
-            const teamY = -Math.cos(teamAngleRad) * teamDistance;
-            
-            const projectX = Math.sin(projectAngleRad) * projectDistance;
-            const projectY = -Math.cos(projectAngleRad) * projectDistance;
-            
-            // Offset for speech bubble (above team member)
-            const bubbleOffset = -200;
-            const arrowStartX = teamX;
-            const arrowStartY = teamY + bubbleOffset;
-            const arrowEndX = projectX;
-            const arrowEndY = projectY;
-            
-            // Calculate control points for smooth curved arrow
-            const midX = (arrowStartX + arrowEndX) / 2;
-            const controlX1 = arrowStartX + (midX - arrowStartX) * 0.5;
-            const controlY1 = arrowStartY;
-            const controlX2 = arrowEndX - (arrowEndX - midX) * 0.5;
-            const controlY2 = arrowEndY;
-            
-            return (
-              <svg
-                className="team-to-project-arrow"
-                viewBox="-700 -700 1400 1400"
-                preserveAspectRatio="xMidYMid meet"
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  width: '100%',
-                  height: '100%',
-                  pointerEvents: 'none',
-                  zIndex: 12,
-                  overflow: 'visible'
-                }}
-              >
-                <defs>
-                  <marker
-                    id={`team-arrowhead-${clickedTeamMember}`}
-                    markerWidth="12"
-                    markerHeight="12"
-                    refX="10"
-                    refY="3"
-                    orient="auto"
-                  >
-                    <polygon
-                      points="0 0, 12 3, 0 6"
-                      fill="rgba(168, 85, 247, 0.9)"
-                    />
-                  </marker>
-                  <linearGradient id={`teamArrowGradient-${clickedTeamMember}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
-                    <stop offset="100%" stopColor="rgba(6, 182, 212, 0.8)" />
-                  </linearGradient>
-                </defs>
-                <motion.path
-                  d={`M ${arrowStartX} ${arrowStartY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${arrowEndX} ${arrowEndY}`}
-                  stroke={`url(#teamArrowGradient-${clickedTeamMember})`}
-                  strokeWidth="4"
-                  fill="none"
-                  markerEnd={`url(#team-arrowhead-${clickedTeamMember})`}
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  exit={{ pathLength: 0, opacity: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  style={{
-                    filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))'
-                  }}
-                />
-              </svg>
-            );
-          })()}
-
-          {/* Connection Arrow */}
-          {openedIndex !== null && (() => {
-            const milestone = milestones[openedIndex];
-            const angle = (openedIndex * 360 / 8);
-            const angleRad = (angle * Math.PI) / 180;
-            // Calculate project position (center of milestone logo, relative to container center)
-            const projectDistance = 540; // Matches icon distance for enlarged circle
-            const projectX = Math.sin(angleRad) * projectDistance;
-            const projectY = -Math.cos(angleRad) * projectDistance;
-            
-            // Bubble position (right side of container, centered vertically)
-            // Container is 1200px max-width, so center is at 0,0
-            // Bubble is at right: 20px, so X = 600 - 210 (half width) - 20 = 370
-            const bubbleX = 370; // Right side position
-            const bubbleY = 0; // Centered vertically
-            
-            // Calculate arrow path (from project center to bubble left edge)
-            const arrowStartX = projectX;
-            const arrowStartY = projectY;
-            const arrowEndX = bubbleX - 210; // Left edge of bubble (420px / 2)
-            const arrowEndY = bubbleY;
-            
-            // Calculate control points for smooth curved arrow
-            const midX = (arrowStartX + arrowEndX) / 2;
-            const controlX1 = arrowStartX + (midX - arrowStartX) * 0.6;
-            const controlY1 = arrowStartY;
-            const controlX2 = arrowEndX - (arrowEndX - midX) * 0.6;
-            const controlY2 = arrowEndY;
-            
-            return (
-              <svg
-                className="project-connection-arrow"
-                viewBox="-600 -600 1200 1200"
-                preserveAspectRatio="xMidYMid meet"
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  width: '100%',
-                  height: '100%',
-                  pointerEvents: 'none',
-                  zIndex: 15,
-                  overflow: 'visible'
-                }}
-              >
-                <defs>
-                  <marker
-                    id={`arrowhead-${openedIndex}`}
-                    markerWidth="12"
-                    markerHeight="12"
-                    refX="10"
-                    refY="3"
-                    orient="auto"
-                  >
-                    <polygon
-                      points="0 0, 12 3, 0 6"
-                      fill="rgba(168, 85, 247, 0.9)"
-                    />
-                  </marker>
-                  <linearGradient id={`arrowGradient-${openedIndex}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(168, 85, 247, 0.8)" />
-                    <stop offset="100%" stopColor="rgba(6, 182, 212, 0.8)" />
-                  </linearGradient>
-                </defs>
-                <motion.path
-                  d={`M ${arrowStartX} ${arrowStartY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${arrowEndX} ${arrowEndY}`}
-                  stroke={`url(#arrowGradient-${openedIndex})`}
-                  strokeWidth="4"
-                  fill="none"
-                  markerEnd={`url(#arrowhead-${openedIndex})`}
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ pathLength: 1, opacity: 1 }}
-                  exit={{ pathLength: 0, opacity: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  style={{
-                    filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.6))'
-                  }}
-                />
-              </svg>
-            );
-          })()}
 
           {/* Bubble Project Detail Card */}
           {openedIndex !== null && (() => {
@@ -1043,7 +808,6 @@ const ProjectRoadmap = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       setOpenedIndex(null);
-                      setClickedTeamMember(null);
                     }}
                   >
                     ×
@@ -1053,7 +817,7 @@ const ProjectRoadmap = () => {
                   
                   {/* Team Member Info */}
                   {(() => {
-                    const teamMember = teamMembers.find(m => m.projectIndex === openedIndex);
+                    const teamMember = projectLeads.find(m => m.projectIndex === openedIndex);
                     if (teamMember) {
                       return (
                         <div className="bubble-team-section">
