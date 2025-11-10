@@ -340,6 +340,13 @@ export default function CareerPage() {
   const [selectedJob, setSelectedJob] = useState<JobListing | null>(null);
   const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submissionError, setSubmissionError] = useState<string>('');
+  
+  // Filter states
+  const [searchQuery, setSearchQuery] = useState('');
+  const [locationFilter, setLocationFilter] = useState<string>('all');
+  const [departmentFilter, setDepartmentFilter] = useState<string>('all');
+  const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
+  const [remoteFilter, setRemoteFilter] = useState<string>('all');
 
   useEffect(() => {
     let mounted = true;
@@ -380,6 +387,42 @@ export default function CareerPage() {
       setSubmissionError(error instanceof Error ? error.message : 'Submission failed');
     }
   };
+
+  // Filter logic
+  const filteredJobs = React.useMemo(() => {
+    return jobListings.filter((job) => {
+      const matchesSearch = searchQuery === '' || 
+        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesLocation = locationFilter === 'all' || job.location === locationFilter;
+      const matchesDepartment = departmentFilter === 'all' || job.department === departmentFilter;
+      const matchesSeniority = seniorityFilter === 'all' || job.seniority === seniorityFilter;
+      const matchesRemote = remoteFilter === 'all' || 
+        (remoteFilter === 'remote' && job.remote) ||
+        (remoteFilter === 'onsite' && !job.remote);
+      
+      return matchesSearch && matchesLocation && matchesDepartment && matchesSeniority && matchesRemote;
+    });
+  }, [jobListings, searchQuery, locationFilter, departmentFilter, seniorityFilter, remoteFilter]);
+
+  // Extract unique values for filters
+  const filterOptions = React.useMemo(() => {
+    const locations = new Set<string>();
+    const departments = new Set<string>();
+    const seniorities = new Set<string>();
+    
+    jobListings.forEach((job) => {
+      if (job.location) locations.add(job.location);
+      if (job.department) departments.add(job.department);
+      if (job.seniority) seniorities.add(job.seniority);
+    });
+    
+    return {
+      locations: Array.from(locations).sort(),
+      departments: Array.from(departments).sort(),
+      seniorities: Array.from(seniorities).sort(),
+    };
+  }, [jobListings]);
 
   // Navigation items
   const navigationItems = [
@@ -1295,14 +1338,89 @@ export default function CareerPage() {
               <div className="text-center mb-16">
                 <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
                   <Target className="w-6 h-6 text-teal-400" />
-                  <span className="text-white font-semibold">Offene Positionen</span>
+                  <span className="text-white font-semibold">{lang === 'de' ? 'Offene Positionen' : 'Open Positions'}</span>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  Aktuelle <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Stellenangebote</span>
+                  {lang === 'de' ? 'Aktuelle' : 'Current'} <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">{lang === 'de' ? 'Stellenangebote' : 'Job Openings'}</span>
                 </h2>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                  Entdecken Sie unsere aktuellen Stellenangebote und finden Sie Ihre perfekte Position.
+                  {lang === 'de' ? 'Entdecken Sie unsere aktuellen Stellenangebote und finden Sie Ihre perfekte Position.' : 'Discover our current job openings and find your perfect position.'}
                 </p>
+              </div>
+            </SlideIn>
+
+            {/* Job Filters */}
+            <SlideIn direction="up" delay={0.2}>
+              <div className="mb-12 rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-sm">
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+                  {/* Search */}
+                  <div className="lg:col-span-2">
+                    <input
+                      type="text"
+                      placeholder={lang === 'de' ? 'Suche nach Position oder Stichwort...' : 'Search for position or keyword...'}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white placeholder:text-gray-500 focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
+                    />
+                  </div>
+                  
+                  {/* Location Filter */}
+                  <select
+                    value={locationFilter}
+                    onChange={(e) => setLocationFilter(e.target.value)}
+                    className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
+                  >
+                    <option value="all">{lang === 'de' ? 'Alle Standorte' : 'All Locations'}</option>
+                    {filterOptions.locations.map((loc) => (
+                      <option key={loc} value={loc}>{loc}</option>
+                    ))}
+                  </select>
+                  
+                  {/* Department Filter */}
+                  <select
+                    value={departmentFilter}
+                    onChange={(e) => setDepartmentFilter(e.target.value)}
+                    className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
+                  >
+                    <option value="all">{lang === 'de' ? 'Alle Bereiche' : 'All Departments'}</option>
+                    {filterOptions.departments.map((dept) => (
+                      <option key={dept} value={dept}>{dept}</option>
+                    ))}
+                  </select>
+                  
+                  {/* Seniority Filter */}
+                  <select
+                    value={seniorityFilter}
+                    onChange={(e) => setSeniorityFilter(e.target.value)}
+                    className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
+                  >
+                    <option value="all">{lang === 'de' ? 'Alle Level' : 'All Levels'}</option>
+                    {filterOptions.seniorities.map((sen) => (
+                      <option key={sen} value={sen}>{sen}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                {/* Filter Summary */}
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <span className="text-gray-400">
+                    {filteredJobs.length} {lang === 'de' ? 'Position(en) gefunden' : 'position(s) found'}
+                  </span>
+                  {(searchQuery || locationFilter !== 'all' || departmentFilter !== 'all' || seniorityFilter !== 'all') && (
+                    <button
+                      onClick={() => {
+                        setSearchQuery('');
+                        setLocationFilter('all');
+                        setDepartmentFilter('all');
+                        setSeniorityFilter('all');
+                        setRemoteFilter('all');
+                      }}
+                      className="text-teal-400 hover:text-teal-300 transition-colors"
+                    >
+                      {lang === 'de' ? 'Filter zurücksetzen' : 'Reset filters'}
+                    </button>
+                  )}
+                </div>
               </div>
             </SlideIn>
 
@@ -1315,20 +1433,27 @@ export default function CareerPage() {
                 <div className="rounded-3xl border border-red-500/40 bg-red-500/10 p-10 text-center text-red-200">
                   {jobError}
                 </div>
-              ) : jobListings.length === 0 ? (
+              ) : filteredJobs.length === 0 ? (
                 <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
-                  {lang === 'de' ? 'Derzeit keine offenen Positionen.' : 'No open positions at the moment.'}
+                  {lang === 'de' ? 'Keine Positionen gefunden. Bitte Filter anpassen.' : 'No positions found. Please adjust filters.'}
                 </div>
               ) : (
-                jobListings.map((job, index) => (
+                filteredJobs.map((job, index) => (
                   <SlideIn key={job.id} direction="up" delay={index * 0.1}>
                     <div className="group">
                       <div className="relative p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
                         <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
                         <div className="relative z-10">
                           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                            <div>
-                              <h3 className="text-2xl font-bold text-white mb-2">{job.title}</h3>
+                            <div className="flex-1">
+                              <div className="flex items-start justify-between gap-4 mb-3">
+                                <h3 className="text-2xl font-bold text-white">{job.title}</h3>
+                                {job.salary && (
+                                  <span className="rounded-full border border-purple-400/40 bg-purple-500/20 px-4 py-1.5 text-sm font-semibold text-purple-200 whitespace-nowrap">
+                                    {job.salary}
+                                  </span>
+                                )}
+                              </div>
                               <div className="flex flex-wrap items-center gap-4 text-gray-300 text-sm">
                                 <span className="flex items-center gap-2">
                                   <Globe className="w-4 h-4" />
@@ -1344,11 +1469,16 @@ export default function CareerPage() {
                                     {job.department}
                                   </span>
                                 ) : null}
-                                {job.remote ? (
+                                {job.seniority && (
                                   <span className="rounded-full border border-teal-400/30 bg-teal-500/10 px-3 py-1 text-xs uppercase tracking-wider text-teal-300">
+                                    {job.seniority}
+                                  </span>
+                                )}
+                                {job.remote && (
+                                  <span className="rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-xs uppercase tracking-wider text-blue-300">
                                     Remote
                                   </span>
-                                ) : null}
+                                )}
                               </div>
                             </div>
                             <button

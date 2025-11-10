@@ -9,12 +9,15 @@ export interface JobListing {
   department?: string;
   location: string;
   employmentType: string;
+  contractType?: string;
   seniority?: string;
+  experienceYears?: string;
   remote?: boolean;
   tags?: string[];
   description: string;
   requirements: string[];
   benefits: string[];
+  salary?: string;
   applyUrl?: string;
   publishedAt: string;
 }
@@ -32,12 +35,15 @@ const mapContentfulJob = (entry: any): JobListing | null => {
     department: fields.department || undefined,
     location: fields.location || '',
     employmentType: fields.employmentType || 'Full-time',
+    contractType: fields.contractType || undefined,
     seniority: fields.seniority || undefined,
+    experienceYears: fields.experienceYears || undefined,
     remote: typeof fields.remote === 'boolean' ? fields.remote : undefined,
     tags: Array.isArray(fields.tags) ? fields.tags : [],
     description: fields.description || '',
     requirements: Array.isArray(fields.requirements) ? fields.requirements : [],
     benefits: Array.isArray(fields.benefits) ? fields.benefits : [],
+    salary: fields.salary || undefined,
     applyUrl: fields.applyUrl || fields.applicationUrl || undefined,
     publishedAt: fields.publishedAt || new Date().toISOString(),
   };
