@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -19,6 +19,16 @@ interface NavigationProps {
 export default function Navigation({ lang, items }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const searchLabel = lang === 'de' ? 'Suche' : 'Search';
+  const searchHref = `/${lang}/search`;
+
+  const derivedItems = useMemo(() => {
+    if (items.some((item) => item.id === 'search')) {
+      return items;
+    }
+    return [...items, { id: 'search', label: searchLabel, href: searchHref }];
+  }, [items, searchLabel, searchHref]);
 
   // Close menu when route changes
   useEffect(() => {
@@ -118,7 +128,7 @@ export default function Navigation({ lang, items }: NavigationProps) {
 
         {/* Desktop Navigation */}
         <nav className="hidden items-center gap-2 md:flex">
-          {items.map((item) => (
+          {derivedItems.map((item) => (
             <Link
               key={item.id}
               href={item.href}
@@ -161,7 +171,7 @@ export default function Navigation({ lang, items }: NavigationProps) {
       {isMenuOpen && (
         <div className="md:hidden bg-slate-900/95 backdrop-blur border-t border-white/10">
           <nav className="px-4 py-2 space-y-1">
-            {items.map((item) => (
+            {derivedItems.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}

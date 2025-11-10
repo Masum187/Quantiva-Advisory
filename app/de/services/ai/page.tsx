@@ -48,6 +48,7 @@ export default function AIServicePage() {
     { id: 'home', label: 'Home', href: '/de' },
     { id: 'about', label: 'Über uns', href: '/de/about' },
     { id: 'services', label: 'Services', href: '/de#services' },
+    { id: 'search', label: 'Suche', href: '/de/search' },
     { id: 'cases', label: 'Projekte', href: '/de/cases' },
     { id: 'team', label: 'Team', href: '/de/team' },
     { id: 'career', label: 'Karriere', href: '/de#career' },
