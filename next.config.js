@@ -3,6 +3,19 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const ContentSecurityPolicy = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com;
+  connect-src 'self' https://*.contentful.com https://api.openai.com https://www.google.com https://www.gstatic.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  img-src 'self' data: https://images.unsplash.com https://res.cloudinary.com https://images.ctfassets.net;
+  font-src 'self' https://fonts.gstatic.com data:;
+  frame-src https://www.google.com;
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'self';
+`.replace(/\s{2,}/g, ' ').trim();
+
 const nextConfig = {
   reactStrictMode: true,
   
@@ -50,6 +63,7 @@ const nextConfig = {
     NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
     NEXT_PUBLIC_CONTENTFUL_PREVIEW_TOKEN: process.env.REACT_APP_CONTENTFUL_PREVIEW_TOKEN,
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
   },
 
   // Redirects and rewrites
@@ -98,6 +112,14 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: ContentSecurityPolicy,
           },
         ],
       },

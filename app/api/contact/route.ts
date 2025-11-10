@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // Rate limiting (simple in-memory, use Redis in production)
 const requestCounts = new Map<string, { count: number; resetAt: number }>();
 
-const RATE_LIMIT = 5; // 5 requests
+const RATE_LIMIT = 10; // 10 requests
 const RATE_WINDOW = 60 * 60 * 1000; // per hour
 
 function getRateLimitKey(req: NextRequest): string {
@@ -29,6 +29,34 @@ function checkRateLimit(key: string): boolean {
   return true;
 }
 
+async function verifyRecaptcha(token?: string) {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    console.warn('reCAPTCHA secret key not configured');
+    return true;
+  }
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${secret}&response=${token}`,
+    });
+
+    const data = await response.json();
+    return Boolean(data.success && (data.score ?? 0) >= 0.5);
+  } catch (error) {
+    console.error('reCAPTCHA verification failed:', error);
+    return false;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     // Rate limiting
@@ -42,12 +70,21 @@ export async function POST(req: NextRequest) {
 
     // Parse request body
     const body = await req.json();
-    const { name, email, message, honeypot, lang } = body;
+    const { name, email, message, honeypot, lang, recaptchaToken } = body;
 
     // Honeypot check (bot protection)
     if (honeypot) {
       return NextResponse.json(
         { error: 'Invalid submission' },
+        { status: 400 }
+      );
+    }
+
+    // reCAPTCHA validation
+    const recaptchaValid = await verifyRecaptcha(recaptchaToken);
+    if (!recaptchaValid) {
+      return NextResponse.json(
+        { error: 'reCAPTCHA verification failed' },
         { status: 400 }
       );
     }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface ContactFormProps {
@@ -12,6 +12,24 @@ type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 export default function ContactForm({ lang }: ContactFormProps) {
   const [status, setStatus] = useState<FormStatus>('idle');
   const [error, setError] = useState('');
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
+  useEffect(() => {
+    if (!recaptchaSiteKey) return;
+    if (typeof window === 'undefined') return;
+    if (document.querySelector('script[data-recaptcha]')) return;
+
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+    script.async = true;
+    script.defer = true;
+    script.setAttribute('data-recaptcha', 'true');
+    document.head.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, [recaptchaSiteKey]);
 
   const t = {
     de: {
@@ -46,12 +64,26 @@ export default function ContactForm({ lang }: ContactFormProps) {
     setError('');
 
     const formData = new FormData(e.currentTarget);
+    let recaptchaToken: string | undefined;
+
+    if (recaptchaSiteKey && window.grecaptcha) {
+      try {
+        await new Promise<void>((resolve) => {
+          window.grecaptcha?.ready(() => resolve());
+        });
+        recaptchaToken = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'contact' });
+      } catch (tokenError) {
+        console.error('reCAPTCHA token error:', tokenError);
+      }
+    }
+
     const data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
       message: formData.get('message') as string,
       honeypot: formData.get('honeypot') as string,
       lang,
+      recaptchaToken,
     };
 
     // Client-side validation
