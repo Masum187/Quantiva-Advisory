@@ -2,6 +2,7 @@ import postsData from '../data/posts.json';
 import { fetchEntries, getAssetUrl, isContentfulEnabled, richTextToPlainText } from './contentful';
 
 export type SupportedLanguage = 'de' | 'en';
+export type ContentType = 'article' | 'whitepaper' | 'case-study' | 'report';
 
 export interface ContentPost {
   slug: string;
@@ -10,12 +11,15 @@ export interface ContentPost {
   excerpt: string;
   tags: string[];
   industry?: string;
+  contentType?: ContentType;
   publishedAt: string;
   readingTime?: number;
   heroImage?: string | null;
   highlight?: boolean;
+  featured?: boolean;
   author?: string;
   body?: string;
+  downloadUrl?: string;
 }
 
 const FALLBACK_POSTS: ContentPost[] = postsData as unknown as ContentPost[];
@@ -42,12 +46,15 @@ const mapContentfulPost = (entry: any, lang: SupportedLanguage): ContentPost | n
     excerpt: fields[fieldMap.excerpt] || fields.excerpt || '',
     tags: Array.isArray(fields.tags) ? fields.tags : [],
     industry: fields.industry || undefined,
+    contentType: fields.contentType || 'article',
     publishedAt: fields.publishedAt || new Date().toISOString(),
     readingTime: typeof fields.readingTime === 'number' ? fields.readingTime : undefined,
     heroImage: getAssetUrl(fields.heroImage) || fields.heroImageUrl || null,
     highlight: typeof fields.highlight === 'boolean' ? fields.highlight : undefined,
+    featured: typeof fields.featured === 'boolean' ? fields.featured : undefined,
     author: fields.author || undefined,
     body: bodyField ? richTextToPlainText(bodyField) : undefined,
+    downloadUrl: fields.downloadUrl || undefined,
   };
 };
 

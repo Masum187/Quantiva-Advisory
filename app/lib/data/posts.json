@@ -6,10 +6,12 @@
     "excerpt": "Wie mittelständische Unternehmen ihre SAP-Landschaft in 90 Tagen von ECC auf S/4HANA heben – ohne Produktivstillstand.",
     "tags": ["SAP", "S/4HANA", "Transformation"],
     "industry": "Manufacturing",
+    "contentType": "article",
     "publishedAt": "2025-01-22",
     "readingTime": 6,
     "heroImage": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop",
     "highlight": true,
+    "featured": true,
     "author": "Gülnur Patan",
     "body": "Der Übergang von ECC zu S/4HANA ist für viele mittelständische SAP-Landschaften ein kritischer Schritt. Wir zeigen, wie Impact-Mapping und ein zweispuriges Cutover-Design Ausfallzeiten verhindern.\n\nWesentlicher Erfolgsfaktor ist ein klar priorisiertes Brownfield-Szenario mit vorgezogenen Test-Automatisierungen, die Prozesstreue nachweisen. Die wichtigsten Learnings aus 30 Projekten: (1) Fit-to-Standard Workshops frühzeitig staffen, (2) Stammdatenmigration iterativ testen, (3) Security-by-Design für FI/CO und MM gleich mitdenken." 
   },
@@ -20,10 +22,12 @@
     "excerpt": "Predictive Maintenance allein reicht nicht mehr. Wir analysieren, welche KI-Anwendungen OEE und Durchlaufzeiten wirklich verbessern.",
     "tags": ["AI", "Manufacturing", "Use Cases"],
     "industry": "Manufacturing",
+    "contentType": "case-study",
     "publishedAt": "2025-02-04",
     "readingTime": 5,
     "heroImage": "https://images.unsplash.com/photo-1581092800629-2f60064b2a63?q=80&w=1600&auto=format&fit=crop",
     "highlight": false,
+    "featured": false,
     "author": "Dr. Michael Weber",
     "body": "Mittelständische Fertiger denken KI längst weiter als nur zur Wartung. Die größten Hebel sehen wir bei Qualitätskontrolle via Computer Vision, automatisierten Rüstempfehlungen und KI-gestützten Energiesteuerungen.\n\nEntscheidend ist die Verknüpfung mit bestehenden MES- und ERP-Prozessen. Wir stellen Rahmenbedingungen, Architekturbausteine und ROI-Berechnungen aus Kundenprojekten vor." 
   },
@@ -34,11 +38,14 @@
     "excerpt": "From FinOps guardrails to a pragmatic RACI – how 2,000-seat organisations build cloud governance without slowing delivery.",
     "tags": ["Cloud", "Operating Model", "FinOps"],
     "industry": "Finance",
+    "contentType": "whitepaper",
     "publishedAt": "2025-01-15",
     "readingTime": 7,
     "heroImage": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1600&auto=format&fit=crop",
     "highlight": true,
+    "featured": true,
     "author": "Sarah Martinez",
+    "downloadUrl": "/assets/whitepapers/cloud-operating-model-2025.pdf",
     "body": "A modern Cloud Operating Model for mid-market organisations must balance compliance, speed and cost transparency. We share the blueprint we use with European financial services clients: a central Cloud Control Plane, federated landing zones and FinOps routines that deliver weekly insights.\n\nIncluded: standard policy packs, audit artefacts and the communication cadence that keeps business stakeholders aligned." 
   },
   {
@@ -48,11 +55,14 @@
     "excerpt": "Three waves to reach ISO 27001 readiness and board-level reporting – purpose-built for organisations between 500 and 5,000 employees.",
     "tags": ["Security", "Governance", "ISO27001"],
     "industry": "Manufacturing",
+    "contentType": "report",
     "publishedAt": "2024-12-10",
     "readingTime": 8,
     "heroImage": "https://images.unsplash.com/photo-1605902711622-cfb43c44367f?q=80&w=1600&auto=format&fit=crop",
     "highlight": false,
+    "featured": false,
     "author": "Leonett Andrew",
+    "downloadUrl": "/assets/reports/cyber-security-playbook-2024.pdf",
     "body": "Security transformation programmes in the mid-market require a pragmatic path: start with policy baselining, automate evidence collection and institutionalise incident drills.\n\nOur playbook covers quick-start tooling, target operating model templates and communication assets that reduce friction between OT and IT security teams." 
   }
 ]
