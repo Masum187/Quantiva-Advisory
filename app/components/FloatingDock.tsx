@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { MessageCircle, Calendar, FileText, BriefcaseIcon, BookOpen, Phone } from 'lucide-react';
+import { MessageCircle, Calendar, FileText, BriefcaseIcon, BookOpen, Phone, Search, X } from 'lucide-react';
 import { useLanguage } from './QuantivaWebsite';
 import { usePathname } from 'next/navigation';
 
@@ -13,6 +13,16 @@ export default function FloatingDock() {
   const { lang, localePath } = useLanguage();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   const shouldHide = useMemo(() => {
     return hiddenRoutes.some((segment) => pathname?.includes(segment));
@@ -41,6 +51,13 @@ export default function FloatingDock() {
           description: 'Projekte & Outcomes entdecken',
           href: localePath('/cases'),
           icon: FileText,
+        },
+        {
+          id: 'search',
+          label: 'Suche',
+          description: 'Content, Services & Branchen finden',
+          href: localePath('/search'),
+          icon: Search,
         },
         {
           id: 'career',
@@ -75,6 +92,13 @@ export default function FloatingDock() {
         icon: FileText,
       },
       {
+        id: 'search',
+        label: 'Search',
+        description: 'Browse insights & services',
+        href: localePath('/search'),
+        icon: Search,
+      },
+      {
         id: 'career',
         label: 'Careers',
         description: 'Join the Quantiva journey',
@@ -90,6 +114,11 @@ export default function FloatingDock() {
 
   return (
     <div className="pointer-events-none fixed bottom-24 right-6 z-50 flex flex-col items-end gap-3">
+      <motion.div
+        initial={false}
+        animate={{ scale: open ? 1.15 : 1, opacity: open ? 0.45 : 0.25 }}
+        className="pointer-events-none absolute bottom-0 right-0 h-36 w-36 rounded-full bg-gradient-to-br from-teal-500/40 to-purple-500/20 blur-3xl"
+      />
       <AnimatePresence>
         {open && (
           <motion.div
@@ -109,11 +138,11 @@ export default function FloatingDock() {
                 >
                   <Link
                     href={shortcut.href}
-                    className="group block w-64 rounded-2xl border border-white/15 bg-slate-900/90 p-4 shadow-lg shadow-teal-500/10 transition hover:border-teal-400/40 hover:shadow-teal-500/30"
+                    className="group block w-64 rounded-2xl border border-white/15 bg-slate-900/90 p-4 shadow-lg shadow-teal-500/10 transition hover:border-teal-400/40 hover:shadow-teal-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
                     onClick={() => setOpen(false)}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/15 text-teal-300 group-hover:bg-teal-500/25 group-hover:text-teal-100 transition">
                         <Icon className="h-5 w-5" />
                       </span>
                       <div>
@@ -136,11 +165,11 @@ export default function FloatingDock() {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="pointer-events-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-lg shadow-teal-500/30 transition hover:scale-105 hover:shadow-teal-500/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
+        className="pointer-events-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 via-teal-400 to-purple-500 text-white shadow-xl shadow-teal-500/30 transition hover:scale-110 hover:shadow-teal-500/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
         aria-expanded={open}
         aria-label={open ? 'Close floating menu' : 'Open floating menu'}
       >
-        <MessageCircle className="h-6 w-6" />
+        {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
     </div>
   );
