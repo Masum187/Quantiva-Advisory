@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navigation from '../Navigation';
@@ -14,6 +14,7 @@ import VideoCard from '../VideoCard';
 import { getJobListings, submitJobPosting, JobListing } from '../../lib/utils/jobs';
 import ContactForm from '../ContactForm';
 import { AnimatePresence } from 'framer-motion';
+import Script from 'next/script';
 
 // Animation Components
 function SlideIn({ children, direction = 'up', delay = 0, className = '' }: { children: React.ReactNode; direction?: 'up' | 'down' | 'left' | 'right'; delay?: number; className?: string }) {
@@ -347,6 +348,7 @@ export default function CareerPage() {
   const [departmentFilter, setDepartmentFilter] = useState<string>('all');
   const [seniorityFilter, setSeniorityFilter] = useState<string>('all');
   const [remoteFilter, setRemoteFilter] = useState<string>('all');
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://quantivaadvisory.com';
 
   useEffect(() => {
     let mounted = true;
@@ -389,11 +391,9 @@ export default function CareerPage() {
   };
 
   // Filter logic
-  const filteredJobs = React.useMemo(() => {
+  const filteredJobs = useMemo(() => {
     return jobListings.filter((job) => {
-      const matchesSearch = searchQuery === '' || 
-        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesSearch = `${job.title} ${job.description}`.toLowerCase().includes(searchQuery.toLowerCase().trim());
       const matchesLocation = locationFilter === 'all' || job.location === locationFilter;
       const matchesDepartment = departmentFilter === 'all' || job.department === departmentFilter;
       const matchesSeniority = seniorityFilter === 'all' || job.seniority === seniorityFilter;
@@ -406,7 +406,7 @@ export default function CareerPage() {
   }, [jobListings, searchQuery, locationFilter, departmentFilter, seniorityFilter, remoteFilter]);
 
   // Extract unique values for filters
-  const filterOptions = React.useMemo(() => {
+  const filterOptions = useMemo(() => {
     const locations = new Set<string>();
     const departments = new Set<string>();
     const seniorities = new Set<string>();
@@ -423,6 +423,45 @@ export default function CareerPage() {
       seniorities: Array.from(seniorities).sort(),
     };
   }, [jobListings]);
+
+  const jobPostingJsonLd = useMemo(() => {
+    return jobListings.map((job) => ({
+      '@context': 'https://schema.org',
+      '@type': 'JobPosting',
+      title: job.title,
+      description: job.description,
+      datePosted: job.publishedAt,
+      employmentType: job.employmentType,
+      jobLocationType: job.remote ? 'TELECOMMUTE' : 'ON_SITE',
+      hiringOrganization: {
+        '@type': 'Organization',
+        name: 'Quantiva Advisory',
+        sameAs: siteUrl,
+      },
+      jobLocation: job.location
+        ? {
+            '@type': 'Place',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: job.location,
+              addressCountry: 'DE',
+            },
+          }
+        : undefined,
+      applicantLocationRequirements: job.remote
+        ? {
+            '@type': 'Country',
+            name: 'Germany',
+          }
+        : undefined,
+      identifier: {
+        '@type': 'PropertyValue',
+        name: 'Quantiva Advisory',
+        value: job.id,
+      },
+      url: `${siteUrl}${localePath(`/career`)}#${job.id}`,
+    }));
+  }, [jobListings, localePath, siteUrl]);
 
   // Navigation items
   const navigationItems = [
@@ -918,1028 +957,988 @@ export default function CareerPage() {
 
   return (
     <>
-      {/* Voice Button - DISABLED */}
-      {false && showVoiceButton && (
-        <div className="fixed bottom-6 right-6 z-50">
-          <button
-            onClick={speakMessage}
-            disabled={isVoicePlaying}
-            className={`w-16 h-16 rounded-full backdrop-blur-sm border transition-all duration-300 flex items-center justify-center ${
-              isVoicePlaying
-                ? 'bg-red-500/20 border-red-400/40 text-red-400'
-                : 'bg-teal-500/20 border-teal-400/40 text-teal-400 hover:bg-teal-500/30 hover:scale-110'
-            }`}
-            aria-label={isVoicePlaying ? 'Stop voice' : 'Play voice message'}
-          >
-            {isVoicePlaying ? (
-              <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
-            ) : (
-              <Zap className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-      )}
+      <Script
+        id="job-postings-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
+      />
+      {/* Navigation */}
+      <div className="relative z-10">
+        <Navigation lang={lang} items={navigationItems} />
+      </div>
 
-      {/* Current Word Display - DISABLED */}
-      {false && currentWord && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <div className="px-6 py-3 bg-black/80 backdrop-blur-sm border border-teal-400/40 rounded-full text-teal-400 font-semibold text-lg">
-            {currentWord}
-          </div>
-        </div>
-      )}
+      {/* Video Card Section - Below Navigation */}
+      <div className="relative z-10 mt-8">
+        <VideoCard
+        videoUrl="https://res.cloudinary.com/dbrisux8i/video/upload/du_3.45/v1762015286/openart-video_b6992003_1761933215657_wgjmwh.mp4"
+        title={lang === 'de' ? 'Willkommen bei Quantiva Advisory!' : 'Welcome to Quantiva Advisory!'}
+        description={lang === 'de' 
+          ? 'Du bist derjenige, der dabei helfen kann, dieses Unternehmen zu gestalten. Zögere nicht so lange — bewirb dich jetzt!'
+          : 'You are the one who can help shape this company. Don\'t hesitate so long — please apply now!'
+        }
+        primaryButtonText={lang === 'de' ? 'Jetzt bewerben' : 'Apply now'}
+        primaryButtonLink={localePath('/#contact')}
+        secondaryButtonText={lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
+        secondaryButtonLink={localePath('/about')}
+          className="py-8"
+        />
+      </div>
 
-      <div 
-        className="min-h-screen bg-black relative overflow-hidden"
-        style={{
-          backgroundImage: 'url(https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_mcsx7imcsx7imcsx_cun0ts.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
-        }}
-      >
-        {/* Background Overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+      {/* Hero Section - Simple Background */}
+      <div className="relative z-10 h-screen w-full overflow-hidden">
         
-        {/* Navigation - Above the VideoCard */}
-        <div className="relative z-10">
-          <Navigation lang={lang} items={navigationItems} />
-        </div>
-
-        {/* Video Card Section - Below Navigation */}
-        <div className="relative z-10 mt-8">
-          <VideoCard
-          videoUrl="https://res.cloudinary.com/dbrisux8i/video/upload/du_3.45/v1762015286/openart-video_b6992003_1761933215657_wgjmwh.mp4"
-          title={lang === 'de' ? 'Willkommen bei Quantiva Advisory!' : 'Welcome to Quantiva Advisory!'}
-          description={lang === 'de' 
-            ? 'Du bist derjenige, der dabei helfen kann, dieses Unternehmen zu gestalten. Zögere nicht so lange — bewirb dich jetzt!'
-            : 'You are the one who can help shape this company. Don\'t hesitate so long — please apply now!'
-          }
-          primaryButtonText={lang === 'de' ? 'Jetzt bewerben' : 'Apply now'}
-          primaryButtonLink={localePath('/#contact')}
-          secondaryButtonText={lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-          secondaryButtonLink={localePath('/about')}
-            className="py-8"
-          />
-        </div>
-
-        {/* Hero Section - Simple Background */}
-        <div className="relative z-10 h-screen w-full overflow-hidden">
-          
-          
-          {/* Video Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-teal-900/80 via-purple-900/60 to-black/80"></div>
-          
-          {/* Hero Content Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end z-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 w-full">
-              <SlideIn direction="up">
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 text-center">
-                  {t.heroTitle}
-                </h1>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-                  {t.heroSubtitle}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href={localePath('/#contact')}
-                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-500 text-white text-lg font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
-                  >
-                    {t.heroCTA}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                </div>
-              </SlideIn>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Content - Seamless Flow */}
-        <div className="relative z-10 bg-black min-h-screen">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            
-            {/* Areas of Expertise Section */}
-            <div className="mb-24">
-              <SlideIn direction="up" delay={0.1}>
-                <div className="text-center mb-16">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                    {t.areasTitle}
-                  </h2>
-                  <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                    {lang === 'de' 
-                      ? 'Entdecke die verschiedenen Bereiche, in denen du bei uns arbeiten kannst' 
-                      : 'Discover the different areas where you can work with us'}
-                  </p>
-                </div>
-              </SlideIn>
-
-              {/* 6 Areas Grid */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {/* Strategy & Consulting */}
-                <SlideIn direction="left" delay={0.2}>
-                  <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
-                      alt="Strategy & Consulting"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
-                    <div className="relative h-full flex flex-col justify-end p-8">
-                      <h3 className="text-2xl font-bold text-white mb-3">{t.areas[0].title}</h3>
-                      <p className="text-gray-200 text-sm leading-relaxed">{t.areas[0].description}</p>
-                      <a 
-                        href={localePath('/strategy-consulting')}
-                        className="mt-4 inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors duration-300"
-                      >
-                        <span className="text-sm font-semibold">{lang === 'de' ? 'Mehr erfahren' : 'Learn more'}</span>
-                        <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-300" />
-                      </a>
-                    </div>
-                  </div>
-                </SlideIn>
-
-                {/* Technology & Engineering */}
-                <SlideIn direction="up" delay={0.3}>
-                  <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=800&auto=format&fit=crop"
-                      alt="Technology & Engineering"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/60 to-transparent"></div>
-                    <div className="relative h-full flex flex-col justify-end p-8">
-                      <h3 className="text-2xl font-bold text-white mb-3">{t.areas[1].title}</h3>
-                      <p className="text-gray-200 text-sm leading-relaxed">{t.areas[1].description}</p>
-                      <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </SlideIn>
-
-                {/* SAP Solutions */}
-                <SlideIn direction="right" delay={0.4}>
-                  <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
-                      alt="SAP Solutions"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-800/60 to-transparent"></div>
-                    <div className="relative h-full flex flex-col justify-end p-8">
-                      <h3 className="text-2xl font-bold text-white mb-3">{t.areas[2].title}</h3>
-                      <p className="text-gray-200 text-sm leading-relaxed">{t.areas[2].description}</p>
-                      <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </SlideIn>
-
-                {/* Cloud & Infrastructure */}
-                <SlideIn direction="left" delay={0.5}>
-                  <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
-                      alt="Cloud & Infrastructure"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/60 to-transparent"></div>
-                    <div className="relative h-full flex flex-col justify-end p-8">
-                      <h3 className="text-2xl font-bold text-white mb-3">{t.areas[3].title}</h3>
-                      <p className="text-gray-200 text-sm leading-relaxed">{t.areas[3].description}</p>
-                      <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </SlideIn>
-
-                {/* Cyber Security */}
-                <SlideIn direction="up" delay={0.6}>
-                  <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop"
-                      alt="Cyber Security"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
-                    <div className="relative h-full flex flex-col justify-end p-8">
-                      <h3 className="text-2xl font-bold text-white mb-3">{t.areas[4].title}</h3>
-                      <p className="text-gray-200 text-sm leading-relaxed">{t.areas[4].description}</p>
-                      <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </SlideIn>
-
-                {/* Artificial Intelligence */}
-                <SlideIn direction="right" delay={0.7}>
-                  <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop"
-                      alt="Artificial Intelligence"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/60 to-black/20"></div>
-                    <div className="relative h-full flex flex-col justify-end p-8">
-                      <h3 className="text-2xl font-bold text-white mb-3">{t.areas[5].title}</h3>
-                      <p className="text-gray-200 text-sm leading-relaxed">{t.areas[5].description}</p>
-                      <ArrowRight className="mt-4 h-6 w-6 text-white group-hover:translate-x-2 transition-transform duration-300" />
-                    </div>
-                  </div>
-                </SlideIn>
-              </div>
-            </div>
-
-            {/* Career Levels Section - Rotating Carousel */}
-            <div className="mb-24">
-              <SlideIn direction="up" delay={0.1}>
-                <div className="text-center mb-16">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                    {t.levelsTitle}
-                  </h2>
-                  <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                    {lang === 'de' 
-                      ? 'Egal, an welchem Punkt deiner Karriere du dich befindest' 
-                      : 'No matter where you are in your career journey'}
-                  </p>
-                </div>
-              </SlideIn>
-
-              {/* Rotating Carousel */}
-              <CareerLevelsCarousel levels={t.levels} lang={lang} />
-            </div>
-
-          {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <SlideIn key={stat.label} direction="up" delay={index * 0.1}>
-                  <div className="text-center group">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-500/30 flex items-center justify-center group-hover:border-teal-400/60 transition-all">
-                      <Icon className="w-8 h-8 text-teal-400" />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                    <div className="text-gray-400 text-sm">{stat.label}</div>
-                  </div>
-                </SlideIn>
-              );
-            })}
-          </div>
-
-          {/* Benefits Section - Modern 3D Design */}
-          <div className="mb-24">
+        
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-900/80 via-purple-900/60 to-black/80"></div>
+        
+        {/* Hero Content Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex items-end z-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 w-full">
             <SlideIn direction="up">
-              <div className="text-center mb-20">
-                <motion.div 
-                  className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm"
-                  whileHover={{ scale: 1.05, rotateY: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 text-center">
+                {t.heroTitle}
+              </h1>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+                {t.heroSubtitle}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href={localePath('/#contact')}
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-purple-500 text-white text-lg font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
                 >
-                  <Heart className="w-6 h-6 text-teal-400" />
-                  <span className="text-white font-semibold">Unsere Benefits</span>
-                </motion.div>
-                <motion.h2 
-                  className="text-4xl md:text-6xl font-bold text-white mb-6"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                  Warum <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Quantiva</span>?
-                </motion.h2>
-                <motion.p 
-                  className="text-xl text-gray-300 max-w-3xl mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  Wir bieten mehr als nur einen Job - wir bieten eine Karriere mit Zukunft.
-                </motion.p>
+                  {t.heroCTA}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
               </div>
             </SlideIn>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit, index) => {
-                const Icon = benefit.icon;
-                return (
-                  <motion.div
-                    key={benefit.title}
-                    initial={{ opacity: 0, y: 50, rotateX: -15 }}
-                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100
-                    }}
-                    whileHover={{ 
-                      y: -10, 
-                      rotateY: 5, 
-                      rotateX: 5,
-                      scale: 1.02,
-                      transition: { duration: 0.3 }
-                    }}
-                    className="group perspective-1000"
-                  >
-                    <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20 group-hover:border-teal-400/30">
-                      {/* 3D Background Effects */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
-                      
-                      {/* Floating Particles Effect */}
-                      <div className="absolute inset-0 overflow-hidden rounded-3xl">
-                        <motion.div
-                          className="absolute w-2 h-2 bg-teal-400/30 rounded-full"
-                          animate={{
-                            x: [0, 100, 0],
-                            y: [0, -50, 0],
-                            opacity: [0, 1, 0],
-                            scale: [0, 1, 0]
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: index * 0.5
-                          }}
-                          style={{ top: '20%', left: '10%' }}
-                        />
-                        <motion.div
-                          className="absolute w-1 h-1 bg-purple-400/40 rounded-full"
-                          animate={{
-                            x: [0, -80, 0],
-                            y: [0, 60, 0],
-                            opacity: [0, 1, 0],
-                            scale: [0, 1, 0]
-                          }}
-                          transition={{
-                            duration: 4,
-                            repeat: Infinity,
-                            delay: index * 0.7
-                          }}
-                          style={{ top: '60%', right: '15%' }}
-                        />
-                      </div>
-
-                      <div className="relative z-10">
-                        {/* 3D Icon Container */}
-                        <motion.div 
-                          className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${benefit.color}/20 border border-white/20 flex items-center justify-center group-hover:border-teal-400/50 backdrop-blur-sm relative overflow-hidden`}
-                          whileHover={{ 
-                            rotateY: 360,
-                            scale: 1.1,
-                            transition: { duration: 0.6 }
-                          }}
-                        >
-                          {/* Icon Glow Effect */}
-                          <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color}/30 rounded-3xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                          <Icon className="w-10 h-10 text-white relative z-10 group-hover:text-teal-300 transition-colors duration-300" />
-                        </motion.div>
-
-                        {/* Content */}
-                        <motion.h3 
-                          className="text-xl font-bold text-white mb-4 mt-6 group-hover:text-teal-300 transition-colors duration-300"
-                          whileHover={{ x: 5 }}
-                        >
-                          {benefit.title}
-                        </motion.h3>
-                        <motion.p 
-                          className="text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
-                          whileHover={{ x: 5 }}
-                        >
-                          {benefit.description}
-                        </motion.p>
-
-                        {/* Hover Arrow */}
-                        <motion.div
-                          className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        >
-                          <ArrowRight className="w-5 h-5 text-teal-400" />
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
           </div>
+        </div>
+      </div>
 
-          {/* Open Positions */}
-          <div className="mb-24">
-            <SlideIn direction="up">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
-                  <Target className="w-6 h-6 text-teal-400" />
-                  <span className="text-white font-semibold">{lang === 'de' ? 'Offene Positionen' : 'Open Positions'}</span>
-                </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                  {lang === 'de' ? 'Aktuelle' : 'Current'} <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">{lang === 'de' ? 'Stellenangebote' : 'Job Openings'}</span>
-                </h2>
-                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                  {lang === 'de' ? 'Entdecken Sie unsere aktuellen Stellenangebote und finden Sie Ihre perfekte Position.' : 'Discover our current job openings and find your perfect position.'}
-                </p>
-              </div>
-            </SlideIn>
-
-            {/* Job Filters */}
-            <SlideIn direction="up" delay={0.2}>
-              <div className="mb-12 rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-sm">
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
-                  {/* Search */}
-                  <div className="lg:col-span-2">
-                    <input
-                      type="text"
-                      placeholder={lang === 'de' ? 'Suche nach Position oder Stichwort...' : 'Search for position or keyword...'}
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white placeholder:text-gray-500 focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
-                    />
-                  </div>
-                  
-                  {/* Location Filter */}
-                  <select
-                    value={locationFilter}
-                    onChange={(e) => setLocationFilter(e.target.value)}
-                    className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
-                  >
-                    <option value="all">{lang === 'de' ? 'Alle Standorte' : 'All Locations'}</option>
-                    {filterOptions.locations.map((loc) => (
-                      <option key={loc} value={loc}>{loc}</option>
-                    ))}
-                  </select>
-                  
-                  {/* Department Filter */}
-                  <select
-                    value={departmentFilter}
-                    onChange={(e) => setDepartmentFilter(e.target.value)}
-                    className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
-                  >
-                    <option value="all">{lang === 'de' ? 'Alle Bereiche' : 'All Departments'}</option>
-                    {filterOptions.departments.map((dept) => (
-                      <option key={dept} value={dept}>{dept}</option>
-                    ))}
-                  </select>
-                  
-                  {/* Seniority Filter */}
-                  <select
-                    value={seniorityFilter}
-                    onChange={(e) => setSeniorityFilter(e.target.value)}
-                    className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
-                  >
-                    <option value="all">{lang === 'de' ? 'Alle Level' : 'All Levels'}</option>
-                    {filterOptions.seniorities.map((sen) => (
-                      <option key={sen} value={sen}>{sen}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                {/* Filter Summary */}
-                <div className="mt-4 flex items-center justify-between text-sm">
-                  <span className="text-gray-400">
-                    {filteredJobs.length} {lang === 'de' ? 'Position(en) gefunden' : 'position(s) found'}
-                  </span>
-                  {(searchQuery || locationFilter !== 'all' || departmentFilter !== 'all' || seniorityFilter !== 'all') && (
-                    <button
-                      onClick={() => {
-                        setSearchQuery('');
-                        setLocationFilter('all');
-                        setDepartmentFilter('all');
-                        setSeniorityFilter('all');
-                        setRemoteFilter('all');
-                      }}
-                      className="text-teal-400 hover:text-teal-300 transition-colors"
-                    >
-                      {lang === 'de' ? 'Filter zurücksetzen' : 'Reset filters'}
-                    </button>
-                  )}
-                </div>
-              </div>
-            </SlideIn>
-
-            <div className="space-y-8">
-              {jobLoading ? (
-                <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
-                  {lang === 'de' ? 'Lade offene Positionen …' : 'Loading job openings …'}
-                </div>
-              ) : jobError ? (
-                <div className="rounded-3xl border border-red-500/40 bg-red-500/10 p-10 text-center text-red-200">
-                  {jobError}
-                </div>
-              ) : filteredJobs.length === 0 ? (
-                <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
-                  {lang === 'de' ? 'Keine Positionen gefunden. Bitte Filter anpassen.' : 'No positions found. Please adjust filters.'}
-                </div>
-              ) : (
-                filteredJobs.map((job, index) => (
-                  <SlideIn key={job.id} direction="up" delay={index * 0.1}>
-                    <div className="group">
-                      <div className="relative p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
-                        <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
-                        <div className="relative z-10">
-                          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                            <div className="flex-1">
-                              <div className="flex items-start justify-between gap-4 mb-3">
-                                <h3 className="text-2xl font-bold text-white">{job.title}</h3>
-                                {job.salary && (
-                                  <span className="rounded-full border border-purple-400/40 bg-purple-500/20 px-4 py-1.5 text-sm font-semibold text-purple-200 whitespace-nowrap">
-                                    {job.salary}
-                                  </span>
-                                )}
-                              </div>
-                              <div className="flex flex-wrap items-center gap-4 text-gray-300 text-sm">
-                                <span className="flex items-center gap-2">
-                                  <Globe className="w-4 h-4" />
-                                  {job.location}
-                                </span>
-                                <span className="flex items-center gap-2">
-                                  <Users className="w-4 h-4" />
-                                  {job.employmentType}
-                                </span>
-                                {job.department ? (
-                                  <span className="flex items-center gap-2">
-                                    <BriefcaseIcon className="w-4 h-4" />
-                                    {job.department}
-                                  </span>
-                                ) : null}
-                                {job.seniority && (
-                                  <span className="rounded-full border border-teal-400/30 bg-teal-500/10 px-3 py-1 text-xs uppercase tracking-wider text-teal-300">
-                                    {job.seniority}
-                                  </span>
-                                )}
-                                {job.remote && (
-                                  <span className="rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-xs uppercase tracking-wider text-blue-300">
-                                    Remote
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <button
-                              className="mt-4 lg:mt-0 px-6 py-3 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
-                              onClick={() => handleJobApply(job)}
-                            >
-                              {lang === 'de' ? 'Jetzt bewerben' : 'Apply now'}
-                            </button>
-                          </div>
-
-                          <p className="text-gray-300 mb-6 leading-relaxed">
-                            {job.description}
-                          </p>
-
-                          <div className="grid md:grid-cols-2 gap-6">
-                            <div>
-                              <h4 className="text-lg font-semibold text-white mb-3">
-                                {lang === 'de' ? 'Anforderungen' : 'Requirements'}
-                              </h4>
-                              <ul className="space-y-2">
-                                {job.requirements.map((req, reqIndex) => (
-                                  <li key={reqIndex} className="flex items-center gap-2 text-gray-300">
-                                    <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
-                                    {req}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                            <div>
-                              <h4 className="text-lg font-semibold text-white mb-3">
-                                Benefits
-                              </h4>
-                              <ul className="space-y-2">
-                                {job.benefits.map((benefit, benefitIndex) => (
-                                  <li key={benefitIndex} className="flex items-center gap-2 text-gray-300">
-                                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                                    {benefit}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </SlideIn>
-                ))
-              )}
-            </div>
-          </div>
-
-          {/* Culture Section */}
-          <div className="mb-24">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <SlideIn direction="left">
-                <div className="relative group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
-                  <div className="relative rounded-3xl overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
-                      alt="Team Culture"
-                      width={600}
-                      height={400}
-                      className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  </div>
-                </div>
-              </SlideIn>
-
-              <SlideIn direction="right">
-                <div className="space-y-8">
-                  <div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                      Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kultur</span>
-                    </h2>
-                    <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                      Bei Quantiva Advisory schaffen wir ein Arbeitsumfeld, das Innovation, 
-                      Kollaboration und persönliches Wachstum fördert. Wir glauben daran, 
-                      dass die besten Lösungen entstehen, wenn talentierte Menschen zusammenarbeiten.
-                    </p>
-                  </div>
-
-                  <div className="space-y-6">
-                    {/* Innovation First - Pulsing Lightbulb */}
-                    <div className="flex items-start gap-4">
-                      <motion.div 
-                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-                        animate={{
-                          rotateY: [0, 180, 360],
-                          scale: [1, 1.2, 1],
-                          boxShadow: [
-                            '0 0 20px rgba(20, 184, 166, 0.5)',
-                            '0 0 40px rgba(20, 184, 166, 0.8)',
-                            '0 0 20px rgba(20, 184, 166, 0.5)'
-                          ]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        {/* Inner Glow Effect */}
-                        <motion.div
-                          className="absolute inset-1 rounded-xl bg-white/20"
-                          animate={{
-                            scale: [0.8, 1.2, 0.8],
-                            opacity: [0.3, 0.7, 0.3]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        />
-                        
-                        {/* Icon with Flickering Effect */}
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, 5, -5, 0]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                          }}
-                        >
-                          <Lightbulb className="w-6 h-6 text-teal-400 relative z-10" />
-                        </motion.div>
-                      </motion.div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-white mb-2">Innovation First</h3>
-                        <p className="text-gray-300">Wir fördern kreatives Denken und experimentieren mit neuen Technologien.</p>
-                      </div>
-                    </div>
-
-                    {/* Teamwork - Floating People */}
-                    <div className="flex items-start gap-4">
-                      <motion.div 
-                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-                        animate={{
-                          y: [-5, 5, -5],
-                          rotateZ: [-5, 5, -5],
-                          scale: [1, 1.1, 1],
-                          boxShadow: [
-                            '0 0 20px rgba(168, 85, 247, 0.5)',
-                            '0 0 40px rgba(168, 85, 247, 0.8)',
-                            '0 0 20px rgba(168, 85, 247, 0.5)'
-                          ]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 0.5
-                        }}
-                      >
-                        {/* Inner Glow Effect */}
-                        <motion.div
-                          className="absolute inset-1 rounded-xl bg-white/20"
-                          animate={{
-                            scale: [0.8, 1.2, 0.8],
-                            opacity: [0.3, 0.7, 0.3]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.3
-                          }}
-                        />
-                        
-                        {/* Icon with Bouncing Effect */}
-                        <motion.div
-                          animate={{
-                            y: [-2, 2, -2],
-                            rotate: [-2, 2, -2]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.2
-                          }}
-                        >
-                          <Users className="w-6 h-6 text-purple-400 relative z-10" />
-                        </motion.div>
-                      </motion.div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-white mb-2">Teamwork</h3>
-                        <p className="text-gray-300">Zusammenarbeit und gegenseitige Unterstützung stehen im Mittelpunkt.</p>
-                      </div>
-                    </div>
-
-                    {/* Lernkultur - Spinning Graduation Cap */}
-                    <div className="flex items-start gap-4">
-                      <motion.div 
-                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-                        animate={{
-                          rotate: [0, 360],
-                          scaleX: [1, -1, 1],
-                          y: [0, -10, 0],
-                          boxShadow: [
-                            '0 0 20px rgba(59, 130, 246, 0.5)',
-                            '0 0 40px rgba(59, 130, 246, 0.8)',
-                            '0 0 20px rgba(59, 130, 246, 0.5)'
-                          ]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 1
-                        }}
-                      >
-                        {/* Inner Glow Effect */}
-                        <motion.div
-                          className="absolute inset-1 rounded-xl bg-white/20"
-                          animate={{
-                            scale: [0.8, 1.2, 0.8],
-                            opacity: [0.3, 0.7, 0.3]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.6
-                          }}
-                        />
-                        
-                        {/* Icon with Tassel Swing */}
-                        <motion.div
-                          animate={{
-                            rotate: [0, 10, -10, 0],
-                            scale: [1, 1.05, 1]
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                            delay: 0.4
-                          }}
-                        >
-                          <GraduationCap className="w-6 h-6 text-blue-400 relative z-10" />
-                        </motion.div>
-                      </motion.div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-white mb-2">Lernkultur</h3>
-                        <p className="text-gray-300">Kontinuierliche Weiterbildung und persönliche Entwicklung werden gefördert.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </SlideIn>
-            </div>
-          </div>
-
-          {/* Wellbeing Section - Accenture Style */}
+      {/* Main Content - Seamless Flow */}
+      <div className="relative z-10 bg-black min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          
+          {/* Areas of Expertise Section */}
           <div className="mb-24">
             <SlideIn direction="up" delay={0.1}>
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  {t.wellbeingTitle}
+                  {t.areasTitle}
                 </h2>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                  {t.wellbeingSubtitle}
+                  {lang === 'de' 
+                    ? 'Entdecke die verschiedenen Bereiche, in denen du bei uns arbeiten kannst' 
+                    : 'Discover the different areas where you can work with us'}
                 </p>
               </div>
             </SlideIn>
 
-            {/* Asymmetric Grid Layout - Accenture Style */}
+            {/* 6 Areas Grid */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {/* Large Featured Card - Mental Health (spans 2 rows on desktop) */}
-              <SlideIn direction="left" delay={0.2} className="lg:row-span-2">
-                <div className="group relative h-full min-h-[500px] rounded-2xl overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop"
-                    alt="Mental Health"
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-8">
-                    <h3 className="text-3xl font-bold text-white mb-4">{t.wellbeingAreas[0].title}</h3>
-                    <p className="text-gray-200 mb-6 leading-relaxed">{t.wellbeingAreas[0].description}</p>
-                    <button className="self-start inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
-                      <ChevronRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </div>
-              </SlideIn>
-
-              {/* Top-right Card - Relationship-oriented */}
-              <SlideIn direction="up" delay={0.3} className="lg:col-span-2">
-                <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
-                    alt="Team Collaboration"
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 66vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-teal-900/80 via-teal-800/60 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-8">
-                    <h3 className="text-2xl font-bold text-white mb-3">{t.wellbeingAreas[1].title}</h3>
-                    <p className="text-gray-100 mb-4 leading-relaxed max-w-xl">{t.wellbeingAreas[1].description}</p>
-                    <button className="self-start inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Communitys entdecken' : 'Discover Communities'}
-                      <ChevronRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </div>
-              </SlideIn>
-
-              {/* Bottom-right Card - Physical Health */}
-              <SlideIn direction="right" delay={0.4}>
-                <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
-                    alt="Physical Health"
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[2].title}</h3>
-                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[2].description}</p>
-                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
-                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </div>
-              </SlideIn>
-
-              {/* Bottom-right Card 2 - Purpose-driven */}
-              <SlideIn direction="right" delay={0.5}>
-                <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+              {/* Strategy & Consulting */}
+              <SlideIn direction="left" delay={0.2}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
-                    alt="Purpose Driven"
+                    alt="Strategy & Consulting"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[3].title}</h3>
-                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[3].description}</p>
-                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Wovon wir überzeugt sind' : 'Our Beliefs'}
-                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[0].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[0].description}</p>
+                    <a 
+                      href={localePath('/strategy-consulting')}
+                      className="mt-4 inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors duration-300"
+                    >
+                      <span className="text-sm font-semibold">{lang === 'de' ? 'Mehr erfahren' : 'Learn more'}</span>
+                      <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-300" />
+                    </a>
                   </div>
                 </div>
               </SlideIn>
-            </div>
 
-            {/* Second Row - 3 Equal Cards */}
-            <div className="grid gap-6 md:grid-cols-3 mt-6">
+              {/* Technology & Engineering */}
+              <SlideIn direction="up" delay={0.3}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=800&auto=format&fit=crop"
+                    alt="Technology & Engineering"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[1].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[1].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* SAP Solutions */}
+              <SlideIn direction="right" delay={0.4}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
+                    alt="SAP Solutions"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-800/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[2].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[2].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Cloud & Infrastructure */}
+              <SlideIn direction="left" delay={0.5}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
+                    alt="Cloud & Infrastructure"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[3].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[3].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              </SlideIn>
+
+              {/* Cyber Security */}
               <SlideIn direction="up" delay={0.6}>
-                <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
-                    alt="Career Ready"
+                    src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop"
+                    alt="Cyber Security"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[4].title}</h3>
-                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[4].description}</p>
-                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Trainings & Weiterbildung' : 'Training & Development'}
-                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[4].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[4].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-teal-400 group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </div>
               </SlideIn>
 
-              <SlideIn direction="up" delay={0.7}>
-                <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+              {/* Artificial Intelligence */}
+              <SlideIn direction="right" delay={0.7}>
+                <div className="group relative h-full min-h-[400px] rounded-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=800&auto=format&fit=crop"
-                    alt="Global Perspectives"
+                    src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop"
+                    alt="Artificial Intelligence"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[5].title}</h3>
-                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[5].description}</p>
-                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
-                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
-                </div>
-              </SlideIn>
-
-              <SlideIn direction="up" delay={0.8}>
-                <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
-                    alt="Financial Wellbeing"
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/50 to-transparent"></div>
-                  <div className="relative h-full flex flex-col justify-end p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{lang === 'de' ? 'Finanzielle Vergütung' : 'Financial Rewards'}</h3>
-                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">
-                      {lang === 'de' 
-                        ? 'Wir bieten Rewards- und Benefits-Pakete, die deinen Bedürfnissen entsprechen.' 
-                        : 'We offer rewards and benefits packages that meet your needs.'}
-                    </p>
-                    <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
-                      {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
-                      <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
+                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-800/60 to-black/20"></div>
+                  <div className="relative h-full flex flex-col justify-end p-8">
+                    <h3 className="text-2xl font-bold text-white mb-3">{t.areas[5].title}</h3>
+                    <p className="text-gray-200 text-sm leading-relaxed">{t.areas[5].description}</p>
+                    <ArrowRight className="mt-4 h-6 w-6 text-white group-hover:translate-x-2 transition-transform duration-300" />
                   </div>
                 </div>
               </SlideIn>
             </div>
           </div>
 
-          {/* CTA Section */}
-          <div className="text-center">
-            <SlideIn direction="up">
+          {/* Career Levels Section - Rotating Carousel */}
+          <div className="mb-24">
+            <SlideIn direction="up" delay={0.1}>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                  {t.levelsTitle}
+                </h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  {lang === 'de' 
+                    ? 'Egal, an welchem Punkt deiner Karriere du dich befindest' 
+                    : 'No matter where you are in your career journey'}
+                </p>
+              </div>
+            </SlideIn>
+
+            {/* Rotating Carousel */}
+            <CareerLevelsCarousel levels={t.levels} lang={lang} />
+          </div>
+
+        {/* Stats Section */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <SlideIn key={stat.label} direction="up" delay={index * 0.1}>
+                <div className="text-center group">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-500/30 flex items-center justify-center group-hover:border-teal-400/60 transition-all">
+                    <Icon className="w-8 h-8 text-teal-400" />
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                  <div className="text-gray-400 text-sm">{stat.label}</div>
+                </div>
+              </SlideIn>
+            );
+          })}
+        </div>
+
+        {/* Benefits Section - Modern 3D Design */}
+        <div className="mb-24">
+          <SlideIn direction="up">
+            <div className="text-center mb-20">
+              <motion.div 
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8 backdrop-blur-sm"
+                whileHover={{ scale: 1.05, rotateY: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Heart className="w-6 h-6 text-teal-400" />
+                <span className="text-white font-semibold">Unsere Benefits</span>
+              </motion.div>
+              <motion.h2 
+                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                Warum <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Quantiva</span>?
+              </motion.h2>
+              <motion.p 
+                className="text-xl text-gray-300 max-w-3xl mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Wir bieten mehr als nur einen Job - wir bieten eine Karriere mit Zukunft.
+              </motion.p>
+            </div>
+          </SlideIn>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
+              return (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 50, rotateX: -15 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: index * 0.1,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  whileHover={{ 
+                    y: -10, 
+                    rotateY: 5, 
+                    rotateX: 5,
+                    scale: 1.02,
+                    transition: { duration: 0.3 }
+                  }}
+                  className="group perspective-1000"
+                >
+                  <div className="relative h-full p-8 rounded-3xl bg-gradient-to-br from-black/40 via-black/20 to-black/40 border border-white/10 backdrop-blur-xl transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-teal-500/20 group-hover:border-teal-400/30">
+                    {/* 3D Background Effects */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 via-purple-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-teal-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                    
+                    {/* Floating Particles Effect */}
+                    <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                      <motion.div
+                        className="absolute w-2 h-2 bg-teal-400/30 rounded-full"
+                        animate={{
+                          x: [0, 100, 0],
+                          y: [0, -50, 0],
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          delay: index * 0.5
+                        }}
+                        style={{ top: '20%', left: '10%' }}
+                      />
+                      <motion.div
+                        className="absolute w-1 h-1 bg-purple-400/40 rounded-full"
+                        animate={{
+                          x: [0, -80, 0],
+                          y: [0, 60, 0],
+                          opacity: [0, 1, 0],
+                          scale: [0, 1, 0]
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          delay: index * 0.7
+                        }}
+                        style={{ top: '60%', right: '15%' }}
+                      />
+                    </div>
+
+                    <div className="relative z-10">
+                      {/* 3D Icon Container */}
+                      <motion.div 
+                        className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${benefit.color}/20 border border-white/20 flex items-center justify-center group-hover:border-teal-400/50 backdrop-blur-sm relative overflow-hidden`}
+                        whileHover={{ 
+                          rotateY: 360,
+                          scale: 1.1,
+                          transition: { duration: 0.6 }
+                        }}
+                      >
+                        {/* Icon Glow Effect */}
+                        <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color}/30 rounded-3xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                        <Icon className="w-10 h-10 text-white relative z-10 group-hover:text-teal-300 transition-colors duration-300" />
+                      </motion.div>
+
+                      {/* Content */}
+                      <motion.h3 
+                        className="text-xl font-bold text-white mb-4 mt-6 group-hover:text-teal-300 transition-colors duration-300"
+                        whileHover={{ x: 5 }}
+                      >
+                        {benefit.title}
+                      </motion.h3>
+                      <motion.p 
+                        className="text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                        whileHover={{ x: 5 }}
+                      >
+                        {benefit.description}
+                      </motion.p>
+
+                      {/* Hover Arrow */}
+                      <motion.div
+                        className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        <ArrowRight className="w-5 h-5 text-teal-400" />
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Open Positions */}
+        <div className="mb-24">
+          <SlideIn direction="up">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-teal-500/20 to-purple-500/20 border border-teal-500/30 mb-8">
+                <Target className="w-6 h-6 text-teal-400" />
+                <span className="text-white font-semibold">{lang === 'de' ? 'Offene Positionen' : 'Open Positions'}</span>
+              </div>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                {t.ctaTitle}
+                {lang === 'de' ? 'Aktuelle' : 'Current'} <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">{lang === 'de' ? 'Stellenangebote' : 'Job Openings'}</span>
               </h2>
-              <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-                {t.ctaDescription}
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                {lang === 'de' ? 'Entdecken Sie unsere aktuellen Stellenangebote und finden Sie Ihre perfekte Position.' : 'Discover our current job openings and find your perfect position.'}
               </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <a
-                  href={localePath('/#contact')}
-                  className="px-10 py-5 bg-gradient-to-r from-teal-500 to-purple-500 text-white text-lg font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+            </div>
+          </SlideIn>
+
+          {/* Job Filters */}
+          <SlideIn direction="up" delay={0.2}>
+            <div className="mb-12 rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur-sm">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+                {/* Search */}
+                <div className="lg:col-span-2">
+                  <input
+                    type="text"
+                    placeholder={lang === 'de' ? 'Suche nach Position oder Stichwort...' : 'Search for position or keyword...'}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white placeholder:text-gray-500 focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
+                  />
+                </div>
+                
+                {/* Location Filter */}
+                <select
+                  value={locationFilter}
+                  onChange={(e) => setLocationFilter(e.target.value)}
+                  className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
                 >
-                  {t.ctaButton}
-                </a>
-                <a
-                  href="mailto:careers@quantiva-advisory.com"
-                  className="px-10 py-5 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white text-lg font-semibold rounded-xl hover:bg-teal-500/10 transition-all duration-300"
+                  <option value="all">{lang === 'de' ? 'Alle Standorte' : 'All Locations'}</option>
+                  {filterOptions.locations.map((loc) => (
+                    <option key={loc} value={loc}>{loc}</option>
+                  ))}
+                </select>
+                
+                {/* Department Filter */}
+                <select
+                  value={departmentFilter}
+                  onChange={(e) => setDepartmentFilter(e.target.value)}
+                  className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
                 >
-                  {lang === 'de' ? 'Kontakt aufnehmen' : 'Get in Touch'}
-                </a>
+                  <option value="all">{lang === 'de' ? 'Alle Bereiche' : 'All Departments'}</option>
+                  {filterOptions.departments.map((dept) => (
+                    <option key={dept} value={dept}>{dept}</option>
+                  ))}
+                </select>
+                
+                {/* Seniority Filter */}
+                <select
+                  value={seniorityFilter}
+                  onChange={(e) => setSeniorityFilter(e.target.value)}
+                  className="rounded-xl border border-white/20 bg-black/60 px-4 py-3 text-white focus:border-teal-400/50 focus:outline-none focus:ring-2 focus:ring-teal-400/30"
+                >
+                  <option value="all">{lang === 'de' ? 'Alle Level' : 'All Levels'}</option>
+                  {filterOptions.seniorities.map((sen) => (
+                    <option key={sen} value={sen}>{sen}</option>
+                  ))}
+                </select>
+              </div>
+              
+              {/* Filter Summary */}
+              <div className="mt-4 flex items-center justify-between text-sm">
+                <span className="text-gray-400">
+                  {filteredJobs.length} {lang === 'de' ? 'Position(en) gefunden' : 'position(s) found'}
+                </span>
+                {(searchQuery || locationFilter !== 'all' || departmentFilter !== 'all' || seniorityFilter !== 'all') && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setLocationFilter('all');
+                      setDepartmentFilter('all');
+                      setSeniorityFilter('all');
+                      setRemoteFilter('all');
+                    }}
+                    className="text-teal-400 hover:text-teal-300 transition-colors"
+                  >
+                    {lang === 'de' ? 'Filter zurücksetzen' : 'Reset filters'}
+                  </button>
+                )}
+              </div>
+            </div>
+          </SlideIn>
+
+          <div className="space-y-8">
+            {jobLoading ? (
+              <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
+                {lang === 'de' ? 'Lade offene Positionen …' : 'Loading job openings …'}
+              </div>
+            ) : jobError ? (
+              <div className="rounded-3xl border border-red-500/40 bg-red-500/10 p-10 text-center text-red-200">
+                {jobError}
+              </div>
+            ) : filteredJobs.length === 0 ? (
+              <div className="rounded-3xl border border-white/15 bg-black/30 p-10 text-center text-gray-400">
+                {lang === 'de' ? 'Keine Positionen gefunden. Bitte Filter anpassen.' : 'No positions found. Please adjust filters.'}
+              </div>
+            ) : (
+              filteredJobs.map((job, index) => (
+                <SlideIn key={job.id} direction="up" delay={index * 0.1}>
+                  <div className="group">
+                    <div className="relative p-8 rounded-3xl bg-black/20 border border-white/20 backdrop-blur-sm transform-gpu transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-white/10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent rounded-3xl"></div>
+                      <div className="relative z-10">
+                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between gap-4 mb-3">
+                              <h3 className="text-2xl font-bold text-white">{job.title}</h3>
+                              {job.salary && (
+                                <span className="rounded-full border border-purple-400/40 bg-purple-500/20 px-4 py-1.5 text-sm font-semibold text-purple-200 whitespace-nowrap">
+                                  {job.salary}
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap items-center gap-4 text-gray-300 text-sm">
+                              <span className="flex items-center gap-2">
+                                <Globe className="w-4 h-4" />
+                                {job.location}
+                              </span>
+                              <span className="flex items-center gap-2">
+                                <Users className="w-4 h-4" />
+                                {job.employmentType}
+                              </span>
+                              {job.department ? (
+                                <span className="flex items-center gap-2">
+                                  <BriefcaseIcon className="w-4 h-4" />
+                                  {job.department}
+                                </span>
+                              ) : null}
+                              {job.seniority && (
+                                <span className="rounded-full border border-teal-400/30 bg-teal-500/10 px-3 py-1 text-xs uppercase tracking-wider text-teal-300">
+                                  {job.seniority}
+                                </span>
+                              )}
+                              {job.remote && (
+                                <span className="rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-xs uppercase tracking-wider text-blue-300">
+                                  Remote
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <button
+                            className="mt-4 lg:mt-0 px-6 py-3 bg-gradient-to-r from-teal-500 to-purple-500 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+                            onClick={() => handleJobApply(job)}
+                          >
+                            {lang === 'de' ? 'Jetzt bewerben' : 'Apply now'}
+                          </button>
+                        </div>
+
+                        <p className="text-gray-300 mb-6 leading-relaxed">
+                          {job.description}
+                        </p>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="text-lg font-semibold text-white mb-3">
+                              {lang === 'de' ? 'Anforderungen' : 'Requirements'}
+                            </h4>
+                            <ul className="space-y-2">
+                              {job.requirements.map((req, reqIndex) => (
+                                <li key={reqIndex} className="flex items-center gap-2 text-gray-300">
+                                  <div className="w-2 h-2 bg-teal-400 rounded-full"></div>
+                                  {req}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-semibold text-white mb-3">
+                              Benefits
+                            </h4>
+                            <ul className="space-y-2">
+                              {job.benefits.map((benefit, benefitIndex) => (
+                                <li key={benefitIndex} className="flex items-center gap-2 text-gray-300">
+                                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                  {benefit}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SlideIn>
+              ))
+            )}
+          </div>
+        </div>
+
+        {/* Culture Section */}
+        <div className="mb-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <SlideIn direction="left">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-3xl blur-3xl"></div>
+                <div className="relative rounded-3xl overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
+                    alt="Team Culture"
+                    width={600}
+                    height={400}
+                    className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                </div>
+              </div>
+            </SlideIn>
+
+            <SlideIn direction="right">
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                    Unsere <span className="bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent">Kultur</span>
+                  </h2>
+                  <p className="text-lg text-gray-300 leading-relaxed mb-8">
+                    Bei Quantiva Advisory schaffen wir ein Arbeitsumfeld, das Innovation, 
+                    Kollaboration und persönliches Wachstum fördert. Wir glauben daran, 
+                    dass die besten Lösungen entstehen, wenn talentierte Menschen zusammenarbeiten.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Innovation First - Pulsing Lightbulb */}
+                  <div className="flex items-start gap-4">
+                    <motion.div 
+                      className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500/30 to-teal-600/20 border border-teal-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+                      animate={{
+                        rotateY: [0, 180, 360],
+                        scale: [1, 1.2, 1],
+                        boxShadow: [
+                          '0 0 20px rgba(20, 184, 166, 0.5)',
+                          '0 0 40px rgba(20, 184, 166, 0.8)',
+                          '0 0 20px rgba(20, 184, 166, 0.5)'
+                        ]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {/* Inner Glow Effect */}
+                      <motion.div
+                        className="absolute inset-1 rounded-xl bg-white/20"
+                        animate={{
+                          scale: [0.8, 1.2, 0.8],
+                          opacity: [0.3, 0.7, 0.3]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      
+                      {/* Icon with Flickering Effect */}
+                      <motion.div
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <Lightbulb className="w-6 h-6 text-teal-400 relative z-10" />
+                      </motion.div>
+                    </motion.div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-2">Innovation First</h3>
+                      <p className="text-gray-300">Wir fördern kreatives Denken und experimentieren mit neuen Technologien.</p>
+                    </div>
+                  </div>
+
+                  {/* Teamwork - Floating People */}
+                  <div className="flex items-start gap-4">
+                    <motion.div 
+                      className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/20 border border-purple-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+                      animate={{
+                        y: [-5, 5, -5],
+                        rotateZ: [-5, 5, -5],
+                        scale: [1, 1.1, 1],
+                        boxShadow: [
+                          '0 0 20px rgba(168, 85, 247, 0.5)',
+                          '0 0 40px rgba(168, 85, 247, 0.8)',
+                          '0 0 20px rgba(168, 85, 247, 0.5)'
+                        ]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.5
+                      }}
+                    >
+                      {/* Inner Glow Effect */}
+                      <motion.div
+                        className="absolute inset-1 rounded-xl bg-white/20"
+                        animate={{
+                          scale: [0.8, 1.2, 0.8],
+                          opacity: [0.3, 0.7, 0.3]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.3
+                        }}
+                      />
+                      
+                      {/* Icon with Bouncing Effect */}
+                      <motion.div
+                        animate={{
+                          y: [-2, 2, -2],
+                          rotate: [-2, 2, -2]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.2
+                        }}
+                      >
+                        <Users className="w-6 h-6 text-purple-400 relative z-10" />
+                      </motion.div>
+                    </motion.div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-2">Teamwork</h3>
+                      <p className="text-gray-300">Zusammenarbeit und gegenseitige Unterstützung stehen im Mittelpunkt.</p>
+                    </div>
+                  </div>
+
+                  {/* Lernkultur - Spinning Graduation Cap */}
+                  <div className="flex items-start gap-4">
+                    <motion.div 
+                      className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/30 to-blue-600/20 border border-blue-400/40 flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+                      animate={{
+                        rotate: [0, 360],
+                        scaleX: [1, -1, 1],
+                        y: [0, -10, 0],
+                        boxShadow: [
+                          '0 0 20px rgba(59, 130, 246, 0.5)',
+                          '0 0 40px rgba(59, 130, 246, 0.8)',
+                          '0 0 20px rgba(59, 130, 246, 0.5)'
+                        ]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1
+                      }}
+                    >
+                      {/* Inner Glow Effect */}
+                      <motion.div
+                        className="absolute inset-1 rounded-xl bg-white/20"
+                        animate={{
+                          scale: [0.8, 1.2, 0.8],
+                          opacity: [0.3, 0.7, 0.3]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.6
+                        }}
+                      />
+                      
+                      {/* Icon with Tassel Swing */}
+                      <motion.div
+                        animate={{
+                          rotate: [0, 10, -10, 0],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.4
+                        }}
+                      >
+                        <GraduationCap className="w-6 h-6 text-blue-400 relative z-10" />
+                      </motion.div>
+                    </motion.div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-2">Lernkultur</h3>
+                      <p className="text-gray-300">Kontinuierliche Weiterbildung und persönliche Entwicklung werden gefördert.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </SlideIn>
           </div>
+        </div>
+
+        {/* Wellbeing Section - Accenture Style */}
+        <div className="mb-24">
+          <SlideIn direction="up" delay={0.1}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                {t.wellbeingTitle}
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                {t.wellbeingSubtitle}
+              </p>
+            </div>
+          </SlideIn>
+
+          {/* Asymmetric Grid Layout - Accenture Style */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {/* Large Featured Card - Mental Health (spans 2 rows on desktop) */}
+            <SlideIn direction="left" delay={0.2} className="lg:row-span-2">
+              <div className="group relative h-full min-h-[500px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop"
+                  alt="Mental Health"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-8">
+                  <h3 className="text-3xl font-bold text-white mb-4">{t.wellbeingAreas[0].title}</h3>
+                  <p className="text-gray-200 mb-6 leading-relaxed">{t.wellbeingAreas[0].description}</p>
+                  <button className="self-start inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                    <ChevronRight className="ml-2 h-5 w-5 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
+
+            {/* Top-right Card - Relationship-oriented */}
+            <SlideIn direction="up" delay={0.3} className="lg:col-span-2">
+              <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"
+                  alt="Team Collaboration"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 66vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-900/80 via-teal-800/60 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-8">
+                  <h3 className="text-2xl font-bold text-white mb-3">{t.wellbeingAreas[1].title}</h3>
+                  <p className="text-gray-100 mb-4 leading-relaxed max-w-xl">{t.wellbeingAreas[1].description}</p>
+                  <button className="self-start inline-flex items-center px-5 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Communitys entdecken' : 'Discover Communities'}
+                    <ChevronRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
+
+            {/* Bottom-right Card - Physical Health */}
+            <SlideIn direction="right" delay={0.4}>
+              <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop"
+                  alt="Physical Health"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[2].title}</h3>
+                  <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[2].description}</p>
+                  <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                    <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
+
+            {/* Bottom-right Card 2 - Purpose-driven */}
+            <SlideIn direction="right" delay={0.5}>
+              <div className="group relative h-full min-h-[240px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop"
+                  alt="Purpose Driven"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[3].title}</h3>
+                  <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[3].description}</p>
+                  <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Wovon wir überzeugt sind' : 'Our Beliefs'}
+                    <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
           </div>
+
+          {/* Second Row - 3 Equal Cards */}
+          <div className="grid gap-6 md:grid-cols-3 mt-6">
+            <SlideIn direction="up" delay={0.6}>
+              <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop"
+                  alt="Career Ready"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[4].title}</h3>
+                  <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[4].description}</p>
+                  <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Trainings & Weiterbildung' : 'Training & Development'}
+                    <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
+
+            <SlideIn direction="up" delay={0.7}>
+              <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=800&auto=format&fit=crop"
+                  alt="Global Perspectives"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{t.wellbeingAreas[5].title}</h3>
+                  <p className="text-gray-200 text-sm mb-4 leading-relaxed">{t.wellbeingAreas[5].description}</p>
+                  <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                    <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
+
+            <SlideIn direction="up" delay={0.8}>
+              <div className="group relative h-full min-h-[280px] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
+                  alt="Financial Wellbeing"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-teal-900/90 via-teal-800/50 to-transparent"></div>
+                <div className="relative h-full flex flex-col justify-end p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">{lang === 'de' ? 'Finanzielle Vergütung' : 'Financial Rewards'}</h3>
+                  <p className="text-gray-200 text-sm mb-4 leading-relaxed">
+                    {lang === 'de' 
+                      ? 'Wir bieten Rewards- und Benefits-Pakete, die deinen Bedürfnissen entsprechen.' 
+                      : 'We offer rewards and benefits packages that meet your needs.'}
+                  </p>
+                  <button className="self-start inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 group/btn">
+                    {lang === 'de' ? 'Benefits ansehen' : 'View Benefits'}
+                    <ChevronRight className="ml-1 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </SlideIn>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <SlideIn direction="up">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              {t.ctaTitle}
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+              {t.ctaDescription}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <a
+                href={localePath('/#contact')}
+                className="px-10 py-5 bg-gradient-to-r from-teal-500 to-purple-500 text-white text-lg font-semibold rounded-xl hover:shadow-lg hover:shadow-teal-500/50 transition-all duration-300"
+              >
+                {t.ctaButton}
+              </a>
+              <a
+                href="mailto:careers@quantiva-advisory.com"
+                className="px-10 py-5 bg-white/5 backdrop-blur-sm border-2 border-teal-500/30 text-white text-lg font-semibold rounded-xl hover:bg-teal-500/10 transition-all duration-300"
+              >
+                {lang === 'de' ? 'Kontakt aufnehmen' : 'Get in Touch'}
+              </a>
+            </div>
+          </SlideIn>
+        </div>
         </div>
       </div>
 

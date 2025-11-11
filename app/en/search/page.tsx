@@ -5,6 +5,13 @@ import { getSearchItems } from '../../lib/utils/searchIndex';
 export const metadata: Metadata = {
   title: 'Search | Quantiva Advisory',
   description: 'Discover content, services and industry solutions from Quantiva Advisory.',
+  alternates: {
+    canonical: '/en/search',
+    languages: {
+      'en-US': '/en/search',
+      'de-DE': '/de/search',
+    },
+  },
 };
 
 export default async function SearchPage() {
