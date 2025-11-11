@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import {
   Menu, X, ChevronRight,
   Shield, Mail, Phone, ArrowRight,
-  Brain, Boxes, Cog, Briefcase, Send, Users
+  Brain, Boxes, Cog, Briefcase, Send, Users, BadgeCheck, Quote
 } from "lucide-react";
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
@@ -176,6 +176,133 @@ function SlideIn({ children, direction = "up", delay = 0, className = "" }: {
     >
       {children}
     </motion.div>
+  );
+}
+
+function TrustSignals() {
+  const { lang, localePath } = useLanguage();
+
+  const partners = useMemo(() => {
+    if (lang === 'de') {
+      return [
+        { name: 'SAP PartnerEdge', badge: 'SAP', description: 'Gold Partner' },
+        { name: 'Microsoft Solutions Partner', badge: 'Azure', description: 'Digital & App Innovation' },
+        { name: 'AWS Select Consulting', badge: 'AWS', description: 'Migration & Modernisierung' },
+        { name: 'ISO 27001', badge: 'ISO', description: 'Security & Compliance' },
+      ];
+    }
+    return [
+      { name: 'SAP PartnerEdge', badge: 'SAP', description: 'Gold Partner' },
+      { name: 'Microsoft Solutions Partner', badge: 'Azure', description: 'Digital & App Innovation' },
+      { name: 'AWS Select Consulting', badge: 'AWS', description: 'Migration & Modernization' },
+      { name: 'ISO 27001', badge: 'ISO', description: 'Security & Compliance' },
+    ];
+  }, [lang]);
+
+  const kpis = useMemo(() => (
+    lang === 'de'
+      ? [
+          { value: '38%', label: 'Ø ROI nach 12 Monaten', detail: 'Mittelstandsprogramme' },
+          { value: '92%', label: 'Kundenzufriedenheit', detail: 'NPS FY24' },
+          { value: '45', label: 'Realisierte Projekte', detail: 'DACH Mittelstand' },
+        ]
+      : [
+          { value: '38%', label: 'Avg ROI in 12 months', detail: 'Mid-market programs' },
+          { value: '92%', label: 'Customer satisfaction', detail: 'NPS FY24' },
+          { value: '45', label: 'Delivered projects', detail: 'DACH mid-market' },
+        ]
+  ), [lang]);
+
+  const testimonials = useMemo(() => {
+    return casesData
+      .filter((item) => item.quote)
+      .slice(0, 3)
+      .map((caseItem) => ({
+        author: caseItem.quote?.author ?? 'Client Executive',
+        quote: lang === 'de' ? caseItem.quote?.textDe : caseItem.quote?.textEn,
+        slug: caseItem.slug,
+        title: lang === 'de' ? caseItem.titleDe : caseItem.titleEn,
+      }));
+  }, [lang]);
+
+  return (
+    <section className="relative border-y border-white/5 bg-gradient-to-br from-slate-950 via-black to-slate-950 py-16">
+      <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6">
+        <SlideIn direction="up" delay={0.1}>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-teal-200">
+                <BadgeCheck className="h-4 w-4" />
+                {lang === 'de' ? 'Vertrauen & Nachweise' : 'Proof & trust'}
+              </p>
+              <h2 className="mt-4 text-3xl font-bold text-white md:text-4xl">
+                {lang === 'de' ? 'Partnerstatus, KPIs & Kundenstimmen' : 'Partner status, KPIs & client voices'}
+              </h2>
+            </div>
+            <Link
+              href={localePath('/cases')}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:border-teal-400/40 hover:text-teal-200"
+            >
+              {lang === 'de' ? 'Alle Erfolgsstories' : 'All success stories'}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </SlideIn>
+
+        <SlideIn direction="up" delay={0.2}>
+          <div className="grid gap-4 rounded-3xl border border-white/10 bg-black/40 p-6 backdrop-blur md:grid-cols-4">
+            {partners.map((partner) => (
+              <motion.div
+                key={partner.name}
+                whileHover={{ y: -4 }}
+                className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-left"
+              >
+                <span className="text-xs uppercase tracking-[0.25em] text-teal-300">
+                  {partner.badge}
+                </span>
+                <span className="text-base font-semibold text-white">{partner.name}</span>
+                <span className="text-xs text-gray-400">{partner.description}</span>
+              </motion.div>
+            ))}
+          </div>
+        </SlideIn>
+
+        <SlideIn direction="up" delay={0.3}>
+          <div className="grid gap-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:grid-cols-3">
+            {kpis.map((item) => (
+              <div key={item.label} className="rounded-2xl border border-white/10 bg-black/60 p-6 text-center shadow-[0_20px_60px_-30px_rgba(20,184,166,0.4)]">
+                <div className="text-4xl font-black text-white">{item.value}</div>
+                <div className="mt-2 text-xs uppercase tracking-[0.3em] text-teal-200">{item.label}</div>
+                <p className="mt-3 text-sm text-gray-400">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </SlideIn>
+
+        <SlideIn direction="up" delay={0.4}>
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((testimonial, index) => (
+              <motion.blockquote
+                key={testimonial.slug}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex h-full flex-col justify-between rounded-3xl border border-white/10 bg-black/50 p-6"
+              >
+                <Quote className="h-6 w-6 text-teal-300" />
+                <p className="mt-4 text-sm leading-relaxed text-gray-300">
+                  “{testimonial.quote}”
+                </p>
+                <div className="mt-6">
+                  <div className="text-sm font-semibold text-white">{testimonial.author}</div>
+                  <div className="text-xs text-gray-400">{testimonial.title}</div>
+                </div>
+              </motion.blockquote>
+            ))}
+          </div>
+        </SlideIn>
+      </div>
+    </section>
   );
 }
 
@@ -666,6 +793,8 @@ export default function QuantivaWebsite() {
           </div>
         </div>
       </section>
+
+      <TrustSignals />
 
       {/* About Teaser */}
       <AboutTeaser />
