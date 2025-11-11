@@ -103,12 +103,12 @@ export default function SearchPageClient({ items, lang }: SearchPageClientProps)
       </section>
 
       <main className="mx-auto max-w-5xl px-6 py-16">
-        <div className="mb-6 text-sm text-gray-400">
+        <div className="mb-6 text-sm text-gray-400" role="status" aria-live="polite">
           {results.length} {copy.results}
         </div>
 
         {results.length === 0 ? (
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center text-gray-300">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center text-gray-300" role="status" aria-live="polite">
             {copy.empty}
           </div>
         ) : (

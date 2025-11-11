@@ -222,6 +222,8 @@ export default function ContactForm({ lang }: ContactFormProps) {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800"
+          role="status"
+          aria-live="polite"
         >
           {t[lang].success}
         </motion.div>
@@ -233,6 +235,7 @@ export default function ContactForm({ lang }: ContactFormProps) {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800"
+          role="alert"
         >
           {error || t[lang].errorGeneric}
         </motion.div>

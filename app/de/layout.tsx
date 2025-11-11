@@ -11,9 +11,17 @@ export default function DeLayout({
   return (
     <LanguageProvider>
       <ContentProvider>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:rounded-lg focus:bg-teal-600 focus:px-4 focus:py-2 focus:text-white"
+        >
+          Zum Inhalt springen
+        </a>
         <LaserCursor />
         <FloatingDock />
-        {children}
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
       </ContentProvider>
     </LanguageProvider>
   );
