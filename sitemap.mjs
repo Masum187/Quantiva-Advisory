@@ -1,4 +1,4 @@
-// sitemap.js
+// sitemap.mjs
 import fs from "fs";
 import path from "path";
 

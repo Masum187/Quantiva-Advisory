@@ -17,7 +17,7 @@
    - ✅ All TypeScript errors resolved
 
 3. **Updated Build Scripts**:
-   - ✅ `sitemap.js` reads case slugs from JSON
+   - ✅ `sitemap.mjs` reads case slugs from JSON
    - ✅ `generate-og.mjs` uses JSON data for OG generation
    - ✅ Graceful error handling for invalid image files
 

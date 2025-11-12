@@ -16,7 +16,7 @@
 
 ### Setup & Technologie
 
-#### MDX & Vite
+#### MDX & Vite (Legacy)
 - **[MDX Alternativen – Schnellentscheidung](./MDX_DECISION_QUICKSTART.md)** ⚡ – 2-Minuten-Guide
   - Soll ich bei MDX bleiben oder wechseln?
   - Vergleich: MDX, Markdoc, Astro, Contentlayer
@@ -31,7 +31,7 @@
   - Vollständige Vite-Konfiguration (Best Practice)
   - CRA → Vite Migration Step-by-Step
   - Performance-Vergleich & Troubleshooting
-- **[MDX Setup für CRA](./MDX_SETUP_CRA.md)** – Aktuelles Setup
+- **[MDX Setup für CRA](./MDX_SETUP_CRA.md)** – *(Legacy / nur zur Referenz)*
 - **[MDX Future Setup](./MDX_FUTURE_SETUP.md)** – Zukünftige Erweiterungen
 
 #### Weitere Setup-Dokumentation
@@ -71,9 +71,9 @@
 
 ## 🚀 Schnellstart
 
-### Admin Dashboard öffnen
+### Admin Dashboard öffnen (Next.js Dev)
 ```bash
-npm start
+npm run dev
 # Öffne http://localhost:3000
 # Navigiere zu /admin
 ```

@@ -459,12 +459,18 @@ When adding new case studies:
 
 ### Updating Content
 
-All text content is stored in the `T` object at the top of `QuantivaWebsite.tsx`. You can easily modify:
+All text content is managed via **JSON files** and consumed by hooks/components:
 
-- Company information
-- Service descriptions
-- Contact details
-- SEO metadata
+- `app/lib/data/content.json` – Allgemeine Seitentexte (Hero, Abschnitte, CTA)
+- `app/lib/data/cases.json` – Case Studies inkl. KPIs & Zitate
+- `app/lib/data/taxonomy.json` – Kategorien & Branchen (Validierung)
+
+Die Komponenten (z. B. `app/components/QuantivaWebsite.tsx`) lesen die JSON-Daten pro Locale ein. Nach Anpassungen einfach ausführen:
+
+```bash
+npm run dev     # Vorschau lokal
+npm run build   # Sitemap & OG Assets regenerieren
+```
 
 ### Styling
 
