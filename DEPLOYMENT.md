@@ -140,3 +140,56 @@ Before going live:
 3. **Set up analytics tracking**
 4. **Configure error monitoring**
 5. **Test contact form email delivery**
+
+## 🔄 Rollback-Plan
+
+### Deployment-Tracking
+
+**Vor jedem Go-Live:**
+1. Git Tag setzen: `git tag -a v1.0.0 -m "Go-Live Production"`
+2. Tag pushen: `git push --tags`
+3. Vercel Deployment-ID notieren (aus Vercel Dashboard → Deployments)
+
+### Rollback-Prozedur
+
+**Option 1: Vercel Dashboard (Empfohlen)**
+1. Vercel Dashboard öffnen → Projekt → Deployments
+2. Vorheriges stabiles Deployment finden
+3. Klick auf "..." → "Promote to Production"
+4. Bestätigen
+
+**Option 2: Vercel CLI**
+```bash
+vercel rollback [deployment-url]
+# Oder: vercel rollback --yes
+```
+
+**Option 3: Git-basiert**
+```bash
+# Zu vorherigem Commit zurückkehren
+git checkout [previous-commit-hash]
+git push origin main --force  # Nur im Notfall!
+```
+
+### Notfall-Kontakte
+
+- **Vercel Support**: support@vercel.com
+- **Domain-Provider**: [Ihre Kontaktdaten]
+- **Entwicklungsteam**: [Kontaktdaten]
+
+### Rollback-Checkliste
+
+- [ ] Deployment-ID des aktuellen Produktions-Stands notiert
+- [ ] Git Tag für aktuellen Stand gesetzt
+- [ ] Vorheriges stabiles Deployment identifiziert
+- [ ] Rollback getestet (auf Staging/Preview)
+- [ ] Notfall-Kontakte dokumentiert
+- [ ] Rollback-Zeitfenster festgelegt (z.B. max. 15 Min)
+
+### Post-Rollback
+
+Nach einem Rollback:
+1. Fehlerursache analysieren
+2. Fix in separatem Branch entwickeln
+3. Ausführlich testen
+4. Erneut deployen mit neuem Tag

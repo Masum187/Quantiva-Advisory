@@ -14,7 +14,7 @@ import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
 
-const BASE_URL = "https://quantivaadvisory.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://quantivaadvisory.com";
 const LOCALES = ["de", "en"];
 
 // Get last modified date from Git history for a file

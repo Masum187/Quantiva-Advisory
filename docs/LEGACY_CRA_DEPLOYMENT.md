@@ -22,3 +22,4 @@
 - **Aktuelles Deployment:** `DEPLOYMENT.md`
 - **SEO & Sitemap:** `README.md` → Abschnitt „SEO & Sitemap Management“
 - **Datenpflege:** JSON unter `app/lib/data/*` (Cases/Content/Taxonomy)
+

@@ -949,8 +949,18 @@ export default function QuantivaWebsite() {
             </ul>
           </div>
         </div>
-        <div className="bg-black/40 py-4 text-center text-sm text-white/80">
-          {footer.copyright}
+        <div className="bg-black/40 py-4">
+          <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/80">
+            <div>{footer.copyright}</div>
+            <div className="flex gap-6">
+              <a href={lang === 'de' ? '/de/impressum' : '/en/imprint'} className="hover:text-white transition">
+                {lang === 'de' ? 'Impressum' : 'Imprint'}
+              </a>
+              <a href={lang === 'de' ? '/de/datenschutz' : '/en/privacy'} className="hover:text-white transition">
+                {lang === 'de' ? 'Datenschutz' : 'Privacy'}
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

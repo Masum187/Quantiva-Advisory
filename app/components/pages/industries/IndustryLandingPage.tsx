@@ -224,3 +224,4 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
     </div>
   );
 }
+

@@ -18,3 +18,4 @@ export default async function ContentIndexDe() {
   const posts = await getContentPosts('de');
   return <ContentHubPage lang="de" posts={posts} />;
 }
+

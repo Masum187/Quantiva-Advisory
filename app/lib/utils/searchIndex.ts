@@ -54,3 +54,4 @@ export async function getSearchItems(lang: SupportedLanguage): Promise<SearchIte
 
   return [...postItems, ...industryItems, ...serviceItems];
 }
+

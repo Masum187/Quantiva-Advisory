@@ -9,3 +9,4 @@ export default function Page() {
   return <SustainabilityPage lang="en" />;
 }
 
+

@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 
-const BASE_URL = "https://quantivaadvisory.com";   // << deine Domain
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://quantivaadvisory.com";   // << deine Domain
 const LOCALES = ["de", "en"];
 const TODAY = new Date().toISOString().split("T")[0];
 

@@ -84,6 +84,27 @@ const nextConfig = {
         destination: '/en/career',
         permanent: false,
       },
+      // Legal pages redirects (fallback for wrong language)
+      {
+        source: '/de/imprint',
+        destination: '/de/impressum',
+        permanent: true,
+      },
+      {
+        source: '/de/privacy',
+        destination: '/de/datenschutz',
+        permanent: true,
+      },
+      {
+        source: '/en/impressum',
+        destination: '/en/imprint',
+        permanent: true,
+      },
+      {
+        source: '/en/datenschutz',
+        destination: '/en/privacy',
+        permanent: true,
+      },
     ];
   },
 
