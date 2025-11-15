@@ -313,7 +313,7 @@ function TrustSignals() {
 function AboutTeaser() {
   const { lang } = useLanguage();
   const [videoError, setVideoError] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   return (
     <section id="about" className="bg-black py-20">
@@ -342,31 +342,30 @@ function AboutTeaser() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
               {/* Video/Image Container */}
               <div className="relative w-full h-[400px] overflow-hidden">
-                {/* Fallback Gradient (shown when video fails or hasn't loaded) */}
-                {(!videoLoaded || videoError) && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-purple-900/30 to-black">
+                {/* Fallback Gradient (shown only when video fails) */}
+                {videoError && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-purple-900/30 to-black z-0">
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZjY2NjYiLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzc0MzBhNiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiLz48L3N2Zz4=')] opacity-30"></div>
                   </div>
                 )}
                 
-                {/* Video (with error handling) */}
-                {!videoError && (
-                  <video
-                    src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
-                    className={`w-full h-full object-cover absolute inset-0 ${videoLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    onError={() => {
-                      setVideoError(true);
-                      setVideoLoaded(false);
-                    }}
-                    onLoadedData={() => {
-                      setVideoLoaded(true);
-                    }}
-                  />
-                )}
+                {/* Video (primary content) */}
+                <video
+                  ref={videoRef}
+                  src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+                  className="w-full h-full object-cover absolute inset-0 z-10"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  onError={() => {
+                    setVideoError(true);
+                    if (videoRef.current) {
+                      videoRef.current.style.display = 'none';
+                    }
+                  }}
+                />
                 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
