@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Leaf, TrendingDown, BarChart, CheckCircle, ArrowRight, Recycle, Sun, Droplet } from 'lucide-react';
 import { AnimatedCard } from '../../services/AnimatedCard';
@@ -123,11 +123,41 @@ export default function SustainabilityPage({ lang }: SustainabilityPageProps) {
     },
   }[lang];
 
+  const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Background Video */}
+      <div className="fixed inset-0 z-0">
+        {!videoError && (
+          <video
+            ref={videoRef}
+            src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onError={() => {
+              setVideoError(true);
+              if (videoRef.current) {
+                videoRef.current.style.display = 'none';
+              }
+            }}
+          />
+        )}
+        {/* Fallback gradient if video fails */}
+        {videoError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 via-black to-black" />
+        )}
+        {/* Video Overlay */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
+      </div>
+
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-br from-emerald-900/40 via-black to-black py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.15),_transparent_50%)]" />
+      <section className="relative overflow-hidden border-b border-white/10 py-32 z-20">
         <div className="relative mx-auto max-w-6xl px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -150,7 +180,7 @@ export default function SustainabilityPage({ lang }: SustainabilityPageProps) {
       </section>
 
       {/* Intro Section */}
-      <section className="py-20">
+      <section className="py-20 relative z-20">
         <div className="mx-auto max-w-6xl px-6">
           <AnimatedCard direction="up" className="rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-black/80 p-12">
             <h2 className="mb-6 text-3xl font-bold">{content.intro.title}</h2>
@@ -162,7 +192,7 @@ export default function SustainabilityPage({ lang }: SustainabilityPageProps) {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
+      <section className="py-20 relative z-20">
         <div className="mx-auto max-w-6xl px-6">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -196,7 +226,7 @@ export default function SustainabilityPage({ lang }: SustainabilityPageProps) {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-emerald-950/20">
+      <section className="py-20 bg-gradient-to-b from-black/80 to-emerald-950/20 relative z-20 backdrop-blur-sm">
         <div className="mx-auto max-w-6xl px-6">
           <AnimatedCard direction="up">
             <h2 className="mb-12 text-center text-4xl font-bold">{content.benefits.title}</h2>
@@ -220,7 +250,7 @@ export default function SustainabilityPage({ lang }: SustainabilityPageProps) {
       </section>
 
       {/* Standards Section */}
-      <section className="py-20">
+      <section className="py-20 relative z-20">
         <div className="mx-auto max-w-6xl px-6">
           <AnimatedCard direction="up">
             <h2 className="mb-12 text-center text-4xl font-bold">{content.standards.title}</h2>
@@ -243,7 +273,7 @@ export default function SustainabilityPage({ lang }: SustainabilityPageProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
+      <section className="py-20 relative z-20">
         <div className="mx-auto max-w-4xl px-6">
           <AnimatedCard direction="up" className="rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-emerald-900/40 to-black p-12 text-center">
             <h2 className="mb-4 text-4xl font-bold">{content.cta.title}</h2>
