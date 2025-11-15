@@ -312,6 +312,9 @@ function TrustSignals() {
 
 function AboutTeaser() {
   const { lang } = useLanguage();
+  const [videoError, setVideoError] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  
   return (
     <section id="about" className="bg-black py-20">
       <div className="mx-auto max-w-6xl px-6">
@@ -337,16 +340,34 @@ function AboutTeaser() {
           </SlideIn>
           <SlideIn direction="right" delay={0.4}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
-              {/* Video Container */}
+              {/* Video/Image Container */}
               <div className="relative w-full h-[400px] overflow-hidden">
-                <video
-                  src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
+                {/* Fallback Gradient (shown when video fails or hasn't loaded) */}
+                {(!videoLoaded || videoError) && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-purple-900/30 to-black">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZjY2NjYiLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzc0MzBhNiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiLz48L3N2Zz4=')] opacity-30"></div>
+                  </div>
+                )}
+                
+                {/* Video (with error handling) */}
+                {!videoError && (
+                  <video
+                    src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+                    className={`w-full h-full object-cover absolute inset-0 ${videoLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    onError={() => {
+                      setVideoError(true);
+                      setVideoLoaded(false);
+                    }}
+                    onLoadedData={() => {
+                      setVideoLoaded(true);
+                    }}
+                  />
+                )}
+                
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 {/* Play/Pause Overlay */}
@@ -364,8 +385,8 @@ function AboutTeaser() {
                 
                 {/* Content Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Digitale Innovation</h3>
-                  <p className="text-gray-300 text-sm">Entdecken Sie unsere Technologien</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{lang === 'de' ? 'Digitale Innovation' : 'Digital Innovation'}</h3>
+                  <p className="text-gray-300 text-sm">{lang === 'de' ? 'Entdecken Sie unsere Technologien' : 'Discover our technologies'}</p>
                 </div>
               </div>
             </div>

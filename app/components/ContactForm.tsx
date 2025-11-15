@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import * as Sentry from '@sentry/nextjs';
 
 interface ContactFormProps {
   lang: 'de' | 'en';
@@ -60,76 +61,129 @@ export default function ContactForm({ lang }: ContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('loading');
-    setError('');
+    
+    // Create a transaction/span to measure performance
+    return Sentry.startSpan(
+      {
+        op: 'ui.click',
+        name: 'Contact Form Submit',
+      },
+      async (span) => {
+        setStatus('loading');
+        setError('');
 
-    const formData = new FormData(e.currentTarget);
-    let recaptchaToken: string | undefined;
+        const formData = new FormData(e.currentTarget);
+        let recaptchaToken: string | undefined;
 
-    if (recaptchaSiteKey && window.grecaptcha) {
-      try {
-        await new Promise<void>((resolve) => {
-          window.grecaptcha?.ready(() => resolve());
-        });
-        recaptchaToken = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'contact' });
-      } catch (tokenError) {
-        console.error('reCAPTCHA token error:', tokenError);
-      }
-    }
+        // Get reCAPTCHA token if available
+        if (recaptchaSiteKey && window.grecaptcha) {
+          try {
+            await new Promise<void>((resolve) => {
+              window.grecaptcha?.ready(() => resolve());
+            });
+            recaptchaToken = await window.grecaptcha.execute(recaptchaSiteKey, { action: 'contact' });
+            span.setAttribute('recaptcha_token_obtained', true);
+          } catch (tokenError) {
+            const { logger } = Sentry;
+            logger.error('reCAPTCHA token error', {
+              error: tokenError instanceof Error ? tokenError.message : String(tokenError),
+            });
+            Sentry.captureException(tokenError instanceof Error ? tokenError : new Error(String(tokenError)));
+            span.setAttribute('recaptcha_token_error', true);
+          }
+        } else {
+          span.setAttribute('recaptcha_available', false);
+        }
 
-    const data = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      message: formData.get('message') as string,
-      honeypot: formData.get('honeypot') as string,
-      lang,
-      recaptchaToken,
-    };
+        const data = {
+          name: formData.get('name') as string,
+          email: formData.get('email') as string,
+          message: formData.get('message') as string,
+          honeypot: formData.get('honeypot') as string,
+          lang,
+          recaptchaToken,
+        };
 
-    // Client-side validation
-    if (!data.name || data.name.length < 2) {
-      setStatus('error');
-      setError(t[lang].nameRequired);
-      return;
-    }
+        span.setAttribute('lang', lang);
+        span.setAttribute('message_length', data.message?.length || 0);
 
-    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      setStatus('error');
-      setError(t[lang].emailRequired);
-      return;
-    }
+        // Client-side validation
+        if (!data.name || data.name.length < 2) {
+          span.setAttribute('validation_failed', 'name');
+          setStatus('error');
+          setError(t[lang].nameRequired);
+          return;
+        }
 
-    if (!data.message || data.message.length < 10) {
-      setStatus('error');
-      setError(t[lang].messageRequired);
-      return;
-    }
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          span.setAttribute('validation_failed', 'email');
+          setStatus('error');
+          setError(t[lang].emailRequired);
+          return;
+        }
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+        if (!data.message || data.message.length < 10) {
+          span.setAttribute('validation_failed', 'message');
+          setStatus('error');
+          setError(t[lang].messageRequired);
+          return;
+        }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Submission failed');
-      }
+        try {
+          // Create child span for API call
+          const response = await Sentry.startSpan(
+            {
+              op: 'http.client',
+              name: 'POST /api/contact',
+            },
+            async (apiSpan) => {
+              const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+              });
 
-      setStatus('success');
-      e.currentTarget.reset();
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setStatus('idle'), 5000);
-    } catch (err) {
-      setStatus('error');
-      setError(
-        err instanceof Error ? err.message : t[lang].errorGeneric
-      );
-    }
+              apiSpan.setAttribute('http.status_code', res.status);
+              apiSpan.setAttribute('http.method', 'POST');
+              
+              return res;
+            },
+          );
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            const error = new Error(errorData.error || 'Submission failed');
+            span.setAttribute('api_error', true);
+            span.setAttribute('api_status', response.status);
+            throw error;
+          }
+
+          span.setAttribute('submission_success', true);
+          setStatus('success');
+          e.currentTarget.reset();
+          
+          // Reset success message after 5 seconds
+          setTimeout(() => setStatus('idle'), 5000);
+        } catch (err) {
+          span.setAttribute('submission_failed', true);
+          setStatus('error');
+          const errorMessage = err instanceof Error ? err.message : t[lang].errorGeneric;
+          setError(errorMessage);
+          
+          // Capture exception if it's a real error
+          if (err instanceof Error) {
+            Sentry.captureException(err, {
+              tags: {
+                component: 'ContactForm',
+                action: 'submit',
+              },
+            });
+          }
+        }
+      },
+    );
   };
 
   return (
