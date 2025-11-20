@@ -35,7 +35,7 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
   }[lang];
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section - Modern with organic curves */}
       <section className="relative overflow-hidden bg-gradient-to-br from-purple-600 via-purple-500 to-teal-400 py-24 md:py-32">
         {/* Organic curve separator */}
@@ -43,7 +43,7 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
           <svg className="w-full h-full" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path
               d="M0,120 Q300,60 600,80 T1200,100 L1200,120 Z"
-              fill="white"
+              fill="black"
               className="opacity-100"
             />
           </svg>
@@ -79,15 +79,15 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-6 py-16 md:py-24 space-y-20 bg-white">
-        {/* Who We Are Section - Modern white cards */}
+      <main className="mx-auto max-w-7xl px-6 py-16 md:py-24 space-y-20 bg-black">
+        {/* Who We Are Section - Modern dark cards */}
         <section className="relative">
           {/* Background gradient sphere */}
-          <div className="absolute -left-32 -top-32 w-96 h-96 bg-gradient-to-br from-teal-200/40 to-purple-200/30 rounded-full blur-3xl opacity-50" />
+          <div className="absolute -left-32 -top-32 w-96 h-96 bg-gradient-to-br from-teal-500/20 to-purple-500/20 rounded-full blur-3xl opacity-50" />
           
           <div className="relative">
-            <AnimatedCard direction="up" className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
-              <h2 className="text-4xl md:text-5xl font-black mb-8 text-gray-900">Who We Are</h2>
+            <AnimatedCard direction="up" className="bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12 border border-white/10">
+              <h2 className="text-4xl md:text-5xl font-black mb-8 text-white">Who We Are</h2>
               
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {industry.overview.focusAreas.map((area, index) => (
@@ -96,17 +96,17 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-xl transition-shadow"
+                    className="bg-slate-800 rounded-2xl p-6 shadow-md border border-white/10 hover:shadow-xl transition-shadow"
                   >
-                    <h3 className="text-xl font-bold mb-3 text-gray-900">{area.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{area.description}</p>
+                    <h3 className="text-xl font-bold mb-3 text-white">{area.title}</h3>
+                    <p className="text-gray-300 leading-relaxed">{area.description}</p>
                   </motion.div>
                 ))}
               </div>
               
-              <div className="mt-10 bg-gradient-to-r from-purple-50 to-teal-50 rounded-2xl p-8 border border-purple-100">
-                <h3 className="text-2xl font-bold mb-4 text-gray-900">{industry.name}</h3>
-                <p className="text-lg text-gray-700 leading-relaxed">
+              <div className="mt-10 bg-gradient-to-r from-purple-900/30 to-teal-900/30 rounded-2xl p-8 border border-purple-500/20">
+                <h3 className="text-2xl font-bold mb-4 text-white">{industry.name}</h3>
+                <p className="text-lg text-gray-300 leading-relaxed">
                   {industry.overview.introduction}
                 </p>
               </div>
@@ -116,8 +116,8 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
 
         {/* Stats Section - Modern cards */}
         <section>
-          <AnimatedCard direction="up" className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-black mb-10 text-gray-900 text-center">
+          <AnimatedCard direction="up" className="bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12 border border-white/10">
+            <h2 className="text-3xl md:text-4xl font-black mb-10 text-white text-center">
               {t.statsTitle}
             </h2>
             <div className="grid gap-6 md:grid-cols-3">
@@ -128,11 +128,11 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-gradient-to-br from-purple-50 to-teal-50 rounded-2xl p-8 shadow-md border border-gray-100 text-center"
+                  className="bg-gradient-to-br from-purple-900/40 to-teal-900/40 rounded-2xl p-8 shadow-md border border-white/10 text-center"
                 >
-                  <TrendingUp className="h-8 w-8 text-purple-600 mb-4 mx-auto" />
-                  <p className="text-sm uppercase tracking-wider text-gray-600 mb-2">{stat.label}</p>
-                  <p className="text-2xl md:text-3xl font-black text-gray-900">{stat.value}</p>
+                  <TrendingUp className="h-8 w-8 text-purple-400 mb-4 mx-auto" />
+                  <p className="text-sm uppercase tracking-wider text-gray-300 mb-2">{stat.label}</p>
+                  <p className="text-2xl md:text-3xl font-black text-white">{stat.value}</p>
                 </motion.div>
               ))}
             </div>
@@ -141,8 +141,8 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
 
         {/* Technologies Section */}
         <section>
-          <AnimatedCard direction="up" className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
-            <h2 className="text-3xl md:text-4xl font-black mb-8 text-gray-900">
+          <AnimatedCard direction="up" className="bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12 border border-white/10">
+            <h2 className="text-3xl md:text-4xl font-black mb-8 text-white">
               {t.technologiesTitle}
             </h2>
             <div className="flex flex-wrap gap-4">
@@ -162,16 +162,16 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
           </AnimatedCard>
         </section>
 
-        {/* Services Section - Modern white cards grid */}
+        {/* Services Section - Modern dark cards grid */}
         <section className="relative">
           {/* Background gradient */}
-          <div className="absolute -right-32 top-0 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-teal-200/20 rounded-full blur-3xl opacity-50" />
+          <div className="absolute -right-32 top-0 w-96 h-96 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-full blur-3xl opacity-50" />
           
           <div className="relative">
-            <AnimatedCard direction="up" className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
+            <AnimatedCard direction="up" className="bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12 border border-white/10">
               <div className="mb-12 text-center">
-                <h2 className="text-4xl md:text-5xl font-black mb-4 text-gray-900">{t.capabilitiesTitle}</h2>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">{t.capabilitiesTitle}</h2>
+                <p className="text-lg text-gray-300 max-w-3xl mx-auto">
                   {industry.overview.introduction}
                 </p>
               </div>
@@ -183,14 +183,14 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     whileHover={{ y: -8, scale: 1.02 }}
-                    className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all"
+                    className="bg-slate-800 rounded-2xl p-8 shadow-lg border border-white/10 hover:shadow-2xl transition-all"
                   >
                     <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-teal-500 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white">
                       <Briefcase className="h-4 w-4" />
                       {capability.title}
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900">{capability.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{capability.description}</p>
+                    <h3 className="text-xl font-bold mb-3 text-white">{capability.title}</h3>
+                    <p className="text-gray-300 leading-relaxed">{capability.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -200,8 +200,8 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
 
         {/* Case Studies - Modern cards */}
         <section>
-          <AnimatedCard direction="up" className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-100">
-            <h2 className="text-4xl md:text-5xl font-black mb-12 text-center text-gray-900">{t.casesTitle}</h2>
+          <AnimatedCard direction="up" className="bg-slate-900 rounded-3xl shadow-xl p-8 md:p-12 border border-white/10">
+            <h2 className="text-4xl md:text-5xl font-black mb-12 text-center text-white">{t.casesTitle}</h2>
             <div className="grid gap-8 lg:grid-cols-2">
               {industry.caseStudies.map((caseStudy, index) => (
                 <motion.div
@@ -210,47 +210,47 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                   whileHover={{ y: -5, scale: 1.02 }}
-                  className="bg-gradient-to-br from-purple-50 to-teal-50 rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all"
+                  className="bg-gradient-to-br from-purple-900/40 to-teal-900/40 rounded-2xl p-8 shadow-lg border border-white/10 hover:shadow-2xl transition-all"
                 >
                   <div className="mb-6 flex items-start justify-between gap-4">
                     <div className="flex-1">
-                      <p className="text-sm uppercase tracking-widest text-purple-600 font-semibold mb-2">{caseStudy.client}</p>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3">{caseStudy.headline}</h3>
+                      <p className="text-sm uppercase tracking-widest text-purple-400 font-semibold mb-2">{caseStudy.client}</p>
+                      <h3 className="text-2xl font-bold text-white mb-3">{caseStudy.headline}</h3>
                     </div>
                     <span className="rounded-full bg-gradient-to-r from-purple-500 to-teal-500 px-4 py-2 text-xs font-semibold text-white whitespace-nowrap shadow-md">
                       {caseStudy.impact}
                     </span>
                   </div>
-                  <p className="text-gray-700 leading-relaxed text-lg">{caseStudy.description}</p>
+                  <p className="text-gray-300 leading-relaxed text-lg">{caseStudy.description}</p>
                 </motion.div>
               ))}
             </div>
           </AnimatedCard>
         </section>
 
-        {/* Contact Section - Modern white card */}
+        {/* Contact Section - Modern dark card */}
         <section>
-          <AnimatedCard direction="up" className="relative overflow-hidden rounded-3xl bg-white shadow-2xl border border-gray-100 p-10 md:p-12">
+          <AnimatedCard direction="up" className="relative overflow-hidden rounded-3xl bg-slate-900 shadow-2xl border border-white/10 p-10 md:p-12">
             {/* Background gradient */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-teal-200/20 rounded-full blur-3xl -mr-48 -mt-48" />
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-500/20 to-teal-500/20 rounded-full blur-3xl -mr-48 -mt-48" />
             
             <div className="relative grid gap-8 lg:grid-cols-[1fr_320px] items-center">
               <div>
-                <h2 className="text-4xl md:text-5xl font-black mb-6 text-gray-900">{t.contactTitle}</h2>
-                <p className="text-xl font-semibold text-gray-700 mb-2">
+                <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">{t.contactTitle}</h2>
+                <p className="text-xl font-semibold text-white mb-2">
                   {industry.contact.name}
                 </p>
-                <p className="text-lg text-gray-600 mb-8">
+                <p className="text-lg text-gray-300 mb-8">
                   {industry.contact.role}
                 </p>
                 <div className="space-y-4 mb-8">
-                  <p className="flex items-center gap-3 text-gray-700">
-                    <CheckCircle className="h-5 w-5 text-purple-600" />
+                  <p className="flex items-center gap-3 text-gray-300">
+                    <CheckCircle className="h-5 w-5 text-purple-400" />
                     <span className="font-medium">{industry.contact.email}</span>
                   </p>
                   {industry.contact.phone ? (
-                    <p className="flex items-center gap-3 text-gray-700">
-                      <Phone className="h-5 w-5 text-purple-600" />
+                    <p className="flex items-center gap-3 text-gray-300">
+                      <Phone className="h-5 w-5 text-purple-400" />
                       <span className="font-medium">{industry.contact.phone}</span>
                     </p>
                   ) : null}
