@@ -87,6 +87,13 @@
           "description": "Agilität und Zusammenarbeit freisetzen. Digitaler Arbeitsplatz, moderne Arbeitsweise und Kultur für produktive Teams.",
           "icon": "Users",
           "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_y4jlczy4jlczy4jl_uc0kat.png"
+        },
+        {
+          "id": "full-stack-development",
+          "title": "Full Stack Development",
+          "description": "Individuelle Softwareentwicklung von Frontend bis Backend. Maßgeschneiderte Lösungen mit modernen Technologien.",
+          "icon": "Code",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_ut9hsjut9hsjut9h_1_e4l49q.png"
         }
       ]
     },
@@ -135,6 +142,13 @@
           "description": "Unlock agility and collaboration. Digital workplace, modern work methods and culture for productive teams.",
           "icon": "Users",
           "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_y4jlczy4jlczy4jl_uc0kat.png"
+        },
+        {
+          "id": "full-stack-development",
+          "title": "Full Stack Development",
+          "description": "Custom software development from frontend to backend. Tailored solutions with modern technologies.",
+          "icon": "Code",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_ut9hsjut9hsjut9h_1_e4l49q.png"
         }
       ]
     }

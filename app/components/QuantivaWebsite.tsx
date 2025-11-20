@@ -840,14 +840,15 @@ export default function QuantivaWebsite() {
           </SlideIn>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.items.slice(0, 6).map((service, index) => {
+            {services.items.slice(0, 7).map((service, index) => {
               const serviceUrls = [
                 'sap',
                 'cloud',
                 'ai',
                 'microservices',
                 'cyber-security',
-                'new-work'
+                'new-work',
+                'full-stack-development'
               ];
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               const direction = index % 2 === 0 ? 'left' : 'right';
