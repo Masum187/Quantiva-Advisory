@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import FullStackDevelopmentPage from '../../../../components/pages/services/FullStackDevelopmentPage';
+import FullStackDevelopmentPage from '../../../components/pages/services/FullStackDevelopmentPage';
 
 export const metadata: Metadata = {
   title: 'Full Stack Development – Custom Software Development | Quantiva Advisory',
