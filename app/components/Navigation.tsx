@@ -56,17 +56,23 @@ export default function Navigation({ lang, items }: NavigationProps) {
     <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80 border-b border-white/10">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
         {/* Logo + Company Name */}
-        <Link href={`/${lang}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          {/* Quantiva Logo */}
-          <div className="w-10 h-10 relative flex-shrink-0">
-            <Image
-              src="https://res.cloudinary.com/dbrisux8i/image/upload/v1762724233/ymeuakhh7p7cadpspgrw.jpg"
-              alt="Quantiva Advisory Logo"
-              fill
-              className="object-contain drop-shadow-sm"
-              priority
-              sizes="40px"
-            />
+        <Link href={`/${lang}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
+          {/* Quantiva Logo with integrated design */}
+          <div className="relative flex-shrink-0">
+            {/* Background circle with gradient */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-500/20 via-teal-400/30 to-purple-500/20 blur-sm group-hover:blur-md transition-all duration-300"></div>
+            <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-teal-500/30 p-1.5 shadow-lg shadow-teal-500/20 group-hover:border-teal-400/50 group-hover:shadow-teal-500/40 transition-all duration-300">
+              <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-teal-500/10 to-purple-500/10">
+                <Image
+                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1762724233/ymeuakhh7p7cadpspgrw.jpg"
+                  alt="Quantiva Advisory Logo"
+                  fill
+                  className="object-cover rounded-full"
+                  priority
+                  sizes="40px"
+                />
+              </div>
+            </div>
           </div>
           
           {/* Company Name */}
