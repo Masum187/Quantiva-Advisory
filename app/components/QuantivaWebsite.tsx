@@ -323,10 +323,8 @@ function AboutTeaser() {
 
     // Set loading timeout (10 seconds)
     const loadingTimeout = setTimeout(() => {
-      if (isVideoLoading) {
-        console.warn('Video loading timeout');
-        setIsVideoLoading(false);
-      }
+      console.warn('Video loading timeout');
+      setIsVideoLoading(false);
     }, 10000);
 
     const handleLoadedData = () => {
@@ -381,7 +379,7 @@ function AboutTeaser() {
       video.removeEventListener('error', handleError);
       video.removeEventListener('loadstart', handleLoadStart);
     };
-  }, [isVideoLoading]);
+  }, []);
   
   return (
     <section id="about" className="bg-black py-20">
