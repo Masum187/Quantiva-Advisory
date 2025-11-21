@@ -94,6 +94,13 @@
           "description": "Individuelle Softwareentwicklung von Frontend bis Backend. Maßgeschneiderte Lösungen mit modernen Technologien.",
           "icon": "Code",
           "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_ut9hsjut9hsjut9h_1_e4l49q.png"
+        },
+        {
+          "id": "private-ai-hosting",
+          "title": "Private AI Hosting",
+          "description": "Ihre eigenen KI-Modelle, sicher in Ihrem Unternehmen. Ollama & Open WebUI – performant, skalierbar und DSGVO-konform.",
+          "icon": "Brain",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_uzht6ouzht6ouzht_1_rbxdpf.png"
         }
       ]
     },
@@ -149,6 +156,13 @@
           "description": "Custom software development from frontend to backend. Tailored solutions with modern technologies.",
           "icon": "Code",
           "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_ut9hsjut9hsjut9h_1_e4l49q.png"
+        },
+        {
+          "id": "private-ai-hosting",
+          "title": "Private AI Hosting",
+          "description": "Your own AI models, secure in your company. Ollama & Open WebUI – performant, scalable, and GDPR-compliant.",
+          "icon": "Brain",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_uzht6ouzht6ouzht_1_rbxdpf.png"
         }
       ]
     }
