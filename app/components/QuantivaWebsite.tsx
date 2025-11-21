@@ -313,7 +313,50 @@ function TrustSignals() {
 function AboutTeaser() {
   const { lang } = useLanguage();
   const [videoError, setVideoError] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Ensure video plays when loaded
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleCanPlay = () => {
+      setIsVideoLoading(false);
+      video.play().catch((error) => {
+        console.error('Video play error:', error);
+        setVideoError(true);
+      });
+    };
+
+    const handleError = () => {
+      console.error('Video load error');
+      setVideoError(true);
+      setIsVideoLoading(false);
+      if (video) {
+        video.style.display = 'none';
+      }
+    };
+
+    const handleLoadStart = () => {
+      setIsVideoLoading(true);
+    };
+
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('error', handleError);
+    video.addEventListener('loadstart', handleLoadStart);
+
+    // Try to play immediately if already loaded
+    if (video.readyState >= 3) {
+      handleCanPlay();
+    }
+
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('error', handleError);
+      video.removeEventListener('loadstart', handleLoadStart);
+    };
+  }, []);
   
   return (
     <section id="about" className="bg-black py-20">
@@ -341,7 +384,17 @@ function AboutTeaser() {
           <SlideIn direction="right" delay={0.4}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
               {/* Video/Image Container */}
-              <div className="relative w-full h-[400px] overflow-hidden">
+              <div className="relative w-full h-[400px] overflow-hidden bg-black">
+                {/* Loading Indicator */}
+                {isVideoLoading && !videoError && (
+                  <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/50">
+                    <div className="flex items-center gap-3 text-white">
+                      <div className="w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin" />
+                      <span className="text-sm">Loading video...</span>
+                    </div>
+                  </div>
+                )}
+                
                 {/* Fallback Gradient (shown only when video fails) */}
                 {videoError && (
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-purple-900/30 to-black z-0">
@@ -350,40 +403,54 @@ function AboutTeaser() {
                 )}
                 
                 {/* Video (primary content) */}
-                <video
-                  ref={videoRef}
-                  src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
-                  className="w-full h-full object-cover absolute inset-0 z-10"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  onError={() => {
-                    setVideoError(true);
-                    if (videoRef.current) {
-                      videoRef.current.style.display = 'none';
-                    }
-                  }}
-                />
+                {!videoError && (
+                  <video
+                    ref={videoRef}
+                    src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+                    className="w-full h-full object-cover absolute inset-0 z-10"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    onError={() => {
+                      setVideoError(true);
+                      setIsVideoLoading(false);
+                      if (videoRef.current) {
+                        videoRef.current.style.display = 'none';
+                      }
+                    }}
+                    onCanPlay={() => {
+                      setIsVideoLoading(false);
+                      if (videoRef.current) {
+                        videoRef.current.play().catch((error) => {
+                          console.error('Video play error:', error);
+                        });
+                      }
+                    }}
+                    onLoadStart={() => {
+                      setIsVideoLoading(true);
+                    }}
+                  />
+                )}
                 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 
                 {/* Play/Pause Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
                   <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform scale-75 group-hover:scale-100 transition-transform duration-300">
                     <div className="w-0 h-0 border-l-[12px] border-l-teal-600 border-y-[8px] border-y-transparent ml-1"></div>
                   </div>
                 </div>
                 
                 {/* Floating Elements */}
-                <div className="absolute top-6 left-6 w-3 h-3 bg-teal-400 rounded-full animate-pulse"></div>
-                <div className="absolute top-8 right-8 w-2 h-2 bg-purple-400 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
-                <div className="absolute bottom-6 left-8 w-2 h-2 bg-teal-300 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-                <div className="absolute bottom-8 right-6 w-3 h-3 bg-purple-300 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
+                <div className="absolute top-6 left-6 w-3 h-3 bg-teal-400 rounded-full animate-pulse z-20"></div>
+                <div className="absolute top-8 right-8 w-2 h-2 bg-purple-400 rounded-full animate-pulse z-20" style={{animationDelay: '0.5s'}}></div>
+                <div className="absolute bottom-6 left-8 w-2 h-2 bg-teal-300 rounded-full animate-pulse z-20" style={{animationDelay: '1s'}}></div>
+                <div className="absolute bottom-8 right-6 w-3 h-3 bg-purple-300 rounded-full animate-pulse z-20" style={{animationDelay: '1.5s'}}></div>
                 
                 {/* Content Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                   <h3 className="text-2xl font-bold text-white mb-2">{lang === 'de' ? 'Digitale Innovation' : 'Digital Innovation'}</h3>
                   <p className="text-gray-300 text-sm">{lang === 'de' ? 'Entdecken Sie unsere Technologien' : 'Discover our technologies'}</p>
                 </div>
