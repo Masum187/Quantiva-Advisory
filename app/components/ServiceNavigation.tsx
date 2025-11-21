@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowLeft } from 'lucide-react';
 import { useNavigationContent } from '../lib/contexts/ContentContext';
@@ -43,17 +44,15 @@ export default function ServiceNavigation({ lang, serviceTitle, serviceId }: Ser
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
         {/* Logo */}
         <Link href={`/${lang}`} className="flex items-center gap-3">
-          <div className="relative">
-            <svg width="40" height="40" viewBox="0 0 100 100" className="text-teal-400">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.3"/>
-              <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5"/>
-              <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.7"/>
-              <circle cx="50" cy="50" r="15" fill="currentColor" opacity="0.8"/>
-              <line x1="50" y1="50" x2="65" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-              <line x1="50" y1="50" x2="35" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-              <line x1="50" y1="50" x2="65" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-              <line x1="50" y1="50" x2="35" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-            </svg>
+          <div className="w-10 h-10 relative flex-shrink-0">
+            <Image
+              src="https://res.cloudinary.com/dbrisux8i/image/upload/v1762724233/ymeuakhh7p7cadpspgrw.jpg"
+              alt="Quantiva Advisory Logo"
+              fill
+              className="object-contain drop-shadow-sm"
+              priority
+              sizes="40px"
+            />
           </div>
           
           {/* Company Name */}

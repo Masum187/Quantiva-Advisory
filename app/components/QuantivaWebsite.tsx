@@ -594,67 +594,15 @@ export default function QuantivaWebsite() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
           <div className="flex items-center gap-3">
             {/* Quantiva Logo */}
-            <div className="w-8 h-8 relative">
-              <svg viewBox="0 0 100 100" className="w-full h-full text-teal-400 drop-shadow-sm">
-                {/* Outer Hexagon with rounded corners */}
-                <polygon 
-                  points="50,8 85,25 85,75 50,92 15,75 15,25" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                />
-                
-                {/* Central Hexagon */}
-                <polygon 
-                  points="50,25 65,35 65,65 50,75 35,65 35,35" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="1.5"
-                />
-                
-                {/* Circuit Lines */}
-                <line x1="50" y1="25" x2="50" y2="8" stroke="currentColor" strokeWidth="1"/>
-                <line x1="65" y1="35" x2="85" y2="25" stroke="currentColor" strokeWidth="1"/>
-                <line x1="65" y1="65" x2="85" y2="75" stroke="currentColor" strokeWidth="1"/>
-                <line x1="50" y1="75" x2="50" y2="92" stroke="currentColor" strokeWidth="1"/>
-                <line x1="35" y1="65" x2="15" y2="75" stroke="currentColor" strokeWidth="1"/>
-                <line x1="35" y1="35" x2="15" y2="25" stroke="currentColor" strokeWidth="1"/>
-                
-                {/* Top Right - Three connected circles */}
-                <circle cx="75" cy="20" r="2" fill="currentColor"/>
-                <circle cx="80" cy="25" r="2" fill="currentColor"/>
-                <circle cx="75" cy="30" r="2" fill="currentColor"/>
-                <line x1="75" y1="20" x2="80" y2="25" stroke="currentColor" strokeWidth="0.8"/>
-                <line x1="80" y1="25" x2="75" y2="30" stroke="currentColor" strokeWidth="0.8"/>
-                
-                {/* Bottom Right - Wrench/Spanner */}
-                <g transform="translate(70, 70) rotate(45)">
-                  <rect x="-1" y="-8" width="2" height="16" fill="currentColor"/>
-                  <rect x="-6" y="-1" width="12" height="2" fill="currentColor"/>
-                  <circle cx="0" cy="0" r="3" fill="none" stroke="currentColor" strokeWidth="1"/>
-                </g>
-                
-                {/* Top Left - Rectangular chip */}
-                <rect x="20" y="20" width="8" height="5" fill="none" stroke="currentColor" strokeWidth="1"/>
-                <line x1="24" y1="20" x2="24" y2="25" stroke="currentColor" strokeWidth="0.8"/>
-                <line x1="20" y1="22.5" x2="28" y2="22.5" stroke="currentColor" strokeWidth="0.8"/>
-                
-                {/* Bottom Left - Single circle node */}
-                <circle cx="25" cy="80" r="2" fill="currentColor"/>
-                
-                {/* Additional circuit connections */}
-                <line x1="50" y1="50" x2="75" y2="25" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
-                <line x1="50" y1="50" x2="25" y2="25" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
-                <line x1="50" y1="50" x2="75" y2="75" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
-                <line x1="50" y1="50" x2="25" y2="75" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
-                
-                {/* Central connection lines */}
-                <line x1="50" y1="50" x2="65" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-                <line x1="50" y1="50" x2="35" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-                <line x1="50" y1="50" x2="65" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-                <line x1="50" y1="50" x2="35" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
-              </svg>
+            <div className="w-10 h-10 relative flex-shrink-0">
+              <Image
+                src="https://res.cloudinary.com/dbrisux8i/image/upload/v1762724233/ymeuakhh7p7cadpspgrw.jpg"
+                alt="Quantiva Advisory Logo"
+                fill
+                className="object-contain drop-shadow-sm"
+                priority
+                sizes="40px"
+              />
             </div>
             
             {/* Company Name */}
