@@ -313,71 +313,36 @@ function TrustSignals() {
 function AboutTeaser() {
   const { lang } = useLanguage();
   const [videoError, setVideoError] = useState(false);
-  const [isVideoLoading, setIsVideoLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  // Ensure video plays when loaded
+  // Simple video load handler
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Set loading timeout (10 seconds)
-    const loadingTimeout = setTimeout(() => {
-      console.warn('Video loading timeout');
-      setIsVideoLoading(false);
-    }, 10000);
-
-    const handleLoadedData = () => {
-      setIsVideoLoading(false);
-      clearTimeout(loadingTimeout);
-      video.play().catch((error) => {
-        console.error('Video play error:', error);
-        // Don't set error on play failure, just log it
-      });
-    };
-
     const handleCanPlay = () => {
-      setIsVideoLoading(false);
-      clearTimeout(loadingTimeout);
+      // Try to play when video can play
       video.play().catch((error) => {
         console.error('Video play error:', error);
       });
     };
 
-    const handleError = (e: Event) => {
-      console.error('Video load error:', e);
+    const handleError = () => {
+      console.error('Video load error');
       setVideoError(true);
-      setIsVideoLoading(false);
-      clearTimeout(loadingTimeout);
-      if (video) {
-        video.style.display = 'none';
-      }
     };
 
-    const handleLoadStart = () => {
-      setIsVideoLoading(true);
-    };
-
-    // Add multiple event listeners for better compatibility
-    video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('canplay', handleCanPlay);
-    video.addEventListener('canplaythrough', handleCanPlay);
     video.addEventListener('error', handleError);
-    video.addEventListener('loadstart', handleLoadStart);
 
-    // Try to play immediately if already loaded
+    // Try to play if already loaded
     if (video.readyState >= 3) {
       handleCanPlay();
-      clearTimeout(loadingTimeout);
     }
 
     return () => {
-      clearTimeout(loadingTimeout);
-      video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('canplay', handleCanPlay);
-      video.removeEventListener('canplaythrough', handleCanPlay);
       video.removeEventListener('error', handleError);
-      video.removeEventListener('loadstart', handleLoadStart);
     };
   }, []);
   
@@ -408,16 +373,6 @@ function AboutTeaser() {
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
               {/* Video/Image Container */}
               <div className="relative w-full h-[400px] overflow-hidden bg-black">
-                {/* Loading Indicator */}
-                {isVideoLoading && !videoError && (
-                  <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/50">
-                    <div className="flex items-center gap-3 text-white">
-                      <div className="w-6 h-6 border-2 border-teal-400 border-t-transparent rounded-full animate-spin" />
-                      <span className="text-sm">Loading video...</span>
-                    </div>
-                  </div>
-                )}
-                
                 {/* Fallback Gradient (shown only when video fails) */}
                 {videoError && (
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-purple-900/30 to-black z-0">
@@ -425,50 +380,31 @@ function AboutTeaser() {
                   </div>
                 )}
                 
-                {/* Video (primary content) */}
-                {!videoError && (
-                  <video
-                    ref={videoRef}
-                    src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
-                    className="w-full h-full object-cover absolute inset-0 z-10"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    crossOrigin="anonymous"
-                    onError={(e) => {
-                      console.error('Video error event:', e);
-                      setVideoError(true);
-                      setIsVideoLoading(false);
-                      if (videoRef.current) {
-                        videoRef.current.style.display = 'none';
-                      }
-                    }}
-                    onLoadedData={() => {
-                      setIsVideoLoading(false);
-                      if (videoRef.current) {
-                        videoRef.current.play().catch((error) => {
-                          console.error('Video play error:', error);
-                        });
-                      }
-                    }}
-                    onCanPlay={() => {
-                      setIsVideoLoading(false);
-                      if (videoRef.current) {
-                        videoRef.current.play().catch((error) => {
-                          console.error('Video play error:', error);
-                        });
-                      }
-                    }}
-                    onCanPlayThrough={() => {
-                      setIsVideoLoading(false);
-                    }}
-                    onLoadStart={() => {
-                      setIsVideoLoading(true);
-                    }}
-                  />
-                )}
+                {/* Video (always rendered, hidden only on error) */}
+                <video
+                  ref={videoRef}
+                  src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+                  className={`w-full h-full object-cover absolute inset-0 z-10 ${videoError ? 'hidden' : ''}`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  onError={() => {
+                    console.error('Video error');
+                    setVideoError(true);
+                    if (videoRef.current) {
+                      videoRef.current.style.display = 'none';
+                    }
+                  }}
+                  onCanPlay={() => {
+                    if (videoRef.current && !videoError) {
+                      videoRef.current.play().catch((error) => {
+                        console.error('Video play error:', error);
+                      });
+                    }
+                  }}
+                />
                 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 
