@@ -321,18 +321,36 @@ function AboutTeaser() {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleCanPlay = () => {
+    // Set loading timeout (10 seconds)
+    const loadingTimeout = setTimeout(() => {
+      if (isVideoLoading) {
+        console.warn('Video loading timeout');
+        setIsVideoLoading(false);
+      }
+    }, 10000);
+
+    const handleLoadedData = () => {
       setIsVideoLoading(false);
+      clearTimeout(loadingTimeout);
       video.play().catch((error) => {
         console.error('Video play error:', error);
-        setVideoError(true);
+        // Don't set error on play failure, just log it
       });
     };
 
-    const handleError = () => {
-      console.error('Video load error');
+    const handleCanPlay = () => {
+      setIsVideoLoading(false);
+      clearTimeout(loadingTimeout);
+      video.play().catch((error) => {
+        console.error('Video play error:', error);
+      });
+    };
+
+    const handleError = (e: Event) => {
+      console.error('Video load error:', e);
       setVideoError(true);
       setIsVideoLoading(false);
+      clearTimeout(loadingTimeout);
       if (video) {
         video.style.display = 'none';
       }
@@ -342,21 +360,28 @@ function AboutTeaser() {
       setIsVideoLoading(true);
     };
 
+    // Add multiple event listeners for better compatibility
+    video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('canplaythrough', handleCanPlay);
     video.addEventListener('error', handleError);
     video.addEventListener('loadstart', handleLoadStart);
 
     // Try to play immediately if already loaded
     if (video.readyState >= 3) {
       handleCanPlay();
+      clearTimeout(loadingTimeout);
     }
 
     return () => {
+      clearTimeout(loadingTimeout);
+      video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('canplaythrough', handleCanPlay);
       video.removeEventListener('error', handleError);
       video.removeEventListener('loadstart', handleLoadStart);
     };
-  }, []);
+  }, [isVideoLoading]);
   
   return (
     <section id="about" className="bg-black py-20">
@@ -413,11 +438,21 @@ function AboutTeaser() {
                     loop
                     playsInline
                     preload="auto"
-                    onError={() => {
+                    crossOrigin="anonymous"
+                    onError={(e) => {
+                      console.error('Video error event:', e);
                       setVideoError(true);
                       setIsVideoLoading(false);
                       if (videoRef.current) {
                         videoRef.current.style.display = 'none';
+                      }
+                    }}
+                    onLoadedData={() => {
+                      setIsVideoLoading(false);
+                      if (videoRef.current) {
+                        videoRef.current.play().catch((error) => {
+                          console.error('Video play error:', error);
+                        });
                       }
                     }}
                     onCanPlay={() => {
@@ -427,6 +462,9 @@ function AboutTeaser() {
                           console.error('Video play error:', error);
                         });
                       }
+                    }}
+                    onCanPlayThrough={() => {
+                      setIsVideoLoading(false);
                     }}
                     onLoadStart={() => {
                       setIsVideoLoading(true);
@@ -899,11 +937,11 @@ export default function QuantivaWebsite() {
                     <div className="relative flex flex-1 flex-col justify-end">
                       {/* Dark background bar for title */}
                       <div className="bg-gradient-to-t from-black via-black/95 to-transparent px-6 pt-8 pb-4">
-                        <div className="flex items-center justify-between gap-4">
-                          <h3 className="text-2xl font-bold tracking-tight text-white md:text-3xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                        <div className="flex items-start justify-between gap-4">
+                          <h3 className="flex-1 text-xl font-bold leading-tight text-white sm:text-2xl md:text-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] break-words min-w-0">
                             {service.title}
                           </h3>
-                          <ChevronRight className="h-6 w-6 text-teal-300 flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                          <ChevronRight className="h-6 w-6 text-teal-300 flex-shrink-0 mt-1 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
                         </div>
                       </div>
 
