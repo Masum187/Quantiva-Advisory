@@ -891,25 +891,33 @@ export default function QuantivaWebsite() {
                         className="absolute inset-0 scale-105 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 group-focus-visible:scale-110"
                         style={{ backgroundImage: `url(${(service as any).image})` }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 transition-opacity duration-500 group-hover:opacity-80 group-focus-visible:opacity-80" />
+                      {/* Darker overlay for better text contrast */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/60 transition-opacity duration-500" />
                     </div>
 
-                    <div className="relative flex flex-1 flex-col justify-end p-6">
-                      <div className="flex items-center justify-between gap-4">
-                        <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-2xl md:text-3xl">
-                          {service.title}
-                        </h3>
-                        <ChevronRight className="h-6 w-6 text-teal-300 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                    {/* Text content with dark background for better readability */}
+                    <div className="relative flex flex-1 flex-col justify-end">
+                      {/* Dark background bar for title */}
+                      <div className="bg-gradient-to-t from-black via-black/95 to-transparent px-6 pt-8 pb-4">
+                        <div className="flex items-center justify-between gap-4">
+                          <h3 className="text-2xl font-bold tracking-tight text-white md:text-3xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                            {service.title}
+                          </h3>
+                          <ChevronRight className="h-6 w-6 text-teal-300 flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                        </div>
                       </div>
 
-                      <p className="mt-5 max-w-sm text-base text-gray-200 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-                        {service.description}
-                      </p>
+                      {/* Description area */}
+                      <div className="px-6 pb-6 bg-black/95">
+                        <p className="max-w-sm text-base text-gray-200 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                          {service.description}
+                        </p>
 
-                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300">
-                        {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-                        <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
-                      </span>
+                        <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300">
+                          {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
+                          <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 </AnimatedCard>
