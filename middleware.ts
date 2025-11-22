@@ -46,25 +46,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Admin/CMS Route Protection (Production only)
-  // Note: Vercel Password Protection should be enabled in Vercel Dashboard
-  // This middleware serves as an additional security layer
-  if (process.env.NODE_ENV === 'production') {
-    const isAdminRoute = pathname.includes('/cms') || pathname.includes('/admin');
-    
-    if (isAdminRoute) {
-      // In production, block direct access to admin routes
-      // Vercel Password Protection will handle authentication before this middleware runs
-      // If you need custom auth, implement it here or use NextAuth.js
-      return new NextResponse('Access Denied', { 
-        status: 403,
-        headers: {
-          'X-Robots-Tag': 'noindex, nofollow',
-        },
-      });
-    }
-  }
-
   // Check if pathname already has a locale
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`

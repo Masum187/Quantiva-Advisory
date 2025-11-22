@@ -5,10 +5,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://*.sentry.io;
-  connect-src 'self' https://*.contentful.com https://api.openai.com https://www.google.com https://www.gstatic.com https://*.sentry.io https://*.ingest.sentry.io;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com;
+  connect-src 'self' https://*.contentful.com https://api.openai.com https://www.google.com https://www.gstatic.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: https://images.unsplash.com https://res.cloudinary.com https://images.ctfassets.net https://*.sentry.io;
+  img-src 'self' data: https://images.unsplash.com https://res.cloudinary.com https://images.ctfassets.net;
   font-src 'self' https://fonts.gstatic.com data:;
   frame-src https://www.google.com;
   base-uri 'self';
@@ -64,7 +64,6 @@ const nextConfig = {
     NEXT_PUBLIC_CONTENTFUL_PREVIEW_TOKEN: process.env.REACT_APP_CONTENTFUL_PREVIEW_TOKEN,
     NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
     NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
   },
 
   // Redirects and rewrites
@@ -84,27 +83,6 @@ const nextConfig = {
         source: '/en/careers',
         destination: '/en/career',
         permanent: false,
-      },
-      // Legal pages redirects (fallback for wrong language)
-      {
-        source: '/de/imprint',
-        destination: '/de/impressum',
-        permanent: true,
-      },
-      {
-        source: '/de/privacy',
-        destination: '/de/datenschutz',
-        permanent: true,
-      },
-      {
-        source: '/en/impressum',
-        destination: '/en/imprint',
-        permanent: true,
-      },
-      {
-        source: '/en/datenschutz',
-        destination: '/en/privacy',
-        permanent: true,
       },
     ];
   },

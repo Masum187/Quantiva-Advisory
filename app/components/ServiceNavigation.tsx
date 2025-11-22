@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowLeft } from 'lucide-react';
 import { useNavigationContent } from '../lib/contexts/ContentContext';
@@ -43,23 +42,18 @@ export default function ServiceNavigation({ lang, serviceTitle, serviceId }: Ser
     <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80 border-b border-white/10">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
         {/* Logo */}
-        <Link href={`/${lang}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-          {/* Quantiva Logo with integrated design */}
-          <div className="relative flex-shrink-0">
-            {/* Background circle with gradient */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-500/20 via-teal-400/30 to-purple-500/20 blur-sm group-hover:blur-md transition-all duration-300"></div>
-            <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-teal-500/30 p-1.5 shadow-lg shadow-teal-500/20 group-hover:border-teal-400/50 group-hover:shadow-teal-500/40 transition-all duration-300">
-              <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-teal-500/10 to-purple-500/10">
-                <Image
-                  src="https://res.cloudinary.com/dbrisux8i/image/upload/v1762724233/ymeuakhh7p7cadpspgrw.jpg"
-                  alt="Quantiva Advisory Logo"
-                  fill
-                  className="object-cover rounded-full"
-                  priority
-                  sizes="40px"
-                />
-              </div>
-            </div>
+        <Link href={`/${lang}`} className="flex items-center gap-3">
+          <div className="relative">
+            <svg width="40" height="40" viewBox="0 0 100 100" className="text-teal-400">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.3"/>
+              <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.5"/>
+              <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.7"/>
+              <circle cx="50" cy="50" r="15" fill="currentColor" opacity="0.8"/>
+              <line x1="50" y1="50" x2="65" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+              <line x1="50" y1="50" x2="35" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+              <line x1="50" y1="50" x2="65" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+              <line x1="50" y1="50" x2="35" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+            </svg>
           </div>
           
           {/* Company Name */}

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect } from 'react';
-import * as Sentry from '@sentry/nextjs';
 
 export default function GlobalError({
   error,
@@ -14,18 +13,8 @@ export default function GlobalError({
     // Log critical error
     console.error('Critical application error:', error);
     
-    // Send to Sentry with fatal level
-    if (process.env.NODE_ENV === 'production') {
-      Sentry.captureException(error, {
-        level: 'fatal',
-        tags: {
-          errorBoundary: 'global-error',
-        },
-        extra: {
-          digest: error.digest,
-        },
-      });
-    }
+    // TODO: Send to error tracking service
+    // Sentry.captureException(error, { level: 'fatal' });
   }, [error]);
 
   return (

@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import * as Sentry from '@sentry/nextjs';
 
 export default function Error({
   error,
@@ -13,20 +12,13 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log error to console
+    // Log error to console (in production, send to error tracking service)
     console.error('Application error:', error);
     
-    // Send to Sentry in production
-    if (process.env.NODE_ENV === 'production') {
-      Sentry.captureException(error, {
-        tags: {
-          errorBoundary: 'app-error',
-        },
-        extra: {
-          digest: error.digest,
-        },
-      });
-    }
+    // TODO: Send to error tracking service (Sentry, LogRocket, etc.)
+    // if (process.env.NODE_ENV === 'production') {
+    //   Sentry.captureException(error);
+    // }
   }, [error]);
 
   return (

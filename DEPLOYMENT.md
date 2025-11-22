@@ -3,8 +3,8 @@
 ## 🚀 Production Deployment Checklist
 
 ### 1. Domain Configuration
-- [x] **BASE_URL**: Set to `https://quantivaadvisory.com` in `sitemap.mjs`
-- [x] **ORIGIN**: Updated in Next.js configuration
+- [x] **BASE_URL**: Set to `https://quantivaadvisory.com` in `sitemap.js`
+- [x] **ORIGIN**: Updated in `QuantivaWebsite.tsx`
 - [x] **robots.txt**: Points to correct sitemap URL
 
 ### 2. Language Redirect System
@@ -22,25 +22,34 @@
 - [x] **404 handling**: Unknown routes redirect to language home
 - [x] **Type safety**: Proper TypeScript types for route parameters
 
-### 4. Next.js App Router Configuration
+### 4. SPA Routing Configuration
 
-#### Vercel (Recommended)
-- [x] **`vercel.json`**: Complete Vercel configuration with Next.js routing, security headers, and caching
-- [x] **Framework preset**: Next.js
+#### Netlify
+- [x] **`public/_redirects`**: `/* /index.html 200`
 - [x] **Build command**: `npm run build`
-- [x] **App Router**: Handles `/de/*`, `/en/*`, `/cases/*` routes automatically
+- [x] **Publish directory**: `build`
+
+#### Vercel
+- [x] **`vercel.json`**: Complete Vercel configuration with SPA routing, security headers, and caching
+- [x] **Framework preset**: Vite (or React)
+- [x] **Build command**: `npm run build`
+- [x] **SPA routing**: Handles `/de/*`, `/en/*`, `/cases/*` routes
 - [x] **Security headers**: HSTS, CSP, X-Frame-Options, etc.
 - [x] **Caching**: Optimized cache headers for assets and sitemap
-- [x] **API Routes**: Serverless functions for contact form and other endpoints
+
+#### Nginx
+- [x] **`nginx.conf`**: Complete server configuration
+- [x] **SPA fallback**: `try_files $uri $uri/ /index.html;`
+- [x] **SSL/HTTPS**: Configured for production
 
 ### 5. SEO & Sitemap
-- [x] **Dynamic sitemap**: Imports case studies from `app/lib/data/cases.json`
+- [x] **Dynamic sitemap**: Imports case studies from `src/data/cases.js`
 - [x] **Hreflang alternates**: Proper language switching
 - [x] **x-default URLs**: Points to language-less canonical URLs
 - [x] **Automatic generation**: Via `postbuild` hook
 
 ### 6. Data Management
-- [x] **Centralized data**: `app/lib/data/cases.json` for case studies
+- [x] **Centralized data**: `src/data/cases.js` for case studies
 - [x] **Dynamic imports**: Sitemap reads from data source
 - [x] **Easy updates**: Add new cases by updating data file
 
@@ -49,26 +58,25 @@
 ### Netlify Deployment
 1. Connect GitHub repository to Netlify
 2. Set build command: `npm run build`
-3. Set publish directory: `.next`
-4. Configure redirects for Next.js App Router
-5. Set up environment variables for API routes
+3. Set publish directory: `build`
+4. The `_redirects` file will handle SPA routing automatically
 
-### Vercel Deployment (Recommended)
+### Vercel Deployment
 1. Connect GitHub repository to Vercel
-2. Framework preset: Next.js
+2. Framework preset: Vite (or React)
 3. The `vercel.json` file includes:
-   - Next.js App Router routing for `/de/*`, `/en/*`, `/cases/*`
+   - SPA routing for `/de/*`, `/en/*`, `/cases/*`
    - Security headers (HSTS, CSP, X-Frame-Options, etc.)
    - Caching headers for optimal performance
    - Sitemap caching configuration
-   - API routes as serverless functions
 
-### Manual Server Deployment
-1. Build the project: `npm run build`
-2. Copy `.next` directory to your server
-3. Install dependencies: `npm ci --production`
-4. Start the server: `npm start`
-5. Configure reverse proxy (nginx/Apache) for Next.js
+### Nginx Deployment
+1. Copy `nginx.conf` to your server's sites-available directory
+2. Update SSL certificate paths
+3. Update document root path
+4. Enable the site: `sudo ln -s /etc/nginx/sites-available/quantiva /etc/nginx/sites-enabled/`
+5. Test configuration: `sudo nginx -t`
+6. Reload nginx: `sudo systemctl reload nginx`
 
 ## 📊 SEO Considerations
 
@@ -80,7 +88,7 @@ Current configuration uses language-less URLs as x-default:
 
 **Alternative**: If you prefer `/de` as canonical:
 ```javascript
-// In sitemap.mjs, change xDefault logic:
+// In sitemap.js, change xDefault logic:
 const xDefault = `${BASE_URL}/de${basePath}`;
 ```
 
@@ -92,12 +100,12 @@ const xDefault = `${BASE_URL}/de${basePath}`;
 
 ### Content Updates
 1. **Add new case study**:
-   - Add to `app/lib/data/cases.json`
+   - Add to `src/data/cases.js`
    - Sitemap will automatically include it
    - No manual sitemap updates needed
 
 2. **Update existing content**:
-   - Edit `app/lib/data/cases.json`
+   - Edit `src/data/cases.js`
    - Rebuild: `npm run build`
    - Sitemap regenerates automatically
 
@@ -112,7 +120,6 @@ const xDefault = `${BASE_URL}/de${basePath}`;
 - All URLs include proper hreflang alternates
 - Search engines can properly index multilingual content
 - Clean URL structure: `/de/`, `/en/`, `/de/cases/`, etc.
-- Next.js App Router handles routing automatically
 
 ### Performance
 - Static assets cached for 1 year
@@ -140,56 +147,3 @@ Before going live:
 3. **Set up analytics tracking**
 4. **Configure error monitoring**
 5. **Test contact form email delivery**
-
-## 🔄 Rollback-Plan
-
-### Deployment-Tracking
-
-**Vor jedem Go-Live:**
-1. Git Tag setzen: `git tag -a v1.0.0 -m "Go-Live Production"`
-2. Tag pushen: `git push --tags`
-3. Vercel Deployment-ID notieren (aus Vercel Dashboard → Deployments)
-
-### Rollback-Prozedur
-
-**Option 1: Vercel Dashboard (Empfohlen)**
-1. Vercel Dashboard öffnen → Projekt → Deployments
-2. Vorheriges stabiles Deployment finden
-3. Klick auf "..." → "Promote to Production"
-4. Bestätigen
-
-**Option 2: Vercel CLI**
-```bash
-vercel rollback [deployment-url]
-# Oder: vercel rollback --yes
-```
-
-**Option 3: Git-basiert**
-```bash
-# Zu vorherigem Commit zurückkehren
-git checkout [previous-commit-hash]
-git push origin main --force  # Nur im Notfall!
-```
-
-### Notfall-Kontakte
-
-- **Vercel Support**: support@vercel.com
-- **Domain-Provider**: [Ihre Kontaktdaten]
-- **Entwicklungsteam**: [Kontaktdaten]
-
-### Rollback-Checkliste
-
-- [ ] Deployment-ID des aktuellen Produktions-Stands notiert
-- [ ] Git Tag für aktuellen Stand gesetzt
-- [ ] Vorheriges stabiles Deployment identifiziert
-- [ ] Rollback getestet (auf Staging/Preview)
-- [ ] Notfall-Kontakte dokumentiert
-- [ ] Rollback-Zeitfenster festgelegt (z.B. max. 15 Min)
-
-### Post-Rollback
-
-Nach einem Rollback:
-1. Fehlerursache analysieren
-2. Fix in separatem Branch entwickeln
-3. Ausführlich testen
-4. Erneut deployen mit neuem Tag

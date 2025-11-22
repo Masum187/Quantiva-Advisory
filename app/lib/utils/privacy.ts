@@ -14,9 +14,9 @@ export function hasAnalyticsConsent(): boolean {
   // Check localStorage for consent
   const consent = localStorage.getItem('analytics_consent');
   
-  // GDPR-compliant: Explicit opt-in required
-  // Analytics only loads if user explicitly accepted
-  return consent === 'true';
+  // If no consent stored, assume consent (Vercel Analytics is privacy-friendly by default)
+  // Change this to 'false' if you want explicit opt-in
+  return consent !== 'false';
 }
 
 /**
@@ -27,10 +27,7 @@ export function setAnalyticsConsent(consent: boolean) {
   
   localStorage.setItem('analytics_consent', consent ? 'true' : 'false');
   
-  // Dispatch custom event to notify ConditionalAnalytics component
-  window.dispatchEvent(new CustomEvent('analyticsConsentChanged'));
-  
-  // If consent was revoked, reload to remove analytics
+  // Reload page to apply consent
   if (!consent) {
     window.location.reload();
   }

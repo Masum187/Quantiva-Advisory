@@ -29,6 +29,7 @@ import {
   useMeetingContent,
   useCareersContent
 } from "../lib/contexts/ContentContext";
+import ClientVideo from "./ClientVideo";
 
 // Dynamic imports for better code splitting
 const ReferencesSlider = dynamic(() => import('./ReferencesSlider'), {
@@ -312,40 +313,6 @@ function TrustSignals() {
 
 function AboutTeaser() {
   const { lang } = useLanguage();
-  const [videoError, setVideoError] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  // Simple video load handler
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleCanPlay = () => {
-      // Try to play when video can play
-      video.play().catch((error) => {
-        console.error('Video play error:', error);
-      });
-    };
-
-    const handleError = () => {
-      console.error('Video load error');
-      setVideoError(true);
-    };
-
-    video.addEventListener('canplay', handleCanPlay);
-    video.addEventListener('error', handleError);
-
-    // Try to play if already loaded
-    if (video.readyState >= 3) {
-      handleCanPlay();
-    }
-
-    return () => {
-      video.removeEventListener('canplay', handleCanPlay);
-      video.removeEventListener('error', handleError);
-    };
-  }, []);
-  
   return (
     <section id="about" className="bg-black py-20">
       <div className="mx-auto max-w-6xl px-6">
@@ -371,41 +338,14 @@ function AboutTeaser() {
           </SlideIn>
           <SlideIn direction="right" delay={0.4}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-teal-500/20 border border-teal-500/30 group">
-              {/* Video/Image Container */}
+              {/* Video Container */}
               <div className="relative w-full h-[400px] overflow-hidden bg-black">
-                {/* Fallback Gradient (shown only when video fails) */}
-                {videoError && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-teal-900/40 via-purple-900/30 to-black z-0">
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZjY2NjYiLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzc0MzBhNiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiLz48L3N2Zz4=')] opacity-30"></div>
-                  </div>
-                )}
-                
-                {/* Video (always rendered, hidden only on error) */}
-                <video
-                  ref={videoRef}
+                <ClientVideo
                   src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
-                  className={`w-full h-full object-cover absolute inset-0 z-10 ${videoError ? 'hidden' : ''}`}
-                  autoPlay
-                  muted
+                  className="w-full h-full object-cover absolute inset-0"
                   loop
-                  playsInline
-                  preload="auto"
-                  onError={() => {
-                    console.error('Video error');
-                    setVideoError(true);
-                    if (videoRef.current) {
-                      videoRef.current.style.display = 'none';
-                    }
-                  }}
-                  onCanPlay={() => {
-                    if (videoRef.current && !videoError) {
-                      videoRef.current.play().catch((error) => {
-                        console.error('Video play error:', error);
-                      });
-                    }
-                  }}
+                  muted
                 />
-                
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
                 
                 {/* Play/Pause Overlay */}
@@ -631,30 +571,76 @@ export default function QuantivaWebsite() {
       {/* Navbar */}
       <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
-          <Link href={`/${lang}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-            {/* Quantiva Logo with integrated design */}
-            <div className="relative flex-shrink-0">
-              {/* Background circle with gradient */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-500/20 via-teal-400/30 to-purple-500/20 blur-sm group-hover:blur-md transition-all duration-300"></div>
-              <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-teal-500/30 p-1.5 shadow-lg shadow-teal-500/20 group-hover:border-teal-400/50 group-hover:shadow-teal-500/40 transition-all duration-300">
-                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-teal-500/10 to-purple-500/10">
-                  <Image
-                    src="https://res.cloudinary.com/dbrisux8i/image/upload/v1762724233/ymeuakhh7p7cadpspgrw.jpg"
-                    alt="Quantiva Advisory Logo"
-                    fill
-                    className="object-cover rounded-full"
-                    priority
-                    sizes="40px"
-                  />
-                </div>
-              </div>
+          <div className="flex items-center gap-3">
+            {/* Quantiva Logo */}
+            <div className="w-8 h-8 relative">
+              <svg viewBox="0 0 100 100" className="w-full h-full text-teal-400 drop-shadow-sm">
+                {/* Outer Hexagon with rounded corners */}
+                <polygon 
+                  points="50,8 85,25 85,75 50,92 15,75 15,25" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                />
+                
+                {/* Central Hexagon */}
+                <polygon 
+                  points="50,25 65,35 65,65 50,75 35,65 35,35" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="1.5"
+                />
+                
+                {/* Circuit Lines */}
+                <line x1="50" y1="25" x2="50" y2="8" stroke="currentColor" strokeWidth="1"/>
+                <line x1="65" y1="35" x2="85" y2="25" stroke="currentColor" strokeWidth="1"/>
+                <line x1="65" y1="65" x2="85" y2="75" stroke="currentColor" strokeWidth="1"/>
+                <line x1="50" y1="75" x2="50" y2="92" stroke="currentColor" strokeWidth="1"/>
+                <line x1="35" y1="65" x2="15" y2="75" stroke="currentColor" strokeWidth="1"/>
+                <line x1="35" y1="35" x2="15" y2="25" stroke="currentColor" strokeWidth="1"/>
+                
+                {/* Top Right - Three connected circles */}
+                <circle cx="75" cy="20" r="2" fill="currentColor"/>
+                <circle cx="80" cy="25" r="2" fill="currentColor"/>
+                <circle cx="75" cy="30" r="2" fill="currentColor"/>
+                <line x1="75" y1="20" x2="80" y2="25" stroke="currentColor" strokeWidth="0.8"/>
+                <line x1="80" y1="25" x2="75" y2="30" stroke="currentColor" strokeWidth="0.8"/>
+                
+                {/* Bottom Right - Wrench/Spanner */}
+                <g transform="translate(70, 70) rotate(45)">
+                  <rect x="-1" y="-8" width="2" height="16" fill="currentColor"/>
+                  <rect x="-6" y="-1" width="12" height="2" fill="currentColor"/>
+                  <circle cx="0" cy="0" r="3" fill="none" stroke="currentColor" strokeWidth="1"/>
+                </g>
+                
+                {/* Top Left - Rectangular chip */}
+                <rect x="20" y="20" width="8" height="5" fill="none" stroke="currentColor" strokeWidth="1"/>
+                <line x1="24" y1="20" x2="24" y2="25" stroke="currentColor" strokeWidth="0.8"/>
+                <line x1="20" y1="22.5" x2="28" y2="22.5" stroke="currentColor" strokeWidth="0.8"/>
+                
+                {/* Bottom Left - Single circle node */}
+                <circle cx="25" cy="80" r="2" fill="currentColor"/>
+                
+                {/* Additional circuit connections */}
+                <line x1="50" y1="50" x2="75" y2="25" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                <line x1="50" y1="50" x2="25" y2="25" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                <line x1="50" y1="50" x2="75" y2="75" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                <line x1="50" y1="50" x2="25" y2="75" stroke="currentColor" strokeWidth="0.8" opacity="0.6"/>
+                
+                {/* Central connection lines */}
+                <line x1="50" y1="50" x2="65" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+                <line x1="50" y1="50" x2="35" y2="35" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+                <line x1="50" y1="50" x2="65" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+                <line x1="50" y1="50" x2="35" y2="65" stroke="currentColor" strokeWidth="0.6" opacity="0.4"/>
+              </svg>
             </div>
             
             {/* Company Name */}
             <div className="text-xl font-bold tracking-tight">
               Quantiva <span className="text-teal-400">Advisory</span>
             </div>
-          </Link>
+          </div>
 
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-2 md:flex">
@@ -833,16 +819,14 @@ export default function QuantivaWebsite() {
           </SlideIn>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.items.slice(0, 8).map((service, index) => {
+            {services.items.slice(0, 6).map((service, index) => {
               const serviceUrls = [
                 'sap',
                 'cloud',
                 'ai',
                 'microservices',
                 'cyber-security',
-                'new-work',
-                'full-stack-development',
-                'private-ai-hosting'
+                'new-work'
               ];
               const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
               const direction = index % 2 === 0 ? 'left' : 'right';
@@ -864,33 +848,25 @@ export default function QuantivaWebsite() {
                         className="absolute inset-0 scale-105 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 group-focus-visible:scale-110"
                         style={{ backgroundImage: `url(${(service as any).image})` }}
                       />
-                      {/* Darker overlay for better text contrast */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/60 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 transition-opacity duration-500 group-hover:opacity-80 group-focus-visible:opacity-80" />
                     </div>
 
-                    {/* Text content with dark background for better readability */}
-                    <div className="relative flex flex-1 flex-col justify-end">
-                      {/* Dark background bar for title */}
-                      <div className="bg-gradient-to-t from-black via-black/95 to-transparent px-6 pt-8 pb-4">
-                        <div className="flex items-start justify-between gap-4">
-                          <h3 className="flex-1 text-xl font-bold leading-tight text-white sm:text-2xl md:text-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] break-words min-w-0">
-                            {service.title}
-                          </h3>
-                          <ChevronRight className="h-6 w-6 text-teal-300 flex-shrink-0 mt-1 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
-                        </div>
+                    <div className="relative flex flex-1 flex-col justify-end p-6">
+                      <div className="flex items-center justify-between gap-4">
+                        <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-2xl md:text-3xl">
+                          {service.title}
+                        </h3>
+                        <ChevronRight className="h-6 w-6 text-teal-300 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
                       </div>
 
-                      {/* Description area */}
-                      <div className="px-6 pb-6 bg-black/95">
-                        <p className="max-w-sm text-base text-gray-200 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-                          {service.description}
-                        </p>
+                      <p className="mt-5 max-w-sm text-base text-gray-200 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                        {service.description}
+                      </p>
 
-                        <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300">
-                          {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-                          <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
-                        </span>
-                      </div>
+                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300">
+                        {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
+                        <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                      </span>
                     </div>
                   </Link>
                 </AnimatedCard>
@@ -976,10 +952,10 @@ export default function QuantivaWebsite() {
           <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/80">
             <div>{footer.copyright}</div>
             <div className="flex gap-6">
-              <a href={lang === 'de' ? '/de/impressum' : '/en/imprint'} className="hover:text-white transition">
+              <a href={localePath('/impressum')} className="hover:text-white transition">
                 {lang === 'de' ? 'Impressum' : 'Imprint'}
               </a>
-              <a href={lang === 'de' ? '/de/datenschutz' : '/en/privacy'} className="hover:text-white transition">
+              <a href={localePath('/datenschutz')} className="hover:text-white transition">
                 {lang === 'de' ? 'Datenschutz' : 'Privacy'}
               </a>
             </div>
