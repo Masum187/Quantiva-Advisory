@@ -6,13 +6,38 @@
 
 ## 📋 **Aktuell verwendete Variablen**
 
-### 1. **REACT_APP_CLOUDINARY_CLOUD_NAME**
+### 1. **NEXT_PUBLIC_SITE_URL**
+- **Zweck:** Base URL der Website für hreflang-Metadaten und Canonical URLs
+- **Wo verwendet:** Alle Seiten mit Metadata (legal, cases, career, etc.)
+- **Beispiel:** `https://quantivaadvisory.com`
+- **Erforderlich:** Ja (für SEO)
+
+### 2. **NEXT_PUBLIC_SENTRY_DSN**
+- **Zweck:** Sentry DSN für Error Tracking
+- **Wo verwendet:** `sentry.client.config.ts`, `sentry.server.config.ts`, `sentry.edge.config.ts`
+- **Beispiel:** `https://xxx@sentry.io/xxx`
+- **Erforderlich:** Optional (für Production Error Monitoring)
+
+### 3. **NEXT_PUBLIC_GA_ID**
+- **Zweck:** Google Analytics 4 Measurement ID
+- **Wo verwendet:** `app/components/AnalyticsGate.tsx`
+- **Beispiel:** `G-MSHTJ0J8EW`
+- **Erforderlich:** Optional (nur wenn Google Analytics verwendet werden soll)
+- **Hinweis:** Wird nur geladen, wenn Nutzer "Alles akzeptieren" im Cookie-Banner wählt
+
+### 4. **NEXT_PUBLIC_PLAUSIBLE_DOMAIN**
+- **Zweck:** Plausible Analytics Domain (Alternative zu Google Analytics)
+- **Wo verwendet:** `app/components/AnalyticsGate.tsx`
+- **Beispiel:** `quantivaadvisory.com`
+- **Erforderlich:** Optional (nur wenn Plausible verwendet werden soll)
+
+### 5. **REACT_APP_CLOUDINARY_CLOUD_NAME**
 - **Zweck:** Cloudinary Cloud Name für Suno-Musik CDN
 - **Wo verwendet:** `src/pages/TeamPage.tsx`
 - **Beispiel:** `quantiva-advisory`
 - **Erforderlich:** Ja (für Team-Seite Hintergrundmusik)
 
-### 2. **REACT_APP_ELEVENLABS_KEY**
+### 6. **REACT_APP_ELEVENLABS_KEY**
 - **Zweck:** ElevenLabs API Key für Premium AI Voice
 - **Wo verwendet:** `src/pages/CareerPage.tsx`
 - **Beispiel:** `sk_abc123...`
@@ -31,6 +56,16 @@ Erstellen Sie die Datei:
 
 Fügen Sie hinzu:
 ```env
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=https://quantivaadvisory.com
+
+# Error Tracking (Sentry)
+NEXT_PUBLIC_SENTRY_DSN=https://xxx@sentry.io/xxx
+
+# Analytics (nur eine davon aktivieren)
+NEXT_PUBLIC_GA_ID=G-MSHTJ0J8EW
+# NEXT_PUBLIC_PLAUSIBLE_DOMAIN=quantivaadvisory.com
+
 # Cloudinary Configuration
 REACT_APP_CLOUDINARY_CLOUD_NAME=ihr_cloud_name
 
@@ -205,10 +240,14 @@ React-Apps exponieren alle `REACT_APP_*` Variablen im Browser!
 
 ## 📊 **Übersicht**
 
-| Variable                             | Erforderlich | Sichtbar | Wo verwendet         |
-|--------------------------------------|--------------|----------|----------------------|
-| `REACT_APP_CLOUDINARY_CLOUD_NAME`    | Ja           | Public   | TeamPage (Musik)     |
-| `REACT_APP_ELEVENLABS_KEY`           | Optional     | Public   | CareerPage (Voice)   |
+| Variable                             | Erforderlich | Sichtbar | Wo verwendet                    |
+|--------------------------------------|--------------|----------|---------------------------------|
+| `NEXT_PUBLIC_SITE_URL`               | Ja           | Public   | Alle Seiten (hreflang/SEO)      |
+| `NEXT_PUBLIC_SENTRY_DSN`             | Optional     | Public   | Error Tracking                  |
+| `NEXT_PUBLIC_GA_ID`                 | Optional     | Public   | AnalyticsGate (Google Analytics)|
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`      | Optional     | Public   | AnalyticsGate (Plausible)      |
+| `REACT_APP_CLOUDINARY_CLOUD_NAME`   | Ja           | Public   | TeamPage (Musik)                |
+| `REACT_APP_ELEVENLABS_KEY`           | Optional     | Public   | CareerPage (Voice)              |
 
 ---
 
