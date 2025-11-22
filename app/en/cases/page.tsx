@@ -3,14 +3,17 @@ import casesData from '../../lib/data/cases.json';
 import Link from 'next/link';
 import Image from 'next/image';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://quantivaadvisory.com';
+
 export const metadata: Metadata = {
   title: 'References & Cases – Quantiva Advisory',
   description: 'Success stories and reference projects in SAP, Cloud, AI, Integration and Cyber Security.',
   alternates: {
-    canonical: '/en/cases',
+    canonical: `${BASE_URL}/en/cases`,
     languages: {
-      'de-DE': '/de/cases',
-      'en-US': '/en/cases',
+      'de': `${BASE_URL}/de/cases`,
+      'en': `${BASE_URL}/en/cases`,
+      'x-default': `${BASE_URL}/de/cases`,
     },
   },
 };

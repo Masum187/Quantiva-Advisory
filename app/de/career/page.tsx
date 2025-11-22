@@ -1,13 +1,16 @@
 import CareerPage from '../../components/pages/CareerPage';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://quantivaadvisory.com';
+
 export const metadata = {
   title: 'Karriere',
   description: 'Werden Sie Teil unseres Teams bei Quantiva Advisory.',
   alternates: {
-    canonical: '/de/career',
+    canonical: `${BASE_URL}/de/career`,
     languages: {
-      'de-DE': '/de/career',
-      'en-US': '/en/career',
+      'de': `${BASE_URL}/de/career`,
+      'en': `${BASE_URL}/en/career`,
+      'x-default': `${BASE_URL}/de/career`,
     },
   },
 };
