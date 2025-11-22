@@ -43,7 +43,7 @@ export default function ConsentBanner() {
               <p className="text-sm text-gray-300 leading-relaxed">
                 Wir verwenden Cookies und ähnliche Technologien, um unsere Website zu analysieren, 
                 zu verbessern und Ihnen personalisierte Inhalte anzuzeigen. Durch Klicken auf 
-                "Alles akzeptieren" stimmen Sie der Verwendung aller Cookies zu. Sie können auch 
+                &quot;Alles akzeptieren&quot; stimmen Sie der Verwendung aller Cookies zu. Sie können auch 
                 nur notwendige Cookies akzeptieren oder weitere Informationen in unserer{" "}
                 <a 
                   href="/de/datenschutz" 
