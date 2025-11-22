@@ -820,16 +820,18 @@ export default function QuantivaWebsite() {
           </SlideIn>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.items.slice(0, 6).map((service, index) => {
-              const serviceUrls = [
-                'sap',
-                'cloud',
-                'ai',
-                'microservices',
-                'cyber-security',
-                'new-work'
-              ];
-              const serviceUrl = localePath(`/services/${serviceUrls[index]}`);
+            {services.items.map((service, index) => {
+              // Map service IDs to actual route paths
+              const serviceUrlMap: Record<string, string> = {
+                'sap': 'sap',
+                'cloud': 'cloud',
+                'ai': 'ai',
+                'integration': 'microservices', // System Integration uses microservices route
+                'security': 'cyber-security',
+                'enablement': 'new-work'
+              };
+              const routePath = serviceUrlMap[service.id] || service.id;
+              const serviceUrl = localePath(`/services/${routePath}`);
               const direction = index % 2 === 0 ? 'left' : 'right';
 
               return (
