@@ -342,6 +342,7 @@ function AboutTeaser() {
               <div className="relative w-full h-[400px] overflow-hidden bg-black">
                 <ClientVideo
                   src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.mp4"
+                  poster="https://res.cloudinary.com/dbrisux8i/video/upload/so_0/v1760346430/kling_20251009_Image_to_Video_A_confiden_4908_0_bimwvi.jpg"
                   className="w-full h-full object-cover absolute inset-0"
                   loop
                   muted

@@ -64,7 +64,7 @@ export default function ClientVideo({
       muted={muted}
       loop={loop}
       autoPlay
-      preload="metadata"
+      preload="auto"
       // Bei externen Hosts (Cloudinary) hilft das oft:
       crossOrigin="anonymous"
     />
