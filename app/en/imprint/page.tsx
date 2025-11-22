@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
 import Navigation from '../../components/Navigation';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://quantivaadvisory.com';
+
 export const metadata: Metadata = {
   title: 'Imprint | Quantiva Advisory',
   description: 'Legal information and imprint of Quantiva Advisory',
+  alternates: {
+    canonical: `${BASE_URL}/en/imprint`,
+    languages: {
+      'de': `${BASE_URL}/de/impressum`,
+      'en': `${BASE_URL}/en/imprint`,
+      'x-default': `${BASE_URL}/de/impressum`,
+    },
+  },
 };
 
 const navigationItems = [

@@ -5,11 +5,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com;
-  connect-src 'self' https://*.contentful.com https://api.openai.com https://www.google.com https://www.gstatic.com;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://plausible.io;
+  connect-src 'self' https://*.contentful.com https://api.openai.com https://www.google.com https://www.gstatic.com https://plausible.io;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   img-src 'self' data: https://images.unsplash.com https://res.cloudinary.com https://images.ctfassets.net;
   font-src 'self' https://fonts.gstatic.com data:;
+  media-src 'self' https://res.cloudinary.com data: blob:;
   frame-src https://www.google.com;
   base-uri 'self';
   form-action 'self';

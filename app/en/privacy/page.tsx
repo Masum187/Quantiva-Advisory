@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
 import Navigation from '../../components/Navigation';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://quantivaadvisory.com';
+
 export const metadata: Metadata = {
   title: 'Privacy Policy | Quantiva Advisory',
   description: 'Privacy policy of Quantiva Advisory according to GDPR',
+  alternates: {
+    canonical: `${BASE_URL}/en/privacy`,
+    languages: {
+      'de': `${BASE_URL}/de/datenschutz`,
+      'en': `${BASE_URL}/en/privacy`,
+      'x-default': `${BASE_URL}/de/datenschutz`,
+    },
+  },
 };
 
 const navigationItems = [

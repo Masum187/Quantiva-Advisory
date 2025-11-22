@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
 import Navigation from '../../components/Navigation';
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://quantivaadvisory.com';
+
 export const metadata: Metadata = {
   title: 'Impressum | Quantiva Advisory',
   description: 'Impressum und rechtliche Informationen von Quantiva Advisory',
+  alternates: {
+    canonical: `${BASE_URL}/de/impressum`,
+    languages: {
+      'de': `${BASE_URL}/de/impressum`,
+      'en': `${BASE_URL}/en/imprint`,
+      'x-default': `${BASE_URL}/de/impressum`,
+    },
+  },
 };
 
 const navigationItems = [

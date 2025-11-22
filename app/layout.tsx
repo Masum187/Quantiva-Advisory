@@ -6,6 +6,8 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import ConsentBanner from './components/ConsentBanner';
+import AnalyticsGate from './components/AnalyticsGate';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
+        <AnalyticsGate />
         {children}
+        <ConsentBanner />
         <Analytics />
         <SpeedInsights />
       </body>

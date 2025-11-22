@@ -8,6 +8,8 @@ type Props = {
   className?: string;
   loop?: boolean;
   muted?: boolean;
+  /** Automatisches Abspielen beim Scrollen (Intersection Observer) */
+  playOnScroll?: boolean;
 };
 
 export default function ClientVideo({
@@ -16,10 +18,50 @@ export default function ClientVideo({
   className,
   loop = true,
   muted = true,
+  playOnScroll = true,
 }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Intersection Observer für Scroll-basiertes Abspielen
   useEffect(() => {
+    if (!playOnScroll) return;
+
+    const video = ref.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Video ist sichtbar - abspielen
+            video.play().catch((err) => {
+              console.log("Autoplay prevented:", err);
+            });
+          } else {
+            // Video ist nicht sichtbar - pausieren (spart Ressourcen)
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Video muss zu 50% sichtbar sein
+        rootMargin: "0px",
+      }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [playOnScroll]);
+
+  // Initiales Abspielen (falls nicht playOnScroll)
+  useEffect(() => {
+    if (playOnScroll) return; // Überspringen wenn playOnScroll aktiv ist
+
     const v = ref.current;
     if (!v) return;
 
@@ -39,34 +81,46 @@ export default function ClientVideo({
       }
     };
     tryPlay();
-  }, []);
+  }, [playOnScroll]);
 
   // iOS/Autoplay-Edgecases abfedern
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
     const onVisibility = () => {
-      if (document.visibilityState === "visible") {
+      if (document.visibilityState === "visible" && playOnScroll) {
+        // Nur abspielen wenn Video sichtbar ist (Intersection Observer prüft das)
+        const container = containerRef.current;
+        if (container) {
+          const rect = container.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          if (isVisible) {
+            v.play().catch(() => {});
+          }
+        }
+      } else if (document.visibilityState === "visible" && !playOnScroll) {
         v.play().catch(() => {});
       }
     };
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, []);
+  }, [playOnScroll]);
 
   return (
-    <video
-      ref={ref}
-      className={className}
-      src={src}
-      poster={poster}
-      playsInline
-      muted={muted}
-      loop={loop}
-      autoPlay
-      preload="auto"
-      // Bei externen Hosts (Cloudinary) hilft das oft:
-      crossOrigin="anonymous"
-    />
+    <div ref={containerRef} className={className || ""}>
+      <video
+        ref={ref}
+        className="w-full h-full object-cover"
+        src={src}
+        poster={poster}
+        playsInline
+        muted={muted}
+        loop={loop}
+        autoPlay={!playOnScroll} // Nur autoPlay wenn playOnScroll deaktiviert ist
+        preload="auto"
+        // Bei externen Hosts (Cloudinary) hilft das oft:
+        crossOrigin="anonymous"
+      />
+    </div>
   );
 }

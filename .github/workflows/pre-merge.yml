@@ -1,0 +1,25 @@
+# .github/workflows/pre-merge.yml
+name: Pre-Merge Checks
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  pre-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm ci --legacy-peer-deps
+      - run: npm run build
+      - name: Check for build errors
+        run: |
+          if [ $? -ne 0 ]; then
+            echo "Build failed"
+            exit 1
+          fi
+
