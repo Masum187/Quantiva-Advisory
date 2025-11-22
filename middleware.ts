@@ -55,10 +55,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Redirect to locale-prefixed URL
+  // Handle root path specifically
   const locale = getLocale(request);
+  const redirectPath = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
+  
+  // Redirect to locale-prefixed URL
   const response = NextResponse.redirect(
-    new URL(`/${locale}${pathname}`, request.url)
+    new URL(redirectPath, request.url)
   );
 
   // Set locale cookie
@@ -78,8 +81,10 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public files (public folder)
+     * - api routes
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\..*|api).*)',
+    '/', // Explicitly match root path
   ],
 };
 

@@ -1,12 +1,13 @@
 /**
- * Root page - Redirects to default language
- * This handles the "/" route and redirects to "/de" (default language)
+ * Root page - This should be handled by middleware.ts
+ * The middleware redirects "/" to "/de" or "/en" based on user preference
+ * This file exists as a fallback, but middleware should handle it first
  */
 
 import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  // Redirect to default language (German)
+  // Fallback redirect (middleware should handle this first)
   redirect('/de');
 }
 
