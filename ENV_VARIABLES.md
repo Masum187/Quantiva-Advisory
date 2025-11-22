@@ -25,6 +25,13 @@
 - **Erforderlich:** Optional (nur wenn Google Analytics verwendet werden soll)
 - **Hinweis:** Wird nur geladen, wenn Nutzer "Alles akzeptieren" im Cookie-Banner wählt
 
+### 3.1. **NEXT_PUBLIC_GA_FORCE_LOAD** (Nur für Testing!)
+- **Zweck:** Lädt Google Analytics auch ohne Consent (nur für Testing/Verification)
+- **Wo verwendet:** `app/components/AnalyticsGate.tsx`
+- **Beispiel:** `true`
+- **Erforderlich:** Nein (nur für Testing)
+- **⚠️ WICHTIG:** Nur für Testing verwenden! In Production immer `false` oder nicht setzen!
+
 ### 4. **NEXT_PUBLIC_PLAUSIBLE_DOMAIN**
 - **Zweck:** Plausible Analytics Domain (Alternative zu Google Analytics)
 - **Wo verwendet:** `app/components/AnalyticsGate.tsx`
@@ -65,6 +72,9 @@ NEXT_PUBLIC_SENTRY_DSN=https://xxx@sentry.io/xxx
 # Analytics (nur eine davon aktivieren)
 NEXT_PUBLIC_GA_ID=G-MSHTJ0J8EW
 # NEXT_PUBLIC_PLAUSIBLE_DOMAIN=quantivaadvisory.com
+
+# ⚠️ NUR FÜR TESTING: Analytics ohne Consent laden (für Google Tag Verification)
+# NEXT_PUBLIC_GA_FORCE_LOAD=true
 
 # Cloudinary Configuration
 REACT_APP_CLOUDINARY_CLOUD_NAME=ihr_cloud_name

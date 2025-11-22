@@ -25,7 +25,11 @@ export default function AnalyticsGate() {
   }, []);
 
   // Nur Analytics laden wenn Consent "all" ist
-  if (!mounted || consent !== "all") {
+  // Exception: In Development oder wenn NEXT_PUBLIC_GA_FORCE_LOAD gesetzt ist (für Testing)
+  const forceLoad = process.env.NEXT_PUBLIC_GA_FORCE_LOAD === 'true';
+  const shouldLoad = forceLoad || consent === "all";
+  
+  if (!mounted || !shouldLoad) {
     return null;
   }
 
