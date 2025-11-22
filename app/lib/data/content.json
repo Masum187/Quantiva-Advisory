@@ -87,6 +87,20 @@
           "description": "Agilität und Zusammenarbeit freisetzen. Digitaler Arbeitsplatz, moderne Arbeitsweise und Kultur für produktive Teams.",
           "icon": "Users",
           "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_y4jlczy4jlczy4jl_uc0kat.png"
+        },
+        {
+          "id": "fullstack",
+          "title": "Fullstack Development",
+          "description": "Moderne Web- und Mobile-Anwendungen von Frontend bis Backend. React, Next.js, Node.js und Cloud-native Architekturen.",
+          "icon": "Code",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_t1pc2tt1pc2tt1pc_fpmr5s.png"
+        },
+        {
+          "id": "private-ai",
+          "title": "Private AI Hosting",
+          "description": "Sichere, private AI-Infrastruktur auf Ihren eigenen Servern. Datenschutz, Compliance und vollständige Kontrolle über Ihre KI-Modelle.",
+          "icon": "Server",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_7vidz87vidz87vid_v39svo.png"
         }
       ]
     },
@@ -135,6 +149,20 @@
           "description": "Unlock agility and collaboration. Digital workplace, modern work methods and culture for productive teams.",
           "icon": "Users",
           "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_y4jlczy4jlczy4jl_uc0kat.png"
+        },
+        {
+          "id": "fullstack",
+          "title": "Fullstack Development",
+          "description": "Modern web and mobile applications from frontend to backend. React, Next.js, Node.js and cloud-native architectures.",
+          "icon": "Code",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391833/Gemini_Generated_Image_t1pc2tt1pc2tt1pc_fpmr5s.png"
+        },
+        {
+          "id": "private-ai",
+          "title": "Private AI Hosting",
+          "description": "Secure, private AI infrastructure on your own servers. Data privacy, compliance and full control over your AI models.",
+          "icon": "Server",
+          "image": "https://res.cloudinary.com/dbrisux8i/image/upload/v1761391831/Gemini_Generated_Image_7vidz87vidz87vid_v39svo.png"
         }
       ]
     }

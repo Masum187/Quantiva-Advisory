@@ -828,7 +828,9 @@ export default function QuantivaWebsite() {
                 'ai': 'ai',
                 'integration': 'microservices', // System Integration uses microservices route
                 'security': 'cyber-security',
-                'enablement': 'new-work'
+                'enablement': 'new-work',
+                'fullstack': 'fullstack-development',
+                'private-ai': 'private-ai-hosting'
               };
               const routePath = serviceUrlMap[service.id] || service.id;
               const serviceUrl = localePath(`/services/${routePath}`);
