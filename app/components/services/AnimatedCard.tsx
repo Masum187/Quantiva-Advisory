@@ -16,14 +16,14 @@ const componentMap = {
 const getOffset = (direction: Direction) => {
   switch (direction) {
     case 'left':
-      return { x: -160, y: 0 };
+      return { x: -150, y: 30, scale: 0.85 };
     case 'right':
-      return { x: 160, y: 0 };
+      return { x: 150, y: 30, scale: 0.85 };
     case 'down':
-      return { x: 0, y: -120 };
+      return { x: 0, y: -120, scale: 0.9 };
     case 'up':
     default:
-      return { x: 0, y: 120 };
+      return { x: 0, y: 120, scale: 0.9 };
   }
 };
 
@@ -50,10 +50,26 @@ export function AnimatedCard({
 
   return (
     <MotionComponent
-      initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, amount: viewportAmount }}
-      transition={{ duration: 0.8, ease: 'easeOut', delay }}
+      initial={{ 
+        opacity: 0, 
+        x, 
+        y,
+        scale: getOffset(direction).scale || 0.9,
+      }}
+      whileInView={{ 
+        opacity: 1, 
+        x: 0, 
+        y: 0,
+        scale: 1,
+      }}
+      viewport={{ once: true, amount: viewportAmount, margin: '-50px' }}
+      transition={{ 
+        duration: 0.7, 
+        delay,
+        type: 'spring',
+        stiffness: 100,
+        damping: 15,
+      }}
       className={className}
       {...rest}
     >

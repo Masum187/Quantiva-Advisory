@@ -94,7 +94,10 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
                 damping: 30,
               }}
             >
-              {industries.map((industry, index) => (
+              {industries.map((industry, index) => {
+                // Alternate between left and right animation
+                const fromLeft = index % 2 === 0;
+                return (
                 <motion.div
                   key={industry.title}
                   className="flex-shrink-0"
@@ -102,10 +105,26 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
                     width: 'calc(33.333% - 1rem)',
                     minWidth: '350px',
                   }}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  initial={{ 
+                    opacity: 0, 
+                    x: fromLeft ? -100 : 100,
+                    y: 30,
+                    scale: 0.8,
+                  }}
+                  whileInView={{ 
+                    opacity: 1, 
+                    x: 0,
+                    y: 0,
+                    scale: 1,
+                  }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ 
+                    duration: 0.7, 
+                    delay: index * 0.1,
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 15,
+                  }}
                 >
                   <Link
                     href={localePath(`/industries/${industry.slug}`)}
@@ -326,7 +345,8 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
                     </motion.div>
                   </Link>
                 </motion.div>
-              ))}
+                );
+              })}
             </motion.div>
           </div>
         </div>
