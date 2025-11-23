@@ -1170,33 +1170,231 @@ export default function QuantivaWebsite() {
                 >
                   <Link
                     href={serviceUrl}
-                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-teal-500/30 bg-slate-950/20 backdrop-blur-md shadow-[0_35px_80px_-40px_rgba(45,212,191,0.45)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70"
+                    className="group relative block h-full overflow-visible"
                   >
-                    <div className="relative h-64 w-full overflow-hidden">
-                      <div
-                        className="absolute inset-0 scale-105 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 group-focus-visible:scale-110"
-                        style={{ backgroundImage: `url(${(service as any).image})` }}
+                    {/* 3D Card Container with Holographic Effect */}
+                    <motion.div
+                      className="relative h-full rounded-3xl overflow-hidden"
+                      whileHover={{ 
+                        scale: 1.02,
+                        rotateY: -5,
+                        rotateX: 2,
+                      }}
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        perspective: '1000px',
+                      }}
+                    >
+                      {/* Animated Holographic Border */}
+                      <motion.div
+                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        animate={{
+                          background: [
+                            'linear-gradient(45deg, rgba(45, 212, 191, 0.6), rgba(20, 184, 166, 0.4), rgba(6, 182, 212, 0.6))',
+                            'linear-gradient(135deg, rgba(6, 182, 212, 0.6), rgba(45, 212, 191, 0.4), rgba(14, 165, 233, 0.6))',
+                            'linear-gradient(225deg, rgba(14, 165, 233, 0.6), rgba(6, 182, 212, 0.4), rgba(45, 212, 191, 0.6))',
+                            'linear-gradient(315deg, rgba(45, 212, 191, 0.6), rgba(20, 184, 166, 0.4), rgba(6, 182, 212, 0.6))',
+                          ],
+                        }}
+                        transition={{
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        style={{
+                          padding: '2px',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                        }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/40 transition-opacity duration-500 group-hover:opacity-80 group-focus-visible:opacity-80" />
-                    </div>
+                      
+                      {/* Main Card Content */}
+                      <div className="relative h-full rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900/40 via-slate-800/30 to-slate-900/40 backdrop-blur-xl border border-teal-500/20 group-hover:border-teal-400/40 transition-all duration-500 shadow-[0_35px_80px_-40px_rgba(45,212,191,0.25)] group-hover:shadow-[0_35px_80px_-40px_rgba(45,212,191,0.55)]">
+                        {/* Floating Particles Background */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
+                          {[...Array(15)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="absolute w-1.5 h-1.5 rounded-full bg-teal-400/50"
+                              style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                              }}
+                              animate={{
+                                y: [0, -40, 0],
+                                opacity: [0, 1, 0],
+                                scale: [0.5, 2, 0.5],
+                              }}
+                              transition={{
+                                duration: 3 + Math.random() * 2,
+                                repeat: Infinity,
+                                delay: Math.random() * 2,
+                                ease: "easeInOut",
+                              }}
+                            />
+                          ))}
+                        </div>
 
-                    <div className="relative flex flex-1 flex-col justify-end p-6">
-                      <div className="flex items-center justify-between gap-4">
-                        <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-2xl md:text-3xl">
-                          {service.title}
-                        </h3>
-                        <ChevronRight className="h-6 w-6 text-teal-300 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
+                        {/* Image Container with 3D Effect */}
+                        <div className="relative h-64 w-full overflow-hidden">
+                          <motion.div
+                            className="absolute inset-0"
+                            style={{ backgroundImage: `url(${(service as any).image})` }}
+                            whileHover={{ scale: 1.15 }}
+                            transition={{ duration: 0.7 }}
+                          >
+                            <div className="absolute inset-0 bg-cover bg-center scale-105" />
+                          </motion.div>
+                          
+                          {/* Animated Gradient Overlay */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"
+                            animate={{
+                              background: [
+                                'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
+                                'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)',
+                                'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
+                              ],
+                            }}
+                            transition={{
+                              duration: 4,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          
+                          {/* Iridescent Shine Effect */}
+                          <motion.div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-500"
+                            style={{
+                              background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(45, 212, 191, 0.3) 100%)',
+                              mixBlendMode: 'overlay',
+                            }}
+                            animate={{
+                              x: ['-100%', '200%'],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "linear",
+                              delay: 0.5,
+                            }}
+                          />
+                        </div>
+
+                        {/* Content Section */}
+                        <div className="relative flex flex-1 flex-col justify-end p-6 z-10">
+                          <div className="flex items-center justify-between gap-4 mb-2">
+                            {/* Title with Glow Effect */}
+                            <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-2xl md:text-3xl relative">
+                              <span className="relative z-10">{service.title}</span>
+                              <motion.span
+                                className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"
+                                style={{
+                                  background: 'linear-gradient(90deg, rgba(45, 212, 191, 0.7), rgba(20, 184, 166, 0.5))',
+                                }}
+                              />
+                            </h3>
+                            <motion.div
+                              whileHover={{ x: 5, scale: 1.1 }}
+                              transition={{ type: "spring", stiffness: 400 }}
+                            >
+                              <ChevronRight className="h-6 w-6 text-teal-300 transition-transform duration-300 group-hover:text-teal-200" />
+                            </motion.div>
+                          </div>
+
+                          <motion.p
+                            className="mt-5 max-w-sm text-base text-gray-200"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileHover={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            {service.description}
+                          </motion.p>
+
+                          {/* CTA Badge with Animated Border */}
+                          <motion.span
+                            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300 relative overflow-hidden rounded-full px-4 py-2 border border-teal-400/20"
+                            whileHover={{ scale: 1.05 }}
+                            style={{
+                              background: 'rgba(45, 212, 191, 0.1)',
+                            }}
+                          >
+                            <motion.div
+                              className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                              animate={{
+                                background: [
+                                  'linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.4), transparent)',
+                                  'linear-gradient(180deg, transparent, rgba(20, 184, 166, 0.4), transparent)',
+                                  'linear-gradient(270deg, transparent, rgba(6, 182, 212, 0.4), transparent)',
+                                  'linear-gradient(360deg, transparent, rgba(45, 212, 191, 0.4), transparent)',
+                                ],
+                              }}
+                              transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "linear",
+                              }}
+                            />
+                            <span className="relative z-10">{lang === 'de' ? 'Mehr erfahren' : 'Learn more'}</span>
+                            <ChevronRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
+                          </motion.span>
+                        </div>
+
+                        {/* Animated Corner Accents */}
+                        <div className="absolute top-0 left-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <motion.div
+                            className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-400 to-transparent"
+                            animate={{
+                              scaleX: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          <motion.div
+                            className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-teal-400 to-transparent"
+                            animate={{
+                              scaleY: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.5,
+                            }}
+                          />
+                        </div>
+                        <div className="absolute bottom-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <motion.div
+                            className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-transparent via-cyan-400 to-transparent"
+                            animate={{
+                              scaleX: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          <motion.div
+                            className="absolute bottom-0 right-0 w-px h-full bg-gradient-to-t from-transparent via-cyan-400 to-transparent"
+                            animate={{
+                              scaleY: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.5,
+                            }}
+                          />
+                        </div>
                       </div>
-
-                      <p className="mt-5 max-w-sm text-base text-gray-200 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-                        {service.description}
-                      </p>
-
-                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300">
-                        {lang === 'de' ? 'Mehr erfahren' : 'Learn more'}
-                        <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
-                      </span>
-                    </div>
+                    </motion.div>
                   </Link>
                 </AnimatedCard>
               );

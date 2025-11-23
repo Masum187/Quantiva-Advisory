@@ -109,26 +109,221 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
                 >
                   <Link
                     href={localePath(`/industries/${industry.slug}`)}
-                    className="group block h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/90 to-slate-900/60 backdrop-blur transition-transform duration-500 hover:-translate-y-1"
+                    className="group relative block h-full overflow-visible"
                   >
-                    <div className="relative h-64 overflow-hidden">
-                      <Image
-                        src={industry.image}
-                        alt={industry.title}
-                        width={500}
-                        height={320}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    {/* 3D Card Container with Holographic Effect */}
+                    <motion.div
+                      className="relative h-full rounded-3xl overflow-hidden"
+                      whileHover={{ 
+                        scale: 1.02,
+                        rotateY: 5,
+                        rotateX: -2,
+                      }}
+                      style={{
+                        transformStyle: 'preserve-3d',
+                        perspective: '1000px',
+                      }}
+                    >
+                      {/* Animated Holographic Border */}
+                      <motion.div
+                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        animate={{
+                          background: [
+                            'linear-gradient(45deg, rgba(168, 85, 247, 0.6), rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.6))',
+                            'linear-gradient(135deg, rgba(99, 102, 241, 0.6), rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.6))',
+                            'linear-gradient(225deg, rgba(236, 72, 153, 0.6), rgba(99, 102, 241, 0.4), rgba(168, 85, 247, 0.6))',
+                            'linear-gradient(315deg, rgba(168, 85, 247, 0.6), rgba(139, 92, 246, 0.4), rgba(99, 102, 241, 0.6))',
+                          ],
+                        }}
+                        transition={{
+                          duration: 8,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        style={{
+                          padding: '2px',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMaskComposite: 'xor',
+                          maskComposite: 'exclude',
+                        }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                    </div>
-                    <div className="p-8">
-                      <h3 className="text-xl font-semibold text-white">{industry.title}</h3>
-                      <p className="mt-3 text-base text-gray-400">{industry.description}</p>
-                      <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2 text-sm uppercase tracking-[0.2em] text-gray-400">
-                        <span>{industry.projects}+ {lang === 'de' ? 'Projekte' : 'projects'}</span>
+                      
+                      {/* Main Card Content */}
+                      <div className="relative h-full rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900/40 via-slate-800/30 to-slate-900/40 backdrop-blur-xl border border-white/10 group-hover:border-white/20 transition-all duration-500">
+                        {/* Floating Particles Background */}
+                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                          {[...Array(12)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="absolute w-1 h-1 rounded-full bg-white/40"
+                              style={{
+                                left: `${Math.random() * 100}%`,
+                                top: `${Math.random() * 100}%`,
+                              }}
+                              animate={{
+                                y: [0, -30, 0],
+                                opacity: [0, 0.8, 0],
+                                scale: [0.5, 1.5, 0.5],
+                              }}
+                              transition={{
+                                duration: 3 + Math.random() * 2,
+                                repeat: Infinity,
+                                delay: Math.random() * 2,
+                                ease: "easeInOut",
+                              }}
+                            />
+                          ))}
+                        </div>
+
+                        {/* Image Container with 3D Effect */}
+                        <div className="relative h-64 overflow-hidden">
+                          <motion.div
+                            className="absolute inset-0"
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.7 }}
+                          >
+                            <Image
+                              src={industry.image}
+                              alt={industry.title}
+                              width={500}
+                              height={320}
+                              className="h-full w-full object-cover"
+                            />
+                          </motion.div>
+                          
+                          {/* Animated Gradient Overlay */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"
+                            animate={{
+                              background: [
+                                'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                                'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%)',
+                                'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                              ],
+                            }}
+                            transition={{
+                              duration: 4,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          
+                          {/* Iridescent Shine Effect */}
+                          <motion.div
+                            className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+                            style={{
+                              background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(168, 85, 247, 0.2) 100%)',
+                              mixBlendMode: 'overlay',
+                            }}
+                            animate={{
+                              x: ['-100%', '200%'],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "linear",
+                              delay: 0.5,
+                            }}
+                          />
+                        </div>
+
+                        {/* Content Section */}
+                        <div className="relative p-8 z-10">
+                          {/* Title with Glow Effect */}
+                          <h3 className="text-xl font-semibold text-white mb-3 relative">
+                            <span className="relative z-10">{industry.title}</span>
+                            <motion.span
+                              className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"
+                              style={{
+                                background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.6), rgba(139, 92, 246, 0.4))',
+                              }}
+                            />
+                          </h3>
+                          
+                          <p className="mt-3 text-base text-gray-300 leading-relaxed">{industry.description}</p>
+                          
+                          {/* Projects Badge with Animated Border */}
+                          <motion.div
+                            className="mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm uppercase tracking-[0.2em] text-gray-300 relative overflow-hidden"
+                            whileHover={{ scale: 1.05 }}
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              borderColor: 'rgba(255, 255, 255, 0.1)',
+                            }}
+                          >
+                            <motion.div
+                              className="absolute inset-0 opacity-0 group-hover:opacity-100"
+                              animate={{
+                                background: [
+                                  'linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.3), transparent)',
+                                  'linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.3), transparent)',
+                                  'linear-gradient(270deg, transparent, rgba(99, 102, 241, 0.3), transparent)',
+                                  'linear-gradient(360deg, transparent, rgba(168, 85, 247, 0.3), transparent)',
+                                ],
+                              }}
+                              transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "linear",
+                              }}
+                            />
+                            <span className="relative z-10">{industry.projects}+ {lang === 'de' ? 'Projekte' : 'projects'}</span>
+                          </motion.div>
+                        </div>
+
+                        {/* Animated Corner Accents */}
+                        <div className="absolute top-0 left-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <motion.div
+                            className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent"
+                            animate={{
+                              scaleX: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          <motion.div
+                            className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-purple-400 to-transparent"
+                            animate={{
+                              scaleY: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.5,
+                            }}
+                          />
+                        </div>
+                        <div className="absolute bottom-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                          <motion.div
+                            className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-transparent via-teal-400 to-transparent"
+                            animate={{
+                              scaleX: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                          />
+                          <motion.div
+                            className="absolute bottom-0 right-0 w-px h-full bg-gradient-to-t from-transparent via-teal-400 to-transparent"
+                            animate={{
+                              scaleY: [0, 1, 0],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.5,
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-teal-400/60 to-transparent" />
+                    </motion.div>
                   </Link>
                 </motion.div>
               ))}
