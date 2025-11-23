@@ -28,6 +28,11 @@ import {
 import ClientVideo from "./ClientVideo";
 
 // Dynamic imports for better code splitting
+const AIImageSlider = dynamic(() => import("./AIImageSlider"), {
+  ssr: false,
+  loading: () => <div className="h-[100px] bg-gray-800 rounded-lg animate-pulse" />
+});
+
 const ReferencesSlider = dynamic(() => import('./ReferencesSlider'), {
   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />,
   ssr: false
@@ -1087,6 +1092,11 @@ export default function QuantivaWebsite() {
                   </>
                 )}
               </p>
+
+              {/* AI Image Slider */}
+              <div className="mt-6">
+                <AIImageSlider lang={lang} />
+              </div>
 
               {/* Stats - Minimalist */}
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left lg:text-left">
