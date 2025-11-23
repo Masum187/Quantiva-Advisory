@@ -425,7 +425,7 @@ function ContactFormSection() {
     <section id="contact" className="relative z-10 py-20 px-6">
       <div className="mx-auto max-w-6xl">
         <SlideIn direction="up" delay={0.1}>
-          <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-8 shadow-2xl shadow-teal-500/20">
+          <div className="rounded-2xl border border-teal-500/30 bg-slate-900/20 backdrop-blur-md p-8 shadow-2xl shadow-teal-500/20">
             <h2 className="text-3xl font-bold text-white">{contact.title}</h2>
             <p className="mt-2 text-gray-400">
               {contact.subtitle}
@@ -645,25 +645,99 @@ export default function QuantivaWebsite() {
                 }}
               />
               
-              {/* Pause Symbol - Dark Gray */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex gap-3">
-                  <div 
-                    className="w-4 h-16 rounded-sm"
+              {/* AI Neural Network Connections - Inside Circle */}
+              {[...Array(8)].map((_, i) => {
+                const angle = (i * 360) / 8;
+                const rad = (angle * Math.PI) / 180;
+                const radius = 120;
+                const x = Math.cos(rad) * radius;
+                const y = Math.sin(rad) * radius;
+                return (
+                  <motion.div
+                    key={`node-${i}`}
+                    className="absolute rounded-full"
                     style={{
-                      background: 'rgba(30, 30, 30, 0.9)',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                      width: '12px',
+                      height: '12px',
+                      margin: '-6px',
+                      background: 'radial-gradient(circle, rgba(168, 85, 247, 0.8), rgba(139, 92, 246, 0.4))',
+                      boxShadow: '0 0 20px rgba(168, 85, 247, 0.6)',
+                    }}
+                    animate={{
+                      scale: [1, 1.5, 1],
+                      opacity: [0.6, 1, 0.6],
+                    }}
+                    transition={{
+                      duration: 2 + i * 0.3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.2,
                     }}
                   />
-                  <div 
-                    className="w-4 h-16 rounded-sm"
-                    style={{
-                      background: 'rgba(30, 30, 30, 0.9)',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
-                    }}
-                  />
-                </div>
-              </div>
+                );
+              })}
+              
+              {/* Connecting Lines - Neural Network Style */}
+              <svg className="absolute inset-0 w-full h-full" style={{ overflow: 'visible' }}>
+                {[...Array(6)].map((_, i) => {
+                  const angle1 = (i * 360) / 8;
+                  const angle2 = ((i + 2) * 360) / 8;
+                  const rad1 = (angle1 * Math.PI) / 180;
+                  const rad2 = (angle2 * Math.PI) / 180;
+                  const radius = 120;
+                  const x1 = 200 + Math.cos(rad1) * radius;
+                  const y1 = 200 + Math.sin(rad1) * radius;
+                  const x2 = 200 + Math.cos(rad2) * radius;
+                  const y2 = 200 + Math.sin(rad2) * radius;
+                  return (
+                    <motion.line
+                      key={`line-${i}`}
+                      x1={x1}
+                      y1={y1}
+                      x2={x2}
+                      y2={y2}
+                      stroke="rgba(168, 85, 247, 0.3)"
+                      strokeWidth="1"
+                      strokeDasharray="4 4"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{
+                        pathLength: [0, 1, 0],
+                        opacity: [0, 0.5, 0],
+                      }}
+                      transition={{
+                        duration: 3 + i * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.4,
+                      }}
+                    />
+                  );
+                })}
+              </svg>
+              
+              {/* Central AI Core - Pulsing */}
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <div
+                  className="w-16 h-16 rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.8), rgba(139, 92, 246, 0.4))',
+                    boxShadow: '0 0 40px rgba(168, 85, 247, 0.8)',
+                  }}
+                />
+              </motion.div>
               
               {/* Reflective Highlights */}
               <motion.div
@@ -686,7 +760,106 @@ export default function QuantivaWebsite() {
           </motion.div>
         </div>
         
-        {/* Scattered Dots/Orbs */}
+        {/* AI Data Streams - Flowing Particles */}
+        {[...Array(15)].map((_, i) => {
+          const startX = Math.random() * 100;
+          const startY = Math.random() * 100;
+          const endX = startX + (Math.random() - 0.5) * 30;
+          const endY = startY + (Math.random() - 0.5) * 30;
+          return (
+            <motion.div
+              key={`stream-${i}`}
+              className="absolute rounded-full"
+              style={{
+                left: `${startX}%`,
+                top: `${startY}%`,
+                width: '4px',
+                height: '4px',
+                background: `rgba(${139 + i * 5}, ${92 + i * 3}, ${246 - i * 2}, 0.6)`,
+                boxShadow: '0 0 8px rgba(139, 92, 246, 0.8)',
+              }}
+              animate={{
+                x: [0, (endX - startX) * 10, 0],
+                y: [0, (endY - startY) * 10, 0],
+                opacity: [0, 1, 0],
+                scale: [0.5, 1.5, 0.5],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.3,
+              }}
+            />
+          );
+        })}
+        
+        {/* Neural Network Nodes - Scattered */}
+        {[...Array(12)].map((_, i) => {
+          const x = 10 + (i % 4) * 30;
+          const y = 15 + Math.floor(i / 4) * 30;
+          return (
+            <motion.div
+              key={`node-${i}`}
+              className="absolute rounded-full"
+              style={{
+                left: `${x}%`,
+                top: `${y}%`,
+                width: '8px',
+                height: '8px',
+                background: `rgba(${168 - i * 2}, ${85 + i * 3}, ${247 - i * 1}, 0.7)`,
+                boxShadow: `0 0 15px rgba(${168 - i * 2}, ${85 + i * 3}, ${247 - i * 1}, 0.8)`,
+              }}
+              animate={{
+                scale: [1, 1.8, 1],
+                opacity: [0.4, 0.9, 0.4],
+              }}
+              transition={{
+                duration: 2.5 + i * 0.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.15,
+              }}
+            />
+          );
+        })}
+        
+        {/* Data Flow Lines - Connecting Nodes */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+          {[...Array(8)].map((_, i) => {
+            const node1 = i;
+            const node2 = (i + 3) % 12;
+            const x1 = 10 + (node1 % 4) * 30;
+            const y1 = 15 + Math.floor(node1 / 4) * 30;
+            const x2 = 10 + (node2 % 4) * 30;
+            const y2 = 15 + Math.floor(node2 / 4) * 30;
+            return (
+              <motion.line
+                key={`flow-${i}`}
+                x1={`${x1}%`}
+                y1={`${y1}%`}
+                x2={`${x2}%`}
+                y2={`${y2}%`}
+                stroke="rgba(168, 85, 247, 0.2)"
+                strokeWidth="1"
+                strokeDasharray="3 3"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{
+                  pathLength: [0, 1, 0],
+                  opacity: [0, 0.4, 0],
+                }}
+                transition={{
+                  duration: 5 + i * 0.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.6,
+                }}
+              />
+            );
+          })}
+        </svg>
+        
+        {/* Scattered Dots/Orbs - Enhanced */}
         {[
           { x: '15%', y: '20%', color: 'rgba(139, 92, 246, 0.6)', size: 8 },
           { x: '85%', y: '25%', color: 'rgba(255, 255, 255, 0.4)', size: 6 },
@@ -695,7 +868,7 @@ export default function QuantivaWebsite() {
           { x: '50%', y: '60%', color: 'rgba(255, 255, 255, 0.3)', size: 5 },
         ].map((dot, i) => (
           <motion.div
-            key={i}
+            key={`dot-${i}`}
             className="absolute rounded-full"
             style={{
               left: dot.x,
@@ -987,13 +1160,27 @@ export default function QuantivaWebsite() {
                       }}
                     />
                     
-                    {/* Pause Symbol */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex gap-2">
-                        <div className="w-3 h-12 bg-black/60 rounded-sm"></div>
-                        <div className="w-3 h-12 bg-black/60 rounded-sm"></div>
-                      </div>
-                    </div>
+                    {/* AI Neural Network Core - Pulsing */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.4, 0.8, 0.4],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <div
+                        className="w-20 h-20 rounded-full"
+                        style={{
+                          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.9), rgba(139, 92, 246, 0.5))',
+                          boxShadow: '0 0 50px rgba(168, 85, 247, 0.9)',
+                        }}
+                      />
+                    </motion.div>
                     
                     {/* Reflective Highlights */}
                     <motion.div
@@ -1117,7 +1304,7 @@ export default function QuantivaWebsite() {
                 >
                   <Link
                     href={serviceUrl}
-                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-teal-500/30 bg-slate-950/70 shadow-[0_35px_80px_-40px_rgba(45,212,191,0.45)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70"
+                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-teal-500/30 bg-slate-950/20 backdrop-blur-md shadow-[0_35px_80px_-40px_rgba(45,212,191,0.45)] transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70"
                   >
                     <div className="relative h-64 w-full overflow-hidden">
                       <div
@@ -1160,7 +1347,7 @@ export default function QuantivaWebsite() {
       </Suspense>
 
       {/* CTA Band */}
-      <section className="bg-gradient-to-r from-teal-600 via-teal-500 to-teal-600 py-16 text-white shadow-2xl shadow-teal-500/30">
+      <section className="relative z-10 bg-teal-600/20 backdrop-blur-md py-16 text-white border-y border-teal-500/20">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <SlideIn direction="up" delay={0.1}>
             <h2 className="text-3xl font-bold drop-shadow-lg">
@@ -1193,7 +1380,7 @@ export default function QuantivaWebsite() {
       <MeetingCalendlySection />
 
       {/* Footer */}
-      <footer className="relative z-10 bg-slate-900/80 backdrop-blur-sm text-white">
+      <footer className="relative z-10 bg-slate-900/30 backdrop-blur-md text-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3">
           <div>
             <h4 className="mb-2 font-semibold">{footer.quickLinks.title}</h4>
@@ -1224,7 +1411,7 @@ export default function QuantivaWebsite() {
             </ul>
           </div>
         </div>
-        <div className="bg-black/40 py-4">
+        <div className="bg-black/20 backdrop-blur-sm py-4">
           <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/80">
             <div>{footer.copyright}</div>
             <div className="flex gap-6">
