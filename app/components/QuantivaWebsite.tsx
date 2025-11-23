@@ -12,8 +12,133 @@ import {
 } from "lucide-react";
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
-import { AnimatedCard } from './services/AnimatedCard';
 import IndustriesSection from './sections/IndustriesSection';
+
+// ServiceCard Component
+interface ServiceCardProps {
+  service: any;
+  lang: 'de' | 'en';
+  localePath: (path: string) => string;
+  isLarge: boolean;
+}
+
+function ServiceCard({ service, lang, localePath, isLarge }: ServiceCardProps) {
+  const serviceUrlMap: Record<string, string> = {
+    'sap': 'sap',
+    'cloud': 'cloud',
+    'ai': 'ai',
+    'integration': 'microservices',
+    'security': 'cyber-security',
+    'enablement': 'new-work',
+    'fullstack': 'fullstack-development',
+    'private-ai': 'private-ai-hosting'
+  };
+  const routePath = serviceUrlMap[service.id] || service.id;
+  const serviceUrl = localePath(`/services/${routePath}`);
+
+  return (
+    <Link
+      href={serviceUrl}
+      className="group relative block h-full overflow-hidden rounded-3xl bg-black/40 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-500"
+    >
+      <div className="relative h-full flex flex-col md:flex-row">
+        {/* Left Side - Content */}
+        <div className={`flex-1 p-8 md:p-12 flex flex-col justify-between ${isLarge ? 'md:w-1/2' : ''}`}>
+          {/* Teal Badge */}
+          <div className="mb-6">
+            <span className="inline-flex items-center rounded-full bg-teal-500/20 border border-teal-400/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-teal-200">
+              {lang === 'de' ? 'SERVICE' : 'SERVICE'}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h3 className={`font-bold text-white mb-4 ${isLarge ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'}`}>
+            {service.title}
+          </h3>
+
+          {/* Description */}
+          <p className={`text-gray-300 leading-relaxed mb-8 ${isLarge ? 'text-lg md:text-xl' : 'text-base'}`}>
+            {service.description}
+          </p>
+
+          {/* White Circular Button */}
+          <motion.div
+            className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowRight className="w-6 h-6 text-black" />
+          </motion.div>
+        </div>
+
+        {/* Right Side - Iridescent Abstract Shape */}
+        <div className={`relative ${isLarge ? 'md:w-1/2 h-64 md:h-auto' : 'h-48 md:h-full'} overflow-hidden`}>
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <Image
+              src={(service as any).image}
+              alt={service.title}
+              width={600}
+              height={400}
+              className="h-full w-full object-cover opacity-30"
+            />
+          </div>
+
+          {/* Iridescent Abstract Shape - Teal/Cyan */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{
+              background: [
+                'radial-gradient(circle at 70% 50%, rgba(45, 212, 191, 0.4) 0%, rgba(20, 184, 166, 0.3) 30%, transparent 60%)',
+                'radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.4) 0%, rgba(45, 212, 191, 0.3) 30%, transparent 60%)',
+                'radial-gradient(circle at 50% 70%, rgba(14, 165, 233, 0.4) 0%, rgba(6, 182, 212, 0.3) 30%, transparent 60%)',
+                'radial-gradient(circle at 70% 50%, rgba(45, 212, 191, 0.4) 0%, rgba(20, 184, 166, 0.3) 30%, transparent 60%)',
+              ],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          
+          {/* Additional Glowing Blobs */}
+          <motion.div
+            className="absolute top-1/4 right-1/4 w-32 h-32 rounded-full blur-3xl"
+            style={{
+              background: 'rgba(45, 212, 191, 0.3)',
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 left-1/4 w-24 h-24 rounded-full blur-2xl"
+            style={{
+              background: 'rgba(6, 182, 212, 0.3)',
+            }}
+            animate={{
+              scale: [1, 1.4, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 import {
   useTeam,
@@ -1143,262 +1268,74 @@ export default function QuantivaWebsite() {
             </p>
           </SlideIn>
 
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {services.items.map((service, index) => {
-              // Map service IDs to actual route paths
-              const serviceUrlMap: Record<string, string> = {
-                'sap': 'sap',
-                'cloud': 'cloud',
-                'ai': 'ai',
-                'integration': 'microservices', // System Integration uses microservices route
-                'security': 'cyber-security',
-                'enablement': 'new-work',
-                'fullstack': 'fullstack-development',
-                'private-ai': 'private-ai-hosting'
-              };
-              const routePath = serviceUrlMap[service.id] || service.id;
-              const serviceUrl = localePath(`/services/${routePath}`);
-              const direction = index % 2 === 0 ? 'left' : 'right';
+          {/* Cards Grid - 1 Large Top, 3 Small Bottom */}
+          <div className="mt-12 grid grid-cols-1 gap-6">
+            {/* Top Row - Large Card */}
+            {services.items.length > 0 && (
+              <motion.div
+                initial={{ 
+                  opacity: 0, 
+                  x: -100,
+                  scale: 0.9,
+                }}
+                whileInView={{ 
+                  opacity: 1, 
+                  x: 0,
+                  scale: 1,
+                }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ 
+                  duration: 0.7,
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                }}
+              >
+                <ServiceCard 
+                  service={services.items[0]} 
+                  lang={lang} 
+                  localePath={localePath}
+                  isLarge={true}
+                />
+              </motion.div>
+            )}
 
-              return (
-                <AnimatedCard
-                  key={service.id}
-                  direction={direction}
-                  delay={index * 0.08}
-                  as="article"
-                  className="h-full"
-                >
-                  <Link
-                    href={serviceUrl}
-                    className="group relative block h-full overflow-visible"
+            {/* Bottom Row - 3 Smaller Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {services.items.slice(1, 4).map((service, index) => {
+                const fromLeft = index % 2 === 0;
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ 
+                      opacity: 0, 
+                      x: fromLeft ? -100 : 100,
+                      scale: 0.85,
+                    }}
+                    whileInView={{ 
+                      opacity: 1, 
+                      x: 0,
+                      scale: 1,
+                    }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ 
+                      duration: 0.7, 
+                      delay: index * 0.15,
+                      type: 'spring',
+                      stiffness: 100,
+                      damping: 15,
+                    }}
                   >
-                    {/* 3D Card Container with Holographic Effect */}
-                    <motion.div
-                      className="relative h-full rounded-3xl overflow-hidden"
-                      whileHover={{ 
-                        scale: 1.02,
-                        rotateY: -5,
-                        rotateX: 2,
-                      }}
-                      style={{
-                        transformStyle: 'preserve-3d',
-                        perspective: '1000px',
-                      }}
-                    >
-                      {/* Animated Holographic Border */}
-                      <motion.div
-                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        animate={{
-                          background: [
-                            'linear-gradient(45deg, rgba(45, 212, 191, 0.6), rgba(20, 184, 166, 0.4), rgba(6, 182, 212, 0.6))',
-                            'linear-gradient(135deg, rgba(6, 182, 212, 0.6), rgba(45, 212, 191, 0.4), rgba(14, 165, 233, 0.6))',
-                            'linear-gradient(225deg, rgba(14, 165, 233, 0.6), rgba(6, 182, 212, 0.4), rgba(45, 212, 191, 0.6))',
-                            'linear-gradient(315deg, rgba(45, 212, 191, 0.6), rgba(20, 184, 166, 0.4), rgba(6, 182, 212, 0.6))',
-                          ],
-                        }}
-                        transition={{
-                          duration: 8,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        style={{
-                          padding: '2px',
-                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                          WebkitMaskComposite: 'xor',
-                          maskComposite: 'exclude',
-                        }}
-                      />
-                      
-                      {/* Main Card Content */}
-                      <div className="relative h-full rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900/40 via-slate-800/30 to-slate-900/40 backdrop-blur-xl border border-teal-500/20 group-hover:border-teal-400/40 transition-all duration-500 shadow-[0_35px_80px_-40px_rgba(45,212,191,0.25)] group-hover:shadow-[0_35px_80px_-40px_rgba(45,212,191,0.55)]">
-                        {/* Floating Particles Background */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10">
-                          {[...Array(15)].map((_, i) => (
-                            <motion.div
-                              key={i}
-                              className="absolute w-1.5 h-1.5 rounded-full bg-teal-400/50"
-                              style={{
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                              }}
-                              animate={{
-                                y: [0, -40, 0],
-                                opacity: [0, 1, 0],
-                                scale: [0.5, 2, 0.5],
-                              }}
-                              transition={{
-                                duration: 3 + Math.random() * 2,
-                                repeat: Infinity,
-                                delay: Math.random() * 2,
-                                ease: "easeInOut",
-                              }}
-                            />
-                          ))}
-                        </div>
-
-                        {/* Image Container with 3D Effect */}
-                        <div className="relative h-64 w-full overflow-hidden">
-                          <motion.div
-                            className="absolute inset-0"
-                            style={{ backgroundImage: `url(${(service as any).image})` }}
-                            whileHover={{ scale: 1.15 }}
-                            transition={{ duration: 0.7 }}
-                          >
-                            <div className="absolute inset-0 bg-cover bg-center scale-105" />
-                          </motion.div>
-                          
-                          {/* Animated Gradient Overlay */}
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"
-                            animate={{
-                              background: [
-                                'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
-                                'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, transparent 100%)',
-                                'linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%)',
-                              ],
-                            }}
-                            transition={{
-                              duration: 4,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          />
-                          
-                          {/* Iridescent Shine Effect */}
-                          <motion.div
-                            className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-500"
-                            style={{
-                              background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(45, 212, 191, 0.3) 100%)',
-                              mixBlendMode: 'overlay',
-                            }}
-                            animate={{
-                              x: ['-100%', '200%'],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "linear",
-                              delay: 0.5,
-                            }}
-                          />
-                        </div>
-
-                        {/* Content Section */}
-                        <div className="relative flex flex-1 flex-col justify-end p-6 z-10">
-                          <div className="flex items-center justify-between gap-4 mb-2">
-                            {/* Title with Glow Effect */}
-                            <h3 className="text-2xl font-semibold tracking-tight text-white drop-shadow-2xl md:text-3xl relative">
-                              <span className="relative z-10">{service.title}</span>
-                              <motion.span
-                                className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500"
-                                style={{
-                                  background: 'linear-gradient(90deg, rgba(45, 212, 191, 0.7), rgba(20, 184, 166, 0.5))',
-                                }}
-                              />
-                            </h3>
-                            <motion.div
-                              whileHover={{ x: 5, scale: 1.1 }}
-                              transition={{ type: "spring", stiffness: 400 }}
-                            >
-                              <ChevronRight className="h-6 w-6 text-teal-300 transition-transform duration-300 group-hover:text-teal-200" />
-                            </motion.div>
-                          </div>
-
-                          <motion.p
-                            className="mt-5 max-w-sm text-base text-gray-200"
-                            initial={{ opacity: 0, y: 10 }}
-                            whileHover={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4 }}
-                          >
-                            {service.description}
-                          </motion.p>
-
-                          {/* CTA Badge with Animated Border */}
-                          <motion.span
-                            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-teal-300 relative overflow-hidden rounded-full px-4 py-2 border border-teal-400/20"
-                            whileHover={{ scale: 1.05 }}
-                            style={{
-                              background: 'rgba(45, 212, 191, 0.1)',
-                            }}
-                          >
-                            <motion.div
-                              className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                              animate={{
-                                background: [
-                                  'linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.4), transparent)',
-                                  'linear-gradient(180deg, transparent, rgba(20, 184, 166, 0.4), transparent)',
-                                  'linear-gradient(270deg, transparent, rgba(6, 182, 212, 0.4), transparent)',
-                                  'linear-gradient(360deg, transparent, rgba(45, 212, 191, 0.4), transparent)',
-                                ],
-                              }}
-                              transition={{
-                                duration: 3,
-                                repeat: Infinity,
-                                ease: "linear",
-                              }}
-                            />
-                            <span className="relative z-10">{lang === 'de' ? 'Mehr erfahren' : 'Learn more'}</span>
-                            <ChevronRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-                          </motion.span>
-                        </div>
-
-                        {/* Animated Corner Accents */}
-                        <div className="absolute top-0 left-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <motion.div
-                            className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-400 to-transparent"
-                            animate={{
-                              scaleX: [0, 1, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          />
-                          <motion.div
-                            className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-teal-400 to-transparent"
-                            animate={{
-                              scaleY: [0, 1, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: 0.5,
-                            }}
-                          />
-                        </div>
-                        <div className="absolute bottom-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <motion.div
-                            className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-l from-transparent via-cyan-400 to-transparent"
-                            animate={{
-                              scaleX: [0, 1, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                            }}
-                          />
-                          <motion.div
-                            className="absolute bottom-0 right-0 w-px h-full bg-gradient-to-t from-transparent via-cyan-400 to-transparent"
-                            animate={{
-                              scaleY: [0, 1, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: 0.5,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  </Link>
-                </AnimatedCard>
-              );
-            })}
+                    <ServiceCard 
+                      service={service} 
+                      lang={lang} 
+                      localePath={localePath}
+                      isLarge={false}
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
