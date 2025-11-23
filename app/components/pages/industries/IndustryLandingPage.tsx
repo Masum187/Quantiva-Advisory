@@ -1,15 +1,166 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { AnimatedCard } from '../../services/AnimatedCard';
-import { ArrowRight, BarChart3, Briefcase, CheckCircle, Layers, Phone } from 'lucide-react';
+import { ArrowRight, BarChart3, Briefcase, CheckCircle, Layers, Phone, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { IndustryDetail } from '../../../lib/data/industryDetails';
 
 interface IndustryLandingPageProps {
   industry: IndustryDetail;
   lang: 'de' | 'en';
+}
+
+// Capabilities Slider Component
+function CapabilitiesSlider({ capabilities }: { capabilities: IndustryDetail['capabilities'] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = Math.max(0, capabilities.length - 2); // Show 2 cards at a time
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : prev));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : 0));
+  };
+
+  return (
+    <div className="relative">
+      <button
+        onClick={prevSlide}
+        disabled={currentIndex === 0}
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all duration-300 hover:bg-white/20 hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 hidden md:flex"
+        aria-label="Previous"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        disabled={currentIndex >= maxIndex}
+        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all duration-300 hover:bg-white/20 hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 hidden md:flex"
+        aria-label="Next"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      <div className="overflow-hidden">
+        <motion.div
+          className="flex gap-6"
+          animate={{
+            x: `-${currentIndex * 50}%`,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+          }}
+        >
+          {capabilities.map((capability, index) => (
+            <motion.div
+              key={capability.title}
+              className="flex-shrink-0"
+              style={{
+                width: 'calc(50% - 0.75rem)',
+                minWidth: '400px',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <div className="p-8 rounded-3xl border border-white/10 bg-slate-900/20 backdrop-blur-md h-full">
+                <div className="mb-4 inline-flex rounded-full border border-teal-400/30 bg-teal-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-teal-200">
+                  <Briefcase className="h-4 w-4 mr-2" />
+                  {capability.title}
+                </div>
+                <p className="text-gray-300 leading-relaxed text-base">{capability.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+// Case Studies Slider Component
+function CaseStudiesSlider({ caseStudies }: { caseStudies: IndustryDetail['caseStudies'] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = Math.max(0, caseStudies.length - 2); // Show 2 cards at a time
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : prev));
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : 0));
+  };
+
+  return (
+    <div className="relative">
+      <button
+        onClick={prevSlide}
+        disabled={currentIndex === 0}
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all duration-300 hover:bg-white/20 hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 hidden md:flex"
+        aria-label="Previous"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        disabled={currentIndex >= maxIndex}
+        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white transition-all duration-300 hover:bg-white/20 hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 hidden md:flex"
+        aria-label="Next"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
+
+      <div className="overflow-hidden">
+        <motion.div
+          className="flex gap-6"
+          animate={{
+            x: `-${currentIndex * 50}%`,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+          }}
+        >
+          {caseStudies.map((caseStudy, index) => (
+            <motion.div
+              key={caseStudy.client}
+              className="flex-shrink-0"
+              style={{
+                width: 'calc(50% - 0.75rem)',
+                minWidth: '450px',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <div className="p-8 rounded-3xl border border-white/10 bg-purple-900/20 backdrop-blur-md h-full">
+                <div className="mb-6 flex items-center justify-between">
+                  <div>
+                    <p className="text-sm uppercase tracking-widest text-purple-200/80">{caseStudy.client}</p>
+                    <h3 className="mt-2 text-xl font-semibold text-white">{caseStudy.headline}</h3>
+                  </div>
+                  <span className="rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-medium text-white/80">
+                    {caseStudy.impact}
+                  </span>
+                </div>
+                <p className="text-gray-200 leading-relaxed text-base">{caseStudy.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
 }
 
 export default function IndustryLandingPage({ industry, lang }: IndustryLandingPageProps) {
@@ -132,7 +283,7 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
           </AnimatedCard>
         </div>
 
-        {/* Capabilities */}
+        {/* Capabilities - Slider Style */}
         <section>
           <AnimatedCard direction="up">
             <div className="mb-10 text-center">
@@ -141,51 +292,15 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                 {industry.overview.introduction}
               </p>
             </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              {industry.capabilities.map((capability, index) => (
-                <AnimatedCard
-                  key={capability.title}
-                  as="article"
-                  direction={index % 2 === 0 ? 'left' : 'right'}
-                  delay={index * 0.1}
-                  className="p-6 rounded-3xl border border-white/10 bg-slate-900/20 backdrop-blur-md"
-                >
-                  <div className="mb-4 inline-flex rounded-full border border-teal-400/30 bg-teal-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-teal-200">
-                    <Briefcase className="h-4 w-4 mr-2" />
-                    {capability.title}
-                  </div>
-                  <p className="text-gray-300 leading-relaxed">{capability.description}</p>
-                </AnimatedCard>
-              ))}
-            </div>
+            <CapabilitiesSlider capabilities={industry.capabilities} />
           </AnimatedCard>
         </section>
 
-        {/* Case Studies */}
+        {/* Case Studies - Slider Style */}
         <section>
           <AnimatedCard direction="up">
             <h2 className="text-3xl font-bold mb-12 text-center">{t.casesTitle}</h2>
-            <div className="grid gap-10 lg:grid-cols-2">
-              {industry.caseStudies.map((caseStudy) => (
-                <AnimatedCard
-                  key={caseStudy.client}
-                  as="article"
-                  direction="up"
-                  className="p-8 rounded-3xl border border-white/10 bg-purple-900/20 backdrop-blur-md"
-                >
-                  <div className="mb-6 flex items-center justify-between">
-                    <div>
-                      <p className="text-sm uppercase tracking-widest text-purple-200/80">{caseStudy.client}</p>
-                      <h3 className="mt-2 text-xl font-semibold text-white">{caseStudy.headline}</h3>
-                    </div>
-                    <span className="rounded-full border border-white/20 bg-white/10 px-4 py-1 text-xs font-medium text-white/80">
-                      {caseStudy.impact}
-                    </span>
-                  </div>
-                  <p className="text-gray-200 leading-relaxed">{caseStudy.description}</p>
-                </AnimatedCard>
-              ))}
-            </div>
+            <CaseStudiesSlider caseStudies={industry.caseStudies} />
           </AnimatedCard>
         </section>
 
