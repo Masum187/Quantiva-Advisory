@@ -314,7 +314,7 @@ function TrustSignals() {
 function AboutTeaser() {
   const { lang } = useLanguage();
   return (
-    <section id="about" className="bg-black py-20">
+    <section id="about" className="relative z-10 py-20">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <SlideIn direction="left" delay={0.2}>
@@ -381,7 +381,7 @@ function TeamSection() {
   const teamMembers = useTeam();
 
   return (
-    <section id="team" className="bg-black py-20">
+    <section id="team" className="relative z-10 py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <SlideIn direction="up" delay={0.1}>
           <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 via-teal-400 to-pink-600 bg-clip-text text-transparent mb-8">
@@ -422,7 +422,7 @@ function ContactFormSection() {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 bg-black">
+    <section id="contact" className="relative z-10 py-20 px-6">
       <div className="mx-auto max-w-6xl">
         <SlideIn direction="up" delay={0.1}>
           <div className="rounded-2xl border border-teal-500/30 bg-gradient-to-br from-slate-900 to-slate-800 p-8 shadow-2xl shadow-teal-500/20">
@@ -493,7 +493,7 @@ function MeetingCalendlySection() {
   }, []);
 
   return (
-    <section id="meeting" className="bg-black py-20">
+    <section id="meeting" className="relative z-10 py-20">
       <div className="mx-auto max-w-6xl px-6">
         <SlideIn direction="up" delay={0.1}>
           <h2 className="text-3xl md:text-4xl font-bold text-white text-center">
@@ -566,11 +566,46 @@ export default function QuantivaWebsite() {
   const siteImg = absUrl('/assets/og-default.jpg');
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Abstract Gradient Background - Full Page */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Left Side - Blue to Teal Gradient Shape */}
+        <div className="absolute top-0 left-0 w-[800px] h-[1200px] -translate-x-1/4 -translate-y-1/4">
+          <div className="w-full h-full bg-gradient-to-br from-blue-600/20 via-cyan-500/15 to-teal-400/20 rounded-full blur-3xl" 
+               style={{
+                 clipPath: 'polygon(0% 0%, 100% 0%, 80% 50%, 100% 100%, 0% 100%, 20% 50%)',
+                 transform: 'rotate(-15deg)',
+               }}
+          />
+        </div>
+        
+        {/* Right Side - Purple to Pink Gradient Shape */}
+        <div className="absolute top-0 right-0 w-[800px] h-[1200px] translate-x-1/4 -translate-y-1/4">
+          <div className="w-full h-full bg-gradient-to-bl from-purple-600/20 via-pink-500/15 to-fuchsia-400/20 rounded-full blur-3xl"
+               style={{
+                 clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%, 20% 50%)',
+                 transform: 'rotate(15deg)',
+               }}
+          />
+        </div>
+        
+        {/* Additional smaller accent shapes */}
+        <div className="absolute bottom-0 left-1/4 w-[600px] h-[800px] translate-y-1/3">
+          <div className="w-full h-full bg-gradient-to-tr from-teal-500/10 via-cyan-400/8 to-blue-500/10 rounded-full blur-2xl" />
+        </div>
+        
+        <div className="absolute top-1/2 right-1/4 w-[500px] h-[700px] -translate-y-1/2">
+          <div className="w-full h-full bg-gradient-to-tl from-purple-500/10 via-pink-400/8 to-fuchsia-500/10 rounded-full blur-2xl" />
+        </div>
+        
+        {/* Subtle noise texture overlay */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
+      </div>
+      
       {/* Metadata is handled by Next.js page.tsx metadata export */}
       
       {/* Navbar */}
-      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80">
+      <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur supports-[backdrop-filter]:bg-slate-900/80 relative z-10">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-white">
           <div className="flex items-center gap-3">
             {/* Quantiva Logo */}
@@ -684,12 +719,7 @@ export default function QuantivaWebsite() {
       </header>
 
       {/* Hero - Accenture Style */}
-      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-black">
-        {/* Subtle Texture Background */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
-        </div>
-
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12 py-20 relative z-10 max-w-7xl">
           <div className="grid lg:grid-cols-[45%_55%] xl:grid-cols-[48%_52%] gap-12 lg:gap-16 items-center">
             {/* Left: Main Heading - Accenture Style */}
@@ -806,7 +836,7 @@ export default function QuantivaWebsite() {
       <IndustriesSection lang={lang} />
 
       {/* Services */}
-      <section id="services" className="bg-black py-24">
+      <section id="services" className="relative z-10 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <SlideIn direction="up" delay={0.1}>
             <h2 className="text-center text-3xl font-bold text-white md:text-4xl">
@@ -922,7 +952,7 @@ export default function QuantivaWebsite() {
       <MeetingCalendlySection />
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white">
+      <footer className="relative z-10 bg-slate-900/80 backdrop-blur-sm text-white">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 sm:grid-cols-3">
           <div>
             <h4 className="mb-2 font-semibold">{footer.quickLinks.title}</h4>
