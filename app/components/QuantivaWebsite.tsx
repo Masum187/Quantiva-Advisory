@@ -922,8 +922,131 @@ export default function QuantivaWebsite() {
                 )}
               </p>
 
-              {/* AI Image Slider */}
-              <AIImageSlider lang={lang} />
+              {/* Iridescent Blob Object - 3D Visual Element */}
+              <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden">
+                {/* Iridescent Blob Background */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl"
+                  animate={{
+                    background: [
+                      'linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.3) 50%, rgba(236, 72, 153, 0.3) 100%)',
+                      'linear-gradient(135deg, rgba(236, 72, 153, 0.3) 0%, rgba(99, 102, 241, 0.3) 50%, rgba(168, 85, 247, 0.3) 100%)',
+                      'linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(236, 72, 153, 0.3) 50%, rgba(99, 102, 241, 0.3) 100%)',
+                      'linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.3) 50%, rgba(236, 72, 153, 0.3) 100%)',
+                    ],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  style={{
+                    filter: 'blur(40px)',
+                    transform: 'scale(1.2)',
+                  }}
+                />
+                
+                {/* Main Blob Shape */}
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center"
+                  animate={{
+                    scale: [1, 1.1, 0.95, 1],
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <div
+                    className="w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-full relative"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                      backdropFilter: 'blur(20px)',
+                      boxShadow: `
+                        0 0 80px rgba(99, 102, 241, 0.4),
+                        0 0 120px rgba(168, 85, 247, 0.3),
+                        inset 0 0 60px rgba(255, 255, 255, 0.1)
+                      `,
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                    }}
+                  >
+                    {/* Iridescent Overlay */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
+                      animate={{
+                        background: [
+                          'radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.6), transparent 50%)',
+                          'radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.6), transparent 50%)',
+                          'radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.6), transparent 50%)',
+                          'radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.6), transparent 50%)',
+                        ],
+                      }}
+                      transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                    
+                    {/* Pause Symbol */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex gap-2">
+                        <div className="w-3 h-12 bg-black/60 rounded-sm"></div>
+                        <div className="w-3 h-12 bg-black/60 rounded-sm"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Reflective Highlights */}
+                    <motion.div
+                      className="absolute top-1/4 left-1/4 w-1/3 h-1/3 rounded-full"
+                      animate={{
+                        opacity: [0.3, 0.6, 0.3],
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      style={{
+                        background: 'radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent)',
+                        filter: 'blur(20px)',
+                      }}
+                    />
+                  </div>
+                </motion.div>
+                
+                {/* Floating Particles */}
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full"
+                    style={{
+                      background: `rgba(${99 + i * 20}, ${102 + i * 15}, ${241 - i * 10}, 0.6)`,
+                      left: `${20 + i * 15}%`,
+                      top: `${30 + (i % 3) * 20}%`,
+                    }}
+                    animate={{
+                      y: [0, -30, 0],
+                      opacity: [0.3, 0.8, 0.3],
+                      scale: [1, 1.5, 1],
+                    }}
+                    transition={{
+                      duration: 3 + i * 0.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.3,
+                    }}
+                  />
+                ))}
+              </div>
+              
+              {/* AI Image Slider - Below the blob */}
+              <div className="mt-6">
+                <AIImageSlider lang={lang} />
+              </div>
 
               {/* Stats - Minimalist */}
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left lg:text-left">
