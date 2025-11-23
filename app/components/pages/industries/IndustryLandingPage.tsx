@@ -35,9 +35,19 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
   }[lang];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* Purple Gradient Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to bottom, #1a0d2e 0%, #2d1b4e 30%, #3d2a5e 50%, #2d1b4e 70%, #1a0d2e 100%)',
+          }}
+        />
+      </div>
+      
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-br from-teal-900/40 via-black to-black py-32">
+      <section className="relative z-10 overflow-hidden border-b border-white/10 bg-black/20 backdrop-blur-md py-32">
         <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.35),_transparent_55%)]" />
         <div className="relative mx-auto max-w-6xl px-6">
           <motion.div
@@ -60,9 +70,9 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
         </div>
       </section>
 
-      <main className="mx-auto max-w-6xl px-6 py-20 space-y-24">
+      <main className="relative z-10 mx-auto max-w-6xl px-6 py-20 space-y-24">
         {/* Overview */}
-        <AnimatedCard direction="up" className="p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/70 to-black/80">
+        <AnimatedCard direction="up" className="p-10 rounded-3xl border border-white/10 bg-slate-900/20 backdrop-blur-md">
           <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
             <div>
               <h2 className="text-3xl font-bold mb-4">{industry.name}</h2>
@@ -138,7 +148,7 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                   as="article"
                   direction={index % 2 === 0 ? 'left' : 'right'}
                   delay={index * 0.1}
-                  className="p-6 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/70 to-black/80"
+                  className="p-6 rounded-3xl border border-white/10 bg-slate-900/20 backdrop-blur-md"
                 >
                   <div className="mb-4 inline-flex rounded-full border border-teal-400/30 bg-teal-500/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-teal-200">
                     <Briefcase className="h-4 w-4 mr-2" />
@@ -161,7 +171,7 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
                   key={caseStudy.client}
                   as="article"
                   direction="up"
-                  className="p-8 rounded-3xl border border-white/10 bg-gradient-to-br from-purple-900/40 to-black"
+                  className="p-8 rounded-3xl border border-white/10 bg-purple-900/20 backdrop-blur-md"
                 >
                   <div className="mb-6 flex items-center justify-between">
                     <div>
@@ -181,7 +191,7 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
 
         {/* Contact */}
         <section>
-          <AnimatedCard direction="up" className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-teal-900/40 to-black p-10">
+          <AnimatedCard direction="up" className="relative overflow-hidden rounded-3xl border border-white/15 bg-teal-900/20 backdrop-blur-md p-10">
             <div className="grid gap-8 lg:grid-cols-[1fr_320px] items-center">
               <div>
                 <h2 className="text-3xl font-bold mb-4">{t.contactTitle}</h2>
