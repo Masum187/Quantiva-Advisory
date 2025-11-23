@@ -54,7 +54,7 @@ export default function ReferencesSlider({ lang }: ReferencesSliderProps) {
   };
 
   return (
-    <section className="relative bg-black py-24">
+    <section className="relative z-10 bg-black/20 backdrop-blur-md py-24">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-16">

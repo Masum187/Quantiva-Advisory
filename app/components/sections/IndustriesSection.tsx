@@ -39,7 +39,7 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
       : 'We partner with mid-market leaders in regulated and fast-scaling industries.';
 
   return (
-    <section className="relative bg-black py-20" id="industries">
+    <section className="relative z-10 bg-black/20 backdrop-blur-md py-20" id="industries">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.08),_transparent_65%)]" />
       <div className="relative mx-auto max-w-6xl px-6">
         <motion.div
