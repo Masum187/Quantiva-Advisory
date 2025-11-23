@@ -1110,6 +1110,86 @@ export default function QuantivaWebsite() {
         </div>
       </section>
 
+      {/* Cloud Migration Stats Section */}
+      <section className="relative z-10 py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative rounded-3xl overflow-hidden"
+            style={{
+              background: 'linear-gradient(to right, rgba(30, 20, 50, 0.8) 0%, rgba(80, 50, 100, 0.8) 100%)',
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+              backgroundSize: '40px 40px',
+            }}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-6">
+              {/* Cloud-Migration Card */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="rounded-2xl p-6"
+                style={{
+                  background: 'rgba(20, 10, 40, 0.9)',
+                  backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+                  backgroundSize: '40px 40px',
+                }}
+              >
+                <div className="text-white font-bold text-xl md:text-2xl leading-tight">
+                  Cloud-<br />Migration
+                </div>
+              </motion.div>
+
+              {/* Cost Savings Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="rounded-2xl p-6 backdrop-blur-sm"
+                style={{
+                  background: 'rgba(100, 60, 120, 0.6)',
+                  backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+                  backgroundSize: '40px 40px',
+                }}
+              >
+                <div className="text-4xl md:text-5xl font-bold text-green-400 mb-2">
+                  60%
+                </div>
+                <div className="text-gray-300 text-xs uppercase tracking-wider">
+                  {lang === 'de' ? 'KOSTENEINSPARUNG' : 'COST SAVINGS'}
+                </div>
+              </motion.div>
+
+              {/* Migrations Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="rounded-2xl p-6 backdrop-blur-sm"
+                style={{
+                  background: 'rgba(100, 60, 120, 0.6)',
+                  backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+                  backgroundSize: '40px 40px',
+                }}
+              >
+                <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2">
+                  200+
+                </div>
+                <div className="text-gray-300 text-xs uppercase tracking-wider">
+                  {lang === 'de' ? 'MIGRATIONEN' : 'MIGRATIONS'}
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* About Teaser */}
       <AboutTeaser />
 
