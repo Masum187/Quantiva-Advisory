@@ -1088,18 +1088,18 @@ export default function QuantivaWebsite() {
                 )}
               </p>
 
-              {/* Stats - Prominent */}
-              <div className="grid grid-cols-3 gap-8 pt-12 border-t border-gray-800 text-left lg:text-left">
+              {/* Stats - Minimalist */}
+              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left lg:text-left">
                 {[ 
-                  { value: "60%", label: lang === 'de' ? "SCHNELLERE TIME-TO-VALUE" : "FASTER TIME-TO-VALUE" },
-                  { value: "30+", label: lang === 'de' ? "MITTELSTANDSREFERENZEN" : "MID-MARKET REFERENCES" },
-                  { value: "ISO 27001", label: lang === 'de' ? "SICHER & AUDIT-READY" : "SECURE & AUDIT-READY" }
+                  { value: "60%", label: lang === 'de' ? "schnellere Time-to-Value" : "faster time-to-value" },
+                  { value: "30+", label: lang === 'de' ? "Mittelstandsreferenzen" : "mid-market references" },
+                  { value: "ISO 27001", label: lang === 'de' ? "sicher & audit-ready" : "secure & audit-ready" }
                 ].map((stat, index) => (
                   <div key={index}>
-                    <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2">
+                    <div className="text-2xl md:text-3xl font-black text-white mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-sm md:text-base text-gray-400 uppercase tracking-wider">
+                    <div className="text-xs text-gray-400 uppercase tracking-wider">
                       {stat.label}
                     </div>
                   </div>
@@ -1187,6 +1187,102 @@ export default function QuantivaWebsite() {
               </motion.div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Process Automation & Key Metrics Section */}
+      <section className="relative z-10 bg-black/20 backdrop-blur-md py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          {/* Part 1: Process Automation Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            {/* Title Card: Process Automation */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="col-span-1 md:col-span-1 flex items-center justify-center p-8 rounded-2xl text-white text-center bg-gradient-to-br from-green-700 to-green-500 shadow-lg shadow-green-500/30"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+                {lang === 'de' ? 'Prozess-Automatisierung' : 'Process Automation'}
+              </h2>
+            </motion.div>
+
+            {/* Statistic Card: 70% Time Savings */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="p-8 rounded-2xl text-center bg-green-600/30 backdrop-blur-sm border border-green-500/20"
+            >
+              <div className="text-5xl md:text-6xl font-black text-green-400 mb-2">
+                70%
+              </div>
+              <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">
+                {lang === 'de' ? 'ZEITERSPARNIS' : 'TIME SAVINGS'}
+              </div>
+            </motion.div>
+
+            {/* Statistic Card: 500+ Automated Processes */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="p-8 rounded-2xl text-center bg-blue-600/30 backdrop-blur-sm border border-blue-500/20"
+            >
+              <div className="text-5xl md:text-6xl font-black text-blue-400 mb-2">
+                500+
+              </div>
+              <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">
+                {lang === 'de' ? 'AUTOMATISIERTE PROZESSE' : 'AUTOMATED PROCESSES'}
+              </div>
+            </motion.div>
+
+            {/* Statistic Card: 0 Manual Errors */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="p-8 rounded-2xl text-center bg-purple-600/30 backdrop-blur-sm border border-purple-500/20"
+            >
+              <div className="text-5xl md:text-6xl font-black text-purple-400 mb-2">
+                0
+              </div>
+              <div className="text-sm md:text-base text-gray-300 uppercase tracking-wider">
+                {lang === 'de' ? 'MANUELLE FEHLER' : 'MANUAL ERRORS'}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Separator */}
+          <div className="border-t border-gray-700 pt-12 mt-12">
+            {/* Part 2: Key Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+              {[
+                { value: "60%", label: lang === 'de' ? "SCHNELLERE TIME-TO-VALUE" : "FASTER TIME-TO-VALUE" },
+                { value: "30+", label: lang === 'de' ? "MITTELSTANDSREFERENZEN" : "MID-MARKET REFERENCES" },
+                { value: "ISO 27001", label: lang === 'de' ? "SICHER & AUDIT-READY" : "SECURE & AUDIT-READY" }
+              ].map((metric, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                >
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2">
+                    {metric.value}
+                  </div>
+                  <div className="text-sm md:text-base text-gray-400 uppercase tracking-wider">
+                    {metric.label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
