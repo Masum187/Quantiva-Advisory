@@ -1346,6 +1346,118 @@ export default function QuantivaWebsite() {
         <ReferencesSlider lang={lang} />
       </Suspense>
 
+      {/* Partner Status, KPIs & Testimonials */}
+      <section className="relative z-10 bg-black/20 backdrop-blur-md py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+            <div>
+              <div className="inline-flex items-center gap-2 text-gray-400 text-sm mb-3">
+                <div className="w-5 h-5 rounded-full border border-teal-500/50 flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-teal-500"></div>
+                </div>
+                {lang === 'de' ? 'VERTRAUEN & NACHWEISE' : 'TRUST & PROOF'}
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-white">
+                {lang === 'de' ? 'Partnerstatus, KPIs & Kundenstimmen' : 'Partner Status, KPIs & Customer Testimonials'}
+              </h2>
+            </div>
+            <Link
+              href={localePath('/cases')}
+              className="mt-4 md:mt-0 inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 text-white hover:border-teal-400/60 hover:text-teal-300 transition-colors"
+            >
+              {lang === 'de' ? 'Alle Erfolgsstories' : 'All Success Stories'}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Partner Status Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              {
+                label: 'SAP',
+                title: lang === 'de' ? 'SAP PartnerEdge' : 'SAP PartnerEdge',
+                subtitle: lang === 'de' ? 'Gold Partner' : 'Gold Partner',
+              },
+              {
+                label: 'AZURE',
+                title: lang === 'de' ? 'Microsoft Solutions Partner' : 'Microsoft Solutions Partner',
+                subtitle: lang === 'de' ? 'Digital & App Innovation' : 'Digital & App Innovation',
+              },
+              {
+                label: 'AWS',
+                title: lang === 'de' ? 'AWS Select Consulting' : 'AWS Select Consulting',
+                subtitle: lang === 'de' ? 'Migration & Modernisierung' : 'Migration & Modernization',
+              },
+              {
+                label: 'ISO',
+                title: 'ISO 27001',
+                subtitle: lang === 'de' ? 'Security & Compliance' : 'Security & Compliance',
+              },
+            ].map((partner, index) => (
+              <motion.div
+                key={partner.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="rounded-xl border border-white/10 bg-slate-900/30 backdrop-blur-sm p-6 hover:border-teal-500/30 transition-colors"
+              >
+                <div className="text-teal-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  {partner.label}
+                </div>
+                <div className="text-white font-bold text-lg mb-1">
+                  {partner.title}
+                </div>
+                <div className="text-gray-400 text-sm">
+                  {partner.subtitle}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* KPI Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                value: '38%',
+                label: lang === 'de' ? 'Ø ROI NACH 12 MONATEN' : 'AVG. ROI AFTER 12 MONTHS',
+                subtitle: lang === 'de' ? 'Mittelstandsprogramme' : 'Mid-sized Business Programs',
+              },
+              {
+                value: '92%',
+                label: lang === 'de' ? 'KUNDENZUFRIEDENHEIT' : 'CUSTOMER SATISFACTION',
+                subtitle: 'NPS FY24',
+              },
+              {
+                value: '45',
+                label: lang === 'de' ? 'REALISIERTE PROJEKTE' : 'REALIZED PROJECTS',
+                subtitle: lang === 'de' ? 'DACH Mittelstand' : 'DACH Mid-sized Businesses',
+              },
+            ].map((kpi, index) => (
+              <motion.div
+                key={kpi.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
+                className="rounded-xl border border-white/10 bg-slate-900/30 backdrop-blur-sm p-8 hover:border-teal-500/30 transition-colors"
+              >
+                <div className="text-white font-bold text-5xl mb-3">
+                  {kpi.value}
+                </div>
+                <div className="text-gray-400 text-xs uppercase tracking-wider mb-2">
+                  {kpi.label}
+                </div>
+                <div className="text-gray-500 text-sm">
+                  {kpi.subtitle}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Band */}
       <section className="relative z-10 bg-teal-600/20 backdrop-blur-md py-16 text-white border-y border-teal-500/20">
         <div className="mx-auto max-w-4xl px-6 text-center">
