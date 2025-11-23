@@ -311,24 +311,24 @@ function AboutTeaser() {
   const { lang } = useLanguage();
   return (
     <section id="about" className="relative z-10 py-20">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <SlideIn direction="left" delay={0.2}>
             <div>
               <Link href={lang==='de' ? '/de/about' : '/en/about'}>
-                <h2 className="text-3xl md:text-4xl font-bold text-white hover:text-teal-400 transition-colors duration-300 cursor-pointer">
+                <h2 className="text-4xl md:text-5xl font-bold text-white hover:text-teal-400 transition-colors duration-300 cursor-pointer">
                   {lang==='de' ? 'Über Quantiva' : 'About Quantiva'}
                 </h2>
               </Link>
-              <p className="mt-4 text-gray-300">
+              <p className="mt-6 text-lg md:text-xl text-gray-300 leading-relaxed">
                 {lang==='de'
                   ? 'Wir verbinden Strategie, Engineering und Enablement für messbare Ergebnisse. Sicher, compliant und skalierbar.'
                   : 'We combine strategy, engineering and enablement for measurable outcomes. Secure, compliant and scalable.'}
               </p>
-              <ul className="mt-6 grid gap-2 text-gray-200">
-                <li className="flex items-start gap-2"><Users className="mt-1 h-4 w-4 text-teal-400" /> {lang==='de'?'Interdisziplinäre Teams':'Interdisciplinary teams'}</li>
-                <li className="flex items-start gap-2"><Shield className="mt-1 h-4 w-4 text-teal-400" /> {lang==='de'?'Security & Compliance by Design':'Security & compliance by design'}</li>
-                <li className="flex items-start gap-2"><Briefcase className="mt-1 h-4 w-4 text-teal-400" /> {lang==='de'?'Outcome-orientierte Delivery':'Outcome-oriented delivery'}</li>
+              <ul className="mt-8 grid gap-3 text-lg text-gray-200">
+                <li className="flex items-start gap-3"><Users className="mt-1 h-5 w-5 text-teal-400" /> {lang==='de'?'Interdisziplinäre Teams':'Interdisciplinary teams'}</li>
+                <li className="flex items-start gap-3"><Shield className="mt-1 h-5 w-5 text-teal-400" /> {lang==='de'?'Security & Compliance by Design':'Security & compliance by design'}</li>
+                <li className="flex items-start gap-3"><Briefcase className="mt-1 h-5 w-5 text-teal-400" /> {lang==='de'?'Outcome-orientierte Delivery':'Outcome-oriented delivery'}</li>
               </ul>
             </div>
           </SlideIn>
@@ -359,9 +359,9 @@ function AboutTeaser() {
                 <div className="absolute bottom-8 right-6 w-3 h-3 bg-purple-300 rounded-full animate-pulse z-20" style={{animationDelay: '1.5s'}}></div>
                 
                 {/* Content Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                  <h3 className="text-2xl font-bold text-white mb-2">{lang === 'de' ? 'Digitale Innovation' : 'Digital Innovation'}</h3>
-                  <p className="text-gray-300 text-sm">{lang === 'de' ? 'Entdecken Sie unsere Technologien' : 'Discover our technologies'}</p>
+                <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">{lang === 'de' ? 'Digitale Innovation' : 'Digital Innovation'}</h3>
+                  <p className="text-gray-300 text-base md:text-lg">{lang === 'de' ? 'Entdecken Sie unsere Technologien' : 'Discover our technologies'}</p>
                 </div>
               </div>
             </div>
@@ -1070,7 +1070,7 @@ export default function QuantivaWebsite() {
               </div>
 
               {/* Description Text */}
-              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
                 {lang === 'de' ? (
                   <>
                     Die Technologien, die wir entwickeln, die Strategien, die wir umsetzen, 
@@ -1088,18 +1088,18 @@ export default function QuantivaWebsite() {
                 )}
               </p>
 
-              {/* Stats - Minimalist */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left lg:text-left">
+              {/* Stats - Prominent */}
+              <div className="grid grid-cols-3 gap-8 pt-12 border-t border-gray-800 text-left lg:text-left">
                 {[ 
-                  { value: "60%", label: lang === 'de' ? "schnellere Time-to-Value" : "faster time-to-value" },
-                  { value: "30+", label: lang === 'de' ? "Mittelstandsreferenzen" : "mid-market references" },
-                  { value: "ISO 27001", label: lang === 'de' ? "sicher & audit-ready" : "secure & audit-ready" }
+                  { value: "60%", label: lang === 'de' ? "SCHNELLERE TIME-TO-VALUE" : "FASTER TIME-TO-VALUE" },
+                  { value: "30+", label: lang === 'de' ? "MITTELSTANDSREFERENZEN" : "MID-MARKET REFERENCES" },
+                  { value: "ISO 27001", label: lang === 'de' ? "SICHER & AUDIT-READY" : "SECURE & AUDIT-READY" }
                 ].map((stat, index) => (
                   <div key={index}>
-                    <div className="text-2xl md:text-3xl font-black text-white mb-1">
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2">
                       {stat.value}
                     </div>
-                    <div className="text-xs text-gray-400 uppercase tracking-wider">
+                    <div className="text-sm md:text-base text-gray-400 uppercase tracking-wider">
                       {stat.label}
                     </div>
                   </div>
