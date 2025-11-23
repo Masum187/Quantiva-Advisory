@@ -567,36 +567,159 @@ export default function QuantivaWebsite() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Abstract Gradient Background - Full Page */}
+      {/* Abstract Gradient Background - Full Page with Animations */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Left Side - Blue to Teal Gradient Shape */}
-        <div className="absolute top-0 left-0 w-[800px] h-[1200px] -translate-x-1/4 -translate-y-1/4">
-          <div className="w-full h-full bg-gradient-to-br from-blue-600/20 via-cyan-500/15 to-teal-400/20 rounded-full blur-3xl" 
-               style={{
-                 clipPath: 'polygon(0% 0%, 100% 0%, 80% 50%, 100% 100%, 0% 100%, 20% 50%)',
-                 transform: 'rotate(-15deg)',
-               }}
+        <motion.div 
+          className="absolute top-0 left-0 w-[800px] h-[1200px] -translate-x-1/4 -translate-y-1/4"
+          animate={{
+            x: [0, 30, -20, 0],
+            y: [0, -40, 20, 0],
+            rotate: [-15, -10, -20, -15],
+            scale: [1, 1.1, 0.95, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.div 
+            className="w-full h-full bg-gradient-to-br from-blue-600/20 via-cyan-500/15 to-teal-400/20 rounded-full blur-3xl" 
+            style={{
+              clipPath: 'polygon(0% 0%, 100% 0%, 80% 50%, 100% 100%, 0% 100%, 20% 50%)',
+            }}
+            animate={{
+              opacity: [0.2, 0.25, 0.18, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
-        </div>
+        </motion.div>
         
         {/* Right Side - Purple to Pink Gradient Shape */}
-        <div className="absolute top-0 right-0 w-[800px] h-[1200px] translate-x-1/4 -translate-y-1/4">
-          <div className="w-full h-full bg-gradient-to-bl from-purple-600/20 via-pink-500/15 to-fuchsia-400/20 rounded-full blur-3xl"
-               style={{
-                 clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%, 20% 50%)',
-                 transform: 'rotate(15deg)',
-               }}
+        <motion.div 
+          className="absolute top-0 right-0 w-[800px] h-[1200px] translate-x-1/4 -translate-y-1/4"
+          animate={{
+            x: [0, -25, 15, 0],
+            y: [0, 35, -25, 0],
+            rotate: [15, 20, 10, 15],
+            scale: [1, 0.9, 1.05, 1],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+        >
+          <motion.div 
+            className="w-full h-full bg-gradient-to-bl from-purple-600/20 via-pink-500/15 to-fuchsia-400/20 rounded-full blur-3xl"
+            style={{
+              clipPath: 'polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%, 20% 50%)',
+            }}
+            animate={{
+              opacity: [0.2, 0.22, 0.18, 0.2],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
           />
-        </div>
+        </motion.div>
         
         {/* Additional smaller accent shapes */}
-        <div className="absolute bottom-0 left-1/4 w-[600px] h-[800px] translate-y-1/3">
-          <div className="w-full h-full bg-gradient-to-tr from-teal-500/10 via-cyan-400/8 to-blue-500/10 rounded-full blur-2xl" />
-        </div>
+        <motion.div 
+          className="absolute bottom-0 left-1/4 w-[600px] h-[800px] translate-y-1/3"
+          animate={{
+            x: [0, 40, -30, 0],
+            y: [0, -50, 30, 0],
+            scale: [1, 1.15, 0.9, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        >
+          <motion.div 
+            className="w-full h-full bg-gradient-to-tr from-teal-500/10 via-cyan-400/8 to-blue-500/10 rounded-full blur-2xl"
+            animate={{
+              opacity: [0.1, 0.12, 0.08, 0.1],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.div>
         
-        <div className="absolute top-1/2 right-1/4 w-[500px] h-[700px] -translate-y-1/2">
-          <div className="w-full h-full bg-gradient-to-tl from-purple-500/10 via-pink-400/8 to-fuchsia-500/10 rounded-full blur-2xl" />
-        </div>
+        <motion.div 
+          className="absolute top-1/2 right-1/4 w-[500px] h-[700px] -translate-y-1/2"
+          animate={{
+            x: [0, -35, 25, 0],
+            y: [0, 45, -35, 0],
+            scale: [1, 0.85, 1.1, 1],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 3,
+          }}
+        >
+          <motion.div 
+            className="w-full h-full bg-gradient-to-tl from-purple-500/10 via-pink-400/8 to-fuchsia-500/10 rounded-full blur-2xl"
+            animate={{
+              opacity: [0.1, 0.13, 0.07, 0.1],
+            }}
+            transition={{
+              duration: 9,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+          />
+        </motion.div>
+        
+        {/* Additional floating particles/glows */}
+        <motion.div
+          className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-cyan-400/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, -80, 0],
+            y: [0, -120, 90, 0],
+            scale: [1, 1.3, 0.7, 1],
+            opacity: [0.05, 0.08, 0.03, 0.05],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        
+        <motion.div
+          className="absolute bottom-1/3 right-1/3 w-[250px] h-[250px] bg-pink-400/5 rounded-full blur-3xl"
+          animate={{
+            x: [0, -90, 70, 0],
+            y: [0, 110, -85, 0],
+            scale: [1, 0.8, 1.2, 1],
+            opacity: [0.05, 0.07, 0.02, 0.05],
+          }}
+          transition={{
+            duration: 28,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 4,
+          }}
+        />
         
         {/* Subtle noise texture overlay */}
         <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMC41Ii8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')]"></div>
