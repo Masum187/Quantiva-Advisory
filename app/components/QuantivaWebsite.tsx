@@ -39,40 +39,12 @@ function ServiceCard({ service, lang, localePath, isLarge }: ServiceCardProps) {
   return (
     <Link
       href={serviceUrl}
-      className="group relative block h-full overflow-hidden rounded-3xl bg-black/40 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-500"
+      className="group relative block h-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900/60 to-slate-800/40 backdrop-blur-md border-2 border-teal-500/30 hover:border-teal-400/50 transition-all duration-500 shadow-lg shadow-teal-500/10 hover:shadow-teal-500/20"
     >
-      <div className="relative h-full flex flex-col md:flex-row">
-        {/* Left Side - Content */}
-        <div className={`flex-1 p-8 md:p-12 flex flex-col justify-between ${isLarge ? 'md:w-1/2' : ''}`}>
-          {/* Teal Badge */}
-          <div className="mb-6">
-            <span className="inline-flex items-center rounded-full bg-teal-500/20 border border-teal-400/30 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-teal-200">
-              {lang === 'de' ? 'SERVICE' : 'SERVICE'}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h3 className={`font-bold text-white mb-4 ${isLarge ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl'}`}>
-            {service.title}
-          </h3>
-
-          {/* Description */}
-          <p className={`text-gray-300 leading-relaxed mb-8 ${isLarge ? 'text-lg md:text-xl' : 'text-base'}`}>
-            {service.description}
-          </p>
-
-          {/* White Circular Button */}
-          <motion.div
-            className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <ArrowRight className="w-6 h-6 text-black" />
-          </motion.div>
-        </div>
-
-        {/* Right Side - Iridescent Abstract Shape */}
-        <div className={`relative ${isLarge ? 'md:w-1/2 h-64 md:h-auto' : 'h-48 md:h-full'} overflow-hidden`}>
+      {/* Vertical Layout - Different from Industries */}
+      <div className="relative h-full flex flex-col p-6 md:p-8">
+        {/* Top Section - Badge and Image */}
+        <div className="relative mb-6 h-48 rounded-xl overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
             <Image
@@ -80,61 +52,68 @@ function ServiceCard({ service, lang, localePath, isLarge }: ServiceCardProps) {
               alt={service.title}
               width={600}
               height={400}
-              className="h-full w-full object-cover opacity-30"
+              className="h-full w-full object-cover"
             />
           </div>
-
-          {/* Iridescent Abstract Shape - Teal/Cyan */}
-          <motion.div
-            className="absolute inset-0"
-            animate={{
-              background: [
-                'radial-gradient(circle at 70% 50%, rgba(45, 212, 191, 0.4) 0%, rgba(20, 184, 166, 0.3) 30%, transparent 60%)',
-                'radial-gradient(circle at 30% 50%, rgba(6, 182, 212, 0.4) 0%, rgba(45, 212, 191, 0.3) 30%, transparent 60%)',
-                'radial-gradient(circle at 50% 70%, rgba(14, 165, 233, 0.4) 0%, rgba(6, 182, 212, 0.3) 30%, transparent 60%)',
-                'radial-gradient(circle at 70% 50%, rgba(45, 212, 191, 0.4) 0%, rgba(20, 184, 166, 0.3) 30%, transparent 60%)',
-              ],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
           
-          {/* Additional Glowing Blobs */}
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80" />
+          
+          {/* Teal Badge - Top Right */}
+          <div className="absolute top-4 right-4 z-10">
+            <span className="inline-flex items-center rounded-full bg-teal-500/90 border-2 border-teal-300/50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg">
+              {lang === 'de' ? 'SERVICE' : 'SERVICE'}
+            </span>
+          </div>
+
+          {/* Animated Teal Gradient Blob */}
           <motion.div
-            className="absolute top-1/4 right-1/4 w-32 h-32 rounded-full blur-3xl"
+            className="absolute bottom-0 right-0 w-40 h-40 rounded-full blur-3xl"
             style={{
-              background: 'rgba(45, 212, 191, 0.3)',
+              background: 'rgba(45, 212, 191, 0.4)',
             }}
             animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.5, 0.3],
+              scale: [1, 1.5, 1],
+              x: [0, 20, 0],
+              y: [0, -20, 0],
             }}
             transition={{
-              duration: 4,
+              duration: 6,
               repeat: Infinity,
               ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 left-1/4 w-24 h-24 rounded-full blur-2xl"
-            style={{
-              background: 'rgba(6, 182, 212, 0.3)',
-            }}
-            animate={{
-              scale: [1, 1.4, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
             }}
           />
         </div>
+
+        {/* Content Section */}
+        <div className="flex-1 flex flex-col justify-between">
+          {/* Title */}
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 leading-tight">
+            {service.title}
+          </h3>
+
+          {/* Description */}
+          <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base flex-1">
+            {service.description}
+          </p>
+
+          {/* Bottom Section - Button */}
+          <div className="flex items-center justify-between">
+            <motion.div
+              className="w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center shadow-lg shadow-teal-500/50 group-hover:bg-teal-400 transition-colors"
+              whileHover={{ scale: 1.1, rotate: 45 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ArrowRight className="w-6 h-6 text-white" />
+            </motion.div>
+            
+            {/* Decorative Line */}
+            <div className="flex-1 h-px bg-gradient-to-r from-teal-500/50 via-teal-400/30 to-transparent ml-4" />
+          </div>
+        </div>
+
+        {/* Corner Accent - Top Left */}
+        <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-teal-400/40 rounded-tl-2xl" />
       </div>
     </Link>
   );
@@ -1273,7 +1252,7 @@ export default function QuantivaWebsite() {
             <div 
               className="flex gap-6"
               style={{
-                animation: `scroll-left ${services.items.length * 15}s linear infinite`,
+                animation: `scroll-left ${services.items.length * 6}s linear infinite`,
               }}
             >
               {/* Duplicate items for seamless loop */}

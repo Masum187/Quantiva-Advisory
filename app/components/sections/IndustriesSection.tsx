@@ -162,7 +162,7 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
           <div 
             className="flex gap-6"
             style={{
-              animation: `scroll-left ${industries.length * 15}s linear infinite`,
+              animation: `scroll-left ${industries.length * 6}s linear infinite`,
             }}
           >
             {/* Duplicate items for seamless loop */}
