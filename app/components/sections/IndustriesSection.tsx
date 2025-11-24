@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Briefcase, ArrowRight } from 'lucide-react';
@@ -157,73 +157,28 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
           <p className="mx-auto mt-4 max-w-2xl text-base text-gray-300 md:text-lg">{subline}</p>
         </motion.div>
 
-        {/* Cards Grid - 1 Large Top, 3 Small Bottom */}
-        <div className="mt-14 grid grid-cols-1 gap-6">
-          {/* Top Row - Large Card */}
-          {industries.length > 0 && (
-            <motion.div
-              initial={{ 
-                opacity: 0, 
-                x: -100,
-                scale: 0.9,
-              }}
-              whileInView={{ 
-                opacity: 1, 
-                x: 0,
-                scale: 1,
-              }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ 
-                duration: 0.7,
-                type: 'spring',
-                stiffness: 100,
-                damping: 15,
-              }}
-            >
-              <IndustryCard 
-                industry={industries[0]} 
-                lang={lang} 
-                localePath={localePath}
-                isLarge={true}
-              />
-            </motion.div>
-          )}
-
-          {/* Bottom Row - 3 Smaller Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {industries.slice(1, 4).map((industry, index) => {
-              const fromLeft = index % 2 === 0;
-              return (
-                <motion.div
-                  key={industry.title}
-                  initial={{ 
-                    opacity: 0, 
-                    x: fromLeft ? -100 : 100,
-                    scale: 0.85,
-                  }}
-                  whileInView={{ 
-                    opacity: 1, 
-                    x: 0,
-                    scale: 1,
-                  }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ 
-                    duration: 0.7, 
-                    delay: index * 0.15,
-                    type: 'spring',
-                    stiffness: 100,
-                    damping: 15,
-                  }}
-                >
-                  <IndustryCard 
-                    industry={industry} 
-                    lang={lang} 
-                    localePath={localePath}
-                    isLarge={false}
-                  />
-                </motion.div>
-              );
-            })}
+        {/* Infinite Scrolling Carousel */}
+        <div className="mt-14 overflow-hidden relative">
+          <div 
+            className="flex gap-6"
+            style={{
+              animation: `scroll-left ${industries.length * 15}s linear infinite`,
+            }}
+          >
+            {/* Duplicate items for seamless loop */}
+            {[...industries, ...industries].map((industry, index) => (
+              <div
+                key={`${industry.slug}-${index}`}
+                className="flex-shrink-0 w-[350px] md:w-[400px]"
+              >
+                <IndustryCard 
+                  industry={industry} 
+                  lang={lang} 
+                  localePath={localePath}
+                  isLarge={false}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>

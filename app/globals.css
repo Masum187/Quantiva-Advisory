@@ -47,6 +47,16 @@ a {
   text-decoration: none;
 }
 
+/* Infinite scroll animation for carousels */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1.5rem));
+  }
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
