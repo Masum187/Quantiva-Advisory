@@ -186,38 +186,134 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
   }[lang];
 
   return (
-    <div className="min-h-screen text-white relative overflow-hidden">
-      {/* Purple Gradient Background */}
+    <div className="min-h-screen text-white relative overflow-hidden bg-slate-950">
+      {/* Dark Background with Subtle Gradients */}
       <div className="fixed inset-0 z-0 pointer-events-none">
+        {/* Base Dark Background */}
         <div 
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to bottom, #1a0d2e 0%, #2d1b4e 30%, #3d2a5e 50%, #2d1b4e 70%, #1a0d2e 100%)',
+            background: 'linear-gradient(to bottom, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+          }}
+        />
+        
+        {/* Subtle Purple/Blue Gradient Overlays */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: 'radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)',
+          }}
+        />
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: 'radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%)',
+          }}
+        />
+        
+        {/* Subtle Glowing Orbs */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl"
+          style={{
+            background: 'rgba(139, 92, 246, 0.1)',
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl"
+          style={{
+            background: 'rgba(59, 130, 246, 0.1)',
+          }}
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
           }}
         />
       </div>
       
       {/* Hero Section */}
-      <section className="relative z-10 overflow-hidden border-b border-white/10 bg-black/20 backdrop-blur-md py-32">
-        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.35),_transparent_55%)]" />
-        <div className="relative mx-auto max-w-6xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl"
-          >
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-teal-500/40 bg-teal-500/10 px-6 py-2 text-sm font-semibold uppercase tracking-wider text-teal-200">
-              <Layers className="h-4 w-4" />
-              {industry.hero.badge}
-            </div>
-            <h1 className="mb-6 text-4xl font-black uppercase tracking-tight md:text-6xl">
-              {industry.hero.title}
-            </h1>
-            <p className="text-xl text-gray-300 md:text-2xl">
-              {industry.hero.subtitle}
-            </p>
-          </motion.div>
+      <section className="relative z-10 overflow-hidden py-32">
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Title */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                {industry.hero.title}
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                {industry.hero.subtitle}
+              </p>
+              
+              {/* 3D Abstract Object - Floating on Left */}
+              <motion.div
+                className="absolute -left-20 -top-10 w-64 h-64 opacity-20"
+                animate={{
+                  rotateY: [0, 360],
+                  rotateX: [0, 15],
+                  y: [0, -20, 0],
+                }}
+                transition={{
+                  rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
+                  rotateX: { duration: 8, repeat: Infinity, ease: "easeInOut" },
+                  y: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                }}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  perspective: '1000px',
+                }}
+              >
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-purple-400/30 via-blue-400/20 to-transparent blur-3xl" />
+              </motion.div>
+            </motion.div>
+
+            {/* Right Side - Gradient Card Preview */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hidden lg:block"
+            >
+              <div className="rounded-3xl p-8 bg-gradient-to-br from-purple-600/40 via-blue-600/40 to-purple-800/40 backdrop-blur-md border border-white/10">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-sm uppercase tracking-wider text-purple-200 mb-2">
+                      {lang === 'de' ? 'Branche' : 'Industry'}
+                    </h3>
+                    <p className="text-purple-100 text-lg">
+                      {industry.overview.introduction.substring(0, 100)}...
+                    </p>
+                  </div>
+                  <div>
+                    <h3 className="text-sm uppercase tracking-wider text-purple-200 mb-2">
+                      {lang === 'de' ? 'Fokus' : 'Focus'}
+                    </h3>
+                    <p className="text-purple-100 text-lg">
+                      {industry.overview.focusAreas[0]?.title || industry.hero.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
