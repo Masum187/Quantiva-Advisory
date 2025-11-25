@@ -33,7 +33,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
   
   return (
     <motion.div
-      className="group relative h-full overflow-hidden rounded-2xl"
+      className="group relative h-[300px] md:h-[350px] overflow-hidden rounded-2xl"
       onHoverStart={() => setIsExpanded(true)}
       onHoverEnd={() => setIsExpanded(false)}
     >
@@ -43,7 +43,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
       >
         {/* Closed State - Only Color Bar */}
         <motion.div
-          className="absolute inset-0 flex items-center"
+          className="absolute inset-0 flex items-center justify-start pl-4"
           animate={{
             width: isExpanded ? '0%' : '100%',
             opacity: isExpanded ? 0 : 1,
@@ -54,7 +54,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             damping: 30,
           }}
         >
-          <div className={`w-2 ${colorBar.color} rounded-full h-full`} />
+          <div className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg`} />
         </motion.div>
 
         {/* Expanded State - Full Card */}
@@ -149,6 +149,7 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
           {industries.slice(0, 4).map((industry, index) => (
             <motion.div
               key={industry.slug}
+              className="min-h-[300px] md:min-h-[350px]"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
