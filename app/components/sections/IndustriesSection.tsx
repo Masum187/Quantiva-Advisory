@@ -61,7 +61,10 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
           }}
         >
           <motion.div
-            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg shadow-${colorBar.color.replace('bg-', '')}/50`}
+            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg`}
+            style={{
+              boxShadow: `0 10px 20px -5px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.5)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.5)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.5)').replace('bg-green-400', 'rgba(74, 222, 128, 0.5)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.5)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.5)').replace('bg-orange-400', 'rgba(251, 146, 60, 0.5)').replace('bg-yellow-400', 'rgba(250, 204, 21, 0.5)')}`,
+            }}
             animate={{
               scale: [1, 1.1, 1],
               opacity: [0.8, 1, 0.8],
@@ -87,7 +90,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             damping: 30,
           }}
           whileHover={{
-            boxShadow: `0 20px 40px -10px ${colorBar.color.replace('bg-', 'rgba(').replace('-400', ', 0.3)')}`,
+            boxShadow: `0 20px 40px -10px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.3)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.3)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.3)').replace('bg-green-400', 'rgba(74, 222, 128, 0.3)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.3)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.3)').replace('bg-orange-400', 'rgba(251, 146, 60, 0.3)').replace('bg-yellow-400', 'rgba(250, 204, 21, 0.3)')}`,
           }}
         >
           {/* Animated Background Glow */}
