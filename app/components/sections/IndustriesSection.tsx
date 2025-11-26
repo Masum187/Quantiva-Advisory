@@ -37,15 +37,17 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
   
   return (
     <motion.div
-      className="group relative h-[300px] md:h-[350px] overflow-hidden rounded-2xl"
+      className="group relative h-[400px] md:h-[450px] overflow-hidden rounded-2xl"
       onHoverStart={() => setIsExpanded(true)}
       onHoverEnd={() => setIsExpanded(false)}
+      whileHover={{ scale: 1.02, y: -5 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       <Link
         href={localePath(`/industries/${industry.slug}`)}
         className="block h-full"
       >
-        {/* Closed State - Only Color Bar */}
+        {/* Closed State - Only Color Bar with Glow Animation */}
         <motion.div
           className="absolute inset-0 flex items-center justify-start pl-4"
           animate={{
@@ -58,12 +60,23 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             damping: 30,
           }}
         >
-          <div className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg`} />
+          <motion.div
+            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg shadow-${colorBar.color.replace('bg-', '')}/50`}
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
         </motion.div>
 
-        {/* Expanded State - Full Card */}
+        {/* Expanded State - Full Card with Enhanced Animations */}
         <motion.div
-          className="absolute inset-0 bg-slate-900/60 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-2xl overflow-hidden"
+          className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 hover:border-white/40 rounded-2xl overflow-hidden shadow-2xl"
           initial={{ x: '-100%' }}
           animate={{
             x: isExpanded ? '0%' : '-100%',
@@ -73,41 +86,124 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             stiffness: 300,
             damping: 30,
           }}
+          whileHover={{
+            boxShadow: `0 20px 40px -10px ${colorBar.color.replace('bg-', 'rgba(').replace('-400', ', 0.3)')}`,
+          }}
         >
-          <div className="relative h-full flex p-6 md:p-8">
-            {/* Vertical Colored Bar - Left */}
-            <div className={`w-1 ${colorBar.color} rounded-full mr-6 flex-shrink-0`} />
+          {/* Animated Background Glow */}
+          <motion.div
+            className={`absolute inset-0 opacity-0 group-hover:opacity-20 ${colorBar.color} blur-3xl`}
+            animate={{
+              scale: isExpanded ? [1, 1.2, 1] : 1,
+              opacity: isExpanded ? [0, 0.2, 0.1] : 0,
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
+          <div className="relative h-full flex p-6 md:p-8 z-10">
+            {/* Vertical Colored Bar - Left with Pulse Animation */}
+            <motion.div
+              className={`w-1.5 ${colorBar.color} rounded-full mr-6 flex-shrink-0 shadow-lg`}
+              animate={{
+                scaleY: isExpanded ? [1, 1.1, 1] : 1,
+                opacity: isExpanded ? [0.8, 1, 0.8] : 0.8,
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
             
             {/* Main Content */}
             <div className="flex-1 flex flex-col justify-between">
-              {/* Title with Bar */}
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
+              {/* Title with Animation */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: isExpanded ? 1 : 0,
+                  y: isExpanded ? 0 : 20,
+                }}
+                transition={{ delay: 0.1 }}
+              >
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
                   {industry.title}
                 </h3>
 
-                {/* Description */}
-                <p className="text-gray-300 leading-relaxed mb-6 text-sm md:text-base">
+                {/* Short Description */}
+                <p className="text-gray-400 leading-relaxed mb-4 text-sm md:text-base font-medium">
                   {industry.description}
                 </p>
-              </div>
+              </motion.div>
+
+              {/* Detailed Content with Animation */}
+              {industry.content && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: isExpanded ? 1 : 0,
+                    y: isExpanded ? 0 : 20,
+                  }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-6"
+                >
+                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+                    {industry.content}
+                  </p>
+                </motion.div>
+              )}
 
               {/* Bottom Section - Metric and CTA */}
-              <div className="flex items-end justify-between mt-auto">
-                {/* Metric */}
-                <div className="text-2xl md:text-3xl font-black text-white">
-                  {industry.projects}+ {lang === 'de' ? 'PROJEKTE' : 'PROJECTS'}
-                </div>
-
-                {/* CTA Button */}
+              <motion.div
+                className="flex items-end justify-between mt-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: isExpanded ? 1 : 0,
+                  y: isExpanded ? 0 : 20,
+                }}
+                transition={{ delay: 0.3 }}
+              >
+                {/* Metric with Pulse Animation */}
                 <motion.div
-                  className="flex items-center gap-2 text-sm font-semibold text-white group-hover:text-teal-400 transition-colors"
-                  whileHover={{ x: 5 }}
+                  className="text-xl md:text-2xl lg:text-3xl font-black text-white"
+                  animate={{
+                    scale: isExpanded ? [1, 1.05, 1] : 1,
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: 0.5,
+                  }}
+                >
+                  {industry.projects}+ {lang === 'de' ? 'PROJEKTE' : 'PROJECTS'}
+                </motion.div>
+
+                {/* CTA Button with Enhanced Animation */}
+                <motion.div
+                  className="flex items-center gap-2 text-sm md:text-base font-semibold text-white group-hover:text-teal-400 transition-colors"
+                  whileHover={{ x: 8, scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <span>{lang === 'de' ? 'MEHR ERFAHREN' : 'LEARN MORE'}</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <motion.div
+                    animate={{
+                      x: [0, 5, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  >
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.div>
                 </motion.div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -153,17 +249,18 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
           {industries.map((industry, index) => (
             <motion.div
               key={industry.slug}
-              className="min-h-[300px] md:min-h-[350px]"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="min-h-[400px] md:min-h-[450px]"
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ 
-                duration: 0.6, 
-                delay: index * 0.1,
+                duration: 0.8, 
+                delay: index * 0.08,
                 type: 'spring',
-                stiffness: 100,
-                damping: 15,
+                stiffness: 120,
+                damping: 20,
               }}
+              whileHover={{ y: -8 }}
             >
               <IndustryCard 
                 industry={industry} 
