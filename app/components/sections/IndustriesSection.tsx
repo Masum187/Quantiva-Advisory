@@ -25,6 +25,10 @@ const colorBars = [
   { color: 'bg-purple-400', border: 'border-purple-400' },
   { color: 'bg-teal-400', border: 'border-teal-400' },
   { color: 'bg-green-400', border: 'border-green-400' },
+  { color: 'bg-blue-400', border: 'border-blue-400' },
+  { color: 'bg-pink-400', border: 'border-pink-400' },
+  { color: 'bg-orange-400', border: 'border-orange-400' },
+  { color: 'bg-yellow-400', border: 'border-yellow-400' },
 ];
 
 function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps & { index: number }) {
@@ -144,9 +148,9 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
           <p className="text-base text-gray-400 max-w-3xl">{subline}</p>
         </motion.div>
 
-        {/* 2x2 Grid Layout */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {industries.slice(0, 4).map((industry, index) => (
+        {/* Grid Layout - All Industries */}
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {industries.map((industry, index) => (
             <motion.div
               key={industry.slug}
               className="min-h-[300px] md:min-h-[350px]"
