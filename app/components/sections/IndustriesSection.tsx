@@ -133,12 +133,12 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                 }}
                 transition={{ delay: 0.1 }}
               >
-                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 leading-tight">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
                   {industry.title}
                 </h3>
 
                 {/* Short Description */}
-                <p className="text-gray-400 leading-relaxed mb-4 text-xs md:text-sm">
+                <p className="text-gray-400 leading-relaxed mb-3 text-xs">
                   {industry.description}
                 </p>
               </motion.div>
@@ -154,7 +154,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                   transition={{ delay: 0.2 }}
                   className="mb-6"
                 >
-                  <p className="text-white leading-relaxed text-base md:text-lg">
+                  <p className="text-white leading-relaxed text-sm">
                     {industry.content}
                   </p>
                 </motion.div>
@@ -173,7 +173,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                 {/* Metric with Pulse Animation */}
                 <div className="flex flex-col">
                   <motion.div
-                    className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-1"
+                    className="text-2xl md:text-3xl font-black text-white mb-0.5"
                     animate={{
                       scale: isExpanded ? [1, 1.05, 1] : 1,
                     }}
@@ -186,21 +186,21 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                   >
                     {industry.projects}+
                   </motion.div>
-                  <div className="text-xl md:text-2xl font-black text-white">
+                  <div className="text-base md:text-lg font-black text-white">
                     {lang === 'de' ? 'PROJEKTE' : 'PROJECTS'}
                   </div>
                 </div>
 
                 {/* CTA Button with Enhanced Animation - Vertical Stack */}
                 <motion.div
-                  className="flex flex-col items-end gap-1 text-teal-400 font-semibold"
+                  className="flex flex-col items-end gap-0.5 text-teal-400 font-semibold"
                   whileHover={{ x: 5, scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="text-sm md:text-base">{lang === 'de' ? 'MEHR' : 'LEARN'}</span>
-                  <span className="text-sm md:text-base">{lang === 'de' ? 'ERFAHREN' : 'MORE'}</span>
+                  <span className="text-xs">{lang === 'de' ? 'MEHR' : 'LEARN'}</span>
+                  <span className="text-xs">{lang === 'de' ? 'ERFAHREN' : 'MORE'}</span>
                   <motion.div
-                    className="mt-1"
+                    className="mt-0.5"
                     animate={{
                       x: [0, 5, 0],
                     }}
@@ -210,7 +210,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                       ease: 'easeInOut',
                     }}
                   >
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3 h-3" />
                   </motion.div>
                 </motion.div>
               </motion.div>
