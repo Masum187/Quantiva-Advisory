@@ -133,12 +133,12 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                 }}
                 transition={{ delay: 0.1 }}
               >
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+                <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 leading-tight">
                   {industry.title}
                 </h3>
 
                 {/* Short Description */}
-                <p className="text-gray-400 leading-relaxed mb-4 text-sm md:text-base font-medium">
+                <p className="text-gray-400 leading-relaxed mb-4 text-xs md:text-sm">
                   {industry.description}
                 </p>
               </motion.div>
@@ -154,7 +154,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                   transition={{ delay: 0.2 }}
                   className="mb-6"
                 >
-                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+                  <p className="text-white leading-relaxed text-base md:text-lg">
                     {industry.content}
                   </p>
                 </motion.div>
@@ -171,29 +171,36 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                 transition={{ delay: 0.3 }}
               >
                 {/* Metric with Pulse Animation */}
-                <motion.div
-                  className="text-xl md:text-2xl lg:text-3xl font-black text-white"
-                  animate={{
-                    scale: isExpanded ? [1, 1.05, 1] : 1,
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    delay: 0.5,
-                  }}
-                >
-                  {industry.projects}+ {lang === 'de' ? 'PROJEKTE' : 'PROJECTS'}
-                </motion.div>
+                <div className="flex flex-col">
+                  <motion.div
+                    className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-1"
+                    animate={{
+                      scale: isExpanded ? [1, 1.05, 1] : 1,
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: 0.5,
+                    }}
+                  >
+                    {industry.projects}+
+                  </motion.div>
+                  <div className="text-xl md:text-2xl font-black text-white">
+                    {lang === 'de' ? 'PROJEKTE' : 'PROJECTS'}
+                  </div>
+                </div>
 
-                {/* CTA Button with Enhanced Animation */}
+                {/* CTA Button with Enhanced Animation - Vertical Stack */}
                 <motion.div
-                  className="flex items-center gap-2 text-sm md:text-base font-semibold text-white group-hover:text-teal-400 transition-colors"
-                  whileHover={{ x: 8, scale: 1.05 }}
+                  className="flex flex-col items-end gap-1 text-teal-400 font-semibold"
+                  whileHover={{ x: 5, scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span>{lang === 'de' ? 'MEHR ERFAHREN' : 'LEARN MORE'}</span>
+                  <span className="text-sm md:text-base">{lang === 'de' ? 'MEHR' : 'LEARN'}</span>
+                  <span className="text-sm md:text-base">{lang === 'de' ? 'ERFAHREN' : 'MORE'}</span>
                   <motion.div
+                    className="mt-1"
                     animate={{
                       x: [0, 5, 0],
                     }}
@@ -203,7 +210,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                       ease: 'easeInOut',
                     }}
                   >
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4" />
                   </motion.div>
                 </motion.div>
               </motion.div>
