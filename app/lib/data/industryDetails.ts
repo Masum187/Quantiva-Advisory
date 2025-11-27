@@ -450,6 +450,192 @@ export const industryDetails: IndustryDetail[] = [
       email: 'sarah.martinez@quantivaadvisory.com',
     },
   },
+  // IT & Technology
+  {
+    slug: 'it-technology',
+    language: 'de',
+    name: 'IT & Technologie',
+    hero: {
+      title: 'Digitale Transformation für IT-Unternehmen',
+      subtitle: 'Wir unterstützen IT-Unternehmen und Software-Hersteller bei der Modernisierung ihrer Infrastruktur und der Entwicklung skalierbarer, cloud-nativer Anwendungen.',
+      badge: 'IT & Technology',
+    },
+    overview: {
+      introduction: 'Von DevOps bis hin zu KI-Integration: Wir helfen IT-Unternehmen dabei, ihre Infrastruktur zu modernisieren, Cloud-Migrationen durchzuführen und innovative Software-Lösungen zu entwickeln.',
+      focusAreas: [
+        { title: 'Cloud-Native Development', description: 'Microservices, Container-Orchestrierung und Serverless-Architekturen.' },
+        { title: 'DevOps & CI/CD', description: 'Automatisierte Pipelines, Infrastructure as Code und Monitoring.' },
+        { title: 'AI Integration', description: 'KI-gestützte Features, Machine Learning Pipelines und Data Engineering.' },
+      ],
+    },
+    stats: [
+      { label: 'Deployment Speed', value: '+60 % schnellere Releases' },
+      { label: 'Infrastructure Cost', value: '-35 % Cloud-Kosten' },
+      { label: 'Developer Productivity', value: '+45 % Effizienzsteigerung' },
+    ],
+    technologies: ['Kubernetes', 'AWS/Azure/GCP', 'Terraform', 'GitLab CI/CD', 'Prometheus', 'Grafana'],
+    capabilities: [
+      { title: 'Cloud Migration', description: 'Lift & Shift, Re-Platforming und Cloud-Native Transformation.' },
+      { title: 'Microservices Architecture', description: 'Service-Mesh, API-Gateways und Event-Driven Architecture.' },
+      { title: 'AI/ML Integration', description: 'MLOps, Feature Stores und Model Serving.' },
+    ],
+    caseStudies: [
+      {
+        client: 'TechCorp Solutions',
+        headline: 'Cloud-Native Platform Transformation',
+        impact: 'Deployment-Zeit von 2 Wochen auf 2 Stunden reduziert',
+        description: 'Migration von monolithischer Architektur zu Microservices auf Kubernetes mit vollständiger CI/CD-Automatisierung.',
+      },
+      {
+        client: 'Software Innovations AG',
+        headline: 'AI-Powered Product Features',
+        impact: '+28 % User Engagement durch KI-Features',
+        description: 'Integration von Machine Learning in bestehende Produkte mit MLOps-Pipeline und Real-Time Inference.',
+      },
+    ],
+    contact: {
+      name: 'Dr. Thomas Schneider',
+      role: 'Industry Lead IT & Technology',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      email: 't.schneider@quantivaadvisory.com',
+    },
+  },
+  {
+    slug: 'it-technology',
+    language: 'en',
+    name: 'IT & Technology',
+    hero: {
+      title: 'Digital Transformation for IT Companies',
+      subtitle: 'We support IT companies and software manufacturers in modernizing their infrastructure and developing scalable, cloud-native applications.',
+      badge: 'IT & Technology',
+    },
+    overview: {
+      introduction: 'From DevOps to AI integration: We help IT companies modernize their infrastructure, execute cloud migrations, and develop innovative software solutions.',
+      focusAreas: [
+        { title: 'Cloud-Native Development', description: 'Microservices, container orchestration, and serverless architectures.' },
+        { title: 'DevOps & CI/CD', description: 'Automated pipelines, infrastructure as code, and monitoring.' },
+        { title: 'AI Integration', description: 'AI-powered features, machine learning pipelines, and data engineering.' },
+      ],
+    },
+    stats: [
+      { label: 'Deployment Speed', value: '+60 % faster releases' },
+      { label: 'Infrastructure Cost', value: '-35 % cloud costs' },
+      { label: 'Developer Productivity', value: '+45 % efficiency increase' },
+    ],
+    technologies: ['Kubernetes', 'AWS/Azure/GCP', 'Terraform', 'GitLab CI/CD', 'Prometheus', 'Grafana'],
+    capabilities: [
+      { title: 'Cloud Migration', description: 'Lift & shift, re-platforming, and cloud-native transformation.' },
+      { title: 'Microservices Architecture', description: 'Service mesh, API gateways, and event-driven architecture.' },
+      { title: 'AI/ML Integration', description: 'MLOps, feature stores, and model serving.' },
+    ],
+    caseStudies: [
+      {
+        client: 'TechCorp Solutions',
+        headline: 'Cloud-Native Platform Transformation',
+        impact: 'Deployment time reduced from 2 weeks to 2 hours',
+        description: 'Migration from monolithic architecture to microservices on Kubernetes with full CI/CD automation.',
+      },
+      {
+        client: 'Software Innovations AG',
+        headline: 'AI-Powered Product Features',
+        impact: '+28 % user engagement through AI features',
+        description: 'Integration of machine learning into existing products with MLOps pipeline and real-time inference.',
+      },
+    ],
+    contact: {
+      name: 'Dr. Thomas Schneider',
+      role: 'Industry Lead IT & Technology',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      email: 'thomas.schneider@quantivaadvisory.com',
+    },
+  },
+  // Internet
+  {
+    slug: 'internet',
+    language: 'de',
+    name: 'Internet',
+    hero: {
+      title: 'SaaS-Plattformen und digitale Services',
+      subtitle: 'Wir helfen Internet-Unternehmen dabei, skalierbare, hochverfügbare Systeme aufzubauen und ihre Geschäftsmodelle zu digitalisieren.',
+      badge: 'Internet & SaaS',
+    },
+    overview: {
+      introduction: 'SaaS-Plattformen, Online-Marktplätze und digitale Services: Wir unterstützen Internet-Unternehmen bei der Entwicklung skalierbarer Architekturen und der Optimierung ihrer Geschäftsmodelle.',
+      focusAreas: [
+        { title: 'SaaS Platform Development', description: 'Multi-Tenant-Architekturen, Subscription-Management und API-First-Design.' },
+        { title: 'Scalability & Performance', description: 'Microservices, Load Balancing und Caching-Strategien.' },
+        { title: 'Digital Business Models', description: 'Marketplace-Architekturen, Payment-Integration und Analytics.' },
+      ],
+    },
+    stats: [
+      { label: 'Uptime', value: '99.9 % Verfügbarkeit' },
+      { label: 'Scalability', value: '+300 % Traffic-Handling' },
+      { label: 'User Growth', value: '+45 % aktive Nutzer' },
+    ],
+    technologies: ['AWS/Azure', 'Kubernetes', 'PostgreSQL', 'Redis', 'Stripe', 'Auth0'],
+    capabilities: [
+      { title: 'SaaS Architecture', description: 'Multi-Tenant-Systeme, Subscription-Billing und Tenant-Isolation.' },
+      { title: 'API Development', description: 'RESTful APIs, GraphQL und API-Gateways.' },
+      { title: 'Performance Optimization', description: 'Caching, CDN-Integration und Database-Optimierung.' },
+    ],
+    caseStudies: [
+      {
+        client: 'CloudPlatform AG',
+        headline: 'SaaS-Platform Modernisierung',
+        impact: 'Deployment-Zeit -70 %, Kosten -40 %',
+        description: 'Migration von monolithischer zu Microservices-Architektur mit vollständiger CI/CD-Automatisierung und Multi-Tenant-Isolation.',
+      },
+    ],
+    contact: {
+      name: 'Dr. Thomas Schneider',
+      role: 'Industry Lead IT & Technology',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      email: 't.schneider@quantivaadvisory.com',
+    },
+  },
+  {
+    slug: 'internet',
+    language: 'en',
+    name: 'Internet',
+    hero: {
+      title: 'SaaS Platforms and Digital Services',
+      subtitle: 'We help internet companies build scalable, highly available systems and digitalize their business models.',
+      badge: 'Internet & SaaS',
+    },
+    overview: {
+      introduction: 'SaaS platforms, online marketplaces, and digital services: We support internet companies in developing scalable architectures and optimizing their business models.',
+      focusAreas: [
+        { title: 'SaaS Platform Development', description: 'Multi-tenant architectures, subscription management, and API-first design.' },
+        { title: 'Scalability & Performance', description: 'Microservices, load balancing, and caching strategies.' },
+        { title: 'Digital Business Models', description: 'Marketplace architectures, payment integration, and analytics.' },
+      ],
+    },
+    stats: [
+      { label: 'Uptime', value: '99.9 % availability' },
+      { label: 'Scalability', value: '+300 % traffic handling' },
+      { label: 'User Growth', value: '+45 % active users' },
+    ],
+    technologies: ['AWS/Azure', 'Kubernetes', 'PostgreSQL', 'Redis', 'Stripe', 'Auth0'],
+    capabilities: [
+      { title: 'SaaS Architecture', description: 'Multi-tenant systems, subscription billing, and tenant isolation.' },
+      { title: 'API Development', description: 'RESTful APIs, GraphQL, and API gateways.' },
+      { title: 'Performance Optimization', description: 'Caching, CDN integration, and database optimization.' },
+    ],
+    caseStudies: [
+      {
+        client: 'CloudPlatform AG',
+        headline: 'SaaS Platform Modernization',
+        impact: 'Deployment time -70 %, costs -40 %',
+        description: 'Migration from monolithic to microservices architecture with full CI/CD automation and multi-tenant isolation.',
+      },
+    ],
+    contact: {
+      name: 'Dr. Thomas Schneider',
+      role: 'Industry Lead IT & Technology',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      email: 'thomas.schneider@quantivaadvisory.com',
+    },
+  },
 ];
 
 export function getIndustryDetail(slug: string, lang: SupportedLanguage): IndustryDetail | null {

@@ -379,6 +379,79 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
           </AnimatedCard>
         </div>
 
+        {/* Digital Strategy Section - Text Left, Image Right */}
+        <section className="relative">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <p className="text-sm uppercase tracking-widest text-gray-400">
+                {lang === 'de' ? 'Digitale Strategie' : 'Digital Strategy'}
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                {lang === 'de' 
+                  ? 'Mehr Erfolg durch integrierte digitale Unternehmensstrategie'
+                  : 'More success through integrated digital corporate strategy'}
+              </h2>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                {lang === 'de'
+                  ? 'Digital erfolgreich zu sein beginnt mit einer klaren, durchdachten Strategie. Wir unterstützen Sie mit unserer Digitalberatung dabei, Ihre Marke gezielt zu positionieren und Ihre Sichtbarkeit auf den relevanten Kanälen zu steigern. Die Umstellung auf Cloud-Lösungen hilft Ihnen, Ihre internen Prozesse effizient zu digitalisieren und zu optimieren. Mit unserer Digitalberatung gewinnen Sie wertvolle Freiräume, können schneller Entscheidungen treffen und steigern Ihre Innovationskraft und Wettbewerbsfähigkeit.'
+                  : 'Being digitally successful begins with a clear, well-thought-out strategy. We support you with our digital consulting to strategically position your brand and increase its visibility on relevant channels. The transition to cloud solutions helps you efficiently digitize and optimize your internal processes. With our digital consulting, you gain valuable leeway, can make faster decisions, and increase your innovative strength and competitiveness.'}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/5 backdrop-blur-md px-6 py-3 text-white font-semibold hover:bg-white/10 transition-colors"
+                >
+                  <span className="text-2xl">+</span>
+                  <span>{lang === 'de' ? 'Erfahren Sie mehr' : 'Learn more'}</span>
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 text-white font-semibold shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <span>{lang === 'de' ? 'Weitere Informationen' : 'More Information'}</span>
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </div>
+            </motion.div>
+
+            {/* Right Side - MacBook Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3"
+                  alt={lang === 'de' ? 'Digitale Strategie' : 'Digital Strategy'}
+                  fill
+                  className="object-cover"
+                />
+                {/* Overlay with text */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
+                    <p className="text-white font-semibold">
+                      {lang === 'de' ? 'Digitale Strategie' : 'Digital Strategy'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Capabilities - Slider Style */}
         <section>
           <AnimatedCard direction="up">
@@ -392,12 +465,113 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
           </AnimatedCard>
         </section>
 
-        {/* Case Studies - Slider Style */}
-        <section>
-          <AnimatedCard direction="up">
-            <h2 className="text-3xl font-bold mb-12 text-center">{t.casesTitle}</h2>
-            <CaseStudiesSlider caseStudies={industry.caseStudies} />
-          </AnimatedCard>
+        {/* Case Studies - New Layout with 3D Object */}
+        <section className="relative">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left Side - Title + 3D Object */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                {t.casesTitle}
+              </h2>
+              
+              {/* 3D Torus Object with Play Button */}
+              <motion.div
+                className="relative w-64 h-64 mx-auto lg:mx-0"
+                animate={{
+                  rotateY: [0, 360],
+                  rotateX: [0, 15, 0],
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  rotateY: { duration: 20, repeat: Infinity, ease: "linear" },
+                  rotateX: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+                  y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                }}
+                style={{
+                  transformStyle: 'preserve-3d',
+                  perspective: '1000px',
+                }}
+              >
+                {/* Torus Shape */}
+                <div className="absolute inset-0 rounded-full border-8 border-gray-300/30" style={{
+                  clipPath: 'polygon(0% 0%, 100% 0%, 100% 50%, 50% 50%, 50% 100%, 0% 100%)',
+                }} />
+                <div className="absolute inset-0 rounded-full border-8 border-gray-300/30" style={{
+                  clipPath: 'polygon(0% 0%, 50% 0%, 50% 50%, 0% 50%)',
+                }} />
+                
+                {/* Play Button in Center */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/30 flex items-center justify-center cursor-pointer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="w-0 h-0 border-l-[12px] border-l-white border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1" />
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Side - Case Study Cards */}
+            <div className="space-y-6">
+              {industry.caseStudies.map((caseStudy, index) => (
+                <motion.div
+                  key={caseStudy.client}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  className="rounded-3xl p-8 bg-gradient-to-br from-purple-600/80 to-purple-800/80 backdrop-blur-md border border-purple-400/20 shadow-xl"
+                >
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-sm uppercase tracking-widest text-purple-200/80 mb-2">
+                        {lang === 'de' ? 'KUNDE' : 'CLIENT'}
+                      </p>
+                      <p className="text-white font-semibold text-lg">
+                        {caseStudy.client}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm uppercase tracking-widest text-purple-200/80 mb-2">
+                        {lang === 'de' ? 'HERAUSFORDERUNG' : 'PROBLEM'}
+                      </p>
+                      <p className="text-white/90 leading-relaxed">
+                        {caseStudy.headline}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-sm uppercase tracking-widest text-purple-200/80 mb-2">
+                        {lang === 'de' ? 'ERGEBNIS' : 'RESULT'}
+                      </p>
+                      <ul className="space-y-2 text-white/90">
+                        {caseStudy.impact.split(',').map((item, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-purple-300 mt-1">•</span>
+                            <span>{item.trim()}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="mt-6 rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-md px-6 py-3 text-white font-semibold text-sm hover:bg-white/20 transition-colors"
+                    >
+                      {lang === 'de' ? 'Mehr erfahren' : 'Read more'}
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* Contact */}
