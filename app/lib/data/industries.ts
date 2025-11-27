@@ -10,7 +10,7 @@ export type IndustryShowcase = {
 export const industriesDe: IndustryShowcase[] = [
   {
     slug: 'financial-services',
-    title: 'Finanzdienstleistungen',
+    title: 'Finance',
     description: 'Banking, Versicherung, FinTech',
     content: 'Wir unterstützen Banken, Versicherungen und FinTech-Unternehmen bei der digitalen Transformation ihrer Kernprozesse. Von S/4HANA-Modernisierung bis hin zu Cloud-native Architekturen und Compliance-konformen Lösungen.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -42,7 +42,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'it-technology',
-    title: 'IT & Technologie',
+    title: 'IT & Technology',
     description: 'Software, Cloud, Digitalisierung',
     content: 'Wir unterstützen IT-Unternehmen und Software-Hersteller bei der Modernisierung ihrer Infrastruktur, Cloud-Migration und der Entwicklung skalierbarer, cloud-nativer Anwendungen. Von DevOps bis hin zu KI-Integration.',
     image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -58,7 +58,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'telecommunications',
-    title: 'Telekommunikation',
+    title: 'Telecommunications',
     description: '5G, Netzwerke, Connectivity',
     content: '5G-Netzwerke, IoT-Connectivity und digitale Services: Wir unterstützen Telekommunikationsunternehmen bei der Modernisierung ihrer IT-Landschaften und der Entwicklung neuer Geschäftsmodelle.',
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -66,7 +66,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'mechanical-engineering',
-    title: 'Maschinenbau',
+    title: 'Mechanical Engineering',
     description: 'Produktion, Automatisierung, Industrie 4.0',
     content: 'Produktionsoptimierung, Automatisierung und Industrie 4.0: Wir helfen Maschinenbauunternehmen dabei, ihre Fertigungsprozesse zu digitalisieren und datengetriebene Entscheidungen zu treffen.',
     image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -74,7 +74,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'chemical',
-    title: 'Chemie',
+    title: 'Chemical',
     description: 'Chemische Industrie, Prozesse, Innovation',
     content: 'Prozessoptimierung, Qualitätssicherung und Compliance: Wir unterstützen Chemieunternehmen bei der Digitalisierung ihrer Produktionsprozesse und der Einhaltung strenger regulatorischer Anforderungen.',
     image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -82,7 +82,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'energy',
-    title: 'Energie',
+    title: 'Energy',
     description: 'Erneuerbare Energien, Stromversorgung, Energieeffizienz',
     content: 'Energiewende und digitale Transformation: Wir unterstützen Energieunternehmen bei der Modernisierung ihrer IT-Systeme, Smart Grid-Integration und der Entwicklung nachhaltiger Geschäftsmodelle.',
     image: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -90,7 +90,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'oil-gas',
-    title: 'Öl & Gas',
+    title: 'Oil & Gas',
     description: 'Exploration, Förderung, Raffinerie, Downstream',
     content: 'Von der Exploration bis zur Raffinerie: Wir unterstützen Öl- und Gasunternehmen bei der Digitalisierung ihrer Prozesse, Asset-Management und der Optimierung ihrer Supply Chains.',
     image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -98,7 +98,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'utilities',
-    title: 'Versorgungsunternehmen',
+    title: 'Utilities',
     description: 'Strom, Wasser, Gas, Abfallwirtschaft',
     content: 'Smart Metering, Asset-Management und Kundenportale: Wir helfen Versorgungsunternehmen dabei, ihre Infrastruktur zu digitalisieren und neue, datengetriebene Services anzubieten.',
     image: 'https://images.unsplash.com/photo-1504307651254-35680f088df8?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -106,7 +106,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'transport',
-    title: 'Transport & Verkehr',
+    title: 'Transport',
     description: 'Öffentlicher Verkehr, Infrastruktur, Mobilität',
     content: 'Mobilität der Zukunft: Wir unterstützen Verkehrsunternehmen bei der Digitalisierung ihrer Systeme, E-Ticketing, Fahrgastinformationen und der Entwicklung nachhaltiger Mobilitätslösungen.',
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -114,7 +114,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'logistics',
-    title: 'Logistik',
+    title: 'Logistics',
     description: 'Supply Chain, Lagerhaltung, Distribution',
     content: 'Supply Chain Excellence: Wir helfen Logistikunternehmen dabei, ihre Prozesse zu optimieren, WMS-Systeme zu modernisieren und intelligente, datengetriebene Entscheidungen zu treffen.',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -122,7 +122,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'airlines',
-    title: 'Luftfahrt',
+    title: 'Airlines',
     description: 'Airlines, Flughäfen, Luftverkehrsmanagement',
     content: 'Digitale Transformation in der Luftfahrt: Wir unterstützen Airlines und Flughäfen bei der Modernisierung ihrer IT-Systeme, Revenue-Management und der Entwicklung kundenzentrierter Services.',
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',
@@ -130,7 +130,7 @@ export const industriesDe: IndustryShowcase[] = [
   },
   {
     slug: 'shipping',
-    title: 'Schifffahrt',
+    title: 'Shipping',
     description: 'Maritime Logistik, Häfen, Containerverkehr',
     content: 'Maritime Digitalisierung: Wir unterstützen Schifffahrtsunternehmen und Häfen bei der Modernisierung ihrer Systeme, Container-Tracking und der Optimierung ihrer operativen Prozesse.',
     image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3',

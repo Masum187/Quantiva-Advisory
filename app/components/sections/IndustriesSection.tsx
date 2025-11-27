@@ -133,12 +133,12 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                 }}
                 transition={{ delay: 0.1 }}
               >
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
                   {industry.title}
                 </h3>
 
                 {/* Short Description */}
-                <p className="text-gray-400 leading-relaxed mb-3 text-xs">
+                <p className="text-gray-400 leading-relaxed mb-2 text-xs">
                   {industry.description}
                 </p>
               </motion.div>
@@ -152,9 +152,9 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                     y: isExpanded ? 0 : 20,
                   }}
                   transition={{ delay: 0.2 }}
-                  className="mb-6"
+                  className="mb-4 flex-1 overflow-y-auto"
                 >
-                  <p className="text-white leading-relaxed text-sm">
+                  <p className="text-white leading-relaxed text-xs">
                     {industry.content}
                   </p>
                 </motion.div>
