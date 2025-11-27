@@ -7,8 +7,18 @@ import Image from 'next/image';
 import ServiceNavigation from '../../../components/ServiceNavigation';
 import { Brain, ArrowLeft, CheckCircle, Cpu, Zap, Shield, Target } from 'lucide-react';
 
+// Study type definition
+type Study = {
+  title: string;
+  description: string;
+  topic: string;
+  date: string;
+  image: string;
+  url: string;
+};
+
 // Study Card Component
-function StudyCard({ study, index }: { study: typeof studies[0]; index: number }) {
+function StudyCard({ study, index }: { study: Study; index: number }) {
   const colorBars = [
     { color: 'bg-cyan-400', border: 'border-cyan-400' },
     { color: 'bg-purple-400', border: 'border-purple-400' },
