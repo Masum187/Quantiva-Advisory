@@ -346,74 +346,183 @@ export default function AIServicePage() {
             </div>
           </SlideIn>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {studies.map((study, index) => (
-              <SlideIn key={index} delay={index * 0.1 + 0.5}>
-                <motion.article
-                  className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 hover:border-white/40 transition-all duration-500"
-                  whileHover={{
-                    scale: 1.02,
-                    y: -5,
-                    transition: { duration: 0.3 }
-                  }}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {studies.map((study, index) => {
+              const colorBars = [
+                { color: 'bg-cyan-400', border: 'border-cyan-400' },
+                { color: 'bg-purple-400', border: 'border-purple-400' },
+                { color: 'bg-teal-400', border: 'border-teal-400' },
+                { color: 'bg-green-400', border: 'border-green-400' },
+                { color: 'bg-blue-400', border: 'border-blue-400' },
+                { color: 'bg-pink-400', border: 'border-pink-400' },
+              ];
+              const colorBar = colorBars[index % colorBars.length];
+              const [isExpanded, setIsExpanded] = React.useState(false);
+
+              return (
+                <motion.div
+                  key={index}
+                  className="group relative h-[400px] md:h-[450px] overflow-hidden rounded-2xl"
+                  onHoverStart={() => setIsExpanded(true)}
+                  onHoverEnd={() => setIsExpanded(false)}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  {/* Study Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={study.image}
-                      alt={study.title}
-                      width={400}
-                      height={192}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    {/* Topic Badge */}
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-purple-500/80 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
-                        {study.topic}
-                      </span>
-                    </div>
+                  <a
+                    href={study.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block h-full"
+                  >
+                    {/* Closed State - Only Color Bar */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-start pl-4"
+                      animate={{
+                        width: isExpanded ? '0%' : '100%',
+                        opacity: isExpanded ? 0 : 1,
+                      }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                    >
+                      <motion.div
+                        className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg`}
+                        style={{
+                          boxShadow: `0 10px 20px -5px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.5)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.5)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.5)').replace('bg-green-400', 'rgba(74, 222, 128, 0.5)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.5)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.5)')}`,
+                        }}
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          opacity: [0.8, 1, 0.8],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                        }}
+                      />
+                    </motion.div>
 
-                    {/* Date Badge */}
-                    <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
-                        {study.date}
-                      </span>
-                    </div>
-                  </div>
+                    {/* Expanded State - Full Card */}
+                    <motion.div
+                      className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 hover:border-white/40 rounded-2xl overflow-hidden shadow-2xl"
+                      initial={{ x: '-100%' }}
+                      animate={{
+                        x: isExpanded ? '0%' : '-100%',
+                      }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                      whileHover={{
+                        boxShadow: `0 20px 40px -10px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.3)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.3)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.3)').replace('bg-green-400', 'rgba(74, 222, 128, 0.3)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.3)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.3)')}`,
+                      }}
+                    >
+                      {/* Animated Background Glow */}
+                      <motion.div
+                        className={`absolute inset-0 opacity-0 group-hover:opacity-20 ${colorBar.color} blur-3xl`}
+                        animate={{
+                          scale: isExpanded ? [1, 1.2, 1] : 1,
+                          opacity: isExpanded ? [0, 0.2, 0.1] : 0,
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: 'easeInOut',
+                        }}
+                      />
 
-                  {/* Study Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors line-clamp-2">
-                      {study.title}
-                    </h3>
-                    
-                    <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
-                      {study.description}
-                    </p>
+                      <div className="relative h-full flex p-6 md:p-8 z-10">
+                        {/* Vertical Colored Bar - Left */}
+                        <motion.div
+                          className={`w-1.5 ${colorBar.color} rounded-full mr-6 flex-shrink-0 shadow-lg`}
+                          animate={{
+                            scaleY: isExpanded ? [1, 1.1, 1] : 1,
+                            opacity: isExpanded ? [0.8, 1, 0.8] : 0.8,
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          }}
+                        />
+                        
+                        {/* Main Content */}
+                        <div className="flex-1 flex flex-col justify-between">
+                          {/* Title with Animation */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{
+                              opacity: isExpanded ? 1 : 0,
+                              y: isExpanded ? 0 : 20,
+                            }}
+                            transition={{ delay: 0.1 }}
+                          >
+                            <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
+                              {study.title}
+                            </h3>
 
-                    <div className="flex items-center justify-between">
-                      <a
-                        href={study.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-purple-300 text-sm font-semibold hover:text-purple-200 transition-colors duration-300"
-                      >
-                        Whitepaper lesen →
-                      </a>
-                      <div className="flex items-center gap-2 text-gray-400 text-xs">
-                        <span>{study.date}</span>
+                            {/* Topic Badge */}
+                            <div className="mb-2">
+                              <span className="inline-block px-3 py-1 bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs font-semibold rounded-full backdrop-blur-sm">
+                                {study.topic}
+                              </span>
+                            </div>
+                          </motion.div>
+
+                          {/* Description with Animation */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{
+                              opacity: isExpanded ? 1 : 0,
+                              y: isExpanded ? 0 : 20,
+                            }}
+                            transition={{ delay: 0.2 }}
+                            className="mb-4 flex-1 overflow-y-auto"
+                          >
+                            <p className="text-white leading-relaxed text-xs">
+                              {study.description}
+                            </p>
+                          </motion.div>
+
+                          {/* Bottom Section - Date and CTA */}
+                          <motion.div
+                            className="flex items-end justify-between mt-auto"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{
+                              opacity: isExpanded ? 1 : 0,
+                              y: isExpanded ? 0 : 20,
+                            }}
+                            transition={{ delay: 0.3 }}
+                          >
+                            {/* Date */}
+                            <div className="text-base md:text-lg font-black text-white">
+                              {study.date}
+                            </div>
+
+                            {/* CTA - Vertical Stack */}
+                            <motion.div
+                              className="flex flex-col items-end gap-0.5 text-teal-400 font-semibold"
+                              whileHover={{ x: 5, scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              <span className="text-xs">Whitepaper</span>
+                              <span className="text-xs">lesen →</span>
+                            </motion.div>
+                          </motion.div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </motion.article>
-              </SlideIn>
-            ))}
+                    </motion.div>
+                  </a>
+                </motion.div>
+              );
+            })}
           </div>
 
         </div>
