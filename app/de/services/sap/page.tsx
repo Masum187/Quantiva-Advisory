@@ -414,7 +414,7 @@ export default function SAPServicePage() {
             </div>
           </SlideIn>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {whitepapers.map((whitepaper, index) => (
               <SlideIn key={index} delay={index * 0.1 + 0.5}>
                 <WhitepaperCard
@@ -424,6 +424,7 @@ export default function SAPServicePage() {
                   date={whitepaper.date}
                   image={whitepaper.image}
                   downloadUrl={whitepaper.downloadUrl}
+                  index={index}
                 />
               </SlideIn>
             ))}

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Download, CheckCircle } from 'lucide-react';
+import { Download, CheckCircle, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 
 interface WhitepaperCardProps {
@@ -12,6 +12,7 @@ interface WhitepaperCardProps {
   date: string;
   image: string;
   downloadUrl: string;
+  index?: number; // For color rotation
 }
 
 export default function WhitepaperCard({ 
@@ -20,7 +21,8 @@ export default function WhitepaperCard({
   topic, 
   date, 
   image,
-  downloadUrl 
+  downloadUrl,
+  index = 0
 }: WhitepaperCardProps) {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -31,6 +33,17 @@ export default function WhitepaperCard({
     phone: ''
   });
   const [isDownloading, setIsDownloading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const colorBars = [
+    { color: 'bg-cyan-400', border: 'border-cyan-400' },
+    { color: 'bg-purple-400', border: 'border-purple-400' },
+    { color: 'bg-teal-400', border: 'border-teal-400' },
+    { color: 'bg-green-400', border: 'border-green-400' },
+    { color: 'bg-blue-400', border: 'border-blue-400' },
+    { color: 'bg-pink-400', border: 'border-pink-400' },
+  ];
+  const colorBar = colorBars[index % colorBars.length];
 
   const handleDownload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,52 +73,158 @@ export default function WhitepaperCard({
   };
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl bg-slate-900/90 backdrop-blur-xl border border-white/30 hover:border-white/50 transition-all duration-500 shadow-2xl">
-      {/* Study Image */}
-      <div className="relative h-48 overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          width={400}
-          height={192}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+    <motion.article
+      className="group relative h-[400px] md:h-[450px] overflow-hidden rounded-2xl"
+      onHoverStart={() => setIsExpanded(true)}
+      onHoverEnd={() => setIsExpanded(false)}
+      whileHover={{ scale: 1.02, y: -5 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
+      {/* Closed State - Only Color Bar */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-start pl-4"
+        animate={{
+          width: isExpanded ? '0%' : '100%',
+          opacity: isExpanded ? 0 : 1,
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 300,
+          damping: 30,
+        }}
+      >
+        <motion.div
+          className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg`}
+          style={{
+            boxShadow: `0 10px 20px -5px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.5)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.5)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.5)').replace('bg-green-400', 'rgba(74, 222, 128, 0.5)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.5)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.5)')}`,
+          }}
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.8, 1, 0.8],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        
-        {/* Topic Badge */}
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 bg-blue-500/80 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
-            {topic}
-          </span>
+      </motion.div>
+
+      {/* Expanded State - Full Card */}
+      <motion.div
+        className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 hover:border-white/40 rounded-2xl overflow-hidden shadow-2xl"
+        initial={{ x: '-100%' }}
+        animate={{
+          x: isExpanded ? '0%' : '-100%',
+        }}
+        transition={{
+          type: 'spring',
+          stiffness: 300,
+          damping: 30,
+        }}
+        whileHover={{
+          boxShadow: `0 20px 40px -10px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.3)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.3)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.3)').replace('bg-green-400', 'rgba(74, 222, 128, 0.3)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.3)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.3)')}`,
+        }}
+      >
+        {/* Animated Background Glow */}
+        <motion.div
+          className={`absolute inset-0 opacity-0 group-hover:opacity-20 ${colorBar.color} blur-3xl`}
+          animate={{
+            scale: isExpanded ? [1, 1.2, 1] : 1,
+            opacity: isExpanded ? [0, 0.2, 0.1] : 0,
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        <div className="relative h-full flex p-6 md:p-8 z-10">
+          {/* Vertical Colored Bar - Left */}
+          <motion.div
+            className={`w-1.5 ${colorBar.color} rounded-full mr-6 flex-shrink-0 shadow-lg`}
+            animate={{
+              scaleY: isExpanded ? [1, 1.1, 1] : 1,
+              opacity: isExpanded ? [0.8, 1, 0.8] : 0.8,
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          
+          {/* Main Content */}
+          <div className="flex-1 flex flex-col justify-between">
+            {/* Title with Animation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: isExpanded ? 1 : 0,
+                y: isExpanded ? 0 : 20,
+              }}
+              transition={{ delay: 0.1 }}
+            >
+              <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
+                {title}
+              </h3>
+
+              {/* Topic Badge */}
+              <div className="mb-2">
+                <span className="inline-block px-3 py-1 bg-purple-500/20 border border-purple-400/30 text-purple-200 text-xs font-semibold rounded-full backdrop-blur-sm">
+                  {topic}
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Description with Animation */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: isExpanded ? 1 : 0,
+                y: isExpanded ? 0 : 20,
+              }}
+              transition={{ delay: 0.2 }}
+              className="mb-4 flex-1 overflow-y-auto"
+            >
+              <p className="text-white leading-relaxed text-xs">
+                {description}
+              </p>
+            </motion.div>
+
+            {/* Bottom Section - Date and CTA */}
+            <motion.div
+              className="flex items-end justify-between mt-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{
+                opacity: isExpanded ? 1 : 0,
+                y: isExpanded ? 0 : 20,
+              }}
+              transition={{ delay: 0.3 }}
+            >
+              {/* Date */}
+              <div className="text-base md:text-lg font-black text-white">
+                {date}
+              </div>
+
+              {/* CTA - Vertical Stack */}
+              <motion.button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowForm(true);
+                }}
+                className="flex flex-col items-end gap-0.5 text-teal-400 font-semibold"
+                whileHover={{ x: 5, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-xs">Whitepaper</span>
+                <span className="text-xs">anfordern →</span>
+              </motion.button>
+            </motion.div>
+          </div>
         </div>
-
-        {/* Date Badge */}
-        <div className="absolute top-4 right-4">
-          <span className="px-3 py-1 bg-white/20 text-white text-xs font-semibold rounded-full backdrop-blur-sm">
-            {date}
-          </span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors line-clamp-2">
-          {title}
-        </h3>
-        
-        <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
-          {description}
-        </p>
-
-        {/* Download Button */}
-        <button
-          onClick={() => setShowForm(true)}
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:scale-105 font-semibold"
-        >
-          <Download className="w-5 h-5" />
-          Whitepaper anfordern
-        </button>
-      </div>
+      </motion.div>
 
       {/* Form Modal */}
       {showForm && (
