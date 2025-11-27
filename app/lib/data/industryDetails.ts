@@ -636,6 +636,93 @@ export const industryDetails: IndustryDetail[] = [
       email: 'thomas.schneider@quantivaadvisory.com',
     },
   },
+  // Telecommunications
+  {
+    slug: 'telecommunications',
+    language: 'de',
+    name: 'Telekommunikation',
+    hero: {
+      title: '5G-Netzwerke und digitale Services',
+      subtitle: 'Wir unterstützen Telekommunikationsunternehmen bei der Modernisierung ihrer IT-Landschaften und der Entwicklung neuer Geschäftsmodelle.',
+      badge: 'Telecommunications',
+    },
+    overview: {
+      introduction: '5G-Netzwerke, IoT-Connectivity und digitale Services: Wir helfen Telekommunikationsunternehmen dabei, ihre Infrastruktur zu modernisieren und innovative Services anzubieten.',
+      focusAreas: [
+        { title: '5G Network Infrastructure', description: 'Network Slicing, Edge Computing und IoT-Connectivity.' },
+        { title: 'Digital Services', description: 'B2B-Plattformen, API-Management und Partner-Ökosysteme.' },
+        { title: 'Customer Experience', description: 'Self-Service-Portale, Personalisierung und Omnichannel-Support.' },
+      ],
+    },
+    stats: [
+      { label: 'Network Performance', value: '+40 % Durchsatz' },
+      { label: 'Customer Satisfaction', value: '+25 % NPS' },
+      { label: 'Operational Efficiency', value: '-30 % Betriebskosten' },
+    ],
+    technologies: ['5G Core', 'OpenStack', 'Kubernetes', 'Prometheus', 'Grafana', 'Ansible'],
+    capabilities: [
+      { title: 'Network Modernization', description: '5G-Core-Implementierung, Network Function Virtualization und Edge Computing.' },
+      { title: 'Digital Platforms', description: 'B2B-Marktplätze, API-Gateways und Partner-Integration.' },
+      { title: 'Operational Excellence', description: 'Network Monitoring, Automation und Predictive Maintenance.' },
+    ],
+    caseStudies: [
+      {
+        client: 'Telecom Deutschland',
+        headline: '5G-Netzwerk Modernisierung',
+        impact: 'Coverage +50 %, Latency -60 %',
+        description: 'Implementierung einer 5G-Core-Infrastruktur mit Network Slicing und Edge Computing für Enterprise-Kunden.',
+      },
+    ],
+    contact: {
+      name: 'Dr. Thomas Schneider',
+      role: 'Industry Lead IT & Technology',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      email: 't.schneider@quantivaadvisory.com',
+    },
+  },
+  {
+    slug: 'telecommunications',
+    language: 'en',
+    name: 'Telecommunications',
+    hero: {
+      title: '5G Networks and Digital Services',
+      subtitle: 'We support telecommunications companies in modernizing their IT landscapes and developing new business models.',
+      badge: 'Telecommunications',
+    },
+    overview: {
+      introduction: '5G networks, IoT connectivity, and digital services: We help telecommunications companies modernize their infrastructure and offer innovative services.',
+      focusAreas: [
+        { title: '5G Network Infrastructure', description: 'Network slicing, edge computing, and IoT connectivity.' },
+        { title: 'Digital Services', description: 'B2B platforms, API management, and partner ecosystems.' },
+        { title: 'Customer Experience', description: 'Self-service portals, personalisation, and omnichannel support.' },
+      ],
+    },
+    stats: [
+      { label: 'Network Performance', value: '+40 % throughput' },
+      { label: 'Customer Satisfaction', value: '+25 % NPS' },
+      { label: 'Operational Efficiency', value: '-30 % operational costs' },
+    ],
+    technologies: ['5G Core', 'OpenStack', 'Kubernetes', 'Prometheus', 'Grafana', 'Ansible'],
+    capabilities: [
+      { title: 'Network Modernization', description: '5G core implementation, network function virtualization, and edge computing.' },
+      { title: 'Digital Platforms', description: 'B2B marketplaces, API gateways, and partner integration.' },
+      { title: 'Operational Excellence', description: 'Network monitoring, automation, and predictive maintenance.' },
+    ],
+    caseStudies: [
+      {
+        client: 'Telecom Deutschland',
+        headline: '5G Network Modernization',
+        impact: 'Coverage +50 %, latency -60 %',
+        description: 'Implementation of a 5G core infrastructure with network slicing and edge computing for enterprise customers.',
+      },
+    ],
+    contact: {
+      name: 'Dr. Thomas Schneider',
+      role: 'Industry Lead IT & Technology',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
+      email: 'thomas.schneider@quantivaadvisory.com',
+    },
+  },
 ];
 
 export function getIndustryDetail(slug: string, lang: SupportedLanguage): IndustryDetail | null {
