@@ -332,6 +332,6 @@ export default function WhitepaperCard({
           </motion.div>
         </div>
       )}
-    </article>
+    </motion.article>
   );
 }
