@@ -47,11 +47,11 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
         href={localePath(`/industries/${industry.slug}`)}
         className="block h-full"
       >
-        {/* Closed State - Only Color Bar with Glow Animation */}
+        {/* Closed State - Color Bar + Industry Name */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-start pl-4"
+          className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center pl-4 pr-4 md:pl-6 md:pr-6"
           animate={{
-            width: isExpanded ? '0%' : '100%',
+            height: isExpanded ? '0%' : '100%',
             opacity: isExpanded ? 0 : 1,
           }}
           transition={{
@@ -60,8 +60,9 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             damping: 30,
           }}
         >
+          {/* Vertical Colored Bar */}
           <motion.div
-            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg`}
+            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg mr-4 flex-shrink-0`}
             style={{
               boxShadow: `0 10px 20px -5px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.5)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.5)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.5)').replace('bg-green-400', 'rgba(74, 222, 128, 0.5)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.5)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.5)').replace('bg-orange-400', 'rgba(251, 146, 60, 0.5)').replace('bg-yellow-400', 'rgba(250, 204, 21, 0.5)')}`,
             }}
@@ -75,14 +76,19 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
               ease: 'easeInOut',
             }}
           />
+          
+          {/* Industry Name */}
+          <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">
+            {industry.title}
+          </h3>
         </motion.div>
 
-        {/* Expanded State - Full Card with Enhanced Animations */}
+        {/* Expanded State - Full Card opening from top */}
         <motion.div
           className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 hover:border-white/40 rounded-2xl overflow-hidden shadow-2xl"
-          initial={{ x: '-100%' }}
+          initial={{ y: '-100%' }}
           animate={{
-            x: isExpanded ? '0%' : '-100%',
+            y: isExpanded ? '0%' : '-100%',
           }}
           transition={{
             type: 'spring',
