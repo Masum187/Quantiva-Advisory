@@ -140,10 +140,10 @@ export default function WhitepaperCard({
           }}
         />
 
-        <div className="relative h-full flex p-6 md:p-8 z-10">
+        <div className="relative h-full flex pl-4 pr-4 md:pl-6 md:pr-6 py-6 md:py-8 z-10">
           {/* Vertical Colored Bar - Left */}
           <motion.div
-            className={`w-1.5 ${colorBar.color} rounded-full mr-6 flex-shrink-0 shadow-lg`}
+            className={`w-1.5 ${colorBar.color} rounded-full mr-4 flex-shrink-0 shadow-lg`}
             animate={{
               scaleY: isExpanded ? [1, 1.1, 1] : 1,
               opacity: isExpanded ? [0.8, 1, 0.8] : 0.8,
