@@ -13,6 +13,7 @@ import {
 import casesData from "../lib/data/cases.json";
 import { analytics } from "../lib/utils/analytics";
 import IndustriesSection from './sections/IndustriesSection';
+import IndustryHeroSection from './sections/IndustryHeroSection';
 
 // ServiceCard Component
 interface ServiceCardProps {
@@ -1166,6 +1167,9 @@ export default function QuantivaWebsite() {
       {/* Team */}
       <TeamSection />
 
+      {/* Industry Hero Section - Inspired by blurred cityscape/network background */}
+      <IndustryHeroSection lang={lang} />
+      
       {/* Industries */}
       <IndustriesSection lang={lang} />
 
