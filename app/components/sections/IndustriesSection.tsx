@@ -106,7 +106,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
         >
           {/* Top Section - Icon with Neon Glow */}
           <motion.div
-            className="mb-6 relative"
+            className="mb-6 relative flex items-center justify-center"
             animate={{
               scale: [1, 1.1, 1],
               rotate: [0, 5, -5, 0],
@@ -117,22 +117,34 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
               ease: 'easeInOut',
             }}
           >
-            {/* Neon Glow Effect */}
+            {/* Neon Glow Effect - Background Blur */}
             <div 
-              className="absolute inset-0 blur-xl opacity-60"
+              className="absolute inset-0 blur-2xl opacity-70"
               style={{
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(168, 85, 246, 0.8) 100%)',
+                background: 'radial-gradient(circle, rgba(59, 130, 246, 0.8) 0%, rgba(168, 85, 246, 0.8) 100%)',
+                width: '80px',
+                height: '80px',
+                margin: '-40px',
               }}
             />
+            {/* Icon with Gradient Stroke */}
             <Icon 
-              className="relative w-16 h-16 md:w-20 md:h-20 text-transparent bg-clip-text"
+              className="relative w-16 h-16 md:w-20 md:h-20"
               style={{
-                backgroundImage: 'linear-gradient(135deg, #3b82f6 0%, #a855f7 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 16px rgba(168, 85, 246, 0.4))',
+                stroke: 'url(#icon-gradient)',
+                filter: 'drop-shadow(0 0 8px rgba(96, 165, 250, 0.8)) drop-shadow(0 0 16px rgba(167, 139, 250, 0.6))',
               }}
+              strokeWidth={1.5}
             />
+            {/* SVG Gradient Definition */}
+            <svg className="absolute w-0 h-0">
+              <defs>
+                <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#60a5fa" />
+                  <stop offset="100%" stopColor="#a78bfa" />
+                </linearGradient>
+              </defs>
+            </svg>
           </motion.div>
 
           {/* Bottom Section - Vertical Bar + Industry Name */}
@@ -228,7 +240,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
               >
                 {/* Icon with Neon Glow */}
                 <motion.div
-                  className="mb-4 relative inline-block"
+                  className="mb-4 relative inline-flex items-center justify-center"
                   animate={{
                     scale: [1, 1.05, 1],
                     rotate: [0, 5, -5, 0],
@@ -239,21 +251,34 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                     ease: 'easeInOut',
                   }}
                 >
+                  {/* Neon Glow Effect - Background Blur */}
                   <div 
-                    className="absolute inset-0 blur-xl opacity-50"
+                    className="absolute inset-0 blur-xl opacity-60"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.6) 0%, rgba(168, 85, 246, 0.6) 100%)',
+                      background: 'radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(168, 85, 246, 0.6) 100%)',
+                      width: '60px',
+                      height: '60px',
+                      margin: '-30px',
                     }}
                   />
+                  {/* Icon with Gradient Stroke */}
                   <Icon 
-                    className="relative w-12 h-12 md:w-14 md:h-14 text-transparent bg-clip-text"
+                    className="relative w-12 h-12 md:w-14 md:h-14"
                     style={{
-                      backgroundImage: 'linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 16px rgba(168, 85, 246, 0.4))',
+                      stroke: 'url(#icon-gradient-expanded)',
+                      filter: 'drop-shadow(0 0 6px rgba(96, 165, 250, 0.8)) drop-shadow(0 0 12px rgba(167, 139, 250, 0.6))',
                     }}
+                    strokeWidth={1.5}
                   />
+                  {/* SVG Gradient Definition */}
+                  <svg className="absolute w-0 h-0">
+                    <defs>
+                      <linearGradient id="icon-gradient-expanded" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#60a5fa" />
+                        <stop offset="100%" stopColor="#a78bfa" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                 </motion.div>
 
                 {/* Title with Neon Glow */}
