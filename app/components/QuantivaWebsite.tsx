@@ -683,7 +683,12 @@ export default function QuantivaWebsite() {
         />
         
         {/* Abstract Grid Pattern with Wavy Lines - Blue to Purple Gradient */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+        <svg 
+          className="absolute inset-0 w-full h-full pointer-events-none" 
+          style={{ overflow: 'visible' }}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
           <defs>
             {/* Gradient for lines - Blue to Purple */}
             <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
