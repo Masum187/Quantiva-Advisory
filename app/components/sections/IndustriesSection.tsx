@@ -3,7 +3,27 @@
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Briefcase, ArrowRight } from 'lucide-react';
+import { 
+  Briefcase, 
+  ArrowRight, 
+  TrendingUp, 
+  Heart, 
+  Cpu, 
+  ShoppingBag, 
+  Building2, 
+  Factory, 
+  Zap, 
+  Truck, 
+  Plane, 
+  Ship, 
+  Wifi, 
+  Fuel, 
+  Battery, 
+  Droplets,
+  Activity,
+  BarChart3,
+  Network
+} from 'lucide-react';
 import { industriesDe, industriesEn, type IndustryShowcase } from '../../lib/data/industries';
 import Link from 'next/link';
 import { useLanguage } from '../QuantivaWebsite';
@@ -31,9 +51,33 @@ const colorBars = [
   { color: 'bg-yellow-400', border: 'border-yellow-400' },
 ];
 
+// Industry Icons Mapping
+const getIndustryIcon = (slug: string) => {
+  const iconMap: Record<string, any> = {
+    'financial-services': BarChart3,
+    'manufacturing': Factory,
+    'health-life-sciences': Heart,
+    'retail-ecommerce': ShoppingBag,
+    'it-technology': Cpu,
+    'internet': Network,
+    'telecommunications': Wifi,
+    'mechanical-engineering': Building2,
+    'chemical': Droplets,
+    'energy': Battery,
+    'oil-gas': Fuel,
+    'utilities': Zap,
+    'transport': Truck,
+    'logistics': Truck,
+    'airlines': Plane,
+    'shipping': Ship,
+  };
+  return iconMap[slug] || Briefcase;
+};
+
 function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps & { index: number }) {
   const colorBar = colorBars[index % colorBars.length];
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const Icon = getIndustryIcon(industry.slug);
   
   return (
     <motion.div
@@ -47,9 +91,9 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
         href={localePath(`/industries/${industry.slug}`)}
         className="block h-full"
       >
-        {/* Closed State - Color Bar + Industry Name */}
+        {/* Closed State - Color Bar + Icon + Industry Name with Neon Glow */}
         <motion.div
-          className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 rounded-2xl flex items-center pl-4 pr-4 md:pl-6 md:pr-6"
+          className="absolute inset-0 bg-slate-900/80 backdrop-blur-xl border border-white/20 rounded-2xl flex flex-col items-center justify-center pl-4 pr-4 md:pl-6 md:pr-6"
           animate={{
             height: isExpanded ? '0%' : '100%',
             opacity: isExpanded ? 0 : 1,
@@ -60,27 +104,69 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             damping: 30,
           }}
         >
-          {/* Vertical Colored Bar */}
+          {/* Top Section - Icon with Neon Glow */}
           <motion.div
-            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg mr-4 flex-shrink-0`}
-            style={{
-              boxShadow: `0 10px 20px -5px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.5)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.5)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.5)').replace('bg-green-400', 'rgba(74, 222, 128, 0.5)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.5)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.5)').replace('bg-orange-400', 'rgba(251, 146, 60, 0.5)').replace('bg-yellow-400', 'rgba(250, 204, 21, 0.5)')}`,
-            }}
+            className="mb-6 relative"
             animate={{
               scale: [1, 1.1, 1],
-              opacity: [0.8, 1, 0.8],
+              rotate: [0, 5, -5, 0],
             }}
             transition={{
-              duration: 2,
+              duration: 3,
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-          />
-          
-          {/* Industry Name */}
-          <h3 className="text-xl md:text-2xl font-bold text-white leading-tight">
-            {industry.title}
-          </h3>
+          >
+            {/* Neon Glow Effect */}
+            <div 
+              className="absolute inset-0 blur-xl opacity-60"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(168, 85, 246, 0.8) 100%)',
+              }}
+            />
+            <Icon 
+              className="relative w-16 h-16 md:w-20 md:h-20 text-transparent bg-clip-text"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #3b82f6 0%, #a855f7 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 16px rgba(168, 85, 246, 0.4))',
+              }}
+            />
+          </motion.div>
+
+          {/* Bottom Section - Vertical Bar + Industry Name */}
+          <div className="flex items-center w-full">
+            {/* Vertical Colored Bar */}
+            <motion.div
+              className={`w-3 ${colorBar.color} rounded-full h-16 shadow-lg mr-4 flex-shrink-0`}
+              style={{
+                boxShadow: `0 10px 20px -5px ${colorBar.color.replace('bg-cyan-400', 'rgba(34, 211, 238, 0.5)').replace('bg-purple-400', 'rgba(192, 132, 252, 0.5)').replace('bg-teal-400', 'rgba(45, 212, 191, 0.5)').replace('bg-green-400', 'rgba(74, 222, 128, 0.5)').replace('bg-blue-400', 'rgba(96, 165, 250, 0.5)').replace('bg-pink-400', 'rgba(244, 114, 182, 0.5)').replace('bg-orange-400', 'rgba(251, 146, 60, 0.5)').replace('bg-yellow-400', 'rgba(250, 204, 21, 0.5)')}`,
+              }}
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.8, 1, 0.8],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            
+            {/* Industry Name with Neon Glow */}
+            <h3 
+              className="text-xl md:text-2xl font-bold leading-tight text-transparent bg-clip-text"
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 0 20px rgba(96, 165, 250, 0.5), 0 0 40px rgba(167, 139, 250, 0.3)',
+              }}
+            >
+              {industry.title}
+            </h3>
+          </div>
         </motion.div>
 
         {/* Expanded State - Full Card opening from top */}
@@ -130,7 +216,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             
             {/* Main Content */}
             <div className="flex-1 flex flex-col justify-between">
-              {/* Title with Animation */}
+              {/* Top Section - Icon + Title with Animation */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{
@@ -138,8 +224,48 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                   y: isExpanded ? 0 : 20,
                 }}
                 transition={{ delay: 0.1 }}
+                className="mb-4"
               >
-                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">
+                {/* Icon with Neon Glow */}
+                <motion.div
+                  className="mb-4 relative inline-block"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                    rotate: [0, 5, -5, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                >
+                  <div 
+                    className="absolute inset-0 blur-xl opacity-50"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.6) 0%, rgba(168, 85, 246, 0.6) 100%)',
+                    }}
+                  />
+                  <Icon 
+                    className="relative w-12 h-12 md:w-14 md:h-14 text-transparent bg-clip-text"
+                    style={{
+                      backgroundImage: 'linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      filter: 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)) drop-shadow(0 0 16px rgba(168, 85, 246, 0.4))',
+                    }}
+                  />
+                </motion.div>
+
+                {/* Title with Neon Glow */}
+                <h3 
+                  className="text-xl md:text-2xl font-bold mb-2 leading-tight text-transparent bg-clip-text"
+                  style={{
+                    backgroundImage: 'linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '0 0 20px rgba(96, 165, 250, 0.5), 0 0 40px rgba(167, 139, 250, 0.3)',
+                  }}
+                >
                   {industry.title}
                 </h3>
 
