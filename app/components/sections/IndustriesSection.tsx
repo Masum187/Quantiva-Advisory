@@ -78,6 +78,8 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
   const colorBar = colorBars[index % colorBars.length];
   const [isExpanded, setIsExpanded] = React.useState(false);
   const Icon = getIndustryIcon(industry.slug);
+  const gradientId = `icon-gradient-${industry.slug}-${index}`;
+  const gradientIdExpanded = `icon-gradient-expanded-${industry.slug}-${index}`;
   
   return (
     <motion.div
@@ -131,7 +133,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             <Icon 
               className="relative w-16 h-16 md:w-20 md:h-20"
               style={{
-                stroke: 'url(#icon-gradient)',
+                stroke: `url(#${gradientId})`,
                 filter: 'drop-shadow(0 0 8px rgba(96, 165, 250, 0.8)) drop-shadow(0 0 16px rgba(167, 139, 250, 0.6))',
               }}
               strokeWidth={1.5}
@@ -139,7 +141,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
             {/* SVG Gradient Definition */}
             <svg className="absolute w-0 h-0">
               <defs>
-                <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#60a5fa" />
                   <stop offset="100%" stopColor="#a78bfa" />
                 </linearGradient>
@@ -265,7 +267,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                   <Icon 
                     className="relative w-12 h-12 md:w-14 md:h-14"
                     style={{
-                      stroke: 'url(#icon-gradient-expanded)',
+                      stroke: `url(#${gradientIdExpanded})`,
                       filter: 'drop-shadow(0 0 6px rgba(96, 165, 250, 0.8)) drop-shadow(0 0 12px rgba(167, 139, 250, 0.6))',
                     }}
                     strokeWidth={1.5}
@@ -273,7 +275,7 @@ function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps &
                   {/* SVG Gradient Definition */}
                   <svg className="absolute w-0 h-0">
                     <defs>
-                      <linearGradient id="icon-gradient-expanded" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <linearGradient id={gradientIdExpanded} x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor="#60a5fa" />
                         <stop offset="100%" stopColor="#a78bfa" />
                       </linearGradient>
