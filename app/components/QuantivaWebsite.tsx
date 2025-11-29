@@ -709,15 +709,15 @@ export default function QuantivaWebsite() {
           
           {/* First Set of Lines - Curving from top-left to bottom-right */}
           {[...Array(12)].map((_, i) => {
-            const startY = -5 + (i * 8);
-            const endY = 105 - (i * 8);
-            const waveAmplitude = 15 + Math.sin(i) * 10;
-            const waveFrequency = 0.02;
+            const startY = -2 + (i * 8.5);
+            const endY = 102 - (i * 8.5);
+            const waveAmplitude = 3 + Math.sin(i) * 2;
+            const waveFrequency = 0.15;
             
             // Create wavy path
             const points: string[] = [];
-            for (let x = -10; x <= 110; x += 2) {
-              const y = startY + ((endY - startY) / 120) * (x + 10) + Math.sin(x * waveFrequency + i) * waveAmplitude;
+            for (let x = 0; x <= 100; x += 1) {
+              const y = startY + ((endY - startY) / 100) * x + Math.sin(x * waveFrequency + i) * waveAmplitude;
               points.push(`${x},${y}`);
             }
             const pathData = `M ${points.join(' L ')}`;
@@ -746,15 +746,15 @@ export default function QuantivaWebsite() {
           
           {/* Second Set of Lines - Curving from top-right to bottom-left */}
           {[...Array(12)].map((_, i) => {
-            const startY = -5 + (i * 8);
-            const endY = 105 - (i * 8);
-            const waveAmplitude = 15 + Math.cos(i) * 10;
-            const waveFrequency = 0.02;
+            const startY = -2 + (i * 8.5);
+            const endY = 102 - (i * 8.5);
+            const waveAmplitude = 3 + Math.cos(i) * 2;
+            const waveFrequency = 0.15;
             
             // Create wavy path (mirrored)
             const points: string[] = [];
-            for (let x = 110; x >= -10; x -= 2) {
-              const y = startY + ((endY - startY) / 120) * (110 - x) + Math.sin((110 - x) * waveFrequency + i + Math.PI) * waveAmplitude;
+            for (let x = 100; x >= 0; x -= 1) {
+              const y = startY + ((endY - startY) / 100) * (100 - x) + Math.sin((100 - x) * waveFrequency + i + Math.PI) * waveAmplitude;
               points.push(`${x},${y}`);
             }
             const pathData = `M ${points.join(' L ')}`;
