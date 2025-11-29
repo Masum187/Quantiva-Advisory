@@ -682,188 +682,119 @@ export default function QuantivaWebsite() {
           }}
         />
         
-        {/* Central Glowing Purple Circle with Pause Symbol */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="relative"
+        {/* Abstract Grid Pattern with Wavy Lines - Blue to Purple Gradient */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+          <defs>
+            {/* Gradient for lines - Blue to Purple */}
+            <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
+              <stop offset="30%" stopColor="#3b82f6" stopOpacity="0.7" />
+              <stop offset="60%" stopColor="#8b5cf6" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#a855f7" stopOpacity="0.8" />
+            </linearGradient>
+            {/* Glow filter */}
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          
+          {/* First Set of Lines - Curving from top-left to bottom-right */}
+          {[...Array(12)].map((_, i) => {
+            const startY = -5 + (i * 8);
+            const endY = 105 - (i * 8);
+            const waveAmplitude = 15 + Math.sin(i) * 10;
+            const waveFrequency = 0.02;
+            
+            // Create wavy path
+            const points: string[] = [];
+            for (let x = -10; x <= 110; x += 2) {
+              const y = startY + ((endY - startY) / 120) * (x + 10) + Math.sin(x * waveFrequency + i) * waveAmplitude;
+              points.push(`${x},${y}`);
+            }
+            const pathData = `M ${points.join(' L ')}`;
+            
+            return (
+              <motion.path
+                key={`line-set1-${i}`}
+                d={pathData}
+                fill="none"
+                stroke="url(#line-gradient)"
+                strokeWidth="1.5"
+                filter="url(#glow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{
+                  pathLength: [0, 1],
+                  opacity: [0, 0.6 + (i % 3) * 0.1],
+                }}
+                transition={{
+                  duration: 2 + i * 0.1,
+                  ease: "easeOut",
+                  delay: i * 0.1,
+                }}
+              />
+            );
+          })}
+          
+          {/* Second Set of Lines - Curving from top-right to bottom-left */}
+          {[...Array(12)].map((_, i) => {
+            const startY = -5 + (i * 8);
+            const endY = 105 - (i * 8);
+            const waveAmplitude = 15 + Math.cos(i) * 10;
+            const waveFrequency = 0.02;
+            
+            // Create wavy path (mirrored)
+            const points: string[] = [];
+            for (let x = 110; x >= -10; x -= 2) {
+              const y = startY + ((endY - startY) / 120) * (110 - x) + Math.sin((110 - x) * waveFrequency + i + Math.PI) * waveAmplitude;
+              points.push(`${x},${y}`);
+            }
+            const pathData = `M ${points.join(' L ')}`;
+            
+            return (
+              <motion.path
+                key={`line-set2-${i}`}
+                d={pathData}
+                fill="none"
+                stroke="url(#line-gradient)"
+                strokeWidth="1.5"
+                filter="url(#glow)"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{
+                  pathLength: [0, 1],
+                  opacity: [0, 0.5 + (i % 3) * 0.1],
+                }}
+                transition={{
+                  duration: 2.5 + i * 0.1,
+                  ease: "easeOut",
+                  delay: 0.5 + i * 0.1,
+                }}
+              />
+            );
+          })}
+          
+          {/* Subtle bottom glow */}
+          <motion.rect
+            x="0"
+            y="95%"
+            width="100%"
+            height="5%"
+            fill="url(#line-gradient)"
+            opacity={0.2}
+            initial={{ opacity: 0 }}
             animate={{
-              scale: [1, 1.05, 0.98, 1],
+              opacity: [0.1, 0.3, 0.1],
             }}
             transition={{
-              duration: 8,
+              duration: 4,
               repeat: Infinity,
               ease: "easeInOut",
             }}
-          >
-            {/* Outer Glow Halo */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{
-                width: '600px',
-                height: '600px',
-                margin: '-300px',
-                background: 'radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(139, 92, 246, 0.2) 30%, transparent 70%)',
-                filter: 'blur(60px)',
-              }}
-              animate={{
-                opacity: [0.4, 0.6, 0.4],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            
-            {/* Main Translucent Circle */}
-            <div
-              className="relative rounded-full"
-              style={{
-                width: '400px',
-                height: '400px',
-                background: 'radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.3), rgba(139, 92, 246, 0.15), rgba(99, 102, 241, 0.1))',
-                backdropFilter: 'blur(20px)',
-                boxShadow: `
-                  0 0 100px rgba(168, 85, 247, 0.5),
-                  0 0 200px rgba(139, 92, 246, 0.3),
-                  inset 0 0 80px rgba(255, 255, 255, 0.05)
-                `,
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
-              {/* Iridescent Overlay */}
-              <motion.div
-                className="absolute inset-0 rounded-full"
-                animate={{
-                  background: [
-                    'radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.4), transparent 60%)',
-                    'radial-gradient(circle at 70% 70%, rgba(236, 72, 153, 0.4), transparent 60%)',
-                    'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.4), transparent 60%)',
-                    'radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.4), transparent 60%)',
-                  ],
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-              
-              {/* AI Neural Network Connections - Inside Circle */}
-              {[...Array(8)].map((_, i) => {
-                const angle = (i * 360) / 8;
-                const rad = (angle * Math.PI) / 180;
-                const radius = 120;
-                const x = Math.cos(rad) * radius;
-                const y = Math.sin(rad) * radius;
-                return (
-                  <motion.div
-                    key={`node-${i}`}
-                    className="absolute rounded-full"
-                    style={{
-                      left: `calc(50% + ${x}px)`,
-                      top: `calc(50% + ${y}px)`,
-                      width: '12px',
-                      height: '12px',
-                      margin: '-6px',
-                      background: 'radial-gradient(circle, rgba(168, 85, 247, 0.8), rgba(139, 92, 246, 0.4))',
-                      boxShadow: '0 0 20px rgba(168, 85, 247, 0.6)',
-                    }}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.6, 1, 0.6],
-                    }}
-                    transition={{
-                      duration: 2 + i * 0.3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.2,
-                    }}
-                  />
-                );
-              })}
-              
-              {/* Connecting Lines - Neural Network Style */}
-              <svg className="absolute inset-0 w-full h-full" style={{ overflow: 'visible' }}>
-                {[...Array(6)].map((_, i) => {
-                  const angle1 = (i * 360) / 8;
-                  const angle2 = ((i + 2) * 360) / 8;
-                  const rad1 = (angle1 * Math.PI) / 180;
-                  const rad2 = (angle2 * Math.PI) / 180;
-                  const radius = 120;
-                  const x1 = 200 + Math.cos(rad1) * radius;
-                  const y1 = 200 + Math.sin(rad1) * radius;
-                  const x2 = 200 + Math.cos(rad2) * radius;
-                  const y2 = 200 + Math.sin(rad2) * radius;
-                  return (
-                    <motion.line
-                      key={`line-${i}`}
-                      x1={x1}
-                      y1={y1}
-                      x2={x2}
-                      y2={y2}
-                      stroke="rgba(168, 85, 247, 0.3)"
-                      strokeWidth="1"
-                      strokeDasharray="4 4"
-                      initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{
-                        pathLength: [0, 1, 0],
-                        opacity: [0, 0.5, 0],
-                      }}
-                      transition={{
-                        duration: 3 + i * 0.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: i * 0.4,
-                      }}
-                    />
-                  );
-                })}
-              </svg>
-              
-              {/* Central AI Core - Pulsing */}
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <div
-                  className="w-16 h-16 rounded-full"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(168, 85, 247, 0.8), rgba(139, 92, 246, 0.4))',
-                    boxShadow: '0 0 40px rgba(168, 85, 247, 0.8)',
-                  }}
-                />
-              </motion.div>
-              
-              {/* Reflective Highlights */}
-              <motion.div
-                className="absolute top-1/4 left-1/4 w-1/3 h-1/3 rounded-full"
-                animate={{
-                  opacity: [0.2, 0.4, 0.2],
-                  scale: [1, 1.3, 1],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                style={{
-                  background: 'radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent)',
-                  filter: 'blur(30px)',
-                }}
-              />
-            </div>
-          </motion.div>
-        </div>
+          />
+        </svg>
         
         {/* AI Data Streams - Flowing Particles */}
         {[...Array(15)].map((_, i) => {
