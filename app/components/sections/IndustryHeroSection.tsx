@@ -145,24 +145,25 @@ export default function IndustryHeroSection({ lang }: IndustryHeroSectionProps) 
         <div 
           className="absolute inset-0"
           style={{
-            backdropFilter: 'blur(40px)',
-            background: 'radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.1) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%)',
+            backdropFilter: 'blur(60px)',
+            WebkitBackdropFilter: 'blur(60px)',
+            background: 'radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.15) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)',
           }}
         />
       </div>
 
       {/* Content - Glassmorphism Box */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 h-full min-h-[600px] flex items-end">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative"
+          className="relative w-full md:w-auto"
         >
           {/* Glassmorphism Box - Bottom Left Positioned */}
           <div 
-            className="relative w-full md:w-[500px] rounded-2xl p-8 md:p-12"
+            className="relative w-full md:w-[500px] lg:w-[600px] rounded-2xl p-8 md:p-12"
             style={{
               background: 'rgba(30, 41, 59, 0.4)', // dark grey with transparency
               backdropFilter: 'blur(20px)',
