@@ -1,20 +1,20 @@
 {
   "hero": {
     "de": {
-      "title": "Digitale Transformation für den Mittelstand",
+      "title": "Digitale Transformation für Mittelstand und Konzerne",
       "subtitle": "SAP · Cloud · KI · Compliance-fit",
       "highlight": "Planbar. Sicher. Skalierbar.",
-      "description": "Wir modernisieren SAP-Landschaften, bauen Cloud-Betriebsmodelle auf und bringen KI-Anwendungen in die Fläche – speziell für mittelständische Marktführer.",
+      "description": "Wir modernisieren SAP-Landschaften, bauen Cloud-Betriebsmodelle auf und bringen KI-Anwendungen in die Fläche – für mittelständische Marktführer und Konzerne gleichermaßen.",
       "ctaPrimary": "Jetzt Beraten lassen",
       "ctaSecondary": "Projekte ansehen",
       "backgroundVideo": "/assets/hero-bg.mp4",
       "backgroundImage": "/assets/hero-fallback.jpg"
     },
     "en": {
-      "title": "Mid-Market Transformation that Delivers",
+      "title": "Digital Transformation for Mid-Market & Enterprise",
       "subtitle": "SAP · Cloud · AI · Compliance-ready",
       "highlight": "Predictable. Secure. Scalable.",
-      "description": "We upgrade SAP cores, build cloud operating models and ship AI use cases that create measurable value for European mid-market leaders.",
+      "description": "We upgrade SAP cores, build cloud operating models and ship AI use cases that create measurable value for mid-market leaders and large enterprises alike.",
       "ctaPrimary": "Get Consulting Now",
       "ctaSecondary": "View Projects",
       "backgroundVideo": "/assets/hero-bg.mp4",
