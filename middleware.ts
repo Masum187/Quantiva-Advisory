@@ -55,10 +55,25 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Redirect to locale-prefixed URL
+  // Handle root path explicitly
+  if (pathname === '/') {
+    const locale = getLocale(request);
+    const response = NextResponse.redirect(
+      new URL(`/${locale}`, request.url),
+      307 // Temporary redirect (can be changed to 308 for permanent)
+    );
+    response.cookies.set('NEXT_LOCALE', locale, {
+      maxAge: 365 * 24 * 60 * 60, // 1 year
+      path: '/',
+    });
+    return response;
+  }
+
+  // Redirect to locale-prefixed URL for all other paths
   const locale = getLocale(request);
   const response = NextResponse.redirect(
-    new URL(`/${locale}${pathname}`, request.url)
+    new URL(`/${locale}${pathname}`, request.url),
+    307 // Temporary redirect
   );
 
   // Set locale cookie
