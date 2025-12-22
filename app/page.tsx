@@ -1,13 +1,13 @@
 /**
- * Root page - Redirects to default language
- * Middleware should handle this, but this is a fallback
+ * Root page - This should never be reached due to next.config.js redirect
+ * But if it is, redirect to default language
  */
 
 import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  // Always redirect to default language (German)
-  // This is a server-side redirect that works even if middleware fails
+  // This should never be reached because next.config.js redirects / to /de
+  // But as a fallback, redirect to default language
   redirect('/de');
 }
 

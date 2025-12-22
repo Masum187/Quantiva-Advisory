@@ -70,6 +70,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/',
+        destination: '/de',
+        permanent: true,
+      },
+      {
         source: '/home',
         destination: '/de',
         permanent: true,
