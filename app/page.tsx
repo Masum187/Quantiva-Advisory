@@ -1,12 +1,13 @@
 /**
- * Root page - Middleware handles the redirect to /de or /en
- * This page should never be reached as middleware redirects first
+ * Root page - Redirects to default language
+ * Middleware should handle this, but this is a fallback
  */
 
 import { redirect } from 'next/navigation';
 
 export default function RootPage() {
-  // Fallback redirect (middleware should handle this first)
+  // Always redirect to default language (German)
+  // This is a server-side redirect that works even if middleware fails
   redirect('/de');
 }
 

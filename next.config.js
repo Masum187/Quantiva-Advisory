@@ -71,7 +71,7 @@ const nextConfig = {
     return [
       {
         source: '/home',
-        destination: '/',
+        destination: '/de',
         permanent: true,
       },
       {
