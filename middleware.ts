@@ -55,17 +55,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Handle root path explicitly
-  if (pathname === '/') {
+  // Handle root path explicitly - PRIMARY redirect mechanism
+  // This runs FIRST before any Next.js routing, ensuring / always redirects
+  if (pathname === '/' || pathname === '') {
     const locale = getLocale(request);
-    const response = NextResponse.redirect(
-      new URL(`/${locale}`, request.url),
-      307 // Temporary redirect (can be changed to 308 for permanent)
-    );
+    const redirectUrl = new URL(`/${locale}`, request.url);
+    const response = NextResponse.redirect(redirectUrl, 307);
+    
+    // Set locale cookie for future requests
     response.cookies.set('NEXT_LOCALE', locale, {
       maxAge: 365 * 24 * 60 * 60, // 1 year
       path: '/',
     });
+    
     return response;
   }
 

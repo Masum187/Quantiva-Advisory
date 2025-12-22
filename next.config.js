@@ -69,11 +69,8 @@ const nextConfig = {
   // Redirects and rewrites
   async redirects() {
     return [
-      {
-        source: '/',
-        destination: '/de',
-        permanent: true,
-      },
+      // Root redirect handled by middleware.ts (faster, runs first)
+      // Keeping /home redirect as fallback
       {
         source: '/home',
         destination: '/de',
