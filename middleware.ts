@@ -100,6 +100,8 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico|.*\\..*|api).*)',
     '/', // Explicitly match root path
   ],
+  // Ensure middleware runs on Vercel
+  runtime: 'edge',
 };
 
 

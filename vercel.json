@@ -4,6 +4,10 @@
   "framework": "nextjs",
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/de"
+    },
+    {
       "source": "/de/services/(.*)",
       "destination": "/de/services/$1"
     },
