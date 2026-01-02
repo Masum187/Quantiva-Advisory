@@ -101,7 +101,6 @@ export const config = {
     '/', // Explicitly match root path
   ],
   // Ensure middleware runs on Vercel
-  runtime: 'edge',
 };
 
 
