@@ -4,8 +4,12 @@
   "installCommand": "npm ci --legacy-peer-deps",
   "rewrites": [
     {
-      "source": "/",
-      "destination": "/de"
+      "source": "/de/services/(.*)",
+      "destination": "/de/services/$1"
+    },
+    {
+      "source": "/en/services/(.*)",
+      "destination": "/en/services/$1"
     }
   ],
   "headers": [
