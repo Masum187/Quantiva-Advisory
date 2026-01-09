@@ -743,10 +743,13 @@ export default function QuantivaWebsite() {
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               className="space-y-8"
             >
+              {/* Vertical Line Separator */}
+              <div className="h-full w-px bg-white/20 absolute left-0 top-0 bottom-0 hidden lg:block" />
+              
               {/* Subtitle with Accent */}
               <div className="border-l-4 border-teal-500 pl-6">
                 <h2 className="text-2xl md:text-3xl font-bold text-teal-400 mb-4">
-                  {hero.subtitle}
+                  | {hero.subtitle}
                 </h2>
               </div>
 
@@ -769,15 +772,34 @@ export default function QuantivaWebsite() {
                 )}
               </p>
 
-              {/* AI Image Slider */}
-              <AIImageSlider lang={lang} />
+              {/* Stats Boxes - Like Screenshot */}
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                {[
+                  { value: "Daten-Analytics", label: lang === 'de' ? "Daten-Analytics" : "Data Analytics" },
+                  { value: "95%", label: lang === 'de' ? "DATENQUALITÄT" : "DATA QUALITY" },
+                  { value: "10x", label: lang === 'de' ? "SCHNELLERE INSIGHTS" : "FASTER INSIGHTS" },
+                  { value: "100+", label: lang === 'de' ? "DASHBOARDS" : "DASHBOARDS" },
+                ].map((stat, index) => (
+                  <div 
+                    key={index}
+                    className="relative rounded-xl bg-gradient-to-br from-teal-500/20 to-purple-500/20 border border-teal-500/30 p-4 backdrop-blur-sm"
+                  >
+                    <div className="text-2xl md:text-3xl font-black text-white mb-1">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs text-gray-300 uppercase tracking-wider">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-              {/* Stats - Minimalist */}
-              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left lg:text-left">
+              {/* Bottom Stats - Like Screenshot */}
+              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-800 text-left">
                 {[ 
-                  { value: "60%", label: lang === 'de' ? "schnellere Time-to-Value" : "faster time-to-value" },
-                  { value: "30+", label: lang === 'de' ? "Mittelstandsreferenzen" : "mid-market references" },
-                  { value: "ISO 27001", label: lang === 'de' ? "sicher & audit-ready" : "secure & audit-ready" }
+                  { value: "60%", label: lang === 'de' ? "SCHNELLERE TIME-TO-VALUE" : "FASTER TIME-TO-VALUE" },
+                  { value: "30+", label: lang === 'de' ? "MITTELSTANDSREFERENZEN" : "MID-MARKET REFERENCES" },
+                  { value: "ISO 27001", label: lang === 'de' ? "SICHER & AUDIT-READY" : "SECURE & AUDIT-READY" }
                 ].map((stat, index) => (
                   <div key={index}>
                     <div className="text-2xl md:text-3xl font-black text-white mb-1">

@@ -1,12 +1,46 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Briefcase } from 'lucide-react';
+import { 
+  Briefcase, TrendingUp, Car, Heart, ShoppingBag, Monitor, 
+  Network, Wifi, Cog, Droplet, Zap, Truck, 
+  Package, Plane
+} from 'lucide-react';
 import { industriesDe, industriesEn } from '../../lib/data/industries';
 import Link from 'next/link';
 import { useLanguage } from '../QuantivaWebsite';
+
+// Icon mapping
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  TrendingUp,
+  Car,
+  Heart,
+  ShoppingBag,
+  Monitor,
+  Network,
+  Wifi,
+  Cog,
+  Droplet,
+  Battery,
+  Fuel,
+  Zap,
+  Truck,
+  Package,
+  Plane,
+  Ship,
+};
+
+// Color mapping
+const colorMap: Record<string, string> = {
+  teal: 'bg-teal-500',
+  purple: 'bg-purple-500',
+  green: 'bg-green-500',
+  blue: 'bg-blue-500',
+  pink: 'bg-pink-500',
+  orange: 'bg-orange-500',
+  yellow: 'bg-yellow-500',
+};
 
 interface IndustriesSectionProps {
   lang: 'de' | 'en';
@@ -58,39 +92,52 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
         </motion.div>
 
         <motion.div
-          className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4"
+          className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
-          {industries.map((industry) => (
-            <motion.div key={industry.title} variants={item}>
-              <Link
-                href={localePath(`/industries/${industry.slug}`)}
-                className="group block h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/90 to-slate-900/60 backdrop-blur transition-transform duration-500 hover:-translate-y-1"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={industry.image}
-                    alt={industry.title}
-                    width={400}
-                    height={256}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-white">{industry.title}</h3>
-                  <p className="mt-2 text-sm text-gray-400">{industry.description}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1 text-xs uppercase tracking-[0.2em] text-gray-400">
-                    <span>{industry.projects}+ {lang === 'de' ? 'Projekte' : 'projects'}</span>
+          {industries.map((industry) => {
+            const IconComponent = industry.icon ? iconMap[industry.icon] : Briefcase;
+            const barColor = industry.color ? colorMap[industry.color] || 'bg-teal-500' : 'bg-teal-500';
+            
+            return (
+              <motion.div key={industry.title} variants={item}>
+                <Link
+                  href={localePath(`/industries/${industry.slug}`)}
+                  className="group relative block h-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-slate-900/90 to-slate-900/60 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-white/20"
+                >
+                  {/* Vertical colored bar */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-1 ${barColor}`} />
+                  
+                  {/* Content */}
+                  <div className="p-6 pl-8">
+                    {/* Icon */}
+                    <div className="mb-4">
+                      <IconComponent className="h-8 w-8 text-white group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-white group-hover:text-teal-300 transition-colors">
+                      {industry.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="mt-2 text-sm text-gray-400">{industry.description}</p>
+                    
+                    {/* Projects badge */}
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-gray-400">
+                      <span>{industry.projects}+ {lang === 'de' ? 'Projekte' : 'projects'}</span>
+                    </div>
                   </div>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-teal-400/60 to-transparent" />
-              </Link>
-            </motion.div>
-          ))}
+                  
+                  {/* Bottom gradient line */}
+                  <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-teal-400/60 to-transparent" />
+                </Link>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
