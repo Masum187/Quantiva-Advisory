@@ -22,13 +22,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Wifi,
   Cog,
   Droplet,
-  Battery,
-  Fuel,
   Zap,
   Truck,
   Package,
   Plane,
-  Ship,
 };
 
 // Color mapping
