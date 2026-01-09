@@ -35,6 +35,10 @@ const ReferencesSlider = dynamic(() => import('./ReferencesSlider'), {
   loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />,
   ssr: false
 });
+const CaseStudiesSection = dynamic(() => import('./sections/CaseStudiesSection'), {
+  loading: () => <div className="animate-pulse bg-gray-200 h-64 rounded-lg" />,
+  ssr: false
+});
 
 /**
  * QuantivaWebsite – Accenture-inspired version (with i18n Context and SEO)
@@ -900,6 +904,11 @@ export default function QuantivaWebsite() {
       </section>
 
       {/* Services Detail */}
+
+      {/* Case Studies Section with Animated Industry Icons */}
+      <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg" />}>
+        <CaseStudiesSection lang={lang} />
+      </Suspense>
 
       {/* References Slider */}
       <Suspense fallback={<div className="animate-pulse bg-gray-200 h-64 rounded-lg" />}>
