@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Briefcase } from 'lucide-react';
-import { industriesDe, industriesEn } from '../../lib/data/industries';
+import { Briefcase, ArrowRight } from 'lucide-react';
+import { industriesDe, industriesEn, type IndustryShowcase } from '../../lib/data/industries';
 import Link from 'next/link';
 import { useLanguage } from '../QuantivaWebsite';
 
@@ -12,22 +12,205 @@ interface IndustriesSectionProps {
   lang: 'de' | 'en';
 }
 
-const container = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i = 1) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.15 * i,
-    },
-  }),
-};
+interface IndustryCardProps {
+  industry: IndustryShowcase;
+  lang: 'de' | 'en';
+  localePath: (path: string) => string;
+  index: number;
+}
 
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
+// Color bars for different cards (rotating colors)
+const colorBars = [
+  { color: 'bg-cyan-400', border: 'border-cyan-400' },
+  { color: 'bg-purple-400', border: 'border-purple-400' },
+  { color: 'bg-teal-400', border: 'border-teal-400' },
+  { color: 'bg-green-400', border: 'border-green-400' },
+  { color: 'bg-blue-400', border: 'border-blue-400' },
+  { color: 'bg-pink-400', border: 'border-pink-400' },
+  { color: 'bg-orange-400', border: 'border-orange-400' },
+  { color: 'bg-yellow-400', border: 'border-yellow-400' },
+];
+
+function IndustryCard({ industry, lang, localePath, index }: IndustryCardProps & { index: number }) {
+  const colorBar = colorBars[index % colorBars.length];
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  
+  return (
+    <motion.div
+      className="group relative h-[400px] md:h-[450px] overflow-hidden rounded-2xl"
+      onHoverStart={() => setIsExpanded(true)}
+      onHoverEnd={() => setIsExpanded(false)}
+      whileHover={{ scale: 1.02, y: -5 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
+      <Link
+        href={localePath(`/industries/${industry.slug}`)}
+        className="block h-full"
+      >
+        {/* Closed State - Only Color Bar with Glow Animation */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-start pl-4"
+          animate={{
+            width: isExpanded ? '0%' : '100%',
+            opacity: isExpanded ? 0 : 1,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+          }}
+        >
+          <motion.div
+            className={`w-3 ${colorBar.color} rounded-full h-3/4 shadow-lg shadow-${colorBar.color.replace('bg-', '')}/50`}
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </motion.div>
+
+        {/* Expanded State - Full Card with Enhanced Animations */}
+        <motion.div
+          className="absolute inset-0 bg-slate-900/70 backdrop-blur-xl border border-white/20 hover:border-white/40 rounded-2xl overflow-hidden shadow-2xl"
+          initial={{ x: '-100%' }}
+          animate={{
+            x: isExpanded ? '0%' : '-100%',
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 30,
+          }}
+          whileHover={{
+            boxShadow: `0 20px 40px -10px ${colorBar.color.replace('bg-', 'rgba(').replace('-400', ', 0.3)')}`,
+          }}
+        >
+          {/* Animated Background Glow */}
+          <motion.div
+            className={`absolute inset-0 opacity-0 group-hover:opacity-20 ${colorBar.color} blur-3xl`}
+            animate={{
+              scale: isExpanded ? [1, 1.2, 1] : 1,
+              opacity: isExpanded ? [0, 0.2, 0.1] : 0,
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
+          <div className="relative h-full flex p-6 md:p-8 z-10">
+            {/* Vertical Colored Bar - Left with Pulse Animation */}
+            <motion.div
+              className={`w-1.5 ${colorBar.color} rounded-full mr-6 flex-shrink-0 shadow-lg`}
+              animate={{
+                scaleY: isExpanded ? [1, 1.1, 1] : 1,
+                opacity: isExpanded ? [0.8, 1, 0.8] : 0.8,
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+            
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col justify-between">
+              {/* Title with Animation */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: isExpanded ? 1 : 0,
+                  y: isExpanded ? 0 : 20,
+                }}
+                transition={{ delay: 0.1 }}
+              >
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+                  {industry.title}
+                </h3>
+
+                {/* Short Description */}
+                <p className="text-gray-400 leading-relaxed mb-4 text-sm md:text-base font-medium">
+                  {industry.description}
+                </p>
+              </motion.div>
+
+              {/* Detailed Content with Animation */}
+              {industry.content && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: isExpanded ? 1 : 0,
+                    y: isExpanded ? 0 : 20,
+                  }}
+                  transition={{ delay: 0.2 }}
+                  className="mb-6"
+                >
+                  <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+                    {industry.content}
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Bottom Section - Metric and CTA */}
+              <motion.div
+                className="flex items-end justify-between mt-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: isExpanded ? 1 : 0,
+                  y: isExpanded ? 0 : 20,
+                }}
+                transition={{ delay: 0.3 }}
+              >
+                {/* Metric with Pulse Animation */}
+                <motion.div
+                  className="text-xl md:text-2xl lg:text-3xl font-black text-white"
+                  animate={{
+                    scale: isExpanded ? [1, 1.05, 1] : 1,
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: 0.5,
+                  }}
+                >
+                  {industry.projects}+ {lang === 'de' ? 'PROJEKTE' : 'PROJECTS'}
+                </motion.div>
+
+                {/* CTA Button with Enhanced Animation */}
+                <motion.div
+                  className="flex items-center gap-2 text-sm md:text-base font-semibold text-white group-hover:text-teal-400 transition-colors"
+                  whileHover={{ x: 8, scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>{lang === 'de' ? 'MEHR ERFAHREN' : 'LEARN MORE'}</span>
+                  <motion.div
+                    animate={{
+                      x: [0, 5, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                  >
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      </Link>
+    </motion.div>
+  );
+}
 
 export default function IndustriesSection({ lang }: IndustriesSectionProps) {
   const industries = lang === 'de' ? industriesDe : industriesEn;
@@ -39,59 +222,55 @@ export default function IndustriesSection({ lang }: IndustriesSectionProps) {
       : 'We partner with mid-market leaders in regulated and fast-scaling industries.';
 
   return (
-    <section className="relative bg-black py-20" id="industries">
+    <section className="relative z-10 bg-black/20 backdrop-blur-md py-20" id="industries">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.08),_transparent_65%)]" />
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
-          className="text-center"
+          className="mb-12"
         >
-          <div className="inline-flex items-center gap-3 rounded-full border border-teal-500/40 bg-teal-500/10 px-6 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-teal-200">
-            <Briefcase className="h-4 w-4" />
-            {lang === 'de' ? 'Mittelstand Branchen' : 'Mid-Market Verticals'}
+          <div className="flex items-center gap-3 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-white">{headline}</h2>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
+                {lang === 'de' ? 'LIVE DATEN' : 'LIVE DATA'}
+              </span>
+            </div>
           </div>
-          <h2 className="mt-6 text-4xl font-bold text-white md:text-5xl">{headline}</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-gray-300 md:text-lg">{subline}</p>
+          <p className="text-base text-gray-400 max-w-3xl">{subline}</p>
         </motion.div>
 
-        <motion.div
-          className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          {industries.map((industry) => (
-            <motion.div key={industry.title} variants={item}>
-              <Link
-                href={localePath(`/industries/${industry.slug}`)}
-                className="group block h-full overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/90 to-slate-900/60 backdrop-blur transition-transform duration-500 hover:-translate-y-1"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={industry.image}
-                    alt={industry.title}
-                    width={400}
-                    height={256}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-white">{industry.title}</h3>
-                  <p className="mt-2 text-sm text-gray-400">{industry.description}</p>
-                  <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1 text-xs uppercase tracking-[0.2em] text-gray-400">
-                    <span>{industry.projects}+ {lang === 'de' ? 'Projekte' : 'projects'}</span>
-                  </div>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-teal-400/60 to-transparent" />
-              </Link>
+        {/* Grid Layout - All Industries */}
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {industries.map((industry, index) => (
+            <motion.div
+              key={industry.slug}
+              className="min-h-[400px] md:min-h-[450px]"
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.08,
+                type: 'spring',
+                stiffness: 120,
+                damping: 20,
+              }}
+              whileHover={{ y: -8 }}
+            >
+              <IndustryCard 
+                industry={industry} 
+                lang={lang} 
+                localePath={localePath}
+                index={index}
+              />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

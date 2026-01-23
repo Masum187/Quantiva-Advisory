@@ -12,7 +12,24 @@ interface IndustryLandingPageProps {
   lang: 'de' | 'en';
 }
 
+// Video URLs for different industries
+const industryVideos: Record<string, string> = {
+  'manufacturing': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'financial-services': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'retail': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'healthcare': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'energy': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'logistics': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'telecommunications': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+  'automotive': 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4',
+};
+
+// Default video for industries without specific video
+const defaultVideo = 'https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4';
+
 export default function IndustryLandingPage({ industry, lang }: IndustryLandingPageProps) {
+  const videoUrl = industryVideos[industry.slug] || defaultVideo;
+  
   const t = {
     de: {
       casesTitle: 'Referenzen & Praxisbeispiele',
@@ -36,33 +53,78 @@ export default function IndustryLandingPage({ industry, lang }: IndustryLandingP
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-gradient-to-br from-teal-900/40 via-black to-black py-32">
-        <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.35),_transparent_55%)]" />
-        <div className="relative mx-auto max-w-6xl px-6">
+      {/* Hero Section with Video Background */}
+      <section className="relative overflow-hidden border-b border-white/10 min-h-[70vh] flex items-center">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            src={videoUrl}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/30 via-transparent to-purple-900/30" />
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-4xl"
           >
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-teal-500/40 bg-teal-500/10 px-6 py-2 text-sm font-semibold uppercase tracking-wider text-teal-200">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mb-8 inline-flex items-center gap-3 rounded-full border border-teal-500/40 bg-teal-500/20 backdrop-blur-sm px-6 py-2 text-sm font-semibold uppercase tracking-wider text-teal-200"
+            >
               <Layers className="h-4 w-4" />
               {industry.hero.badge}
-            </div>
-            <h1 className="mb-6 text-4xl font-black uppercase tracking-tight md:text-6xl">
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="mb-6 text-4xl font-black uppercase tracking-tight md:text-6xl drop-shadow-lg"
+            >
               {industry.hero.title}
-            </h1>
-            <p className="text-xl text-gray-300 md:text-2xl">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-xl text-gray-200 md:text-2xl drop-shadow-md"
+            >
               {industry.hero.subtitle}
-            </p>
+            </motion.p>
           </motion.div>
         </div>
+        
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
+            <motion.div
+              className="w-1.5 h-3 bg-teal-400 rounded-full"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </div>
+        </motion.div>
       </section>
 
       <main className="mx-auto max-w-6xl px-6 py-20 space-y-24">
         {/* Overview */}
-        <AnimatedCard direction="up" className="p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/70 to-black/80">
+        <AnimatedCard direction="up" className="p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/70 to-black/80 backdrop-blur-sm">
           <div className="grid gap-10 lg:grid-cols-[2fr_1fr]">
             <div>
               <h2 className="text-3xl font-bold mb-4">{industry.name}</h2>
