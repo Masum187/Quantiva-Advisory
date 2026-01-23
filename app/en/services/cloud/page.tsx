@@ -70,12 +70,27 @@ export default function CloudServicePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Service Navigation */}
       <ServiceNavigation lang="en" serviceTitle="Cloud Solutions" serviceId="cloud" />
       
+      {/* Fixed Background Video */}
+      <div className="fixed inset-0 z-0">
+        <video
+          src="https://res.cloudinary.com/dbrisux8i/video/upload/v1760435643/kling_20251014_Text_to_Video_Title__The_4174_0_b3juos.mp4"
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* Minimal Video Overlay - Only for text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
+      
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-sky-900/20 via-black to-blue-900/20">
+      <section className="relative py-20 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SlideIn>
             <div className="text-center mb-16">
